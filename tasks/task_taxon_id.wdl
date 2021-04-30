@@ -10,7 +10,7 @@ task midas_nsphl {
     # capture date and version
     date | tee DATE
 
-    midas query ~{assembly} > ~{samplename}_midas_nsphl.csv
+    midas query ~{assembly} | tail -n2 > ~{samplename}_midas_nsphl.csv
 
   >>>
   output {
@@ -20,8 +20,8 @@ task midas_nsphl {
   }
   runtime {
     docker:  "~{docker}"
-    memory:  "16 GB"
-    cpu:   8
+    memory:  "2 GB"
+    cpu:   2
     disks: "local-disk 100 SSD"
     preemptible:  0
   }
