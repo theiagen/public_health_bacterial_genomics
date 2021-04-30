@@ -14,8 +14,8 @@ task shovill_pe {
     --outdir out \
     --R1 ~{read1_cleaned} \
     --R2 ~{read2_cleaned}
-    mv out/contigs.fa out/${samplename}_contigs.fasta
-    mv out/contigs.gfa out/${samplename}_contigs.gfa
+    mv out/contigs.fa out/~{samplename}_contigs.fasta
+    mv out/contigs.gfa out/~{samplename}_contigs.gfa
   >>>
   output {
 	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
