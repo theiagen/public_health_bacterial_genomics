@@ -20,7 +20,7 @@ task midas_nsphl {
   }
   runtime {
     docker:  "~{docker}"
-    memory:  " 16 GB"
+    memory:  "16 GB"
     cpu:   8
     disks: "local-disk 100 SSD"
     preemptible:  0
