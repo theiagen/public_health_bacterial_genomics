@@ -1,6 +1,6 @@
 version: 1.2
 workflows:
- - name: BC_n_QC_PE
+ - name: BC_N_QC_PE
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_bc_n_qc_pe.wdl
    testParameterFiles:
