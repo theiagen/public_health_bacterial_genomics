@@ -14,7 +14,7 @@ task midas_nsphl {
 
   >>>
   output {
-    File midas_nsphl_report = "${samplename}_midas_nsphl.csv"
+    File midas_nsphl_report = "~{samplename}_midas_nsphl.csv"
     String  midas_nsphl_docker   = docker
     String  pipeline_date = read_string("DATE")
   }

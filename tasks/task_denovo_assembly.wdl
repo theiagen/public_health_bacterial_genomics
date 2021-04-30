@@ -12,8 +12,8 @@ task shovill_pe {
     shovill --version | head -1 | tee VERSION
     shovill \
     --outdir out \
-    --R1 ${read1_cleaned} \
-    --R2 ${read2_cleaned}
+    --R1 ~{read1_cleaned} \
+    --R2 ~{read2_cleaned}
     mv out/contigs.fa out/${samplename}_contigs.fasta
     mv out/contigs.gfa out/${samplename}_contigs.gfa
   >>>
