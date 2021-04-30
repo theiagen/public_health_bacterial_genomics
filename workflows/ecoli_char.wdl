@@ -7,10 +7,18 @@ workflow ecoli_char {
     File      contigs
   }
 
-  call abricate {
+  call abricate as abricate {
     input:
       samplename=SRR,
-      contigs=contigs
+      contigs=contigs,
+      database="ncbi"
+  }
+
+  call abricate as abricate_virfinder {
+    input:
+      samplename=SRR,
+      contigs=contigs,
+      database="ecoli_vf"
   }
 
   call amrfinderplus {
@@ -27,6 +35,7 @@ workflow ecoli_char {
 
   output {
     File    abricate_results                =abricate.abricate_results
+    File    abricate_virfinder_results                =abricate_virfinder.abricate_results
     File    amrfinderplus_results           =amrfinderplus.amrfinder_results
     File    serotypefinder_results          =serotypefinder.serotypefinder_results
   }
@@ -37,11 +46,12 @@ task abricate {
   input {
     File      contigs
     String    samplename
+    String    database
   }
 
   command {
     abricate --version | head -1 | tee VERSION
-    abricate ${contigs} > ${samplename + '_abricate.tsv'}
+    abricate --db ${database} ${contigs} > ${samplename + '_abricate.tsv'}
   }
 
   output {

@@ -1,0 +1,13 @@
+version: 1.2
+workflows:
+ - name: ecoli_char
+   subclass: WDL
+   primaryDescriptorPath: /ecoli_char.wdl
+   testParameterFiles:
+    - empty.json
+workflows:
+ - name: de_novo_assembly
+   subclass: WDL
+   primaryDescriptorPath: /de_novo_assembly.wdl
+   testParameterFiles:
+    - empty.json
