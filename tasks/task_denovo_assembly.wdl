@@ -19,7 +19,7 @@ task shovill_pe {
   >>>
   output {
 	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
-	  File contigs_gfa = "out/{samplename}_contigs.gfa"
+	  File contigs_gfa = "out/~{samplename}_contigs.gfa"
     String  shovill_version = read_string("VERSION")
   }
 
