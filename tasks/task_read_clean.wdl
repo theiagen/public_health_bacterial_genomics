@@ -24,16 +24,16 @@ task trimmomatic_pe {
     MINLEN:~{trimmomatic_minlen} > ~{samplename}.trim.stats.txt
   >>>
   output {
-    File  read1_trimmed = "${samplename}_1P.fastq.gz"
-    File  read2_trimmed = "${samplename}_2P.fastq.gz"
-    File  trimmomatic_stats = "${samplename}.trim.stats.txt"
+    File  read1_trimmed = "~{samplename}_1P.fastq.gz"
+    File  read2_trimmed = "~{samplename}_2P.fastq.gz"
+    File  trimmomatic_stats = "~{samplename}.trim.stats.txt"
     String  version = read_string("VERSION")
     String  pipeline_date = read_string("DATE")
   }
   runtime {
-    docker:     "~{docker}"
-    memory:  "8 GB"
-    cpu:   4
+    docker: "~{docker}"
+    memory: "8 GB"
+    cpu: 4
     disks: "local-disk 100 SSD"
     preemptible:  0
   }
@@ -93,10 +93,10 @@ task bbduk_pe {
 
   >>>
   output {
-    File  read1_clean = "${samplename}_1.clean.fastq.gz"
-    File  read2_clean = "${samplename}_2.clean.fastq.gz"
-    File  adapter_stats = "${samplename}.adapters.stats.txt"
-    File  phiX_stats = "${samplename}.phix.stats.txt"
+    File  read1_clean = "~{samplename}_1.clean.fastq.gz"
+    File  read2_clean = "~{samplename}_2.clean.fastq.gz"
+    File  adapter_stats = "~{samplename}.adapters.stats.txt"
+    File  phiX_stats = "~{samplename}.phix.stats.txt"
     String  bbduk_docker   = docker
     String  pipeline_date = read_string("DATE")
   }
@@ -123,9 +123,9 @@ task bbduk_se {
     bbduk.sh in1=~{read1_trimmed} out1=~{samplename}_1.clean.fastq.gz outm=~{samplename}.matched_phix.fq ref=/bbmap/resources/phix174_ill.ref.fa.gz k=31 hdist=1 stats=~{samplename}.phix.stats.txt
   >>>
   output {
-    File  read1_clean = "${samplename}_1.clean.fastq.gz"
-    File  adapter_stats = "${samplename}.adapters.stats.txt"
-    File  phiX_stats = "${samplename}.phix.stats.txt"
+    File  read1_clean = "~{samplename}_1.clean.fastq.gz"
+    File  adapter_stats = "~{samplename}.adapters.stats.txt"
+    File  phiX_stats = "~{samplename}.phix.stats.txt"
     String  bbduk_docker   = docker
     String  pipeline_date = read_string("DATE")
   }

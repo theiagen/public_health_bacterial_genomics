@@ -23,9 +23,9 @@ task fastqc_pe {
     READ2_SEQS=$(unzip -p ~{read2_name}_fastqc.zip */fastqc_data.txt | grep "Total Sequences" | cut -f 2 )
 
     if [ $READ1_SEQS == $READ2_SEQS ]; then
- read_pairs=$READ1_SEQS
+      read_pairs=$READ1_SEQS
     else
- read_pairs="Uneven pairs: R1=$READ1_SEQS, R2=$READ2_SEQS"
+      read_pairs="Uneven pairs: R1=$READ1_SEQS, R2=$READ2_SEQS"
     fi
     echo $read_pairs | tee READ_PAIRS
   >>>
@@ -67,8 +67,8 @@ task fastqc_se {
     READ_SEQS=$(unzip -p ~{read1_name}_fastqc.zip */fastqc_data.txt | grep "Total Sequences" | cut -f 2 )
   >>>
   output {
-    File fastqc_html = "${read1_name}_fastqc.html"
-    File fastqc_zip = "${read1_name}_fastqc.zip"
+    File fastqc_html = "~{read1_name}_fastqc.html"
+    File fastqc_zip = "~{read1_name}_fastqc.zip"
     Int number_reads = read_string("READ1_SEQS")
     String version = read_string("VERSION")
     String pipeline_date = read_string("DATE")
