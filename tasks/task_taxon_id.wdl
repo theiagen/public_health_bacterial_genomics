@@ -29,12 +29,12 @@ task midas_nsphl {
           genus=line["predicted_genus"]
           if not genus:
             genus="None"
-          predicted_genus.write(f"{genus}")
+          predicted_genus.write({genus)
         with open("PREDICTED_SPECIES", 'wt') as predicted_species:
           species=line["predicted_species"]
           if not species:
             species="None"
-          predicted_species.write(f"{species}")
+          predicted_species.write(species)
     CODE
   >>>
   output {
