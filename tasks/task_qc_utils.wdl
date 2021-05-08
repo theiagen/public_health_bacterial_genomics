@@ -94,12 +94,29 @@ task quast {
 
     quast.py ~{assembly} -o .
     mv report.tsv ~{samplename}_report.tsv
+    
+    
+    python <<CODE
+    import csv
+    #grab output genome length and number contigs by column header
+    with open("~{samplename}_report.tsv",'r') as tsv_file:
+      tsv_reader = csv.reader(tsv_file, delimiter="\t")
+      for line in tsv_reader:
+          if "Total length" in line[0]:
+            with open("GENOME_LENGTH", 'wt') as genome_length:
+              genome_length.write(line[1])
+          if "# contigs" in line[0]:
+            with open("NUMBER_CONTIGS", 'wt') as number_contigs:
+              number_contigs.write(line[1])
+    CODE
 
   >>>
   output {
     File quast_report = "${samplename}_report.tsv"
     String version = read_string("VERSION")
     String pipeline_date = read_string("DATE")
+    Int genome_length = read_int("GENOME_LENGTH")
+    Int number_contigs = read_int("NUMBER_CONTIGS")
   }
   runtime {
     docker:  "~{docker}"
@@ -123,11 +140,36 @@ task cg_pipeline {
     date | tee DATE
 
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
+    
+    
+    python3 <<CODE
+    import csv
+    #grab output average quality and coverage scores by column header
+    with open("~{samplename}_readMetrics.tsv",'r') as tsv_file:
+      tsv_reader = list(csv.DictReader(tsv_file, delimiter="\t"))
+      for line in tsv_reader:
+          if "_1" or "_R1" in line["File"]:
+            with open("R1_MEAN_Q", 'wt') as r1_mean_q:
+              r1_mean_q.write(line["avgQuality"])
+            coverage = float(line["coverage"])
+            print(coverage)
+          if "_2" or "_R2" in line["File"]:
+            with open("R2_MEAN_Q", 'wt') as r2_mean_q:
+              r2_mean_q.write(line["avgQuality"])
+            coverage += float(line["coverage"])
+            print()
+            with open("EST_COVERAGE", 'wt') as est_coverage:
+              est_coverage.write(str(coverage))
+    CODE
+
   >>>
   output {
-    File  cg_pipe_readMetrics = "${samplename}_readMetrics.tsv"
-    String  cg_pipe_docker   = docker
+    File  cg_pipeline_report = "${samplename}_readMetrics.tsv"
+    String  cg_pipeline_docker   = docker
     String  pipeline_date = read_string("DATE")
+    Float r1_mean_q = read_float("R1_MEAN_Q")
+    Float r2_mean_q = read_float("R2_MEAN_Q")
+    Float est_coverage = read_float("EST_COVERAGE")
   }
   runtime {
     docker: "~{docker}"
