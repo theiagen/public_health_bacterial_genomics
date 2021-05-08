@@ -22,14 +22,14 @@ task midas_nsphl {
           top_score=float(line["top_score"])
           species_threshold=float(line["species_threshold"])
           delta=top_score - species_threshold
-          #format delta to two decimal places
+          #format delta to two decimal placesn
           delta="{:.2f}".format(delta)
           midas_delta.write(str(delta))
         with open("PREDICTED_GENUS", 'wt') as predicted_genus:
           genus=line["predicted_genus"]
           if not genus:
             genus="None"
-          predicted_genus.write({genus)
+          predicted_genus.write(genus)
         with open("PREDICTED_SPECIES", 'wt') as predicted_species:
           species=line["predicted_species"]
           if not species:
