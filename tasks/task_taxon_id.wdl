@@ -28,7 +28,7 @@ task midas_nsphl {
         with open("PREDICTED_TAXON", 'wt') as predicted_taxon:
           predicted_genus=line["predicted_genus"]
           predicted_species=line["predicted_species"]
-          if predicted_species.empty:
+          if not predicted_species:
             predicted_species="No species prediction made; see midas_nsphl_report for additional information"
           predicted_taxon.write(f"{predicted_genus} {predicted_species}")
     CODE
