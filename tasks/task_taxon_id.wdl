@@ -25,12 +25,11 @@ task midas_nsphl {
           #format delta to two decimal places
           delta="{:.2f}".format(delta)
           midas_delta.write(str(delta))
-        with open("PREDICTED_TAXON", 'wt') as predicted_species:
+        with open("PREDICTED_TAXON", 'wt') as predicted_taxon:
           predicted_genus=line["predicted_genus"]
           predicted_species=line["predicted_species"]
-          predicted_taxon.write(line[f"{predicted_genus} {predicted_species}"])
+          predicted_taxon.write(f"{predicted_genus} {predicted_species}")
     CODE
-
   >>>
   output {
     File midas_nsphl_report = "~{samplename}_midas_nsphl.csv"
