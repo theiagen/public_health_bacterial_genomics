@@ -25,12 +25,16 @@ task midas_nsphl {
           #format delta to two decimal places
           delta="{:.2f}".format(delta)
           midas_delta.write(str(delta))
-        with open("PREDICTED_TAXON", 'wt') as predicted_taxon:
-          predicted_genus=line["predicted_genus"]
-          predicted_species=line["predicted_species"]
-          if not predicted_species:
-            predicted_species="No species prediction made"
-          predicted_taxon.write(f"{predicted_genus} {predicted_species}")
+        with open("PREDICTED_GENUS", 'wt') as predicted_genus:
+          genus=line["predicted_genus"]
+          if not genus:
+            genus="None"
+          predicted_genus.write(f"{genus}")
+        with open("PREDICTED_SPECIES", 'wt') as predicted_species:
+          species=line["predicted_species"]
+          if not species:
+            species="None"
+          predicted_species.write(f"{species}")
     CODE
   >>>
   output {
@@ -38,7 +42,8 @@ task midas_nsphl {
     String  midas_nsphl_docker   = docker
     String  pipeline_date = read_string("DATE")
     Float midas_delta = read_float("MIDAS_DELTA")
-    String predicted_taxon = read_string("PREDICTED_TAXON")
+    String predicted_genus = read_string("PREDICTED_GENUS")
+    String predicted_species = read_string("PREDICTED_SPECIES")
   }
   runtime {
     docker:  "~{docker}"
