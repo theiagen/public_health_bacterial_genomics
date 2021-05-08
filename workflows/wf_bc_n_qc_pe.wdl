@@ -78,8 +78,7 @@ workflow bc_n_qc_pe {
   File  midas_nsphl_report = midas_nsphl.midas_nsphl_report
   String  midas_nsphl_docker = midas_nsphl.midas_nsphl_docker
   Float midas_delta = midas_nsphl.midas_delta
-  String predicted_genus = midas_nsphl.predicted_genus
-  String predicted_species = midas_nsphl.predicted_species
+  String predicted_taxon = midas_nsphl.predicted_taxon
 
   }
 }

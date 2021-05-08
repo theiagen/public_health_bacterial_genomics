@@ -22,11 +22,13 @@ task midas_nsphl {
           top_score=float(line["top_score"])
           species_threshold=float(line["species_threshold"])
           delta=top_score - species_threshold
+          #format delta to two decimal places
+          delta="{:.2f}".format(delta)
           midas_delta.write(str(delta))
-        with open("PREDICTED_GENUS", 'wt') as predicted_genus:
-          predicted_genus.write(line["predicted_genus"])
-        with open("PREDICTED_SPECIES", 'wt') as predicted_species:
-          predicted_species.write(line["predicted_species"])
+        with open("PREDICTED_TAXON", 'wt') as predicted_species:
+          predicted_genus=line["predicted_genus"]
+          predicted_species=line["predicted_species"]
+          predicted_taxon.write(line[f"{predicted_genus} {predicted_species}"])
     CODE
 
   >>>
@@ -35,8 +37,7 @@ task midas_nsphl {
     String  midas_nsphl_docker   = docker
     String  pipeline_date = read_string("DATE")
     Float midas_delta = read_float("MIDAS_DELTA")
-    String predicted_genus = read_string("PREDICTED_GENUS")
-    String predicted_species = read_string("PREDICTED_SPECIES")
+    String predicted_taxon = read_string("PREDICTED_TAXON")
   }
   runtime {
     docker:  "~{docker}"
