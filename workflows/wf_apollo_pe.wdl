@@ -5,7 +5,7 @@ import "../tasks/task_qc_utils.wdl" as qc
 import "../tasks/task_taxon_id.wdl" as taxon_id
 import "../tasks/task_denovo_assembly.wdl" as assembly
 
-workflow bc_n_qc_pe {
+workflow apollo_pe {
   meta {
     description: "De-novo genome assembly, taxonomic ID, and QC of paired-end bacterial NGS data"
   }
@@ -39,7 +39,7 @@ workflow bc_n_qc_pe {
       read1 = read1_raw,
       read2 = read2_raw,
       samplename = samplename,
-      genome_length = 5000000
+      genome_length = quast.genome_length
   }
   call taxon_id.midas_nsphl {
     input:
@@ -63,11 +63,23 @@ workflow bc_n_qc_pe {
   File  assembly_fasta =  shovill_pe.assembly_fasta
   File  contigs_gfa =  shovill_pe.contigs_gfa
   String   shovill_pe_version =  shovill_pe.shovill_version
-  File  cg_pipe_readMetrics = cg_pipeline.cg_pipe_readMetrics
-  String  cg_pipe_docker = cg_pipeline.cg_pipe_docker
-
+  
+  File quast_report = quast.quast_report
+  String quast_version = quast.version
+  Int genome_length = quast.genome_length
+  Int number_contigs = quast.number_contigs
+  
+  File  cg_pipeline_report = cg_pipeline.cg_pipeline_report
+  String  cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
+  Float r1_mean_q = cg_pipeline.r1_mean_q
+  Float r2_mean_q = cg_pipeline.r2_mean_q
+  Float est_coverage = cg_pipeline.est_coverage
+  
   File  midas_nsphl_report = midas_nsphl.midas_nsphl_report
   String  midas_nsphl_docker = midas_nsphl.midas_nsphl_docker
+  Float midas_delta = midas_nsphl.midas_delta
+  String predicted_genus = midas_nsphl.predicted_genus
+  String predicted_species = midas_nsphl.predicted_species
 
   }
 }
