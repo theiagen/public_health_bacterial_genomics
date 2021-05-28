@@ -5,7 +5,7 @@ import "../tasks/task_qc_utils.wdl" as qc
 import "../tasks/task_taxon_id.wdl" as taxon_id
 import "../tasks/task_denovo_assembly.wdl" as assembly
 
-workflow bc_n_qc_pe {
+workflow apollo_pe {
   meta {
     description: "De-novo genome assembly, taxonomic ID, and QC of paired-end bacterial NGS data"
   }

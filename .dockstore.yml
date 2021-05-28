@@ -1,7 +1,7 @@
 version: 1.2
 workflows:
- - name: BC-N-QC_PE
+ - name: Apollo_PE
    subclass: WDL
-   primaryDescriptorPath: /workflows/wf_bc_n_qc_pe.wdl
+   primaryDescriptorPath: /workflows/wf_apollo_pe.wdl
    testParameterFiles:
     - empty.json
