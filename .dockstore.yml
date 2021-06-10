@@ -5,3 +5,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_apollo_pe.wdl
    testParameterFiles:
     - empty.json
+ - name: kSNP3
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_ksnp3.wdl
+   testParameterFiles:
+    - empty.json
