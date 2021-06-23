@@ -21,7 +21,7 @@ task gambit {
         with open ("GAMBIT_SCORE", 'wt') as gambit_score:
           top_score=float(line["top_score"])
           top_score="{:.2f}".format(top_score)
-          gambmit_score.write(str(top_score))
+          gambit_score.write(str(top_score))
         with open("GAMBIT_DELTA", 'wt') as gambit_delta:
           top_score=float(line["top_score"])
           species_threshold=float(line["species_threshold"])
