@@ -28,7 +28,7 @@ task gambit {
           delta=top_score - species_threshold
           #format delta to two decimal placesn
           delta="{:.2f}".format(delta)
-          gambmit_delta.write(str(delta))
+          gambit_delta.write(str(delta))
         with open("PREDICTED_GENUS", 'wt') as predicted_genus:
           genus=line["predicted_genus"]
           if not genus:
