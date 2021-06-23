@@ -10,3 +10,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_ksnp3.wdl
    testParameterFiles:
     - empty.json
+ - name: Apollo_Illumina_PE
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_apollo_pe.wdl
+   testParameterFiles:
+    - empty.json
