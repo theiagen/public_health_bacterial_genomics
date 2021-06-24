@@ -5,7 +5,7 @@ import "../tasks/task_qc_utils.wdl" as qc
 import "../tasks/task_taxon_id.wdl" as taxon_id
 import "../tasks/task_denovo_assembly.wdl" as assembly
 
-workflow apollo_pe {
+workflow apollo_illumina_pe {
   meta {
     description: "De-novo genome assembly, taxonomic ID, and QC of paired-end bacterial NGS data"
   }
@@ -41,7 +41,7 @@ workflow apollo_pe {
       samplename = samplename,
       genome_length = quast.genome_length
   }
-  call taxon_id.midas_nsphl {
+  call taxon_id.gambit {
     input:
       assembly = shovill_pe.assembly_fasta,
       samplename = samplename
@@ -75,11 +75,12 @@ workflow apollo_pe {
   Float r2_mean_q = cg_pipeline.r2_mean_q
   Float est_coverage = cg_pipeline.est_coverage
   
-  File  midas_nsphl_report = midas_nsphl.midas_nsphl_report
-  String  midas_nsphl_docker = midas_nsphl.midas_nsphl_docker
-  Float midas_delta = midas_nsphl.midas_delta
-  String predicted_genus = midas_nsphl.predicted_genus
-  String predicted_species = midas_nsphl.predicted_species
+  File  gambit_report = gambit.gambit_report
+  String  gambit_docker = gambit.gambit_docker
+  Float gambit_score = gambit.gambit_score
+  Float gambit_delta = gambit.gambit_delta
+  String predicted_genus = gambit.predicted_genus
+  String predicted_species = gambit.predicted_species
 
   }
 }
