@@ -7,7 +7,7 @@ workflow kleborate_wf {
 
   input {
       File assembly
-      String samplename = "sample"
+      String samplename
     }
 
   call task_kleborate.kleborate_one_sample {
