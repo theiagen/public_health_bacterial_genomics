@@ -15,3 +15,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_apollo_illumina_pe.wdl
    testParameterFiles:
     - empty.json
+ - name: Kleborate
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_kleborate.wdl
+   testParameterFiles:
+    - empty.json
