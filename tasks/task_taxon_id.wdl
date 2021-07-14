@@ -92,6 +92,8 @@ task serotypefinder_one_sample {
     o_type = "/".join(list(filter(o_re.match,antigens)))
     print(o_type)
     serotype = "{}:{}".format(h_type,o_type)
+    if serotype == ":"
+      serotype = "NA"
     print(serotype)
     
     with open ("STF_SEROTYPE", 'wt') as stf_serotype:
