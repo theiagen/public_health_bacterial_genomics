@@ -87,9 +87,10 @@ task serotypefinder_one_sample {
             antigens.append(row.get('Serotype'))
             
     print(antigens)
-    h_type = "/".join(list(filter(h_re.match, antigens)))
+    h_type = "/".join(set("/".join(list(filter(h_re.match, antigens))).split('/')))
+    print("H_type 1: "+ h_type)
     print(h_type)
-    o_type = "/".join(list(filter(o_re.match,antigens)))
+    o_type = "/".join(set("/".join(list(filter(o_re.match,antigens))).split('/')))
     print(o_type)
     serotype = "{}:{}".format(h_type,o_type)
     if serotype == ":":
