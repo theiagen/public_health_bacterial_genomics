@@ -94,19 +94,19 @@ task kleborate_one_sample {
 
         #Output Strings
         with open("KEY_RESISTANCE_FACTORS", 'wt') as key_resistance_factors:
-          keyResFacs=keyFactors_df.head(1)
+          keyResFacs=keyFactors_df.head(1).to_string()
           key_resistance_factors.write(keyResFacs)
 
         with open("ACQUIRED_RESISTANCE", 'wt') as acquired_resistance_factors:
-          acqResFacs=keyFactors_df.head(1)
+          acqResFacs=keyFactors_df.head(1).to_string()
           acquired_resistance_factors.write(acqResFacs)
 
         with open("BLA_RESISTANCE", 'wt') as bla_resistance_factors:
-          blaResFacs=keyFactors_df.head(1)
+          blaResFacs=keyFactors_df.head(1).to_string()
           bla_resistance_factors.write(blaResFacs)
 
         with open("ESBL_RESISTANCE", 'wt') as esbl_resistance_factors:
-         esblResFacs=keyFactors_df.head(1)
+         esblResFacs=keyFactors_df.head(1).to_string()
           esbl_resistance_factors.write(esblResFacs)
 
     CODE
@@ -138,4 +138,5 @@ task kleborate_one_sample {
     preemptible:  0
   }
 }
+
 
