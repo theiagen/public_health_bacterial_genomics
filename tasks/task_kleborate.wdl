@@ -16,7 +16,7 @@ task kleborate_one_sample {
     # Print and save version
     kleborate --version > VERSION && sed -i -e 's/^/Kleborate /' VERSION
     # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
-    kleborate -a ~{kleb_assembly} --all -o ~{samplename}_kleborate_output_file.tsv \ 
+    kleborate -a ~{kleb_assembly} --all -o ~{samplename}_kleborate_output_file.tsv 
     #####mv Kleborate_results.txt ${samplename}_kleborate_output_file.tsv
 
     python3 <<CODE
@@ -106,7 +106,7 @@ task kleborate_one_sample {
 
       with open("ESBL_RESISTANCE", 'wt') as esbl_resistance_factors:
        esblResFacs=keyFactors_df.head(1).to_string()
-        esbl_resistance_factors.write(esblResFacs)
+       esbl_resistance_factors.write(esblResFacs)
 
     CODE
 
