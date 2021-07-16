@@ -92,7 +92,7 @@ task serotypefinder_one_sample {
     o_type = "/".join(set("/".join(list(filter(o_re.match,antigens))).split('/')))
     print("O-type: " + o_type)
 
-    serotype = "{}:{}".format(h_type,o_type)
+    serotype = "{}:{}".format(o_type,h_type)
     if serotype == ":":
       serotype = "NA"
     print("Serotype: " + serotype)
