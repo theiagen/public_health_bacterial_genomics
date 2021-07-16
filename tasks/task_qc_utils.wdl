@@ -95,7 +95,6 @@ task quast {
     quast.py ~{assembly} -o .
     mv report.tsv ~{samplename}_report.tsv
     
-    
     python <<CODE
     import csv
     #grab output genome length and number contigs by column header
