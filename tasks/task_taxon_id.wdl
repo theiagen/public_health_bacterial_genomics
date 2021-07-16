@@ -85,7 +85,7 @@ task serotypefinder_one_sample {
       for row in tsv_reader:
           if row.get('Serotype') not in antigens:
             antigens.append(row.get('Serotype'))            
-    print("Antigens: " + antigens)
+    print("Antigens: " + str(antigens))
     
     h_type = "/".join(set("/".join(list(filter(h_re.match, antigens))).split('/')))
     print("H-type: " + h_type)
