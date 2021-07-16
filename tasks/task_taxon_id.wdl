@@ -84,18 +84,18 @@ task serotypefinder_one_sample {
       tsv_reader = csv.DictReader(tsv_file, delimiter="\t")
       for row in tsv_reader:
           if row.get('Serotype') not in antigens:
-            antigens.append(row.get('Serotype'))
-            
-    print(antigens)
+            antigens.append(row.get('Serotype'))            
+    print("Antigens: " + antigens)
+    
     h_type = "/".join(set("/".join(list(filter(h_re.match, antigens))).split('/')))
-    print("H_type 1: "+ h_type)
-    print(h_type)
+    print("H-type: " + h_type)
     o_type = "/".join(set("/".join(list(filter(o_re.match,antigens))).split('/')))
-    print(o_type)
+    print("O-type: " + o_type)
+
     serotype = "{}:{}".format(h_type,o_type)
     if serotype == ":":
       serotype = "NA"
-    print(serotype)
+    print("Serotype: " + serotype)
     
     with open ("STF_SEROTYPE", 'wt') as stf_serotype:
       stf_serotype.write(str(serotype))
