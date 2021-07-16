@@ -23,8 +23,5 @@ workflow serotypefinder {
       String serotypefinder_report  = serotypefinder_one_sample.serotypefinder_report
       String serotypefinder_docker  = serotypefinder_one_sample.serotypefinder_docker
       String serotypefinder_serotype = serotypefinder_one_sample.serotypefinder_serotype
-        
-
-        
     }
 }
