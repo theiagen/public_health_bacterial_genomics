@@ -1,7 +1,7 @@
 version 1.0
 
 
-import "../tasks/task_kleborate.wdl" as task_kleborate
+import "../tasks/task_taxon_id.wdl" as taxon
 import "../tasks/task_versioning.wdl" as versioning
 
 workflow kleborate_wf {
@@ -9,7 +9,7 @@ workflow kleborate_wf {
       File assembly
       String samplename
     }
-  call task_kleborate.kleborate_one_sample {
+  call taxon.kleborate_one_sample {
     input:
       assembly = assembly,
       samplename = samplename
