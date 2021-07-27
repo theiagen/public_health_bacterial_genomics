@@ -2,9 +2,9 @@ version 1.0
 
 task gambit {
   input {
-    File    assembly
-    String  samplename
-    String  docker="theiagen/midas_nsphl:1.0.0"
+    File assembly
+    String samplename
+    String docker = "theiagen/midas_nsphl:1.0.0"
   }
   command <<<
     # capture date and version
@@ -42,13 +42,13 @@ task gambit {
     CODE
   >>>
   output {
-    File   gambit_report     = "~{samplename}_gambit.csv"
-    String gambit_docker     = docker
-    String pipeline_date     = read_string("DATE")
-    Float  gambit_score      = read_float("GAMBIT_SCORE") 
-    Float  gambit_delta      = read_float("GAMBIT_DELTA")
-    String predicted_genus   = read_string("PREDICTED_GENUS")
-    String predicted_species = read_string("PREDICTED_SPECIES")
+    File gambit_report = "~{samplename}_gambit.csv"
+    String gambit_docker = docker
+    String pipeline_date = read_string("DATE")
+    Float gambit_score = read_float("GAMBIT_SCORE") 
+    Float gambit_delta = read_float("GAMBIT_DELTA")
+    String gambit_genus = read_string("PREDICTED_GENUS")
+    String gambit_species = read_string("PREDICTED_SPECIES")
   }
   runtime {
     docker:  "~{docker}"
@@ -102,7 +102,7 @@ task serotypefinder_one_sample {
     CODE
   >>>
   output {
-    File   serotypefinder_report = "~{samplename}_results_tab.tsv"
+    File serotypefinder_report = "~{samplename}_results_tab.tsv"
     String serotypefinder_docker = docker
     String serotypefinder_serotype = read_string("STF_SEROTYPE")
   }

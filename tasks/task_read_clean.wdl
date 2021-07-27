@@ -5,10 +5,10 @@ task trimmomatic_pe {
     File  read1
     File  read2
     String  samplename
-    String  docker="staphb/trimmomatic:0.39"
+    String  docker = "staphb/trimmomatic:0.39"
     Int?  trimmomatic_minlen = 15
-    Int?  trimmomatic_window_size=4
-    Int?  trimmomatic_quality_trim_score=30
+    Int?  trimmomatic_window_size = 4
+    Int?  trimmomatic_quality_trim_score = 30
     Int?  threads = 4
   }
   command <<<
@@ -24,11 +24,11 @@ task trimmomatic_pe {
     MINLEN:~{trimmomatic_minlen} > ~{samplename}.trim.stats.txt
   >>>
   output {
-    File  read1_trimmed = "~{samplename}_1P.fastq.gz"
-    File  read2_trimmed = "~{samplename}_2P.fastq.gz"
-    File  trimmomatic_stats = "~{samplename}.trim.stats.txt"
-    String  version = read_string("VERSION")
-    String  pipeline_date = read_string("DATE")
+    File read1_trimmed = "~{samplename}_1P.fastq.gz"
+    File read2_trimmed = "~{samplename}_2P.fastq.gz"
+    File trimmomatic_stats = "~{samplename}.trim.stats.txt"
+    String version = read_string("VERSION")
+    String pipeline_date = read_string("DATE")
   }
   runtime {
     docker: "~{docker}"
@@ -40,13 +40,13 @@ task trimmomatic_pe {
 }
 task trimmomatic_se {
   input {
-    File  read1
-    String  samplename
-    String  docker="staphb/trimmomatic:0.39"
-    Int?  trimmomatic_minlen = 25
-    Int?  trimmomatic_window_size=4
-    Int?  trimmomatic_quality_trim_score=30
-    Int?  threads = 4
+    File read1
+    String samplename
+    String docker="staphb/trimmomatic:0.39"
+    Int? trimmomatic_minlen = 25
+    Int? trimmomatic_window_size=4
+    Int? trimmomatic_quality_trim_score=30
+    Int? threads = 4
   }
   command <<<
     # date and version control
@@ -61,10 +61,10 @@ task trimmomatic_se {
     MINLEN:~{trimmomatic_minlen} > ~{samplename}.trim.stats.txt
   >>>
   output {
-    File  read1_trimmed = "${samplename}_trimmed.fastq.gz"
-    File  trimmomatic_stats = "${samplename}.trim.stats.txt"
-    String  version = read_string("VERSION")
-    String  pipeline_date = read_string("DATE")
+    File read1_trimmed = "${samplename}_trimmed.fastq.gz"
+    File trimmomatic_stats = "${samplename}.trim.stats.txt"
+    String version = read_string("VERSION")
+    String pipeline_date = read_string("DATE")
   }
   runtime {
     docker: "~{docker}"
@@ -76,10 +76,10 @@ task trimmomatic_se {
 }
 task bbduk_pe {
   input {
-    File  read1_trimmed
-    File  read2_trimmed
-    String  samplename
-    String  docker="staphb/bbtools:38.76"
+    File read1_trimmed
+    File read2_trimmed
+    String samplename
+    String docker = "staphb/bbtools:38.76"
   }
   command <<<
     # date and version control
@@ -93,12 +93,12 @@ task bbduk_pe {
 
   >>>
   output {
-    File  read1_clean = "~{samplename}_1.clean.fastq.gz"
-    File  read2_clean = "~{samplename}_2.clean.fastq.gz"
-    File  adapter_stats = "~{samplename}.adapters.stats.txt"
-    File  phiX_stats = "~{samplename}.phix.stats.txt"
-    String  bbduk_docker   = docker
-    String  pipeline_date = read_string("DATE")
+    File read1_clean = "~{samplename}_1.clean.fastq.gz"
+    File read2_clean = "~{samplename}_2.clean.fastq.gz"
+    File adapter_stats = "~{samplename}.adapters.stats.txt"
+    File phiX_stats = "~{samplename}.phix.stats.txt"
+    String bbduk_docker = docker
+    String pipeline_date = read_string("DATE")
   }
   runtime {
     docker: "~{docker}"
@@ -110,9 +110,9 @@ task bbduk_pe {
 }
 task bbduk_se {
   input {
-    File  read1_trimmed
-    String  samplename
-    String  docker="staphb/bbtools:38.76"
+    File read1_trimmed
+    String samplename
+    String docker="staphb/bbtools:38.76"
   }
   command <<<
     # date and version control
@@ -123,11 +123,11 @@ task bbduk_se {
     bbduk.sh in1=~{read1_trimmed} out1=~{samplename}_1.clean.fastq.gz outm=~{samplename}.matched_phix.fq ref=/bbmap/resources/phix174_ill.ref.fa.gz k=31 hdist=1 stats=~{samplename}.phix.stats.txt
   >>>
   output {
-    File  read1_clean = "~{samplename}_1.clean.fastq.gz"
-    File  adapter_stats = "~{samplename}.adapters.stats.txt"
-    File  phiX_stats = "~{samplename}.phix.stats.txt"
-    String  bbduk_docker   = docker
-    String  pipeline_date = read_string("DATE")
+    File read1_clean = "~{samplename}_1.clean.fastq.gz"
+    File adapter_stats = "~{samplename}.adapters.stats.txt"
+    File phiX_stats = "~{samplename}.phix.stats.txt"
+    String bbduk_docker = docker
+    String pipeline_date = read_string("DATE")
   }
   runtime {
     docker: "~{docker}"

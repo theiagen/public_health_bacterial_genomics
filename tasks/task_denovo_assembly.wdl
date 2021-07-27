@@ -2,13 +2,12 @@ version 1.0
 
 task shovill_pe {
   input {
-    File  read1_cleaned
-    File  read2_cleaned
-    String  samplename
-    String  docker="staphb/shovill:1.1.0"
-    Int min_contig_length=200
+    File read1_cleaned
+    File read2_cleaned
+    String samplename
+    String docker = "staphb/shovill:1.1.0"
+    Int min_contig_length = 200
   }
-
   command <<<
     shovill --version | head -1 | tee VERSION
     shovill \
@@ -22,9 +21,8 @@ task shovill_pe {
   output {
 	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
 	  File contigs_gfa = "out/~{samplename}_contigs.gfa"
-    String  shovill_version = read_string("VERSION")
+    String shovill_version = read_string("VERSION")
   }
-
   runtime {
       docker: "~{docker}"
       memory: "16 GB"
