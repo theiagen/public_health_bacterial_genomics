@@ -26,8 +26,9 @@ workflow ksnp3 {
   output {
     String ksnp3_wf_version = version_capture.phbg_version
     String knsp3_wf_analysis_date = version_capture.date
-    File ksnp3_wf_snp_matrix = snp_dists.snp_matrix
-    File ksnp3_wf_tree = ksnp3_task.ksnp3_tree
-    String ksnp3_wf_docker = ksnp3_task.ksnp3_docker_image
+		
+    File ksnp3_snp_matrix = snp_dists.snp_matrix
+    File ksnp3_tree = ksnp3_task.ksnp3_tree
+    String ksnp3_docker = ksnp3_task.ksnp3_docker_image
     }
 }
