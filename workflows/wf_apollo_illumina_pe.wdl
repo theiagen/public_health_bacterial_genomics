@@ -79,8 +79,8 @@ workflow apollo_illumina_pe {
   String  gambit_docker = gambit.gambit_docker
   Float gambit_score = gambit.gambit_score
   Float gambit_delta = gambit.gambit_delta
-  String predicted_genus = gambit.predicted_genus
-  String predicted_species = gambit.predicted_species
+  String gambit_genus = gambit.predicted_genus
+  String gambit_species = gambit.predicted_species
 
   }
 }
