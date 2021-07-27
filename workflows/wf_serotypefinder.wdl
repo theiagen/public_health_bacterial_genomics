@@ -20,8 +20,8 @@ workflow serotypefinder {
       String  serotypefinder_wf_version = version_capture.phbg_version
       String  serotypefinder_wf_analysis_date = version_capture.date
       
-      String serotypefinder_report  = serotypefinder_one_sample.serotypefinder_report
-      String serotypefinder_docker  = serotypefinder_one_sample.serotypefinder_docker
-      String serotypefinder_serotype = serotypefinder_one_sample.serotypefinder_serotype
+      String serotypefinder_wf_report  = serotypefinder_one_sample.serotypefinder_report
+      String serotypefinder_wf_docker  = serotypefinder_one_sample.serotypefinder_docker
+      String serotypefinder_wf_serotype = serotypefinder_one_sample.serotypefinder_serotype
     }
 }
