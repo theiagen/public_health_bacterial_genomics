@@ -15,8 +15,8 @@ task kleborate_one_sample {
     # Print and save version
     kleborate --version > VERSION && sed -i -e 's/^/Kleborate /' VERSION
     # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
-    kleborate -a ~{assembly} --all -o ~{samplename}_kleborate_output_file.tsv 
-    
+    kleborate -a ~{assembly} --all -o ~{samplename}_kleborate_output_file.tsv
+
     python3 <<CODE
     import csv
     with open("./~{samplename}_kleborate_output_file.tsv",'r') as tsv_file:
@@ -75,7 +75,6 @@ task kleborate_one_sample {
   output {
     File kleborate_output_file = "~{samplename}_kleborate_output_file.tsv"
     String version = read_string("VERSION")
-    String pipeline_date = read_string("DATE")
     String mlst_sequence_type = read_string("MLST_SEQUENCE_TYPE")
     String virulence_score = read_string("VIRULENCE_SCORE")
     String resistance_score = read_string("RESISTANCE_SCORE")
