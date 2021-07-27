@@ -65,7 +65,6 @@ task kleborate_one_sample {
     String samplename
     String kleborate_docker_image = "staphb/kleborate:2.0.4"
   }
-
   command <<<
     # capture date and version
     # Print and save date

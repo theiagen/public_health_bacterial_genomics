@@ -2,21 +2,25 @@ version 1.0
 
 
 import "../tasks/task_kleborate.wdl" as task_kleborate
+import "../tasks/task_versioning.wdl" as versioning
 
 workflow kleborate_wf {
-
   input {
       File assembly
       String samplename
     }
-
   call task_kleborate.kleborate_one_sample {
     input:
       assembly = assembly,
       samplename = samplename
     }
-
+  call versioning.version_capture{
+    input:
+  }
   output {
+    String kleborate_wf_version = version_capture.phbg_version
+    String kleborate_wf_analysis_date = version_capture.date
+    
     File kleborate_wf_report = kleborate_one_sample.kleborate_output_file
     String kleborate_wf_version = kleborate_one_sample.version
     String kleborate_wf_mlst_sequence_type = kleborate_one_sample.mlst_sequence_type
