@@ -41,11 +41,11 @@ task fastqc_pe {
     String pipeline_date = read_string("DATE")
   }
   runtime {
-    docker:  "~{docker}"
-    memory:  "4 GB"
-    cpu:   2
+    docker: "~{docker}"
+    memory: "4 GB"
+    cpu: 2
     disks: "local-disk 100 SSD"
-    preemptible:  0
+    preemptible: 0
   }
 }
 task fastqc_se {
@@ -94,7 +94,6 @@ task quast {
 
     quast.py ~{assembly} -o .
     mv report.tsv ~{samplename}_report.tsv
-    
     
     python <<CODE
     import csv

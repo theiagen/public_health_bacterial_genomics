@@ -1,10 +1,5 @@
 version: 1.2
 workflows:
- - name: Apollo_PE
-   subclass: WDL
-   primaryDescriptorPath: /workflows/wf_apollo_pe.wdl
-   testParameterFiles:
-    - empty.json
  - name: kSNP3
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_ksnp3.wdl
@@ -18,5 +13,10 @@ workflows:
  - name: Kleborate
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_kleborate.wdl
+   testParameterFiles:
+    - empty.json
+ - name: SerotypeFinder
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_serotypefinder.wdl
    testParameterFiles:
     - empty.json
