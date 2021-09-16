@@ -211,16 +211,17 @@ task tbprofiler_one_sample_pe {
     File read2
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
-    String mapper
-    String caller
-    String min_depth
-    String min_af
-    String min_af_pred
-    String cov_frac_threshold
+    String? mapper
+    String? caller
+    String? min_depth
+    String? min_af
+    String? min_af_pred
+    String? cov_frac_threshold
   }
   command <<<
     # update TBDB
-    ## tb-profiler update_tbdb
+    # tb-profiler update_tbdb
+
     # Print and save date
     date | tee DATE
     # Print and save version
