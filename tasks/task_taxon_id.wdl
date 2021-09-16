@@ -275,7 +275,7 @@ task tbprofiler_one_sample_pe {
     String tb_profiler_resistance_genes = read_string("RESISTANCE_GENES")
   }
   runtime {
-    docker:       tbprofiler_docker_image
+    docker:       "~{tbprofiler_docker_image}"
     memory:       "16 GB"
     cpu:          8
     disks:        "local-disk 100 SSD"
