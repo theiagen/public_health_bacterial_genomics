@@ -18,15 +18,15 @@ workflow tbprofiler_wf {
     }
   call taxon.tbprofiler_one_sample_pe {
     input:
-      File read1 = read1,
-      File read2 = read2,
-      String samplename = samplename,
-      String mapper = mapper,
-      String caller = caller,
-      String min_depth = min_depth,
-      String min_af = min_af,
-      String min_af_pred = min_af_pred,
-      String cov_frac_threshold = cov_frac_threshold
+      read1 = read1,
+      read2 = read2,
+      samplename = samplename,
+      mapper = mapper,
+      caller = caller,
+      min_depth = min_depth,
+      min_af = min_af,
+      min_af_pred = min_af_pred,
+      cov_frac_threshold = cov_frac_threshold
     }
   call versioning.version_capture{
     input:
