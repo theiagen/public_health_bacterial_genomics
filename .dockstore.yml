@@ -22,6 +22,6 @@ workflows:
     - empty.json
  - name: TBProfiler
    subclass: WDL
-   primaryDescriptorPath: /workflows/wf_tbprofiler.wdl
+   primaryDescriptorPath: /workflows/wf_tbprofiler_pe.wdl
    testParameterFiles:
     - empty.json
