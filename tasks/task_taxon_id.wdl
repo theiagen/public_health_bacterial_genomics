@@ -216,7 +216,7 @@ task tbprofiler_one_sample_pe {
     Int? min_depth
     Float? min_af
     Float? min_af_pred
-    Float? cov_frac_threshold
+    Int? cov_frac_threshold
   }
   command <<<
     # update TBDB
