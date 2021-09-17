@@ -226,7 +226,7 @@ task tbprofiler_one_sample_pe {
     # Print and save version
     tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
     # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
-    tb-profiler profile -1 ~{read1} -2 ~{read2} --call_whole_genome -p ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold}
+    tb-profiler profile -1 ~{read1} -2 ~{read2} --call_whole_genome -p ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
 
     #Collate results
     tb-profiler collate ~{samplename}
