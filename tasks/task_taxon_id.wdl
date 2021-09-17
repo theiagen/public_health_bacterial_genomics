@@ -221,7 +221,6 @@ task tbprofiler_one_sample_pe {
   command <<<
     # update TBDB
     # tb-profiler update_tbdb
-
     # Print and save date
     date | tee DATE
     # Print and save version
