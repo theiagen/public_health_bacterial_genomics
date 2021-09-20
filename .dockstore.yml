@@ -20,8 +20,13 @@ workflows:
    primaryDescriptorPath: /workflows/wf_serotypefinder.wdl
    testParameterFiles:
     - empty.json
- - name: TBProfiler
+ - name: TBProfiler_Illumina_PE
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_tbprofiler_pe.wdl
    testParameterFiles:
     - empty.json
+- name: TBProfiler_ONT
+  subclass: WDL
+  primaryDescriptorPath: /workflows/wf_tbprofiler_ont.wdl
+  testParameterFiles:
+   - empty.json
