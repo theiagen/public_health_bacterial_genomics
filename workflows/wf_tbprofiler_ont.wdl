@@ -33,14 +33,14 @@ workflow tbprofiler_wf {
     String tb_profiler_wf_version = version_capture.phbg_version
     String tb_profiler_wf_analysis_date = version_capture.date
 
-    File tb_profiler_report_csv = tbprofiler_one_sample_pe.tbprofiler_output_csv
-    File tb_profiler_report_tsv =tbprofiler_one_sample_pe.tbprofiler_output_tsv
-    String tb_profiler_version = tbprofiler_one_sample_pe.version
-    String tb_profiler_main_lineage = tbprofiler_one_sample_pe.tb_profiler_main_lineage
-    String tb_profiler_sub_lineage = tbprofiler_one_sample_pe.tb_profiler_sub_lineage
-    String tb_profiler_dr_type = tbprofiler_one_sample_pe.tb_profiler_dr_type
-    String tb_profiler_num_dr_variants = tbprofiler_one_sample_pe.tb_profiler_num_dr_variants
-    String tb_profiler_num_other_variants = tbprofiler_one_sample_pe.tb_profiler_num_other_variants
-    String tb_profiler_resistance_genes = tbprofiler_one_sample_pe.tb_profiler_resistance_genes
+    File tb_profiler_report_csv = tbprofiler_one_sample_ont.tbprofiler_output_csv
+    File tb_profiler_report_tsv =tbprofiler_one_sample_ont.tbprofiler_output_tsv
+    String tb_profiler_version = tbprofiler_one_sample_ont.version
+    String tb_profiler_main_lineage = tbprofiler_one_sample_ont.tb_profiler_main_lineage
+    String tb_profiler_sub_lineage = tbprofiler_one_sample_ont.tb_profiler_sub_lineage
+    String tb_profiler_dr_type = tbprofiler_one_sample_ont.tb_profiler_dr_type
+    String tb_profiler_num_dr_variants = tbprofiler_one_sample_ont.tb_profiler_num_dr_variants
+    String tb_profiler_num_other_variants = tbprofiler_one_sample_ont.tb_profiler_num_other_variants
+    String tb_profiler_resistance_genes = tbprofiler_one_sample_ont.tb_profiler_resistance_genes
     }
  }
