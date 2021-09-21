@@ -353,6 +353,6 @@ task tbprofiler_one_sample_ont {
     memory:       "16 GB"
     cpu:          8
     disks:        "local-disk 100 SSD"
-    memRetry:     3
+    maxRetries:   3
   }
 }
