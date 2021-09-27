@@ -301,7 +301,7 @@ task tbprofiler_one_sample_ont {
     # Print and save version
     tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
     # Run TBProfiler on the input sample
-    tb-profiler profile --platform nanopore -1 ~{reads} --call_whole_genome --prefix ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
+    tb-profiler profile --platform nanopore -1 ~{reads} --prefix ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
 
     #Collate results
     tb-profiler collate --prefix ~{samplename}
