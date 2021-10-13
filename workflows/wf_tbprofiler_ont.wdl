@@ -36,7 +36,6 @@ workflow tbprofiler_wf {
     File tbprofiler_output_alignment_bai = tbprofiler_one_sample_ont.tbprofiler_output_bai
     File tb_profiler_report_csv = tbprofiler_one_sample_ont.tbprofiler_output_csv
     File tb_profiler_report_tsv =tbprofiler_one_sample_ont.tbprofiler_output_tsv
-    File tbprofiler_output_alignment_bam = tbprofiler_one_sample_pe.tbprofiler_output_bam
     String tb_profiler_version = tbprofiler_one_sample_ont.version
     String tb_profiler_main_lineage = tbprofiler_one_sample_ont.tb_profiler_main_lineage
     String tb_profiler_sub_lineage = tbprofiler_one_sample_ont.tb_profiler_sub_lineage
