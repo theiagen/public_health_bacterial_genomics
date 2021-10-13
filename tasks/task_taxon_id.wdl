@@ -209,7 +209,6 @@ task tbprofiler_one_sample_pe {
   input {
     File read1
     File read2
-    File? bam
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
     String? mapper

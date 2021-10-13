@@ -8,7 +8,6 @@ workflow tbprofiler_wf {
   input {
       File read1
       File read2
-      File? bam
       String samplename
       String? mapper = "bwa"
       String? caller = "bcftools"
@@ -21,7 +20,6 @@ workflow tbprofiler_wf {
     input:
       read1 = read1,
       read2 = read2,
-      bam = bam,
       samplename = samplename,
       mapper = mapper,
       caller = caller,
