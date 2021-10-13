@@ -19,6 +19,7 @@ workflow tbprofiler_wf {
   call taxon.tbprofiler_one_sample_ont {
     input:
       reads = reads,
+      bam = bam,
       samplename = samplename,
       mapper = mapper,
       caller = caller,

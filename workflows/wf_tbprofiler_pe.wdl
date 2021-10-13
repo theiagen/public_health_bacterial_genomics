@@ -21,6 +21,7 @@ workflow tbprofiler_wf {
     input:
       read1 = read1,
       read2 = read2,
+      bam = bam,
       samplename = samplename,
       mapper = mapper,
       caller = caller,
