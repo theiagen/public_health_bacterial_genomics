@@ -7,6 +7,7 @@ import "../tasks/task_versioning.wdl" as versioning
 workflow tbprofiler_wf {
   input {
       File reads
+      File bam
       String samplename
       String? mapper = "minimap2"
       String? caller = "bcftools"
