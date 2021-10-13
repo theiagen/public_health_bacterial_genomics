@@ -13,7 +13,7 @@ workflow tbprofiler_wf {
       Int? min_depth = 20
       Float? min_af = 0.1
       Float? min_af_pred = 0.1
-      Float? cov_frac_threshold = 0
+      Int? cov_frac_threshold = 1
     }
   call taxon.tbprofiler_one_sample_ont {
     input:
