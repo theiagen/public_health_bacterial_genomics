@@ -266,6 +266,7 @@ task tbprofiler_one_sample_pe {
     File tbprofiler_output_csv = "./results/~{samplename}.results.csv"
     File tbprofiler_output_tsv = "./results/~{samplename}.results.txt"
     File tbprofiler_output_bam = "./bam/~{samplename}.bam"
+    File tbprofiler_output_bai = "./bam/~{samplename}.bam.bai"
     String version = read_string("VERSION")
     String tb_profiler_main_lineage = read_string("MAIN_LINEAGE")
     String tb_profiler_sub_lineage = read_string("SUB_LINEAGE")
@@ -342,6 +343,7 @@ task tbprofiler_one_sample_ont {
     File tbprofiler_output_csv = "./results/~{samplename}.results.csv"
     File tbprofiler_output_tsv = "./results/~{samplename}.results.txt"
     File tbprofiler_output_bam = "./bam/~{samplename}.bam"
+    File tbprofiler_output_bai = "./bam/~{samplename}.bam.bai"
     String version = read_string("VERSION")
     String tb_profiler_main_lineage = read_string("MAIN_LINEAGE")
     String tb_profiler_sub_lineage = read_string("SUB_LINEAGE")
