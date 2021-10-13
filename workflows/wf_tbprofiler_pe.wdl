@@ -36,7 +36,8 @@ workflow tbprofiler_wf {
     String tb_profiler_wf_analysis_date = version_capture.date
 
     File tb_profiler_report_csv = tbprofiler_one_sample_pe.tbprofiler_output_csv
-    File tb_profiler_report_tsv =tbprofiler_one_sample_pe.tbprofiler_output_tsv
+    File tb_profiler_report_tsv = tbprofiler_one_sample_pe.tbprofiler_output_tsv
+    File tbprofiler_output_alignment_bam = tbprofiler_one_sample_pe.tbprofiler_output_bam
     String tb_profiler_version = tbprofiler_one_sample_pe.version
     String tb_profiler_main_lineage = tbprofiler_one_sample_pe.tb_profiler_main_lineage
     String tb_profiler_sub_lineage = tbprofiler_one_sample_pe.tb_profiler_sub_lineage
