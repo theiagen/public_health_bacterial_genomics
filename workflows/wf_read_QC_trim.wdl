@@ -15,6 +15,7 @@ workflow read_QC_trim {
     Int?    trimmomatic_minlen = 75
     Int?    trimmomatic_quality_trim_score = 30
     Int?    trimmomatic_window_size = 4
+    Int     bbduk_mem = 8
   }
   call read_clean.trimmomatic_pe {
     input:
@@ -29,7 +30,8 @@ workflow read_QC_trim {
     input:
       samplename = samplename,
       read1_trimmed = trimmomatic_pe.read1_trimmed,
-      read2_trimmed = trimmomatic_pe.read2_trimmed
+      read2_trimmed = trimmomatic_pe.read2_trimmed,
+      mem_size_gb = bbduk_mem
   }
   call qc_utils.fastqc_pe as fastqc_raw {
     input:
