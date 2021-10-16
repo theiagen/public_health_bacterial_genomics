@@ -4,13 +4,13 @@ task gambit {
   input {
     File assembly
     String samplename
-    String docker = "quay.io/staphb/gambitl:0.3.0"
+    String docker = "quay.io/staphb/gambit:0.3.0"
   }
   command <<<
     # capture date and version
     date | tee DATE
 
-    gambit query -d /gabmit-db -o ~{samplename}_gambit.csv ~{assembly} 
+    gambit -d /gambit-db query -o ~{samplename}_gambit.csv ~{assembly} 
 
     python3 <<CODE
     import csv
@@ -47,8 +47,8 @@ task gambit {
     String pipeline_date = read_string("DATE")
     Float gambit_score = read_float("GAMBIT_SCORE") 
     Float gambit_delta = read_float("GAMBIT_DELTA")
-    String gambit_taxon = read_string("PREDICTED_TAXON")
-    String gambit_rank = read_string("PREDICTED_RANK")
+    String gambit_taxon = read_string("GAMBIT_TAXON")
+    String gambit_rank = read_string("GAMBIT_RANK")
   }
   runtime {
     docker:  "~{docker}"
