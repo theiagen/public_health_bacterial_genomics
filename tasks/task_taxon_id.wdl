@@ -4,13 +4,13 @@ task gambit {
   input {
     File assembly
     String samplename
-    String docker = "theiagen/midas_nsphl:1.0.0"
+    String docker = "quay.io/staphb/gambitl:0.3.0"
   }
   command <<<
     # capture date and version
     date | tee DATE
 
-    midas query ~{assembly} | tail -n2 > ~{samplename}_gambit.csv
+    gambit query -d /gabmit-db -o ~{samplename}_gambit.csv ~{assembly} 
 
     python3 <<CODE
     import csv
@@ -19,26 +19,26 @@ task gambit {
       csv_reader = list(csv.DictReader(csv_file, delimiter=","))
       for line in csv_reader:
         with open ("GAMBIT_SCORE", 'wt') as gambit_score:
-          top_score=float(line["top_score"])
+          top_score=float(line["closest.distance"])
           top_score="{:.2f}".format(top_score)
           gambit_score.write(str(top_score))
         with open("GAMBIT_DELTA", 'wt') as gambit_delta:
-          top_score=float(line["top_score"])
-          species_threshold=float(line["species_threshold"])
-          delta=top_score - species_threshold
+          top_score=float(line["closest.distance"])
+          predicted_threshold=float(line["predicted.threshold"])
+          delta=top_score - predicted_threshold
           #format delta to two decimal placesn
           delta="{:.2f}".format(delta)
           gambit_delta.write(str(delta))
-        with open("PREDICTED_GENUS", 'wt') as predicted_genus:
-          genus=line["predicted_genus"]
-          if not genus:
-            genus="None"
-          predicted_genus.write(genus)
-        with open("PREDICTED_SPECIES", 'wt') as predicted_species:
-          species=line["predicted_species"]
-          if not species:
-            species="None"
-          predicted_species.write(species)
+        with open("GAMBIT_RANK", 'wt') as gambit_rank:
+          predicted_rank=line["predicted.rank"]
+          if not predicted_rank:
+            predicted_rank="None"
+          gambit_rank.write(predicted_rank)
+        with open("GAMBIT_TAXON", 'wt') as gambit_taxon:
+          predicted_taxon=line["predicted.name"]
+          if not predicted_taxon:
+            predicted_taxon="None"
+          gambit_taxon.write(predicted_taxon)
     CODE
   >>>
   output {
@@ -47,8 +47,8 @@ task gambit {
     String pipeline_date = read_string("DATE")
     Float gambit_score = read_float("GAMBIT_SCORE") 
     Float gambit_delta = read_float("GAMBIT_DELTA")
-    String gambit_genus = read_string("PREDICTED_GENUS")
-    String gambit_species = read_string("PREDICTED_SPECIES")
+    String gambit_taxon = read_string("PREDICTED_TAXON")
+    String gambit_rank = read_string("PREDICTED_RANK")
   }
   runtime {
     docker:  "~{docker}"
