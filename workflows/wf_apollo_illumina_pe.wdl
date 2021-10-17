@@ -84,7 +84,7 @@ workflow apollo_illumina_pe {
     
     File gambit_report = gambit.gambit_report
     String gambit_docker = gambit.gambit_docker
-    Float gambit_score = gambit.gambit_score
+    Float gambit_distance = gambit.gambit_distance
     Float gambit_delta = gambit.gambit_delta
     String gambit_taxon = gambit.gambit_taxon
     String gambit_rank = gambit.gambit_rank

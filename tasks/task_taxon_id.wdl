@@ -20,10 +20,10 @@ task gambit {
     with open("~{samplename}_gambit.csv",'r') as csv_file:
       csv_reader = list(csv.DictReader(csv_file, delimiter=","))
       for line in csv_reader:
-        with open ("GAMBIT_SCORE", 'wt') as gambit_score:
+        with open ("GAMBIT_DISTANCE", 'wt') as gambit_distance:
           top_score=float(line["closest.distance"])
           top_score="{:.2f}".format(top_score)
-          gambit_score.write(str(top_score))
+          gambit_distance.write(str(top_score))
         with open("GAMBIT_DELTA", 'wt') as gambit_delta:
           top_score=float(line["closest.distance"])
           predicted_threshold=line["predicted.threshold"]
@@ -51,7 +51,7 @@ task gambit {
     File gambit_report = "~{samplename}_gambit.csv"
     String gambit_docker = docker
     String pipeline_date = read_string("DATE")
-    Float gambit_score = read_float("GAMBIT_SCORE") 
+    Float gambit_distance = read_float("GAMBIT_DISTANCE") 
     Float gambit_delta = read_float("GAMBIT_DELTA")
     String gambit_taxon = read_string("GAMBIT_TAXON")
     String gambit_rank = read_string("GAMBIT_RANK")
