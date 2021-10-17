@@ -11,7 +11,9 @@ task gambit {
     date | tee DATE
 
     gambit -d /gambit-db query -o ~{samplename}_gambit.csv ~{assembly} 
-
+    
+    echo "gambit out:"
+    cat ~{samplename}_gambit.csv
     python3 <<CODE
     import csv
     #grab output genome length and number contigs by column header
@@ -24,9 +26,13 @@ task gambit {
           gambit_score.write(str(top_score))
         with open("GAMBIT_DELTA", 'wt') as gambit_delta:
           top_score=float(line["closest.distance"])
-          predicted_threshold=float(line["predicted.threshold"])
-          delta=top_score - predicted_threshold
-          #format delta to two decimal placesn
+          predicted_threshold=line["predicted.threshold"]
+          if not predicted_threshold:
+            predicted_threshold = 0.0
+          else: 
+            predicted_threshold = float(predicted_threshold)
+          delta= predicted_threshold - top_score
+          #format delta to two decimal places
           delta="{:.2f}".format(delta)
           gambit_delta.write(str(delta))
         with open("GAMBIT_RANK", 'wt') as gambit_rank:
