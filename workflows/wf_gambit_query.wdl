@@ -22,8 +22,7 @@ workflow gambit_query {
 		
 		File gambit_report = gambit.gambit_report
 		String gambit_docker = gambit.gambit_docker
-		Float gambit_score = gambit.gambit_score
-		Float gambit_delta = gambit.gambit_delta
+		Float gambit_distance = gambit.gambit_distance
 		String gambit_taxon = gambit.gambit_taxon
 		String gambit_rank = gambit.gambit_rank
     }

@@ -24,17 +24,6 @@ task gambit {
           top_score=float(line["closest.distance"])
           top_score="{:.2f}".format(top_score)
           gambit_distance.write(str(top_score))
-        with open("GAMBIT_DELTA", 'wt') as gambit_delta:
-          top_score=float(line["closest.distance"])
-          predicted_threshold=line["predicted.threshold"]
-          if not predicted_threshold:
-            predicted_threshold = 0.0
-          else: 
-            predicted_threshold = float(predicted_threshold)
-          delta= predicted_threshold - top_score
-          #format delta to two decimal places
-          delta="{:.2f}".format(delta)
-          gambit_delta.write(str(delta))
         with open("GAMBIT_RANK", 'wt') as gambit_rank:
           predicted_rank=line["predicted.rank"]
           if not predicted_rank:
@@ -52,7 +41,6 @@ task gambit {
     String gambit_docker = docker
     String pipeline_date = read_string("DATE")
     Float gambit_distance = read_float("GAMBIT_DISTANCE") 
-    Float gambit_delta = read_float("GAMBIT_DELTA")
     String gambit_taxon = read_string("GAMBIT_TAXON")
     String gambit_rank = read_string("GAMBIT_RANK")
   }
