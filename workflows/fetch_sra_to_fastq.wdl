@@ -39,7 +39,7 @@ task prefetch_fastq_dump {
   }
 
   runtime {
-    docker:       "staphb/sratoolkit:2.9.2"
+    docker:       "quay.io/staphb/sratoolkit:2.9.2"
     memory:       "8 GB"
     cpu:          2
     disks:        "local-disk 100 SSD"
