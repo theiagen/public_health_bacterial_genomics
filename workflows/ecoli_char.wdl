@@ -59,7 +59,7 @@ task abricate {
   }
 
   runtime {
-    docker:       "staphb/abricate:1.0.0"
+    docker:       "quay.io/staphb/abricate:1.0.0"
     memory:       "8 GB"
     cpu:          2
     disks:        "local-disk 100 SSD"
@@ -85,7 +85,7 @@ task amrfinderplus {
   }
 
   runtime {
-    docker:       "staphb/ncbi-amrfinderplus:3.8.28"
+    docker:       "quay.io/staphb/ncbi-amrfinderplus:3.8.28"
     memory:       "8 GB"
     cpu:          2
     disks:        "local-disk 100 SSD"
@@ -117,7 +117,7 @@ task serotypefinder {
   }
 
   runtime {
-    docker:       "staphb/serotypefinder:1.1"
+    docker:       "quay.io/staphb/serotypefinder:1.1"
     memory:       "8 GB"
     cpu:          2
     disks:        "local-disk 100 SSD"
