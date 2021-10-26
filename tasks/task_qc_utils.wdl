@@ -7,7 +7,7 @@ task fastqc_pe {
     String read1_name = basename(basename(basename(read1, ".gz"), ".fastq"), ".fq")
     String read2_name = basename(basename(basename(read2, ".gz"), ".fastq"), ".fq")
     Int? cpus = 2
-    String docker="staphb/fastqc:0.11.8"
+    String docker="quay.io/staphb/fastqc:0.11.9"
   }
   command <<<
     # capture date and version
@@ -53,7 +53,7 @@ task fastqc_se {
     File read1
     String read1_name = basename(basename(basename(read1, ".gz"), ".fastq"), ".fq")
     Int? cpus = 2
-    String docker="staphb/fastqc:0.11.8"
+    String docker="quay.io/staphb/fastqc:0.11.9"
   }
   command <<<
     # capture date and version
@@ -85,7 +85,7 @@ task quast {
   input {
     File assembly
     String samplename
-    String docker="staphb/quast:5.0.2"
+    String docker="quay.io/staphb/quast:5.0.2"
   }
   command <<<
     # capture date and version
@@ -130,7 +130,7 @@ task cg_pipeline {
     File  read1
     File  read2
     String  samplename
-    String  docker="staphb/lyveset:1.1.4f"
+    String  docker="quay.io/staphb/lyveset:1.1.4f"
     String  cg_pipe_opts="--fast"
     Int genome_length
   }
