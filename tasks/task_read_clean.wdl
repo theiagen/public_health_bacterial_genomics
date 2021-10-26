@@ -5,7 +5,7 @@ task trimmomatic_pe {
     File  read1
     File  read2
     String  samplename
-    String  docker = "staphb/trimmomatic:0.39"
+    String  docker = "quay.io/staphb/trimmomatic:0.39"
     Int?  trimmomatic_minlen = 15
     Int?  trimmomatic_window_size = 4
     Int?  trimmomatic_quality_trim_score = 30
@@ -42,7 +42,7 @@ task trimmomatic_se {
   input {
     File read1
     String samplename
-    String docker="staphb/trimmomatic:0.39"
+    String docker="quay.io/staphb/trimmomatic:0.39"
     Int? trimmomatic_minlen = 25
     Int? trimmomatic_window_size=4
     Int? trimmomatic_quality_trim_score=30
@@ -79,7 +79,7 @@ task bbduk_pe {
     File read1_trimmed
     File read2_trimmed
     String samplename
-    String docker = "staphb/bbtools:38.76"
+    String docker = "quay.io/staphb/bbtools:38.76"
   }
   command <<<
     # date and version control
@@ -112,7 +112,7 @@ task bbduk_se {
   input {
     File read1_trimmed
     String samplename
-    String docker="staphb/bbtools:38.76"
+    String docker="quay.io/staphb/bbtools:38.76"
   }
   command <<<
     # date and version control
