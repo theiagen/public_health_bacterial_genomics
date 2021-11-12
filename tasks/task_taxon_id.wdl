@@ -5,15 +5,23 @@ task gambit {
     File assembly
     String samplename
     String docker = "quay.io/staphb/gambit:0.3.0"
+    File? gambit_db_genomes
+    File? gambit_db_signatures
   }
+  String gambit_db_genomes_name = basename(gambit_db_genomes)
+  String gambit_db_signatures_name = basename(gambit_db_signatures)
+  
   command <<<
     # capture date and version
     date | tee DATE
-
-    gambit -d /gambit-db query -o ~{samplename}_gambit.csv ~{assembly} 
     
-    echo "gambit out:"
-    cat ~{samplename}_gambit.csv
+    # create gambit database dir
+    mkdir user_database
+    cp ~{gambit_db_genomes} gambit_database
+    cp ~{gambit_db_signatures} gambit_database
+    
+    gambit -d /gambit_database query -o ~{samplename}_gambit.csv ~{assembly} 
+    
     python3 <<CODE
     import csv
     #grab output genome length and number contigs by column header
@@ -43,6 +51,8 @@ task gambit {
     Float gambit_distance = read_float("GAMBIT_DISTANCE") 
     String gambit_taxon = read_string("GAMBIT_TAXON")
     String gambit_rank = read_string("GAMBIT_RANK")
+    String gambit_db_genomes_version = gambit_db_genomes_name
+    String gambit_db_signatures_version = gambit_db_signatures_name
   }
   runtime {
     docker:  "~{docker}"

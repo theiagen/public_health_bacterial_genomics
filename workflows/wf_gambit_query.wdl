@@ -25,5 +25,7 @@ workflow gambit_query {
 		Float gambit_distance = gambit.gambit_distance
 		String gambit_taxon = gambit.gambit_taxon
 		String gambit_rank = gambit.gambit_rank
+		String gambit_db_genomes_version = gambit.gambit_db_genomes_version
+		String gambit_db_signatures_version = gambit.gambit_db_signatures_version
     }
 }
