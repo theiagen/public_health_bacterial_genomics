@@ -30,7 +30,7 @@ task gambit {
       for line in csv_reader:
         with open ("GAMBIT_DISTANCE", 'wt') as gambit_distance:
           top_score=float(line["closest.distance"])
-          top_score="{:.2f}".format(top_score)
+          top_score="{:.4f}".format(top_score)
           gambit_distance.write(str(top_score))
         with open("GAMBIT_RANK", 'wt') as gambit_rank:
           predicted_rank=line["predicted.rank"]
