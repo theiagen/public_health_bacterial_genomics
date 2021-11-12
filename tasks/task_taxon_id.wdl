@@ -5,8 +5,8 @@ task gambit {
     File assembly
     String samplename
     String docker = "quay.io/staphb/gambit:0.3.0"
-    File? gambit_db_genomes
-    File? gambit_db_signatures
+    File gambit_db_genomes
+    File gambit_db_signatures
   }
   String gambit_db_genomes_name = basename(gambit_db_genomes, ".db")
   String gambit_db_signatures_name = basename(gambit_db_signatures, ".h5")
