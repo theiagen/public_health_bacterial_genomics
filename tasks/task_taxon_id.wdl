@@ -16,11 +16,11 @@ task gambit {
     date | tee DATE
     
     # create gambit database dir
-    mkdir gambit_database
-    cp ~{gambit_db_genomes} gambit_database
-    cp ~{gambit_db_signatures} gambit_database
+    mkdir ./gambit_database
+    cp ~{gambit_db_genomes} ./gambit_database
+    cp ~{gambit_db_signatures} ./gambit_database
     
-    gambit -d /gambit_database query -o ~{samplename}_gambit.csv ~{assembly} 
+    gambit -d .//gambit_database query -o ~{samplename}_gambit.csv ~{assembly} 
     
     python3 <<CODE
     import csv
