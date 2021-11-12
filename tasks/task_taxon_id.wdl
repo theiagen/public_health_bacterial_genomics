@@ -16,7 +16,7 @@ task gambit {
     date | tee DATE
     
     # create gambit database dir
-    mkdir user_database
+    mkdir gambit_database
     cp ~{gambit_db_genomes} gambit_database
     cp ~{gambit_db_signatures} gambit_database
     
