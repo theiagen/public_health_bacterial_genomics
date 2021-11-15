@@ -1,5 +1,25 @@
 version 1.0
 
+struct GambitTaxon {
+#  String id
+#  String key
+  String name
+  Int? ncbi_id
+  String? rank
+  Float distance_threshold
+}
+
+struct GambitGenome {
+#  String id
+#  String key
+  String description
+#  String organism
+  String? ncbi_db
+  String? ncbi_id
+  String? genbank_acc
+  String? refseq_acc
+}
+
 task gambit {
   input {
     File assembly
@@ -20,48 +40,43 @@ task gambit {
     ln -s ~{gambit_db_signatures} ./db
 
     # run GAMBIT query
-    gambit -d ./db query -o ~{samplename}_gambit.csv ~{assembly}
+    gambit -d ./db query -f json -o results.json ~{assembly}
 
     python3 <<CODE
-    import csv
-    #grab output genome length and number contigs by column header
-    with open("~{samplename}_gambit.csv",'r') as csv_file:
-      csv_reader = list(csv.DictReader(csv_file, delimiter=","))
-      for line in csv_reader:
-        with open ("GAMBIT_DISTANCE", 'wt') as gambit_distance:
-          top_score=float(line["closest.distance"])
-          top_score="{:.4f}".format(top_score)
-          gambit_distance.write(str(top_score))
-        with open("GAMBIT_RANK", 'wt') as gambit_rank:
-          predicted_rank=line["predicted.rank"]
-          if not predicted_rank:
-            predicted_rank="None"
-          gambit_rank.write(predicted_rank)
-        with open("GAMBIT_TAXON", 'wt') as gambit_taxon:
-          predicted_taxon=line["predicted.name"]
-          if not predicted_taxon:
-            predicted_taxon="None"
-          gambit_taxon.write(predicted_taxon)
+    import json
+
+    with open("results.json") as f:
+      in_data = json.load(f)
+    item = in_data['items'][0]
+
+    with open("TAXON.json", "w") as f:
+      json.dump(item['predicted_taxon'], f)
+
+    with open("GENOME.json", "w") as f:
+      json.dump(item['closest_genome'], f)
+
+    with open("DISTANCE", "w") as f:
+      print(item['closest_genome_distance'], file=f)
     CODE
   >>>
 
   output {
-    File gambit_report = "~{samplename}_gambit.csv"
     String gambit_docker = docker
     String pipeline_date = read_string("DATE")
-    Float gambit_distance = read_float("GAMBIT_DISTANCE") 
-    String gambit_taxon = read_string("GAMBIT_TAXON")
-    String gambit_rank = read_string("GAMBIT_RANK")
     String gambit_db_genomes_version = basename(gambit_db_genomes, ".db")
     String gambit_db_signatures_version = basename(gambit_db_signatures, ".h5")
+    File results = "results.json"
+    GambitTaxon? predicted = read_json("TAXON.json")
+    GambitGenome closest = read_json("GENOME.json")
+    Float closest_distance = read_float("DISTANCE")
   }
 
   runtime {
-    docker:  "~{docker}"
-    memory:  "16 GB"
-    cpu:   8
+    docker: "~{docker}"
+    memory: "16 GB"
+    cpu: 8
     disks: "local-disk 100 SSD"
-    preemptible:  0
+    preemptible: 0
   }
 }
 
@@ -155,6 +170,7 @@ task kleborate_one_sample {
     disks:        "local-disk 100 SSD"
   }
 }
+
 task serotypefinder_one_sample {
   input {
     File ecoli_assembly

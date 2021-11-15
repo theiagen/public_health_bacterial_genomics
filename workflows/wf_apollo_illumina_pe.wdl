@@ -81,12 +81,11 @@ workflow apollo_illumina_pe {
     Float r1_mean_q = cg_pipeline.r1_mean_q
     Float? r2_mean_q = cg_pipeline.r2_mean_q
     Float est_coverage = cg_pipeline.est_coverage
-    
-    File gambit_report = gambit.gambit_report
-    String gambit_docker = gambit.gambit_docker
-    Float gambit_distance = gambit.gambit_distance
-    String gambit_taxon = gambit.gambit_taxon
-    String gambit_rank = gambit.gambit_rank
 
+    File gambit_results = gambit.results
+    String gambit_docker = gambit.gambit_docker
+    GambitTaxon? gambit_prediction = gambit.predicted
+    Float gambit_closest_distance = gambit.closest_distance
+    GambitGenome gambit_closest_genome = gambit.closest
   }
 }
