@@ -4,7 +4,7 @@ task gambit {
   input {
     File assembly
     String samplename
-    String docker = "theiagen/midas_nsphl:1.0.0"
+    String docker = "quay.io/theiagen/midas_nsphl:1.0.0"
   }
   command <<<
     # capture date and version
@@ -63,7 +63,7 @@ task kleborate_one_sample {
   input {
     File assembly
     String samplename
-    String kleborate_docker_image = "staphb/kleborate:2.0.4"
+    String kleborate_docker_image = "quay.io/staphb/kleborate:2.0.4"
   }
   command <<<
     # capture date and version

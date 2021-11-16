@@ -65,7 +65,7 @@ task seqyclean {
   }
 
   runtime {
-      docker:       "staphb/seqyclean:1.10.09"
+      docker:       "quay.io/staphb/seqyclean:1.10.09"
       memory:       "8 GB"
       cpu:          2
       disks:        "local-disk 100 SSD"
@@ -98,7 +98,7 @@ task shovill {
   }
 
   runtime {
-      docker:       "staphb/shovill:1.1.0"
+      docker:       "quay.io/staphb/shovill:1.1.0"
       memory:       "16 GB"
       cpu:          4
       disks:        "local-disk 100 SSD"
