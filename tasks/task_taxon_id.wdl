@@ -8,20 +8,20 @@ task gambit {
     File gambit_db_genomes
     File gambit_db_signatures
   }
-  String gambit_db_genomes_name = basename(gambit_db_genomes, ".db")
-  String gambit_db_signatures_name = basename(gambit_db_signatures, ".h5")
-  
+
   command <<<
     # capture date and version
     date | tee DATE
-    
+    gambit --version
+
     # create gambit database dir
-    mkdir ./gambit_database
-    cp ~{gambit_db_genomes} ./gambit_database
-    cp ~{gambit_db_signatures} ./gambit_database
-    
-    gambit -d .//gambit_database query -o ~{samplename}_gambit.csv ~{assembly} 
-    
+    mkdir ./db
+    ln -s ~{gambit_db_genomes} ./db
+    ln -s ~{gambit_db_signatures} ./db
+
+    # run GAMBIT query
+    gambit -d ./db query -o ~{samplename}_gambit.csv ~{assembly}
+
     python3 <<CODE
     import csv
     #grab output genome length and number contigs by column header
@@ -44,6 +44,7 @@ task gambit {
           gambit_taxon.write(predicted_taxon)
     CODE
   >>>
+
   output {
     File gambit_report = "~{samplename}_gambit.csv"
     String gambit_docker = docker
@@ -51,9 +52,10 @@ task gambit {
     Float gambit_distance = read_float("GAMBIT_DISTANCE") 
     String gambit_taxon = read_string("GAMBIT_TAXON")
     String gambit_rank = read_string("GAMBIT_RANK")
-    String gambit_db_genomes_version = gambit_db_genomes_name
-    String gambit_db_signatures_version = gambit_db_signatures_name
+    String gambit_db_genomes_version = basename(gambit_db_genomes, ".db")
+    String gambit_db_signatures_version = basename(gambit_db_signatures, ".h5")
   }
+
   runtime {
     docker:  "~{docker}"
     memory:  "16 GB"
@@ -62,6 +64,7 @@ task gambit {
     preemptible:  0
   }
 }
+
 task kleborate_one_sample {
   # Inputs
   input {
