@@ -20,16 +20,16 @@ task gambit {
     with open("~{samplename}_gambit.csv",'r') as csv_file:
       csv_reader = list(csv.DictReader(csv_file, delimiter=","))
       for line in csv_reader:
-        with open ("GAMBIT_DISTANCE", 'wt') as gambit_distance:
+        with open ("CLOSEST_DISTANCE", 'wt') as gambit_distance:
           top_score=float(line["closest.distance"])
           top_score="{:.4f}".format(top_score)
           gambit_distance.write(str(top_score))
-        with open("GAMBIT_RANK", 'wt') as gambit_rank:
+        with open("PREDICTED_RANK", 'wt') as gambit_rank:
           predicted_rank=line["predicted.rank"]
           if not predicted_rank:
             predicted_rank="None"
           gambit_rank.write(predicted_rank)
-        with open("GAMBIT_TAXON", 'wt') as gambit_taxon:
+        with open("PREDICTED_TAXON", 'wt') as gambit_taxon:
           predicted_taxon=line["predicted.name"]
           if not predicted_taxon:
             predicted_taxon="None"
@@ -39,12 +39,12 @@ task gambit {
 
   output {
     String gambit_version = read_string("GAMBIT_VERSION")
-    File gambit_report = "~{samplename}_gambit.csv"
-    String gambit_docker = docker
+    String docker_image = docker
     String pipeline_date = read_string("DATE")
-    Float gambit_distance = read_float("GAMBIT_DISTANCE")
-    String gambit_taxon = read_string("GAMBIT_TAXON")
-    String gambit_rank = read_string("GAMBIT_RANK")
+    File report_file = "~{samplename}_gambit.csv"
+    Float closest_distance = read_float("CLOSEST_DISTANCE")
+    String predicted_taxon = read_string("PREDICTED_TAXON")
+    String predicted_rank = read_string("PREDICTED_RANK")
   }
 
   runtime {
