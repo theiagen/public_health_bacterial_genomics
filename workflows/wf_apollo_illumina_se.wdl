@@ -49,30 +49,30 @@ workflow apollo_illumina_pe {
   output {
     String apollo_illumina_pe_version = version_capture.phbg_version
     String apollo_illumina_pe_analysis_date = version_capture.date
-        
+
     String seq_platform	=	seq_method
 
     Int fastqc_raw = read_QC_trim.fastqc_number_reads
     String fastqc_version = read_QC_trim.fastqc_version
     Int fastqc_clean = read_QC_trim.fastqc_clean_number_reads
-    
+
     String trimmomatic_version = read_QC_trim.trimmomatic_version
     String bbduk_docker = read_QC_trim.bbduk_docker
 
     File assembly_fasta = shovill_se.assembly_fasta
     File contigs_gfa = shovill_se.contigs_gfa
     String shovill_se_version = shovill_se.shovill_version
-    
+
     File quast_report = quast.quast_report
     String quast_version = quast.version
     Int genome_length = quast.genome_length
     Int number_contigs = quast.number_contigs
-    
+
     File cg_pipeline_report = cg_pipeline.cg_pipeline_report
     String cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
     Float r1_mean_q = cg_pipeline.r1_mean_q
     Float est_coverage = cg_pipeline.est_coverage
-    
+
     File gambit_report = gambit.gambit_report
     String gambit_docker = gambit.gambit_docker
     Float gambit_distance = gambit.gambit_distance

@@ -10,18 +10,18 @@ task gambit {
   }
   String gambit_db_genomes_name = basename(gambit_db_genomes, ".db")
   String gambit_db_signatures_name = basename(gambit_db_signatures, ".h5")
-  
+
   command <<<
     # capture date and version
     date | tee DATE
-    
+
     # create gambit database dir
     mkdir ./gambit_database
     cp ~{gambit_db_genomes} ./gambit_database
     cp ~{gambit_db_signatures} ./gambit_database
-    
-    gambit -d .//gambit_database query -o ~{samplename}_gambit.csv ~{assembly} 
-    
+
+    gambit -d .//gambit_database query -o ~{samplename}_gambit.csv ~{assembly}
+
     python3 <<CODE
     import csv
     #grab output genome length and number contigs by column header
@@ -44,24 +44,25 @@ task gambit {
           gambit_taxon.write(predicted_taxon)
     CODE
   >>>
+
   output {
     File gambit_report = "~{samplename}_gambit.csv"
     String gambit_docker = docker
     String pipeline_date = read_string("DATE")
-    Float gambit_distance = read_float("GAMBIT_DISTANCE") 
+    Float gambit_distance = read_float("GAMBIT_DISTANCE")
     String gambit_taxon = read_string("GAMBIT_TAXON")
     String gambit_rank = read_string("GAMBIT_RANK")
-    String gambit_db_genomes_version = gambit_db_genomes_name
-    String gambit_db_signatures_version = gambit_db_signatures_name
   }
+
   runtime {
-    docker:  "~{docker}"
-    memory:  "16 GB"
-    cpu:   8
+    docker: "~{docker}"
+    memory: "16 GB"
+    cpu: 8
     disks: "local-disk 100 SSD"
-    preemptible:  0
+    preemptible: 0
   }
 }
+
 task kleborate_one_sample {
   # Inputs
   input {
@@ -152,6 +153,7 @@ task kleborate_one_sample {
     disks:        "local-disk 100 SSD"
   }
 }
+
 task serotypefinder_one_sample {
   input {
     File ecoli_assembly
@@ -162,25 +164,25 @@ task serotypefinder_one_sample {
     # capture date and version
     date | tee DATE
 
-    serotypefinder.py -i ~{ecoli_assembly}  -x -o . 
+    serotypefinder.py -i ~{ecoli_assembly}  -x -o .
     mv results_tab.tsv ~{samplename}_results_tab.tsv
-    
+
     # set H and O type based on serotypefinder ourputs
     python3 <<CODE
     import csv
     import re
-    
+
     antigens = []
     h_re = re.compile("H[0-9]*")
     o_re = re.compile("O[0-9]*")
-    
+
     with open("~{samplename}_results_tab.tsv",'r') as tsv_file:
       tsv_reader = csv.DictReader(tsv_file, delimiter="\t")
       for row in tsv_reader:
           if row.get('Serotype') not in antigens:
-            antigens.append(row.get('Serotype'))            
+            antigens.append(row.get('Serotype'))
     print("Antigens: " + str(antigens))
-    
+
     h_type = "/".join(set("/".join(list(filter(h_re.match, antigens))).split('/')))
     print("H-type: " + h_type)
     o_type = "/".join(set("/".join(list(filter(o_re.match,antigens))).split('/')))
@@ -190,7 +192,7 @@ task serotypefinder_one_sample {
     if serotype == ":":
       serotype = "NA"
     print("Serotype: " + serotype)
-    
+
     with open ("STF_SEROTYPE", 'wt') as stf_serotype:
       stf_serotype.write(str(serotype))
     CODE
