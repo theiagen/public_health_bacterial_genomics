@@ -10,6 +10,7 @@ task gambit {
   command <<<
     # capture date and version
     date | tee DATE
+    gambit --version | tee GAMBIT_VERSION
 
     gambit query -o ~{samplename}_gambit.csv ~{assembly}
 
@@ -37,6 +38,7 @@ task gambit {
   >>>
 
   output {
+    String gambit_version = read_string("GAMBIT_VERSION")
     File gambit_report = "~{samplename}_gambit.csv"
     String gambit_docker = docker
     String pipeline_date = read_string("DATE")
