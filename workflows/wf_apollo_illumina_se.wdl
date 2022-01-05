@@ -6,7 +6,7 @@ import "../tasks/task_taxon_id.wdl" as taxon_id
 import "../tasks/task_denovo_assembly.wdl" as assembly
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow apollo_illumina_pe {
+workflow apollo_illumina_se {
   meta {
     description: "De-novo genome assembly, taxonomic ID, and QC of paired-end bacterial NGS data"
   }
