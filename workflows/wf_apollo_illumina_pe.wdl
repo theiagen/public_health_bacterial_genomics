@@ -88,5 +88,6 @@ workflow apollo_illumina_pe {
     String gambit_predicted_taxon = gambit.predicted_taxon
     String gambit_predicted_rank = gambit.predicted_rank
     String gambit_predicted_threshold = gambit.predicted_threshold
+    File gambit_closest_genomes = gambit.closest_genomes_file
   }
 }
