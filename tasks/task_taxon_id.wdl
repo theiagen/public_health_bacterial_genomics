@@ -4,47 +4,54 @@ task gambit {
   input {
     File assembly
     String samplename
-    String docker = "quay.io/staphb/gambit:0.3.0"
+    String docker = "quay.io/staphb/gambit:0.4.0"
   }
+
+  # If "File" type is used Cromwell attempts to localize it, which fails because it doesn't exist yet.
+  String out_file = "~{samplename}_gambit.json"
 
   command <<<
     # capture date and version
     date | tee DATE
     gambit --version | tee GAMBIT_VERSION
 
-    gambit query -o ~{samplename}_gambit.csv ~{assembly}
+    gambit query -f json -o ~{out_file} ~{assembly}
 
-    python3 <<CODE
-    import csv
-    #grab output genome length and number contigs by column header
-    with open("~{samplename}_gambit.csv",'r') as csv_file:
-      csv_reader = list(csv.DictReader(csv_file, delimiter=","))
-      for line in csv_reader:
-        with open ("CLOSEST_DISTANCE", 'wt') as gambit_distance:
-          top_score=float(line["closest.distance"])
-          top_score="{:.4f}".format(top_score)
-          gambit_distance.write(str(top_score))
-        with open("PREDICTED_RANK", 'wt') as gambit_rank:
-          predicted_rank=line["predicted.rank"]
-          if not predicted_rank:
-            predicted_rank="None"
-          gambit_rank.write(predicted_rank)
-        with open("PREDICTED_TAXON", 'wt') as gambit_taxon:
-          predicted_taxon=line["predicted.name"]
-          if not predicted_taxon:
-            predicted_taxon="None"
-          gambit_taxon.write(predicted_taxon)
-    CODE
+    python3 <<EOF
+    import json
+
+    def fmt_dist(d): return format(d, '.4f')
+
+    with open("~{out_file}") as f:
+      data = json.load(f)
+
+    (item,) = data['items']
+    predicted = item['predicted_taxon']
+    closest = item['closest_genomes'][0]
+
+    with open('CLOSEST_DISTANCE', 'w') as f:
+      f.write(fmt_dist(closest['distance']))
+
+    with open('PREDICTED_TAXON', 'w') as f:
+      f.write('' if predicted is None else predicted['name'])
+
+    with open('PREDICTED_RANK', 'w') as f:
+      f.write('' if predicted is None else predicted['rank'])
+
+    with open('PREDICTED_THRESHOLD', 'w') as f:
+      f.write(fmt_dist(0 if predicted is None else predicted['distance_threshold']))
+    EOF
   >>>
 
   output {
     String gambit_version = read_string("GAMBIT_VERSION")
     String docker_image = docker
     String pipeline_date = read_string("DATE")
-    File report_file = "~{samplename}_gambit.csv"
+    File report_file = out_file
     Float closest_distance = read_float("CLOSEST_DISTANCE")
     String predicted_taxon = read_string("PREDICTED_TAXON")
     String predicted_rank = read_string("PREDICTED_RANK")
+    String predicted_threshold = read_string("PREDICTED_THRESHOLD")
   }
 
   runtime {

@@ -78,5 +78,6 @@ workflow apollo_illumina_se {
     Float gambit_closest_distance = gambit.closest_distance
     String gambit_predicted_taxon = gambit.predicted_taxon
     String gambit_predicted_rank = gambit.predicted_rank
+    String gambit_predicted_threshold = gambit.predicted_threshold
   }
 }
