@@ -79,6 +79,9 @@ workflow apollo_illumina_se {
     String gambit_predicted_taxon = gambit.predicted_taxon
     String gambit_predicted_rank = gambit.predicted_rank
     String gambit_predicted_threshold = gambit.predicted_threshold
+    String gambit_next_taxon = gambit.next_taxon
+    String gambit_next_rank = gambit.next_rank
+    String gambit_next_threshold = gambit.next_threshold
     File gambit_closest_genomes = gambit.closest_genomes_file
   }
 }

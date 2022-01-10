@@ -29,20 +29,29 @@ task gambit {
 
     (item,) = data['items']
     predicted = item['predicted_taxon']
+    next_taxon = item['next_taxon']
     closest = item['closest_genomes'][0]
 
     with open('CLOSEST_DISTANCE', 'w') as f:
       f.write(fmt_dist(closest['distance']))
 
+    # Predicted taxon
     with open('PREDICTED_TAXON', 'w') as f:
       f.write('' if predicted is None else predicted['name'])
-
     with open('PREDICTED_RANK', 'w') as f:
       f.write('' if predicted is None else predicted['rank'])
-
     with open('PREDICTED_THRESHOLD', 'w') as f:
       f.write(fmt_dist(0 if predicted is None else predicted['distance_threshold']))
 
+    # Next taxon
+    with open('NEXT_TAXON', 'w') as f:
+      f.write('' if next_taxon is None else next_taxon['name'])
+    with open('NEXT_RANK', 'w') as f:
+      f.write('' if next_taxon is None else next_taxon['rank'])
+    with open('NEXT_THRESHOLD', 'w') as f:
+      f.write(fmt_dist(0 if next_taxon is None else next_taxon['distance_threshold']))
+
+    # Table of closest genomes
     with open('~{closest_genomes_path}', 'w', newline='') as f:
       writer = csv.writer(f)
 
@@ -86,6 +95,9 @@ task gambit {
     String predicted_taxon = read_string("PREDICTED_TAXON")
     String predicted_rank = read_string("PREDICTED_RANK")
     String predicted_threshold = read_string("PREDICTED_THRESHOLD")
+    String next_taxon = read_string("NEXT_TAXON")
+    String next_rank = read_string("NEXT_RANK")
+    String next_threshold = read_string("NEXT_THRESHOLD")
   }
 
   runtime {
