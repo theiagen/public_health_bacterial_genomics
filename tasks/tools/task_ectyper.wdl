@@ -27,7 +27,7 @@ task ectyper {
     }
 
     command <<<
-        ectyper --version 2>&1 | sed 's/.*ectyper //; s/ .*\$//' | tee VERSION
+        echo $(ectyper --version 2>&1) | sed 's/.*ectyper //; s/ .*\$//' | tee VERSION
         ectyper \
             ${'--opid' + opid} \
             ${'--hpid' + hpid} \
