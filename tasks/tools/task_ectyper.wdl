@@ -1,0 +1,57 @@
+version 1.0
+
+task ectyper {
+    meta {
+        description: "In-silico prediction of Escherichia coli serotype"
+    }
+
+    input {
+        File assembly
+        String samplename
+        String docker = "quay.io/biocontainers/ectyper:1.0.0--pyhdfd78af_1"
+        Int min_contig_length = 200
+
+        # ECTyper Parameters
+        #  --opid           [integer] Percent identity required for an O antigen allele match [default: 90]
+        #  --opcov          [integer] Minumum percent coverage required for an O antigen allele match [default: 90]
+        #  --hpid           [integer] Percent identity required for an H antigen allele match [default: 95]
+        #  --hpcov          [integer] Minumum percent coverage required for an H antigen allele match [default: 50]
+        #  --verify         [boolean] Enable E. coli species verification
+        #  --print_alleles  [boolean] Prints the allele sequences if enabled as the final column
+        Int opid = 90
+        Int hpid = 95
+        Int opcov = 90
+        Int hpcov = 50
+        Boolean verify = false
+        Boolean print_alleles = false
+        Int? cpus = 4
+    }
+
+    command <<<
+        ectyper --version 2>&1 | sed 's/.*ectyper //; s/ .*\$//' | tee VERSION
+        ectyper \
+            ${'--opid' + opid} \
+            ${'--hpid' + hpid} \
+            ${'--opcov' + opcov} \
+            ${'--hpcov' + hpcov} \
+            ${true="--verify" false="" verify} \
+            ${true="-s" false="" print_alleles} \
+            --cores ~{cpus} \
+            --output ./ \
+            --input ~{assembly}
+        mv output.tsv ~{samplename}.tsv
+    >>>
+
+    output {
+        File ectyper_results = "~{samplename}.tsv"
+        String ectyper_version = read_string("VERSION")
+    }
+
+    runtime {
+        docker: "~{docker}"
+        memory: "8 GB"
+        cpu: 4
+        disks: "local-disk 50 SSD"
+        preemptible: 0
+    }
+}
