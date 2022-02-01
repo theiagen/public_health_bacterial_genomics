@@ -9,7 +9,7 @@ task ectyper {
         File assembly
         String samplename
         String docker = "quay.io/biocontainers/ectyper:1.0.0--pyhdfd78af_1"
-        Int min_contig_length = 200
+        Int? cpu = 4
 
         # ECTyper Parameters
         #  --opid           [integer] Percent identity required for an O antigen allele match [default: 90]
@@ -24,7 +24,6 @@ task ectyper {
         Int hpcov = 50
         Boolean verify = false
         Boolean print_alleles = false
-        Int? cpus = 4
     }
 
     command <<<
@@ -36,7 +35,7 @@ task ectyper {
             ${'--hpcov' + hpcov} \
             ${true="--verify" false="" verify} \
             ${true="-s" false="" print_alleles} \
-            --cores ~{cpus} \
+            --cores ~{cpu} \
             --output ./ \
             --input ~{assembly}
         mv output.tsv ~{samplename}.tsv
