@@ -35,12 +35,12 @@ task pmga {
         String pmga_serotype = read_string("PMGA_SEROTYPE")
         String pmga_genes = read_string("PMGA_GENES")
         String pmga_notes = read_string("PMGA_NOTES")
-        File pmga_results = "pmga/~{samplename}.txt"
-        File pmga_allele_matrix = "pmga/~{samplename}-allele-matrix.txt"
-        File pmga_blast_final = "pmga/~{samplename}-blast-final-results.json.gz"
-        File pmga_blast_raw = "pmga/~{samplename}-blast-raw-results.json.gz"
-        File pmga_loci_counts = "pmga/~{samplename}-loci-counts.txt"
-        File pmga_gff = "pmga/~{samplename}.gff.gz"
+        File pmga_results = "./pmga/~{samplename}.txt"
+        File pmga_allele_matrix = "./pmga/~{samplename}-allele-matrix.txt"
+        File pmga_blast_final = "./pmga/~{samplename}-blast-final-results.json.gz"
+        File pmga_blast_raw = "./pmga/~{samplename}-blast-raw-results.json.gz"
+        File pmga_loci_counts = "./pmga/~{samplename}-loci-counts.txt"
+        File pmga_gff = "./pmga/~{samplename}.gff.gz"
     }
 
     runtime {
