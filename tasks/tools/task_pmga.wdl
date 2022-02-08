@@ -1,6 +1,6 @@
 version 1.0
 
-task ectyper {
+task pmga {
     meta {
         description: "Serogrouping and serotyping of all Neisseria species and Haemophilus influenzae"
     }
