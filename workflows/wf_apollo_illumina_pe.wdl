@@ -58,8 +58,8 @@ workflow apollo_illumina_pe {
 
     Int fastqc_raw1 = read_QC_trim.fastqc_raw1
     Int fastqc_raw2 = read_QC_trim.fastqc_raw2
-    String astqc_raw_pairs = read_QC_trim.fastqc_raw_pairs
-    String astqc_version = read_QC_trim.fastqc_version
+    String fastqc_raw_pairs = read_QC_trim.fastqc_raw_pairs
+    String fastqc_version = read_QC_trim.fastqc_version
 
     Int fastqc_clean1 = read_QC_trim.fastqc_clean1
     Int fastqc_clean2 = read_QC_trim.fastqc_clean2
