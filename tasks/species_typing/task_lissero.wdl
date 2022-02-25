@@ -19,8 +19,8 @@ task lissero {
   command <<<
     echo $(lissero --version 2>&1) | sed 's/^.*LisSero //' | tee VERSION
     lissero \
-      ${'--min_id' + min_id} \
-      ${'--min_cov' + min_cov} \
+      ~{'--min_id' + min_id} \
+      ~{'--min_cov' + min_cov} \
       ~{assembly} \
       > ~{samplename}.tsv
   >>>
