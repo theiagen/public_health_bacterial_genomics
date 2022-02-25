@@ -79,6 +79,7 @@ task bbduk_pe {
     File read1_trimmed
     File read2_trimmed
     String samplename
+    Int mem_size_gb=8
     String docker = "quay.io/staphb/bbtools:38.76"
   }
   command <<<
@@ -113,6 +114,7 @@ task bbduk_se {
   input {
     File read1_trimmed
     String samplename
+    Int mem_size_gb=8
     String docker="quay.io/staphb/bbtools:38.76"
   }
   command <<<
