@@ -36,16 +36,16 @@ task emmtyper {
   command <<<
     echo $(emmtyper --version 2>&1) | sed 's/^.*emmtyper v//' | tee VERSION
     emmtyper \
-      ${'--workflow' + wf} \
-      ${'--cluster-distance' + cluster_distance} \
-      ${'--percent-identity' + percid} \
-      ${'--culling-limit' + culling_limit} \
-      ${'--mismatch' + mismatch} \
-      ${'--align-diff' + align_diff} \
-      ${'--gap' + gap} \
-      ${'--min-perfect' + min_perfect} \
-      ${'--min-good' + min_good} \
-      ${'--max-size' + max_size} \
+      ~{'--workflow' + wf} \
+      ~{'--cluster-distance' + cluster_distance} \
+      ~{'--percent-identity' + percid} \
+      ~{'--culling-limit' + culling_limit} \
+      ~{'--mismatch' + mismatch} \
+      ~{'--align-diff' + align_diff} \
+      ~{'--gap' + gap} \
+      ~{'--min-perfect' + min_perfect} \
+      ~{'--min-good' + min_good} \
+      ~{'--max-size' + max_size} \
       ~{assembly} \
       > ~{samplename}.tsv
   >>>
