@@ -18,7 +18,7 @@ task snp_dists {
     File snp_matrix = "${cluster_name}_snp_distance_matrix.tsv"
   }
   runtime {
-    docker: "quay.io/staphb/snp-dists:0.6.2"
+    docker: "quay.io/staphb/snp-dists:0.8.2"
     memory: "2 GB"
     cpu: 2
     disks: "local-disk 100 SSD"
