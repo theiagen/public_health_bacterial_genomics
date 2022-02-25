@@ -53,7 +53,7 @@ workflow apollo_illumina_pe {
   output {
     String apollo_illumina_pe_version = version_capture.phbg_version
     String apollo_illumina_pe_analysis_date = version_capture.date
-        
+
     String seq_platform	=	seq_method
 
     Int fastqc_raw1 = read_QC_trim.fastqc_raw1
@@ -70,23 +70,27 @@ workflow apollo_illumina_pe {
     File assembly_fasta = shovill_pe.assembly_fasta
     File contigs_gfa = shovill_pe.contigs_gfa
     String shovill_pe_version = shovill_pe.shovill_version
-    
+
     File quast_report = quast.quast_report
     String quast_version = quast.version
     Int genome_length = quast.genome_length
     Int number_contigs = quast.number_contigs
-    
+
     File cg_pipeline_report = cg_pipeline.cg_pipeline_report
     String cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
     Float r1_mean_q = cg_pipeline.r1_mean_q
     Float? r2_mean_q = cg_pipeline.r2_mean_q
     Float est_coverage = cg_pipeline.est_coverage
-    
-    File gambit_report = gambit.gambit_report
-    String gambit_docker = gambit.gambit_docker
-    Float gambit_distance = gambit.gambit_distance
-    String gambit_taxon = gambit.gambit_taxon
-    String gambit_rank = gambit.gambit_rank
 
+    File gambit_report = gambit.report_file
+    String gambit_docker = gambit.docker_image
+    Float gambit_closest_distance = gambit.closest_distance
+    String gambit_predicted_taxon = gambit.predicted_taxon
+    String gambit_predicted_rank = gambit.predicted_rank
+    String gambit_predicted_threshold = gambit.predicted_threshold
+    String gambit_next_taxon = gambit.next_taxon
+    String gambit_next_rank = gambit.next_rank
+    String gambit_next_threshold = gambit.next_threshold
+    File gambit_closest_genomes = gambit.closest_genomes_file
   }
 }
