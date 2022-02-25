@@ -6,7 +6,7 @@ task ksnp3 {
     Array[String] samplename
     String cluster_name
     Int kmer_size = 19
-    String docker_image = "staphb/ksnp3:3.1"
+    String docker_image = "quay.io/staphb/ksnp3:3.1"
     Int mem_size_gb = 8
     Int CPUs = 4
   }
@@ -69,7 +69,7 @@ task snp_dists {
     File snp_matrix = "${cluster_name}_snp_distance_matrix.tsv"
   }
   runtime {
-    docker: "staphb/snp-dists:0.6.2"
+    docker: "quay.io/staphb/snp-dists:0.6.2"
     memory: "2 GB"
     cpu: 2
     disks: "local-disk 100 SSD"

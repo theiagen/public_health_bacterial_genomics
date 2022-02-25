@@ -114,7 +114,7 @@ task kleborate_one_sample {
   input {
     File assembly
     String samplename
-    String kleborate_docker_image = "staphb/kleborate:2.0.4"
+    String kleborate_docker_image = "quay.io/staphb/kleborate:2.0.4"
   }
   command <<<
     # capture date and version
@@ -254,5 +254,161 @@ task serotypefinder_one_sample {
     cpu: 2
     disks: "local-disk 100 SSD"
     preemptible:  0
+  }
+}
+task tbprofiler_one_sample_pe {
+  # Inputs
+  input {
+    File read1
+    File read2
+    String samplename
+    String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
+    String? mapper
+    String? caller
+    Int? min_depth
+    Float? min_af
+    Float? min_af_pred
+    Int? cov_frac_threshold
+  }
+  command <<<
+    # update TBDB
+    # tb-profiler update_tbdb
+    # Print and save date
+    date | tee DATE
+    # Print and save version
+    tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
+    # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
+    tb-profiler profile -1 ~{read1} -2 ~{read2} --prefix ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
+
+    #Collate results
+    tb-profiler collate --prefix ~{samplename}
+
+    python3 <<CODE
+    import csv
+    with open("./~{samplename}.txt",'r') as tsv_file:
+      tsv_reader=csv.reader(tsv_file, delimiter="\t")
+      tsv_data=list(tsv_reader)
+      tsv_dict=dict(zip(tsv_data[0], tsv_data[1]))
+      with open ("MAIN_LINEAGE", 'wt') as Main_Lineage:
+        main_lin=tsv_dict['main_lineage']
+        Main_Lineage.write(main_lin)
+      with open ("SUB_LINEAGE", 'wt') as Sub_Lineage:
+        sub_lin=tsv_dict['sub_lineage']
+        Sub_Lineage.write(sub_lin)
+      with open ("DR_TYPE", 'wt') as DR_Type:
+        dr_type=tsv_dict['DR_type']
+        DR_Type.write(dr_type)
+      with open ("NUM_DR_VARIANTS", 'wt') as Num_DR_Variants:
+        num_dr_vars=tsv_dict['num_dr_variants']
+        Num_DR_Variants.write(num_dr_vars)
+      with open ("NUM_OTHER_VARIANTS", 'wt') as Num_Other_Variants:
+        num_other_vars=tsv_dict['num_other_variants']
+        Num_Other_Variants.write(num_other_vars)
+      with open ("RESISTANCE_GENES", 'wt') as Resistance_Genes:
+        res_genes_list=['rifampicin', 'isoniazid', 'pyrazinamide', 'ethambutol', 'streptomycin', 'fluoroquinolones', 'moxifloxacin', 'ofloxacin', 'levofloxacin', 'ciprofloxacin', 'aminoglycosides', 'amikacin', 'kanamycin', 'capreomycin', 'ethionamide', 'para-aminosalicylic_acid', 'cycloserine', 'linezolid', 'bedaquiline', 'clofazimine', 'delamanid']
+        res_genes=[]
+        for i in res_genes_list:
+          if tsv_dict[i] != '-':
+            res_genes.append(tsv_dict[i])
+        res_genes_string=';'.join(res_genes)
+        Resistance_Genes.write(res_genes_string)
+    CODE
+  >>>
+  output {
+    File tbprofiler_output_csv = "./results/~{samplename}.results.csv"
+    File tbprofiler_output_tsv = "./results/~{samplename}.results.txt"
+    File tbprofiler_output_bam = "./bam/~{samplename}.bam"
+    File tbprofiler_output_bai = "./bam/~{samplename}.bam.bai"
+    String version = read_string("VERSION")
+    String tb_profiler_main_lineage = read_string("MAIN_LINEAGE")
+    String tb_profiler_sub_lineage = read_string("SUB_LINEAGE")
+    String tb_profiler_dr_type = read_string("DR_TYPE")
+    String tb_profiler_num_dr_variants = read_string("NUM_DR_VARIANTS")
+    String tb_profiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
+    String tb_profiler_resistance_genes = read_string("RESISTANCE_GENES")
+  }
+  runtime {
+    docker:       "~{tbprofiler_docker_image}"
+    memory:       "16 GB"
+    cpu:          8
+    disks:        "local-disk 100 SSD"
+  }
+}
+task tbprofiler_one_sample_ont {
+  # Inputs
+  input {
+    File reads
+    String samplename
+    String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
+    String? mapper
+    String? caller
+    Int? min_depth
+    Float? min_af
+    Float? min_af_pred
+    Int? cov_frac_threshold
+  }
+  command <<<
+    # update TBDB
+    # tb-profiler update_tbdb
+    # Print and save date
+    date | tee DATE
+    # Print and save version
+    tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
+    # Run TBProfiler on the input sample
+    tb-profiler profile --platform nanopore -1 ~{reads} --prefix ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
+
+    #Collate results
+    tb-profiler collate --prefix ~{samplename}
+
+    python3 <<CODE
+    import csv
+    with open("./~{samplename}.txt",'r') as tsv_file:
+      tsv_reader=csv.reader(tsv_file, delimiter="\t")
+      tsv_data=list(tsv_reader)
+      tsv_dict=dict(zip(tsv_data[0], tsv_data[1]))
+      with open ("MAIN_LINEAGE", 'wt') as Main_Lineage:
+        main_lin=tsv_dict['main_lineage']
+        Main_Lineage.write(main_lin)
+      with open ("SUB_LINEAGE", 'wt') as Sub_Lineage:
+        sub_lin=tsv_dict['sub_lineage']
+        Sub_Lineage.write(sub_lin)
+      with open ("DR_TYPE", 'wt') as DR_Type:
+        dr_type=tsv_dict['DR_type']
+        DR_Type.write(dr_type)
+      with open ("NUM_DR_VARIANTS", 'wt') as Num_DR_Variants:
+        num_dr_vars=tsv_dict['num_dr_variants']
+        Num_DR_Variants.write(num_dr_vars)
+      with open ("NUM_OTHER_VARIANTS", 'wt') as Num_Other_Variants:
+        num_other_vars=tsv_dict['num_other_variants']
+        Num_Other_Variants.write(num_other_vars)
+      with open ("RESISTANCE_GENES", 'wt') as Resistance_Genes:
+        res_genes_list=['rifampicin', 'isoniazid', 'pyrazinamide', 'ethambutol', 'streptomycin', 'fluoroquinolones', 'moxifloxacin', 'ofloxacin', 'levofloxacin', 'ciprofloxacin', 'aminoglycosides', 'amikacin', 'kanamycin', 'capreomycin', 'ethionamide', 'para-aminosalicylic_acid', 'cycloserine', 'linezolid', 'bedaquiline', 'clofazimine', 'delamanid']
+        res_genes=[]
+        for i in res_genes_list:
+          if tsv_dict[i] != '-':
+            res_genes.append(tsv_dict[i])
+        res_genes_string=';'.join(res_genes)
+        Resistance_Genes.write(res_genes_string)
+    CODE
+  >>>
+  output {
+    File tbprofiler_output_csv = "./results/~{samplename}.results.csv"
+    File tbprofiler_output_tsv = "./results/~{samplename}.results.txt"
+    File tbprofiler_output_bam = "./bam/~{samplename}.bam"
+    File tbprofiler_output_bai = "./bam/~{samplename}.bam.bai"
+    String version = read_string("VERSION")
+    String tb_profiler_main_lineage = read_string("MAIN_LINEAGE")
+    String tb_profiler_sub_lineage = read_string("SUB_LINEAGE")
+    String tb_profiler_dr_type = read_string("DR_TYPE")
+    String tb_profiler_num_dr_variants = read_string("NUM_DR_VARIANTS")
+    String tb_profiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
+    String tb_profiler_resistance_genes = read_string("RESISTANCE_GENES")
+  }
+  runtime {
+    docker:       "~{tbprofiler_docker_image}"
+    memory:       "16 GB"
+    cpu:          8
+    disks:        "local-disk 100 SSD"
+    maxRetries:   3
   }
 }

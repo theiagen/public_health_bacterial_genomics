@@ -5,7 +5,7 @@ task shovill_pe {
     File read1_cleaned
     File read2_cleaned
     String samplename
-    String docker = "staphb/shovill:1.1.0"
+    String docker = "quay.io/staphb/shovill:1.1.0"
     Int min_contig_length = 200
   }
   command <<<
