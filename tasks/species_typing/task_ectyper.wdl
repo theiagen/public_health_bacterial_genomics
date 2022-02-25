@@ -4,7 +4,6 @@ task ectyper {
   meta {
     description: "In-silico prediction of Escherichia coli serotype"
   }
-
   input {
     File assembly
     String samplename
@@ -25,27 +24,24 @@ task ectyper {
     Boolean verify = false
     Boolean print_alleles = false
   }
-
   command <<<
     echo $(ectyper --version 2>&1) | sed 's/.*ectyper //; s/ .*\$//' | tee VERSION
     ectyper \
-        ${'--opid' + opid} \
-        ${'--hpid' + hpid} \
-        ${'--opcov' + opcov} \
-        ${'--hpcov' + hpcov} \
-        ${true="--verify" false="" verify} \
-        ${true="-s" false="" print_alleles} \
-        --cores ~{cpu} \
-        --output ./ \
-        --input ~{assembly}
+      ${'--opid' + opid} \
+      ${'--hpid' + hpid} \
+      ${'--opcov' + opcov} \
+      ${'--hpcov' + hpcov} \
+      ${true="--verify" false="" verify} \
+      ${true="-s" false="" print_alleles} \
+      --cores ~{cpu} \
+      --output ./ \
+      --input ~{assembly}
     mv output.tsv ~{samplename}.tsv
   >>>
-
   output {
     File ectyper_results = "~{samplename}.tsv"
     String ectyper_version = read_string("VERSION")
   }
-
   runtime {
     docker: "~{docker}"
     memory: "8 GB"

@@ -4,7 +4,6 @@ task agrvate {
   meta {
     description: "Rapid identification of Staphylococcus aureus agr locus type and agr operon variants."
   }
-
   input {
     File assembly
     String samplename
@@ -15,7 +14,6 @@ task agrvate {
     # --typing_only    agr typing only. Skips agr operon extraction and frameshift detection
     Boolean typing_only = false
   }
-
   command <<<
     echo $(agrvate -v 2>&1) | sed 's/agrvate v//;' | tee VERSION
     agrvate \
@@ -24,13 +22,11 @@ task agrvate {
     cp results/~{samplename}-summary.tab ~{samplename}.tsv
     tar -czvf ~{sample_name}.tar.gz results/
   >>>
-
   output {
     File agrvate_summary = "~{samplename}.tsv"
     File agrvate_results = "~{samplename}.tar.gz"
     String agrvate_version = read_string("VERSION")
   }
-
   runtime {
     docker: "~{docker}"
     memory: "8 GB"
