@@ -54,25 +54,25 @@ task gambit {
     CODE
     # set merlin tags
     predicted_taxon=$(cat PREDICTED_TAXON)
-    if [[ *"Escherichia"* == ${predicted_taxon} ]]; then 
+    if [[ ${predicted_taxon} == *"Escherichia"* ]]; then 
       merlin_tag="Escherichia"
-    elif [[ *"Haemophilus"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Haemophilus"* ]]; then 
       merlin_tag="Haemophilus"
-    elif [[ *"Klebsiella"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Klebsiella"* ]]; then 
       merlin_tag="Klebsiella"
-    elif [[ *"Legionella"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Legionella"* ]]; then 
       merlin_tag="Legionella"
-    elif [[ *"Listeria"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Listeria"* ]]; then 
       merlin_tag="Listeria"
-    elif [[ *"Mycobacterium"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Mycobacterium"* ]]; then 
       merlin_tag="Mycobacterium"
-    elif [[ *"Neisseria"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Neisseria"* ]]; then 
       merlin_tag="Neisseria"
-    elif [[ *"Salmonella"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Salmonella"* ]]; then 
       merlin_tag="Salmonella"
-    elif [[ *"Staphylococcus"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Staphylococcus"* ]]; then 
       merlin_tag="Staphylococcus"
-    elif [[ *"Streptococcus"* == ${predicted_taxon} ]]; then 
+    elif [[ ${predicted_taxon} == *"Streptococcus"* ]]; then 
       merlin_tag="Streptococcus"
     else 
       merlin_tag="None"
