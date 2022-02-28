@@ -2,7 +2,7 @@ version 1.0
 
 import "wf_read_QC_trim.wdl" as read_qc
 import "../tasks/task_qc_utils.wdl" as qc
-import "../tasks/task_taxon_id.wdl" as taxon_id
+import "../tasks/taxon_id/task_gambit.wdl" as taxon_id
 import "../tasks/task_denovo_assembly.wdl" as assembly
 import "../tasks/task_versioning.wdl" as versioning
 
@@ -82,15 +82,12 @@ workflow apollo_illumina_pe {
     Float? r2_mean_q = cg_pipeline.r2_mean_q
     Float est_coverage = cg_pipeline.est_coverage
 
-    File gambit_report = gambit.report_file
-    String gambit_docker = gambit.docker_image
-    Float gambit_closest_distance = gambit.closest_distance
-    String gambit_predicted_taxon = gambit.predicted_taxon
-    String gambit_predicted_rank = gambit.predicted_rank
-    String gambit_predicted_threshold = gambit.predicted_threshold
-    String gambit_next_taxon = gambit.next_taxon
-    String gambit_next_rank = gambit.next_rank
-    String gambit_next_threshold = gambit.next_threshold
-    File gambit_closest_genomes = gambit.closest_genomes_file
+    File gambit_report = gambit.gambit_report_file
+    Float gambit_closest_distance = gambit.gambit_closest_distance
+    String gambit_predicted_taxon = gambit.gambit_predicted_taxon
+    String gambit_predicted_rank = gambit.gambit_predicted_rank
+    String gambit_version = gambit.gambit_version
+    String gambit_db_version = gambit.gambit_db_version
+    String gambit_docker = gambit.gambit_docker
   }
 }

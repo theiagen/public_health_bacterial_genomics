@@ -4,103 +4,69 @@ task gambit {
   input {
     File assembly
     String samplename
-    String docker = "quay.io/staphb/gambit:0.4.0"
+    String docker = "quay.io/staphb/gambit:0.3.0"
+    File? gambit_db_genomes
+    File? gambit_db_signatures
   }
-  # If "File" type is used Cromwell attempts to localize it, which fails because it doesn't exist yet.
-  String report_path = "~{samplename}_gambit.json"
-  String closest_genomes_path = "~{samplename}_gambit_closest.csv"
+  
   command <<<
     # capture date and version
     date | tee DATE
     gambit --version | tee GAMBIT_VERSION
-
-    gambit query -f json -o "~{report_path}" "~{assembly}"
-
-    python3 <<EOF
-    import json
+    
+    # set gambit reference dir; will assume that gambit genomes and signatures will be provided by user in tandem or not at all
+    if [[ ! -z "~{gambit_db_genomes}" ]]; then 
+      echo "User gabmit db identified; ~{gambit_db_genomes} will be utilized for alignment"
+      gambit_db_version="$(basename -- '~{gambit_db_genomes}'); $(basename -- '~{gambit_db_signatures}')"
+      gambit_db_dir="${PWD}/gambit_database"
+      mkdir ${gambit_db_dir}
+      cp ~{gambit_db_genomes} ${gambit_db_dir}
+      cp ~{gambit_db_signatures} ${gambit_db_dir}
+    else
+     gambit_db_dir="/gambit-db" 
+     gambit_db_version="unmodified from freyja container: ~{docker}"
+    fi
+    
+    echo ${gambit_db_version} | tee GAMBIT_DB_VERSION
+    
+    gambit -d ${gambit_db_dir} query -o ~{samplename}_gambit.csv ~{assembly} 
+    
+    python3 <<CODE
     import csv
-
-    def fmt_dist(d): return format(d, '.4f')
-
-    with open("~{report_path}") as f:
-      data = json.load(f)
-
-    (item,) = data['items']
-    predicted = item['predicted_taxon']
-    next_taxon = item['next_taxon']
-    closest = item['closest_genomes'][0]
-
-    with open('CLOSEST_DISTANCE', 'w') as f:
-      f.write(fmt_dist(closest['distance']))
-
-    # Predicted taxon
-    with open('PREDICTED_TAXON', 'w') as f:
-      f.write('' if predicted is None else predicted['name'])
-    with open('PREDICTED_RANK', 'w') as f:
-      f.write('' if predicted is None else predicted['rank'])
-    with open('PREDICTED_THRESHOLD', 'w') as f:
-      f.write(fmt_dist(0 if predicted is None else predicted['distance_threshold']))
-
-    # Next taxon
-    with open('NEXT_TAXON', 'w') as f:
-      f.write('' if next_taxon is None else next_taxon['name'])
-    with open('NEXT_RANK', 'w') as f:
-      f.write('' if next_taxon is None else next_taxon['rank'])
-    with open('NEXT_THRESHOLD', 'w') as f:
-      f.write(fmt_dist(0 if next_taxon is None else next_taxon['distance_threshold']))
-
-    # Table of closest genomes
-    with open('~{closest_genomes_path}', 'w', newline='') as f:
-      writer = csv.writer(f)
-
-      # Header
-      writer.writerow([
-        'distance',
-        'genome.description',
-        'genome.taxon.name',
-        'genome.taxon.rank',
-        'genome.taxon.threshold',
-        'matched.name',
-        'matched.rank',
-        'matched.distance_threshold',
-      ])
-
-      for match in item['closest_genomes']:
-        genome = match['genome']
-        genome_taxon = genome['taxonomy'][0]
-        match_taxon = match['matched_taxon']
-
-        writer.writerow([
-          fmt_dist(match['distance']),
-          genome['description'],
-          genome_taxon['name'],
-          genome_taxon['rank'],
-          fmt_dist(genome_taxon['distance_threshold']),
-          '' if match_taxon is None else match_taxon['name'],
-          '' if match_taxon is None else match_taxon['rank'],
-          fmt_dist(0 if match_taxon is None else match_taxon['distance_threshold']),
-        ])
-    EOF
+    #grab output genome length and number contigs by column header
+    with open("~{samplename}_gambit.csv",'r') as csv_file:
+      csv_reader = list(csv.DictReader(csv_file, delimiter=","))
+      for line in csv_reader:
+        with open ("CLOSEST_DISTANCE", 'wt') as gambit_distance:
+          top_score=float(line["closest.distance"])
+          top_score="{:.4f}".format(top_score)
+          gambit_distance.write(str(top_score))
+        with open("PREDICTED_RANK", 'wt') as gambit_rank:
+          predicted_rank=line["predicted.rank"]
+          if not predicted_rank:
+            predicted_rank="None"
+          gambit_rank.write(predicted_rank)
+        with open("PREDICTED_TAXON", 'wt') as gambit_taxon:
+          predicted_taxon=line["predicted.name"]
+          if not predicted_taxon:
+            predicted_taxon="None"
+          gambit_taxon.write(predicted_taxon)
+    CODE
   >>>
   output {
+    File gambit_report_file = "~{samplename}_gambit.csv"
+    Float gambit_closest_distance = read_float("CLOSEST_DISTANCE") 
+    String gambit_predicted_taxon = read_string("PREDICTED_TAXON")
+    String gambit_predicted_rank = read_string("PREDICTED_RANK")
     String gambit_version = read_string("GAMBIT_VERSION")
-    String docker_image = docker
-    String pipeline_date = read_string("DATE")
-    File report_file = report_path
-    File closest_genomes_file = closest_genomes_path
-    Float closest_distance = read_float("CLOSEST_DISTANCE")
-    String predicted_taxon = read_string("PREDICTED_TAXON")
-    String predicted_rank = read_string("PREDICTED_RANK")
-    String predicted_threshold = read_string("PREDICTED_THRESHOLD")
-    String next_taxon = read_string("NEXT_TAXON")
-    String next_rank = read_string("NEXT_RANK")
-    String next_threshold = read_string("NEXT_THRESHOLD")
+    String gambit_db_version = read_string("GAMBIT_DB_VERSION")
+    String gambit_docker = docker
   }
   runtime {
-    docker: "~{docker}"
-    memory: "16 GB"
-    cpu: 8
+    docker:  "~{docker}"
+    memory:  "16 GB"
+    cpu:   8
     disks: "local-disk 100 SSD"
-    preemptible: 0
+    preemptible:  0
   }
 }
