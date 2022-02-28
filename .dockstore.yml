@@ -20,7 +20,6 @@ workflows:
    primaryDescriptorPath: /workflows/wf_gambit_query.wdl
    testParameterFiles:
     - empty.json
-
  - name: Kleborate
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_kleborate.wdl

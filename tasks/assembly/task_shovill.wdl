@@ -1,3 +1,5 @@
+version 1.0
+
 task shovill_pe {
   input {
     File read1_cleaned
