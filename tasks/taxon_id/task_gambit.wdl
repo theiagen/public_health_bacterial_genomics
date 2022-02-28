@@ -52,6 +52,32 @@ task gambit {
             predicted_taxon="None"
           gambit_taxon.write(predicted_taxon)
     CODE
+    # set merlin tags
+    predicted_taxon=$(cat PREDICTED_TAXON)
+    if [[ *"Escherichia"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Escherichia"
+    elif [[ *"Haemophilus"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Haemophilus"
+    elif [[ *"Klebsiella"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Klebsiella"
+    elif [[ *"Legionella"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Legionella"
+    elif [[ *"Listeria"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Listeria"
+    elif [[ *"Mycobacterium"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Mycobacterium"
+    elif [[ *"Neisseria"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Neisseria"
+    elif [[ *"Salmonella"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Salmonella"
+    elif [[ *"Staphylococcus"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Staphylococcus"
+    elif [[ *"Streptococcus"* == ${predicted_taxon} ]]; then 
+      merlin_tag="Streptococcus"
+    else 
+      merlin_tag="None"
+    fi
+    echo ${merlin_tag} | tee MERLIN_TAG
   >>>
   output {
     File gambit_report_file = "~{samplename}_gambit.csv"
@@ -60,6 +86,7 @@ task gambit {
     String gambit_predicted_rank = read_string("PREDICTED_RANK")
     String gambit_version = read_string("GAMBIT_VERSION")
     String gambit_db_version = read_string("GAMBIT_DB_VERSION")
+    String merlin_tag = read_string("MERLIN_TAG")
     String gambit_docker = docker
   }
   runtime {

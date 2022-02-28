@@ -6,20 +6,19 @@ import "../tasks/quality_control/task_quast.wdl" as quast
 import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/gene_typing/task_abricate.wdl" as abricate
+import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow apollo_illumina_pe {
+workflow theiaprok_illumina_pe {
   meta {
     description: "De-novo genome assembly, taxonomic ID, and QC of paired-end bacterial NGS data"
   }
-
   input {
     String samplename
     String seq_method = "ILLUMINA"
     File read1_raw
     File read2_raw
   }
-
   call read_qc.read_QC_trim {
     input:
       samplename = samplename,
@@ -54,6 +53,13 @@ workflow apollo_illumina_pe {
       assembly = shovill_pe.assembly_fasta,
       samplename = samplename,
       database = "ncbi"
+  }
+  if (gambit.merlin_tag == "Escherichia") {
+    call serotypefinder.serotypefinder {
+      input:
+        ecoli_assembly = shovill_pe.assembly_fasta,
+        samplename = samplename
+    }
   }
   call versioning.version_capture{
     input:
@@ -99,6 +105,9 @@ workflow apollo_illumina_pe {
     File abricate_amr_results = abricate_amr.abricate_results
     String abricate_amr_database = abricate_amr.abricate_database
     String abricate_amr_version = abricate_amr.abricate_version
-    
+    # Ecoli Typing
+    File? serotypefinder_report = serotypefinder.serotypefinder_report
+    String? serotypefinder_docker = serotypefinder.serotypefinder_docker
+    String? serotypefinder_serotype = serotypefinder.serotypefinder_serotype
   }
 }
