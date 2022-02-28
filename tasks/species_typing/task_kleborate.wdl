@@ -29,13 +29,13 @@ task kleborate {
   command <<<
     kleborate --version | sed 's/Kleborate v//;' | tee VERSION
     kleborate \
-      ${true="" false="--resistance" skip_resistance} \
-      ${true="" false="--kaptive" skip_kaptive} \
-      ${'--min_identity' + min_identity} \
-      ${'--min_coverage' + min_coverage} \
-      ${'--min_spurious_identity' + min_spurious_identity} \
-      ${'--min_spurious_coverage' + min_spurious_coverage} \
-      ${'--min_kaptive_confidence' + min_kaptive_confidence} \
+      ~{true="" false="--resistance" skip_resistance} \
+      ~{true="" false="--kaptive" skip_kaptive} \
+      ~{'--min_identity' + min_identity} \
+      ~{'--min_coverage' + min_coverage} \
+      ~{'--min_spurious_identity' + min_spurious_identity} \
+      ~{'--min_spurious_coverage' + min_spurious_coverage} \
+      ~{'--min_kaptive_confidence' + min_kaptive_confidence} \
       --outfile ~{samplename}.tsv \
       --assemblies ~{assembly}
   >>>

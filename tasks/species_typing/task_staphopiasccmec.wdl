@@ -17,7 +17,7 @@ task staphopiasccmec {
   command <<<
     staphopia-sccmec --version 2>&1 | sed 's/^.*staphopia-sccmec //' | tee VERSION
     staphopia-sccmec \
-      ${true="--hamming" false="" hamming} \
+      ~{true="--hamming" false="" hamming} \
       --assembly ~{assembly > ~{samplename}.tsv
   >>>
   output {

@@ -26,12 +26,12 @@ task hicap {
     echo $( hicap --version 2>&1 ) | sed 's/^.*hicap //' | tee VERSION
     hicap \
       --query_fp ~{assembly} \
-      ${'--gene_coverage' + gene_coverage} \
-      ${'--gene_identity' + gene_identity} \
-      ${'--broken_gene_length' + broken_gene_length} \
-      ${'--broken_gene_identity' + broken_gene_identity} \
-      ${true="--full_sequence" false="" full_sequence} \
-      ${true="--debug" false="" debug} \
+      ~{'--gene_coverage' + gene_coverage} \
+      ~{'--gene_identity' + gene_identity} \
+      ~{'--broken_gene_length' + broken_gene_length} \
+      ~{'--broken_gene_identity' + broken_gene_identity} \
+      ~{true="--full_sequence" false="" full_sequence} \
+      ~{true="--debug" false="" debug} \
       --threads ~{cpu} \
       -o ./
 

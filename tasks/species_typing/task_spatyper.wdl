@@ -17,7 +17,7 @@ task spatyper {
   command <<<
     echo \$(spaTyper --version 2>&1) | sed 's/^.*spaTyper //' | tee VERSION
     spaTyper \
-      ${true="--do_enrich" false="" do_enrich} \
+      ~{true="--do_enrich" false="" do_enrich} \
       --fasta ~{assembly} \
       --output ~{samplename}.tsv
   >>>

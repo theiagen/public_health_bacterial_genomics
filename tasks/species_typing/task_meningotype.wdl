@@ -25,11 +25,11 @@ task meningotype {
   command <<<
     echo $(meningotype --version 2>&1) | sed 's/^.*meningotype v//' | tee VERSION
     meningotype \
-      ${true="--finetype" false="" finetype} \
-      ${true="--porB" false="" porB} \
-      ${true="--bast" false="" bast} \
-      ${true="--mlst" false="" mlst} \
-      ${true="--all" false="" all} \
+      ~{true="--finetype" false="" finetype} \
+      ~{true="--porB" false="" porB} \
+      ~{true="--bast" false="" bast} \
+      ~{true="--mlst" false="" mlst} \
+      ~{true="--all" false="" all} \
       --cpus ~{cpu} \
       ~{assembly} \
       > ~{samplename}.tsv
