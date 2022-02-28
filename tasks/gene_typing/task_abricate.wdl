@@ -8,7 +8,7 @@ task abricate {
   }
   command <<<
     date | tee DATE
-    abricate -v | ABRICATE_VERSION
+    abricate -v | tee ABRICATE_VERSION
     
     abricate --db ~{database} ~{assembly} > ~{samplename}_abricate_hits.tsv
     
