@@ -1,6 +1,6 @@
 version 1.0
 
-task fastq_scan {
+task fastq_scan_pe {
   input {
     File read1
     File read2
