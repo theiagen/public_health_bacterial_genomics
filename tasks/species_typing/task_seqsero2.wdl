@@ -28,24 +28,24 @@ task seqsero2_pe {
     python3 <<CODE
     import csv
     with open("./~{samplename}_seqseqro2_output_dir/SeqSero_result.tsv",'r') as tsv_file:
-      tsv_reader=csv.reader(tsv_file, delimiter="\t")
-      tsv_data=list(tsv_reader)
-      tsv_dict=dict(zip(tsv_data[0], tsv_data[1]))
-      with open ("PREDICTED_ANTIGENIC_PROFILE", 'wt') as Predicted_Antigen_Prof:
-        pred_ant_prof=tsv_dict['Predicted antigenic profile:']
-        if not pred_ant_prof:
-          pred_ant_prof = "None"
-        Predicted_Antigen_Prof.write(pred_antigen_prof)
-      with open ("PREDICTED_SEROTYPE", 'wt') as Predicted_Sero:
-        pred_sero=tsv_dict['Predicted serotype:']
-        if not pred_sero:
-          pred_sero = "None"
-        Predicted_Sero.write(pred_sero)
-      with open ("CONTAMINATION", 'wt') as Contamination_Detected:
-        cont_detect=tsv_dict['Potential inter-serotype contamination:']
-        if not cont_detect:
-          cont_detect = "None"
-        Contamination_Detected.write(cont_detect)
+      tsv_reader = list(csv.DictReader(tsv_file, delimiter="\t"))
+      for line in tsv_reader:
+        with open ("PREDICTED_ANTIGENIC_PROFILE", 'wt') as Predicted_Antigen_Prof:
+          pred_ant_prof=line['Predicted antigenic profile']
+          if not pred_ant_prof:
+            pred_ant_prof = "None"
+          Predicted_Antigen_Prof.write(pred_ant_prof)
+        with open ("PREDICTED_SEROTYPE", 'wt') as Predicted_Sero:
+          pred_sero=line['Predicted serotype']
+          if not pred_sero:
+            pred_sero = "None"
+          Predicted_Sero.write(pred_sero)
+        with open ("CONTAMINATION", 'wt') as Contamination_Detected:
+          cont_detect=line['Potential inter-serotype contamination']
+          if not cont_detect:
+            cont_detect = "None"
+          Contamination_Detected.write(cont_detect)
+
     CODE
   >>>
   output {
