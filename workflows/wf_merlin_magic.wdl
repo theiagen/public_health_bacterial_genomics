@@ -62,7 +62,7 @@ workflow merlin_magic {
   # Salmonella Typing
   File? sistr_results = sistr.sistr_results
   File? sistr_allele_json = sistr.sistr_allele_json
-  File? sister_allele_fasta = sistr.sistr_allele_fasta
+  File? sistr_allele_fasta = sistr.sistr_allele_fasta
   File? sistr_cgmlst = sistr.sistr_cgmlst
   String? sistr_version = sistr.sistr_version
   File? seqsero2_report = seqsero2_pe.seqsero2_report

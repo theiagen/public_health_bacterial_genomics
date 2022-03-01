@@ -115,7 +115,7 @@ workflow theiaprok_illumina_pe {
     String? ectyper_version = merlin_magic.ectyper_version
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
-    String lissero_version = merlin_magic.lissero_version
+    String? lissero_version = merlin_magic.lissero_version
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json
