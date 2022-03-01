@@ -27,10 +27,10 @@ task ectyper {
   command <<<
     echo $(ectyper --version 2>&1) | sed 's/.*ectyper //; s/ .*\$//' | tee VERSION
     ectyper \
-      ~{'--opid' + opid} \
-      ~{'--hpid' + hpid} \
-      ~{'--opcov' + opcov} \
-      ~{'--hpcov' + hpcov} \
+      ~{'--opid ' + opid} \
+      ~{'--hpid ' + hpid} \
+      ~{'--opcov ' + opcov} \
+      ~{'--hpcov ' + hpcov} \
       ~{true="--verify" false="" verify} \
       ~{true="-s" false="" print_alleles} \
       --cores ~{cpu} \

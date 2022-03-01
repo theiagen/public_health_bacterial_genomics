@@ -113,5 +113,19 @@ workflow theiaprok_illumina_pe {
     String? serotypefinder_serotype = merlin_magic.serotypefinder_serotype
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
+    # Listeria Typing
+    File? lissero_results = merlin_magic.lissero_results
+    String lissero_version = merlin_magic.lissero_version
+    # Salmonella Typing
+    File? sistr_results = merlin_magic.sistr_results
+    File? sistr_allele_json = merlin_magic.sistr_allele_json
+    File? sister_allele_fasta = merlin_magic.sistr_allele_fasta
+    File? sistr_cgmlst = merlin_magic.sistr_cgmlst
+    String? sistr_version = merlin_magic.sistr_version
+    File? seqsero2_report = merlin_magic.seqsero2_report
+    String? seqsero2_version = merlin_magic.seqsero2_version
+    String? seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile
+    String? seqsero2_predicted_serotype = merlin_magic.seqsero2_predicted_serotype
+    String? seqsero2_predicted_contamination = merlin_magic.seqsero2_predicted_contamination
   }
 }
