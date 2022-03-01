@@ -54,7 +54,7 @@ task gambit {
     CODE
     # set merlin tags
     predicted_taxon=$(cat PREDICTED_TAXON)
-    if [[ ${predicted_taxon} == *"Escherichia"* ]]; then 
+    if [[ ${predicted_taxon} == *"Escherichia"* ]] || [[ ${predicted_taxon} == *"Shigella"* ]] ; then 
       merlin_tag="Escherichia"
     elif [[ ${predicted_taxon} == *"Haemophilus"* ]]; then 
       merlin_tag="Haemophilus"
