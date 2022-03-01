@@ -111,5 +111,7 @@ workflow theiaprok_illumina_pe {
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
     String? serotypefinder_serotype = merlin_magic.serotypefinder_serotype
+    File? ectyper_results = merlin_magic.ectyper_results
+    String? ectyper_version = merlin_magic.ectyper_version
   }
 }
