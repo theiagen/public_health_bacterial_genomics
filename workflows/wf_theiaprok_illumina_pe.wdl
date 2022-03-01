@@ -1,6 +1,7 @@
 version 1.0
 
 import "wf_read_QC_trim.wdl" as read_qc
+import "wf_merlin_magic.wdl" as merlin_magic
 import "../tasks/assembly/task_shovill.wdl" as shovill
 import "../tasks/quality_control/task_quast.wdl" as quast
 import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
@@ -54,12 +55,13 @@ workflow theiaprok_illumina_pe {
       samplename = samplename,
       database = "ncbi"
   }
-  if (gambit.merlin_tag == "Escherichia") {
-    call serotypefinder.serotypefinder {
-      input:
-        ecoli_assembly = shovill_pe.assembly_fasta,
-        samplename = samplename
-    }
+  call merlin_magic.merlin_magic {
+    input:
+      merlin_tag = gambit.merlin_tag,
+      assembly = shovill_pe.assembly_fasta,
+      samplename = samplename,
+      read1 = read_QC_trim.read1_clean,
+      read2 = read_QC_trim.read2_clean
   }
   call versioning.version_capture{
     input:
@@ -106,8 +108,8 @@ workflow theiaprok_illumina_pe {
     String abricate_amr_database = abricate_amr.abricate_database
     String abricate_amr_version = abricate_amr.abricate_version
     # Ecoli Typing
-    File? serotypefinder_report = serotypefinder.serotypefinder_report
-    String? serotypefinder_docker = serotypefinder.serotypefinder_docker
-    String? serotypefinder_serotype = serotypefinder.serotypefinder_serotype
+    File? serotypefinder_report = merlin_magic.serotypefinder_report
+    String? serotypefinder_docker = merlin_magic.serotypefinder_docker
+    String? serotypefinder_serotype = merlin_magic.serotypefinder_serotype
   }
 }

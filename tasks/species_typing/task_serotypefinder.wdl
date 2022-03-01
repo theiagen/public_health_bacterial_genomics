@@ -2,7 +2,7 @@ version 1.0
 
 task serotypefinder {
   input {
-    File ecoli_assembly
+    File assembly
     String samplename
     String docker = "quay.io/staphb/serotypefinder:2.0.1"
   }
@@ -10,7 +10,7 @@ task serotypefinder {
     # capture date and version
     date | tee DATE
 
-    serotypefinder.py -i ~{ecoli_assembly}  -x -o .
+    serotypefinder.py -i ~{assembly}  -x -o .
     mv results_tab.tsv ~{samplename}_results_tab.tsv
 
     # set H and O type based on serotypefinder ourputs
