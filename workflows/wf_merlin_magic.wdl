@@ -5,6 +5,7 @@ import "../tasks/species_typing/task_ectyper.wdl" as ectyper
 import "../tasks/species_typing/task_lissero.wdl" as lissero
 import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
+import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 
 workflow merlin_magic {
   meta {
@@ -29,14 +30,14 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
-  if (merlin_tag == "Listeria" ) {
+  if (merlin_tag == "Listeria") {
     call lissero.lissero {
       input:
         assembly = assembly,
         samplename = samplename
     }
   }
-  if (merlin_tag == "Salmonella" ) {
+  if (merlin_tag == "Salmonella") {
     call sistr.sistr {
       input: 
         assembly = assembly,
@@ -46,6 +47,13 @@ workflow merlin_magic {
       input: 
         read1 = read1,
         read2 = read2,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Klebsiella") {
+    call kleborate.kleborate {
+      input:
+        assembly = assembly,
         samplename = samplename
     }
   }
@@ -70,5 +78,10 @@ workflow merlin_magic {
   String? seqsero2_predicted_antigenic_profile = seqsero2_pe.seqsero2_predicted_antigenic_profile
   String? seqsero2_predicted_serotype = seqsero2_pe.seqsero2_predicted_serotype
   String? seqsero2_predicted_contamination = seqsero2_pe.seqsero2_predicted_contamination
+  # Klebsiella Typing
+  File? kleborate_output_file = kleborate.kleborate_output_file
+  String? kleborate_version = kleborate.kleborate_version
+  String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
+  String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
  }
 }

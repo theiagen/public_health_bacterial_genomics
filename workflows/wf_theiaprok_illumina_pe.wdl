@@ -127,5 +127,10 @@ workflow theiaprok_illumina_pe {
     String? seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile
     String? seqsero2_predicted_serotype = merlin_magic.seqsero2_predicted_serotype
     String? seqsero2_predicted_contamination = merlin_magic.seqsero2_predicted_contamination
+    #Klebsiella Typing
+    File? kleborate_output_file = merlin_magic.kleborate_output_file
+    String? kleborate_version = merlin_magic.kleborate_version
+    String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
+    String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
   }
 }
