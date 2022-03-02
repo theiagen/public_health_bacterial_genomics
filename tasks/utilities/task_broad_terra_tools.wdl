@@ -81,7 +81,7 @@ task export_taxon_tables {
         break
       fi
     done
-    if [ ! -z ${sample_table }]; then
+    if [ ! -z ${sample_table} ]; then
        # create single-entity sample data table
        ## header
       echo -e "entity:${sample_table}_id\ttheiaprok_illumina_pe_version\ttheiaprok_illumina_pe_analysis_date\tseq_platform\tnum_reads_raw1\tnum_reads_raw2\tnum_reads_raw_pairs\tfastq_scan_version\tnum_reads_clean1\tnum_reads_clean2\tnum_reads_clean_pairs\ttrimmomatic_version\tbbduk_docker\tr1_mean_q\tr2_mean_q\tassembly_fasta\tcontigs_gfa\tshovill_pe_version\tquast_report\tquast_version\tgenome_length\tnumber_contigs\tcg_pipeline_report\tcg_pipeline_docker\test_coverage\tgambit_report\tgambit_closest_distance\tgambit_predicted_taxon\tgambit_predicted_rank\tgambit_version\tgambit_db_version\tgambit_docker\tabricate_amr_results\tabricate_amr_database\tabricate_amr_version\tserotypefinder_report\tserotypefinder_docker\tserotypefinder_serotype\tectyper_results\tectyper_version\tlissero_results\tlissero_version\tsistr_results\tsistr_allele_json\tsister_allele_fasta\tsistr_cgmlst\tsistr_version\tseqsero2_report\tseqsero2_version\tseqsero2_predicted_antigenic_profile\tseqsero2_predicted_serotype\tseqsero2_predicted_contamination\tkleborate_output_file\tkleborate_version\tkleborate_key_resistance_genes\tkleborate_genomic_resistance_mutations" > ~{samplename}_terra_table.tsv
@@ -92,8 +92,6 @@ task export_taxon_tables {
     else
       echo "Table not defined for ~{sample_taxon}"
     fi
-    
-
   >>>
   runtime {
     docker: "broadinstitute/terra-tools:tqdm"
