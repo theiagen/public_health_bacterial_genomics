@@ -73,12 +73,17 @@ task export_taxon_tables {
     sample_taxon=$(echo ~{sample_taxon} | tr ' ' '_')
     # set taxon and table vars
     for index in ${!taxon_array[@]}; do
+      echo "$sample_taxon"
       taxon=${taxon_array[$index]}
+      echo "Taxon: ${taxon}"
       table=${table_array[$index]}
+      echo "Table: ${table}"
       if [[ "${sample_taxon}" == *"${taxon}"* ]]; then
         sample_table=${table}
         echo "Sample ~{samplename} identified as ~{sample_taxon}. As per user-defined taxon tables, ${taxon} samples will be exported to the ${table} terra data table"
         break
+      else 
+        echo "${sample_taxon} does not match ${taxon}."
       fi
     done
     if [ ! -z ${sample_table} ]; then
