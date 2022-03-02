@@ -67,9 +67,9 @@ workflow theiaprok_illumina_pe {
     input:
   }
   output {
-    # Version Capture
-    String apollo_illumina_pe_version = version_capture.phbg_version
-    String apollo_illumina_pe_analysis_date = version_capture.date
+    # Version Captures
+    String theiaprok_illumina_pe_version = version_capture.phbg_version
+    String theiaprok_illumina_pe_analysis_date = version_capture.date
    # Read Metadata
     String seq_platform	=	seq_method
     # Read QC
