@@ -66,14 +66,18 @@ task export_taxon_tables {
     
   }
   command <<<
+  
     # capture taxon and corresponding table names from input taxon_tables
-    taxon_array=($(cut -f1 ${taxon_tables} | tail +2))
-    table_array=($(cut -f2 ${taxon_tables} | tail +2))
+    taxon_array=($(cut -f1 ~{taxon_tables} | tail +2))
+    echo "Taxon array: ${taxon_array[*]}"
+    table_array=($(cut -f2 ~{taxon_tables} | tail +2))
+    echo "Table array: ${table_array[*]}"
     # remove whitespace from sample_taxon
     sample_taxon=$(echo ~{sample_taxon} | tr ' ' '_')
+    echo "Sample taxon: ${sample_taxon}"
     # set taxon and table vars
+    echo "Checking if sample taxon should be exported to user-specified taxon table..."
     for index in ${!taxon_array[@]}; do
-      echo "$sample_taxon"
       taxon=${taxon_array[$index]}
       echo "Taxon: ${taxon}"
       table=${table_array[$index]}
