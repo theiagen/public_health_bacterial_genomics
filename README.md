@@ -3,7 +3,7 @@ Bioinformatics workflows for genomic characteriation, submission preparation, an
 
 # Note to Users
 This repository and the workflows within are in the early stages of development and subject to routine
-updates. Please contact Support@Theiagen.com if you would like to be added to our PBGH mailing list and
+updates. Please contact support@terrapublichealth.zendesk.com if you would like to be added to our PBGH mailing list and
 reccieve updates and announcements regarding any resource associated with this repository.
 
  
