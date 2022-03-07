@@ -53,6 +53,13 @@ workflow apollo_illumina_pe {
   output {
     String apollo_illumina_pe_version = version_capture.phbg_version
     String apollo_illumina_pe_analysis_date = version_capture.date
+        
+    String seq_platform	=	seq_method
+
+    Int fastqc_raw1 = read_QC_trim.fastqc_raw1
+    Int fastqc_raw2 = read_QC_trim.fastqc_raw2
+    String fastqc_raw_pairs = read_QC_trim.fastqc_raw_pairs
+    String fastqc_version = read_QC_trim.fastqc_version
 
     String seq_platform	=	seq_method
     
