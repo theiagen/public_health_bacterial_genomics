@@ -97,9 +97,14 @@ workflow theiaprok_illumina_pe {
     Float est_coverage = cg_pipeline.est_coverage
     # Taxon ID
     File gambit_report = gambit.gambit_report_file
+    File gabmit_closest_genomes = gambit.gambit_closest_genomes_file
     Float gambit_closest_distance = gambit.gambit_closest_distance
     String gambit_predicted_taxon = gambit.gambit_predicted_taxon
-    String gambit_predicted_rank = gambit.gambit_predicted_rank
+    String gambit_predicted_taxon_rank = gambit.gambit_predicted_taxon_rank
+    String gambit_predicted_taxon_threshold = gambit.gambit_predicted_taxon_threshold
+    String gambit_next_taxon = gambit.gambit_next_taxon
+    String gambit_next_taxon_rank = gambit.gambit_next_taxon_rank
+    String gambit_next_taxon_threshold = gambit.gambit_next_taxon_threshold
     String gambit_version = gambit.gambit_version
     String gambit_db_version = gambit.gambit_db_version
     String gambit_docker = gambit.gambit_docker
