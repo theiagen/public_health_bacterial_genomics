@@ -26,7 +26,7 @@ task gambit {
       cp ~{gambit_db_signatures} ${gambit_db_dir}
     else
      gambit_db_dir="/gambit-db" 
-     gambit_db_version="unmodified from freyja container: ~{docker}"
+     gambit_db_version="unmodified from gambit container: ~{docker}"
     fi
     
     echo ${gambit_db_version} | tee GAMBIT_DB_VERSION
