@@ -60,9 +60,9 @@ task gambit {
 
     # Next taxon
     with open('NEXT_TAXON', 'w') as f:
-      f.write('' if next_taxon is None else next_taxon['name'])
+      f.write(predicted['name'] if next_taxon is None else next_taxon['name'])
     with open('NEXT_TAXON_RANK', 'w') as f:
-      f.write('' if next_taxon is None else next_taxon['rank'])
+      f.write(predicted['rank'] if next_taxon is None else next_taxon['rank'])
     with open('NEXT_TAXON_THRESHOLD', 'w') as f:
       f.write(fmt_dist(0 if next_taxon is None else next_taxon['distance_threshold']))
 
