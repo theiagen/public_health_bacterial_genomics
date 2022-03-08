@@ -128,13 +128,10 @@ task gambit {
   output {
     File gambit_report_file = report_path
     File gambit_closest_genomes_file = closest_genomes_path
-    Float gambit_closest_distance = read_float("CLOSEST_DISTANCE")
     String gambit_predicted_taxon = read_string("PREDICTED_TAXON")
     String gambit_predicted_taxon_rank = read_string("PREDICTED_TAXON_RANK") 
-    String gambit_predicted_taxon_threshold = read_string("PREDICTED_TAXON_THRESHOLD")
     String gambit_next_taxon = read_string("NEXT_TAXON")
     String gambit_next_taxon_rank = read_string("NEXT_TAXON_RANK")
-    String gambit_next_taxon_threshold = read_string("NEXT_TAXON_THRESHOLD")
     String gambit_version = read_string("GAMBIT_VERSION")
     String gambit_db_version = read_string("GAMBIT_DB_VERSION")
     String merlin_tag = read_string("MERLIN_TAG")
