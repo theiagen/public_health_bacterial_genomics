@@ -8,7 +8,7 @@ task tbprofiler_pe {
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
     String? mapper = "bwa"
-    String? caller "bcftools"
+    String? caller = "bcftools"
     Int? min_depth = 10
     Float? min_af = 0.1
     Float? min_af_pred = .01
@@ -86,7 +86,7 @@ task tbprofiler_ont {
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
     String? mapper = "bwa"
-    String? caller "bcftools"
+    String? caller = "bcftools"
     Int? min_depth = 10
     Float? min_af = 0.1
     Float? min_af_pred = .01
