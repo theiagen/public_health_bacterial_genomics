@@ -11,7 +11,7 @@ task tbprofiler_pe {
     String? caller = "bcftools"
     Int? min_depth = 10
     Float? min_af = 0.1
-    Float? min_af_pred = .01
+    Float? min_af_pred = 0.1
     Int? cov_frac_threshold = 1
   }
   command <<<
@@ -89,7 +89,7 @@ task tbprofiler_ont {
     String? caller = "bcftools"
     Int? min_depth = 10
     Float? min_af = 0.1
-    Float? min_af_pred = .01
+    Float? min_af_pred = 0.1
     Int? cov_frac_threshold = 1
   }
   command <<<
