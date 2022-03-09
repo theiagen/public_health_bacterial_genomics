@@ -7,12 +7,12 @@ task tbprofiler_pe {
     File read2
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
-    String? mapper
-    String? caller
-    Int? min_depth
-    Float? min_af
-    Float? min_af_pred
-    Int? cov_frac_threshold
+    String? mapper = "bwa"
+    String? caller "bcftools"
+    Int? min_depth = 10
+    Float? min_af = 0.1
+    Float? min_af_pred = .01
+    Int? cov_frac_threshold = 1
   }
   command <<<
     # update TBDB
@@ -85,12 +85,12 @@ task tbprofiler_ont {
     File reads
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
-    String? mapper
-    String? caller
-    Int? min_depth
-    Float? min_af
-    Float? min_af_pred
-    Int? cov_frac_threshold
+    String? mapper = "bwa"
+    String? caller "bcftools"
+    Int? min_depth = 10
+    Float? min_af = 0.1
+    Float? min_af_pred = .01
+    Int? cov_frac_threshold = 1
   }
   command <<<
     # update TBDB
