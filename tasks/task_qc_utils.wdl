@@ -128,7 +128,7 @@ task quast {
 task cg_pipeline {
   input {
     File  read1
-    File  read2
+    File?  read2
     String  samplename
     String  docker="quay.io/staphb/lyveset:1.1.4f"
     String  cg_pipe_opts="--fast"
@@ -167,7 +167,7 @@ task cg_pipeline {
     String  cg_pipeline_docker   = docker
     String  pipeline_date = read_string("DATE")
     Float r1_mean_q = read_float("R1_MEAN_Q")
-    Float r2_mean_q = read_float("R2_MEAN_Q")
+    Float? r2_mean_q = read_float("R2_MEAN_Q")
     Float est_coverage = read_float("EST_COVERAGE")
   }
   runtime {

@@ -5,9 +5,9 @@ workflows:
    primaryDescriptorPath: /workflows/wf_ksnp3.wdl
    testParameterFiles:
     - empty.json
- - name: Apollo_Illumina_PE
+ - name: Gambit_Query
    subclass: WDL
-   primaryDescriptorPath: /workflows/wf_apollo_illumina_pe.wdl
+   primaryDescriptorPath: /workflows/wf_gambit_query.wdl
    testParameterFiles:
     - empty.json
  - name: Kleborate
@@ -28,5 +28,10 @@ workflows:
  - name: TBProfiler_ONT
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_tbprofiler_ont.wdl
+   testParameterFiles:
+    - empty.json
+ - name: TheiaProk_Illumina_PE
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_theiaprok_illumina_pe.wdl
    testParameterFiles:
     - empty.json

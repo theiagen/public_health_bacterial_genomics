@@ -1,7 +1,8 @@
 version 1.0
 
-import "../tasks/task_qc_utils.wdl" as qc_utils
-import "../tasks/task_read_clean.wdl" as read_clean
+import "../tasks/quality_control/task_trimmomatic.wdl" as trimmomatic
+import "../tasks/quality_control/task_bbduk.wdl" as bbduk
+import "../tasks/quality_control/task_fastq_scan.wdl" as fastq_scan
 
 workflow read_QC_trim {
   meta {
@@ -15,8 +16,9 @@ workflow read_QC_trim {
     Int?    trimmomatic_minlen = 75
     Int?    trimmomatic_quality_trim_score = 30
     Int?    trimmomatic_window_size = 4
+    Int     bbduk_mem = 8
   }
-  call read_clean.trimmomatic_pe {
+  call trimmomatic.trimmomatic_pe {
     input:
       samplename = samplename,
       read1 = read1_raw,
@@ -25,18 +27,19 @@ workflow read_QC_trim {
       trimmomatic_quality_trim_score = trimmomatic_quality_trim_score,
       trimmomatic_window_size = trimmomatic_window_size
   }
-  call read_clean.bbduk_pe {
+  call bbduk.bbduk_pe {
     input:
       samplename = samplename,
       read1_trimmed = trimmomatic_pe.read1_trimmed,
-      read2_trimmed = trimmomatic_pe.read2_trimmed
+      read2_trimmed = trimmomatic_pe.read2_trimmed,
+      mem_size_gb = bbduk_mem
   }
-  call qc_utils.fastqc_pe as fastqc_raw {
+  call fastq_scan.fastq_scan_pe as fastq_scan_raw {
     input:
       read1 = read1_raw,
       read2 = read2_raw,
   }
-  call qc_utils.fastqc_pe as fastqc_clean {
+  call fastq_scan.fastq_scan_pe as fastq_scan_clean {
     input:
       read1 = bbduk_pe.read1_clean,
       read2 = bbduk_pe.read2_clean
@@ -45,16 +48,13 @@ workflow read_QC_trim {
   output {
     File	read1_clean	=	bbduk_pe.read1_clean
     File	read2_clean	=	bbduk_pe.read2_clean
-
-    Int	fastqc_raw1	=	fastqc_raw.read1_seq
-    Int	fastqc_raw2	=	fastqc_raw.read2_seq
-    String	fastqc_raw_pairs	=	fastqc_raw.read_pairs
-
-    Int	fastqc_clean1	=	fastqc_clean.read1_seq
-    Int	fastqc_clean2	=	fastqc_clean.read2_seq
-    String	fastqc_clean_pairs	=	fastqc_clean.read_pairs
-
-    String	fastqc_version	=	fastqc_raw.version
+    Int	fastq_scan_raw1	=	fastq_scan_raw.read1_seq
+    Int	fastq_scan_raw2	=	fastq_scan_raw.read2_seq
+    String	fastq_scan_raw_pairs	=	fastq_scan_raw.read_pairs
+    Int	fastq_scan_clean1	=	fastq_scan_clean.read1_seq
+    Int	fastq_scan_clean2	=	fastq_scan_clean.read2_seq
+    String	fastq_scan_clean_pairs	=	fastq_scan_clean.read_pairs
+    String	fastq_scan_version	=	fastq_scan_raw.version
     String	bbduk_docker	=	bbduk_pe.bbduk_docker
     String	trimmomatic_version	=	trimmomatic_pe.version
   }
