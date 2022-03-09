@@ -6,6 +6,7 @@ import "../tasks/species_typing/task_lissero.wdl" as lissero
 import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
 import "../tasks/species_typing/task_kleborate.wdl" as kleborate
+import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 
 workflow merlin_magic {
   meta {
@@ -43,7 +44,7 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }
-    call seqsero2.seqsero2_pe {
+    call seqsero2.seqsero2_pe as seqsero2 {
       input: 
         read1 = read1,
         read2 = read2,
@@ -54,6 +55,14 @@ workflow merlin_magic {
     call kleborate.kleborate {
       input:
         assembly = assembly,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Mycobacterium") {
+    call tbprofiler.tbprofiler_pe as tbprofiler {
+      input:
+        read1 = read1,
+        read2 = read2,
         samplename = samplename
     }
   }
@@ -73,15 +82,24 @@ workflow merlin_magic {
   File? sistr_allele_fasta = sistr.sistr_allele_fasta
   File? sistr_cgmlst = sistr.sistr_cgmlst
   String? sistr_version = sistr.sistr_version
-  File? seqsero2_report = seqsero2_pe.seqsero2_report
-  String? seqsero2_version = seqsero2_pe.seqsero2_version
-  String? seqsero2_predicted_antigenic_profile = seqsero2_pe.seqsero2_predicted_antigenic_profile
-  String? seqsero2_predicted_serotype = seqsero2_pe.seqsero2_predicted_serotype
-  String? seqsero2_predicted_contamination = seqsero2_pe.seqsero2_predicted_contamination
+  File? seqsero2_report = seqsero2.seqsero2_report
+  String? seqsero2_version = seqsero2.seqsero2_version
+  String? seqsero2_predicted_antigenic_profile = seqsero2.seqsero2_predicted_antigenic_profile
+  String? seqsero2_predicted_serotype = seqsero2.seqsero2_predicted_serotype
+  String? seqsero2_predicted_contamination = seqsero2.seqsero2_predicted_contamination
   # Klebsiella Typing
   File? kleborate_output_file = kleborate.kleborate_output_file
   String? kleborate_version = kleborate.kleborate_version
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
+  # Mycobacterium Typing
+  File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
+  File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam
+  File? tbprofiler_output_bai = tbprofiler.tbprofiler_output_bai
+  String? tbprofiler_version = tbprofiler.version
+  String? tbprofiler_main_lineage = tbprofiler.tbprofiler_main_lineage
+  String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
+  String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
+  String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
  }
 }

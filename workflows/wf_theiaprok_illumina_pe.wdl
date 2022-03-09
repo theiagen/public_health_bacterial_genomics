@@ -202,5 +202,14 @@ workflow theiaprok_illumina_pe {
     String? kleborate_version = merlin_magic.kleborate_version
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
+    # Mycobacterium Typing
+    File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
+    File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam
+    File? tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai
+    String? tbprofiler_version = merlin_magic.tbprofiler_version
+    String? tbprofiler_main_lineage = merlin_magic.tbprofiler_main_lineage
+    String? tbprofiler_sub_lineage = merlin_magic.tbprofiler_sub_lineage
+    String? tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type
+    String? tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
   }
 }
