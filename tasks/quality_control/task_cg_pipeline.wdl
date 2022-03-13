@@ -27,7 +27,7 @@ task cg_pipeline {
               r1_mean_q.write(line["avgQuality"])
             coverage = float(line["coverage"])
             print(coverage)
-          if "_2" or "_R2" in line["File"]:
+          elif "_2" or "_R2" in line["File"]:
             with open("R2_MEAN_Q", 'wt') as r2_mean_q:
               r2_mean_q.write(line["avgQuality"])
             coverage += float(line["coverage"])
