@@ -21,7 +21,8 @@ workflow mycosnp {
     String mycosnp_version = mycosnp.mycosnp_version
     String mycosnp_docker = mycosnp.mycosnp_docker
     String analysis_date = mycosnp.analysis_date
-    String reference_genome = mycosnp.reference_genome
+    String reference_strain = mycosnp.reference_strain
+    String reference_accession = mycosnp.reference_accession
     File assembly_fasta = mycosnp.assembly_fasta
     File full_results = mycosnp.full_results
   }

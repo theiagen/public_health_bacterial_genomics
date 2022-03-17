@@ -6,7 +6,8 @@ task mycosnp {
     File read2
     String samplename
     String docker="quay.io/theiagen/mycosnp:dev"
-    String reference="GCA_016772135"
+    String strain="B11205"
+    String accession="GCA_016772135"
   }
 
   command {
@@ -20,7 +21,7 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{reference} --publish_dir_mode copy --skip_phylogeny; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
@@ -35,7 +36,8 @@ task mycosnp {
     String mycosnp_version = read_string("MYCOSNP_VERSION")
     String mycosnp_docker = docker
     String analysis_date = read_string("DATE")
-    String reference_genome = reference
+    String reference_strain = strain
+    String reference_accession = accession
     File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta.gz"
     File full_results = "~{samplename}.tar.gz"
   }
