@@ -2,9 +2,9 @@ version 1.0
 
 import "../tasks/phylogenetic_inference/task_mycosnp.wdl" as mycosnp_nf
 
-workflow mycosnp {
+workflow mycosnp_consensus_assembly {
   meta {
-    description: "A WDL wrapper around mycosnp-nf, for whole genome sequencing analysis of fungal organisms, including Candida auris."
+    description: "A WDL wrapper around the qc, processing and consensus assembly components of mycosnp-nf, for whole genome sequencing analysis of fungal organisms, including Candida auris."
   }
   input {
     File    read1
