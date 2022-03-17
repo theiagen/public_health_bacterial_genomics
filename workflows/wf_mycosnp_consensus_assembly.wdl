@@ -1,6 +1,7 @@
 version 1.0
 
 import "../tasks/phylogenetic_inference/task_mycosnp.wdl" as mycosnp_nf
+import "../tasks/task_versioning.wdl" as versioning
 
 workflow mycosnp_consensus_assembly {
   meta {
@@ -17,7 +18,14 @@ workflow mycosnp_consensus_assembly {
       read2 = read2,
       samplename = samplename
   }
+  call versioning.version_capture{
+    input:
+  }
   output {
+    #Version Captures
+    String mycosnp_consensus_assembly_version = version_capture.phbg_version
+    String mycosnp_consensus_assembly_analysis_date = version_capture.date
+    #MycoSNP QC and Assembly
     String mycosnp_version = mycosnp.mycosnp_version
     String mycosnp_docker = mycosnp.mycosnp_docker
     String analysis_date = mycosnp.analysis_date
