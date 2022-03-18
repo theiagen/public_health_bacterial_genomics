@@ -45,8 +45,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_mycosnp_tree.wdl
    testParameterFiles:
     - empty.json
- - name: MashTree
+ - name: MashTree_FASTA
    subclass: WDL
-   primaryDescriptorPath: /workflows/wf_mashtree.wdl
+   primaryDescriptorPath: /workflows/wf_mashtree_fasta.wdl
    testParameterFiles:
     - empty.json

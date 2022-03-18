@@ -3,12 +3,12 @@ version 1.0
 import "../tasks/phylogenetic_inference/task_mashtree.wdl" as mashtree
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow mashtree {
+workflow mashtree_fasta {
 	input {
 		Array[File] assembly_fasta
     String cluster_name
 	}
-	call mashtree.mashtree as mashtree_task {
+	call mashtree.mashtree_fasta as mashtree_task {
 		input:
 			assembly_fasta = assembly_fasta,
       cluster_name = cluster_name

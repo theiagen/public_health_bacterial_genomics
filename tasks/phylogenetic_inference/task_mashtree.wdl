@@ -1,6 +1,6 @@
 version 1.0
 
-task mashtree {
+task mashtree_fasta {
   input {
     Array[File] assembly_fasta
     String cluster_name
