@@ -39,7 +39,7 @@ task sistr {
     File sistr_allele_fasta = "~{samplename}-allele.fasta"
     File sistr_cgmlst = "~{samplename}-cgmlst.csv"
     String sistr_version = read_string("VERSION")
-    String sisr_predicted_serotype = read_string("PREDICTED_SEROTYPE")
+    String sistr_predicted_serotype = read_string("PREDICTED_SEROTYPE")
   }
   runtime {
     docker: "~{docker}"

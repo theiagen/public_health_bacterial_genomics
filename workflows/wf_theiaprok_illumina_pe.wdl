@@ -127,7 +127,7 @@ workflow theiaprok_illumina_pe {
         sister_allele_fasta = merlin_magic.sistr_allele_fasta,
         sistr_cgmlst = merlin_magic.sistr_cgmlst,
         sistr_version = merlin_magic.sistr_version,
-        sisr_predicted_serotype = merlin_magic.sisr_predicted_serotype,
+        sistr_predicted_serotype = merlin_magic.sistr_predicted_serotype,
         seqsero2_report = merlin_magic.seqsero2_report,
         seqsero2_version = merlin_magic.seqsero2_version,
         seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile,

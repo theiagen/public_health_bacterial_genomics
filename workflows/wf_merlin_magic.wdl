@@ -82,7 +82,7 @@ workflow merlin_magic {
   File? sistr_allele_fasta = sistr.sistr_allele_fasta
   File? sistr_cgmlst = sistr.sistr_cgmlst
   String? sistr_version = sistr.sistr_version
-  String? sisr_predicted_serotype = sistr.sisr_predicted_serotype
+  String? sistr_predicted_serotype = sistr.sistr_predicted_serotype
   File? seqsero2_report = seqsero2.seqsero2_report
   String? seqsero2_version = seqsero2.seqsero2_version
   String? seqsero2_predicted_antigenic_profile = seqsero2.seqsero2_predicted_antigenic_profile
