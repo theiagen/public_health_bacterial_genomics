@@ -27,7 +27,7 @@ task mashtree {
       ~{'--genomesize ' + genomesize} \
       ~{'--mindepth ' + mindepth} \
       ~{'--kmerlength ' + kmerlength} \
-      ~{'--sketchsize ' + sketchsize} \
+      ~{'--sketch-size ' + sketchsize} \
       ~{'--numcpus ' + cpu} \
       ~{'--outmatrix ' + cluster_name + '.tsv'} \
       ~{'--outtree ' + cluster_name + '.nwk'} \
