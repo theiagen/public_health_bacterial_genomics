@@ -94,7 +94,7 @@ workflow merlin_magic {
   String? kleborate_version = kleborate.kleborate_version
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
-  String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type
+  String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
   File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam
