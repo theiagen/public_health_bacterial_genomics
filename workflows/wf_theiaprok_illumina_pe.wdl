@@ -20,6 +20,7 @@ workflow theiaprok_illumina_pe {
     String seq_method = "ILLUMINA"
     File read1_raw
     File read2_raw
+    String? run_id
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
@@ -80,6 +81,7 @@ workflow theiaprok_illumina_pe {
         samplename = samplename,
         read1 = read1_raw,
         read2 = read2_raw,
+        run_id = run_id,
         theiaprok_illumina_pe_version = version_capture.phbg_version,
         theiaprok_illumina_pe_analysis_date = version_capture.date,
         seq_platform = seq_method,
@@ -201,6 +203,7 @@ workflow theiaprok_illumina_pe {
     File? sister_allele_fasta = merlin_magic.sistr_allele_fasta
     File? sistr_cgmlst = merlin_magic.sistr_cgmlst
     String? sistr_version = merlin_magic.sistr_version
+    String? sistr_predicted_serotype = merlin_magic.sistr_predicted_serotype
     File? seqsero2_report = merlin_magic.seqsero2_report
     String? seqsero2_version = merlin_magic.seqsero2_version
     String? seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile
