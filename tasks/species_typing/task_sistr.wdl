@@ -28,6 +28,10 @@ task sistr {
       ~{assembly}
     
     mv ~{samplename}.tab ~{samplename}.tsv
+    
+    # parse sistr TSV
+    cut -f 15 ~{samplename}.tsv | tail -n 1 | tee PREDICTED_SEROTYPE
+    
   >>>
   output {
     File sistr_results = "~{samplename}.tsv"
@@ -35,6 +39,7 @@ task sistr {
     File sistr_allele_fasta = "~{samplename}-allele.fasta"
     File sistr_cgmlst = "~{samplename}-cgmlst.csv"
     String sistr_version = read_string("VERSION")
+    String sistr_predicted_serotype = read_string("PREDICTED_SEROTYPE")
   }
   runtime {
     docker: "~{docker}"

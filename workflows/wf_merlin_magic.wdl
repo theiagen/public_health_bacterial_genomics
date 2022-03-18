@@ -73,6 +73,7 @@ workflow merlin_magic {
   String? serotypefinder_serotype = serotypefinder.serotypefinder_serotype
   File? ectyper_results = ectyper.ectyper_results
   String? ectyper_version = ectyper.ectyper_version
+  String? ectyper_predicted_serotype = ectyper.ectyper_predicted_serotype
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
@@ -82,6 +83,7 @@ workflow merlin_magic {
   File? sistr_allele_fasta = sistr.sistr_allele_fasta
   File? sistr_cgmlst = sistr.sistr_cgmlst
   String? sistr_version = sistr.sistr_version
+  String? sistr_predicted_serotype = sistr.sistr_predicted_serotype
   File? seqsero2_report = seqsero2.seqsero2_report
   String? seqsero2_version = seqsero2.seqsero2_version
   String? seqsero2_predicted_antigenic_profile = seqsero2.seqsero2_predicted_antigenic_profile
@@ -92,6 +94,7 @@ workflow merlin_magic {
   String? kleborate_version = kleborate.kleborate_version
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
+  String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
   File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam

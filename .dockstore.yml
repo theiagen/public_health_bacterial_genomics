@@ -35,3 +35,18 @@ workflows:
    primaryDescriptorPath: /workflows/wf_theiaprok_illumina_pe.wdl
    testParameterFiles:
     - empty.json
+ - name: MycoSNP_Consensus_Assembly
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_mycosnp_consensus_assembly.wdl
+   testParameterFiles:
+    - empty.json
+ - name: MycoSNP_Tree
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_mycosnp_tree.wdl
+   testParameterFiles:
+    - empty.json
+ - name: MashTree_FASTA
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_mashtree_fasta.wdl
+   testParameterFiles:
+    - empty.json

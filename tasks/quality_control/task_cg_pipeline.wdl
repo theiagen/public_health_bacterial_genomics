@@ -22,18 +22,18 @@ task cg_pipeline {
     with open("~{samplename}_readMetrics.tsv",'r') as tsv_file:
       tsv_reader = list(csv.DictReader(tsv_file, delimiter="\t"))
       for line in tsv_reader:
-          if "_1" or "_R1" in line["File"]:
-            with open("R1_MEAN_Q", 'wt') as r1_mean_q:
-              r1_mean_q.write(line["avgQuality"])
-            coverage = float(line["coverage"])
-            print(coverage)
-          if "_2" or "_R2" in line["File"]:
-            with open("R2_MEAN_Q", 'wt') as r2_mean_q:
-              r2_mean_q.write(line["avgQuality"])
-            coverage += float(line["coverage"])
-            print()
-            with open("EST_COVERAGE", 'wt') as est_coverage:
-              est_coverage.write(str(coverage))
+        fwd_tags=["_1", "_R1"]
+        if any(x in line["File"] for x in fwd_tags):
+          with open("R1_MEAN_Q", 'wt') as r1_mean_q:
+            r1_mean_q.write(line["avgQuality"])
+          coverage = float(line["coverage"])
+          print(coverage)
+        else:
+          with open("R2_MEAN_Q", 'wt') as r2_mean_q:
+            r2_mean_q.write(line["avgQuality"])
+          coverage += float(line["coverage"])
+          with open("EST_COVERAGE", 'wt') as est_coverage:
+            est_coverage.write(str(coverage))
     CODE
 
   >>>

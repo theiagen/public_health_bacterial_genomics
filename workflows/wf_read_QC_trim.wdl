@@ -14,8 +14,8 @@ workflow read_QC_trim {
     File    read1_raw
     File    read2_raw
     Int?    trimmomatic_minlen = 75
-    Int?    trimmomatic_quality_trim_score = 30
-    Int?    trimmomatic_window_size = 4
+    Int?    trimmomatic_quality_trim_score = 20
+    Int?    trimmomatic_window_size = 10
     Int     bbduk_mem = 8
   }
   call trimmomatic.trimmomatic_pe {

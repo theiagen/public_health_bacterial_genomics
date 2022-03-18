@@ -20,6 +20,7 @@ workflow theiaprok_illumina_pe {
     String seq_method = "ILLUMINA"
     File read1_raw
     File read2_raw
+    String? run_id
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
@@ -80,6 +81,7 @@ workflow theiaprok_illumina_pe {
         samplename = samplename,
         read1 = read1_raw,
         read2 = read2_raw,
+        run_id = run_id,
         theiaprok_illumina_pe_version = version_capture.phbg_version,
         theiaprok_illumina_pe_analysis_date = version_capture.date,
         seq_platform = seq_method,
@@ -118,6 +120,7 @@ workflow theiaprok_illumina_pe {
         serotypefinder_serotype = merlin_magic.serotypefinder_serotype,
         ectyper_results = merlin_magic.ectyper_results,
         ectyper_version = merlin_magic.ectyper_version,
+        ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
         lissero_results = merlin_magic.lissero_results,
         lissero_version = merlin_magic.lissero_version,
         sistr_results = merlin_magic.sistr_results,
@@ -125,6 +128,7 @@ workflow theiaprok_illumina_pe {
         sister_allele_fasta = merlin_magic.sistr_allele_fasta,
         sistr_cgmlst = merlin_magic.sistr_cgmlst,
         sistr_version = merlin_magic.sistr_version,
+        sistr_predicted_serotype = merlin_magic.sistr_predicted_serotype,
         seqsero2_report = merlin_magic.seqsero2_report,
         seqsero2_version = merlin_magic.seqsero2_version,
         seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile,
@@ -134,6 +138,7 @@ workflow theiaprok_illumina_pe {
         kleborate_version = merlin_magic.kleborate_version,
         kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
         kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
+        kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
         tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
         tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
         tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -191,6 +196,7 @@ workflow theiaprok_illumina_pe {
     String? serotypefinder_serotype = merlin_magic.serotypefinder_serotype
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
+    String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
     #Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
@@ -200,6 +206,7 @@ workflow theiaprok_illumina_pe {
     File? sister_allele_fasta = merlin_magic.sistr_allele_fasta
     File? sistr_cgmlst = merlin_magic.sistr_cgmlst
     String? sistr_version = merlin_magic.sistr_version
+    String? sistr_predicted_serotype = merlin_magic.sistr_predicted_serotype
     File? seqsero2_report = merlin_magic.seqsero2_report
     String? seqsero2_version = merlin_magic.seqsero2_version
     String? seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile
@@ -210,6 +217,7 @@ workflow theiaprok_illumina_pe {
     String? kleborate_version = merlin_magic.kleborate_version
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
+    String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam
