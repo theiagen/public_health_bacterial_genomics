@@ -1,6 +1,6 @@
 version 1.0
 
-import "../tasks/phylogenetic_inference/task_mycosnp.wdl" as mycosnp_nf
+import "../tasks/assembly/task_mycosnp_consensus_assembly.wdl" as mycosnp_nf
 import "../tasks/task_versioning.wdl" as versioning
 
 workflow mycosnp_consensus_assembly {

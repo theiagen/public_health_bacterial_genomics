@@ -9,8 +9,7 @@ task mycosnp {
     String strain="B11205"
     String accession="GCA_016772135"
   }
-
-  command {
+  command <<<
     date | tee DATE
     echo $(nextflow pull rpetit3/mycosnp-nf 2>&1) | sed 's/^.*revision: //;' | tee MYCOSNP_VERSION
 
@@ -30,8 +29,7 @@ task mycosnp {
       # Run failed
       exit 1
     fi
-  }
-
+  >>>
   output {
     String mycosnp_version = read_string("MYCOSNP_VERSION")
     String mycosnp_docker = docker
@@ -41,7 +39,6 @@ task mycosnp {
     File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta.gz"
     File full_results = "~{samplename}.tar.gz"
   }
-
   runtime {
     docker: "~{docker}"
     memory: "16 GB"
