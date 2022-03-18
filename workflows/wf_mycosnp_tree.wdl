@@ -10,7 +10,7 @@ workflow mycosnp_tree {
   input {
     Array[String] samplename
     Array[File] assembly_fasta
-	}
+  }
   call mycosnptree_nf.mycosnptree {
     input:
       assembly_fasta = assembly_fasta,
