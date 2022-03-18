@@ -138,6 +138,7 @@ workflow theiaprok_illumina_pe {
         kleborate_version = merlin_magic.kleborate_version,
         kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
         kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
+        kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
         tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
         tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
         tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -216,6 +217,7 @@ workflow theiaprok_illumina_pe {
     String? kleborate_version = merlin_magic.kleborate_version
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
+    String? kleborate_mlst_sequence_type = kleborate_mlst_sequence_type
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam
