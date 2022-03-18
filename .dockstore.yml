@@ -40,3 +40,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_mycosnp_consensus_assembly.wdl
    testParameterFiles:
     - empty.json
+ - name: MycoSNP_Tree
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_mycosnp_trees.wdl
+   testParameterFiles:
+    - empty.json
