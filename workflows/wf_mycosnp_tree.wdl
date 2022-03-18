@@ -1,9 +1,9 @@
 version 1.0
 
-import "../tasks/phylogenetic_inference/task_mycosnptree.wdl" as mycosnptree_nf
+import "../tasks/phylogenetic_inference/task_mycosnp_tree.wdl" as mycosnptree_nf
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow mycosnp_consensus_assembly {
+workflow mycosnp_tree {
   meta {
     description: "A WDL wrapper around the phylogeny components of mycosnp-nf, for whole genome sequencing analysis of fungal organisms, including Candida auris."
   }
@@ -21,16 +21,16 @@ workflow mycosnp_consensus_assembly {
   }
   output {
     #Version Captures
-    String mycosnptree_consensus_assembly_version = version_capture.phbg_version
-    String mycosnptree_consensus_assembly_analysis_date = version_capture.date
+    String mycosnp_tree_version = version_capture.phbg_version
+    String mycosnp_tree_analysis_date = version_capture.date
     #MycoSNP QC and Assembly
-    String mycosnptree_version = mycosnptree.mycosnptree_version
-    String mycosnptree_docker = mycosnptree.mycosnptree_docker
+    String mycosnp_version = mycosnptree.mycosnptree_version
+    String mycosnp_docker = mycosnptree.mycosnptree_docker
     String analysis_date = mycosnptree.analysis_date
     String reference_strain = mycosnptree.reference_strain
     String reference_accession = mycosnptree.reference_accession
-    File mycosnptree_tree = mycosnptree.mycosnptree_tree
-    File mycosnptree_iqtree_log = mycosnptree.mycosnptree_iqtree_log
-    File mycosnptree_full_results = mycosnptree.mycosnptree_full_results
+    File mycosnp_tree_finaltree = mycosnptree.mycosnptree_tree
+    File mycosnp_tree_iqtree_log = mycosnptree.mycosnptree_iqtree_log
+    File mycosnp_tree_full_results = mycosnptree.mycosnptree_full_results
   }
 }
