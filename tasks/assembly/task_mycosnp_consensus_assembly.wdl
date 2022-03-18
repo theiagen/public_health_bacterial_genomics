@@ -26,7 +26,7 @@ task mycosnp {
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
-      tar -cf - ~{samplename}/ | gzip -n --best  > ${samplename}.tar.gz
+      tar -cf - ~{samplename}/ | gzip -n --best > ~{samplename}.tar.gz
     else
       # Run failed
       exit 1
