@@ -5,9 +5,11 @@ task mycosnp {
     File read1
     File read2
     String samplename
-    String docker="quay.io/theiagen/mycosnp:dev"
-    String strain="B11205"
-    String accession="GCA_016772135"
+    String docker = "quay.io/theiagen/mycosnp:dev"
+    String strain = "B11205"
+    String accession = "GCA_016772135"
+    Int memory = 16
+    Int cpu = 4
   }
   command <<<
     date | tee DATE
@@ -41,8 +43,8 @@ task mycosnp {
   }
   runtime {
     docker: "~{docker}"
-    memory: "16 GB"
-    cpu: 4
+    memory: "~{memory} GB"
+    cpu: cpu
     disks:  "local-disk 50 SSD"
     maxRetries: 3
     preemptible: 0
