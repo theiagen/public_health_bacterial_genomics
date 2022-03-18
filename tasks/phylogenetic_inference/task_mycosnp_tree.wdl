@@ -34,7 +34,7 @@ task mycosnptree {
     # Run MycoSNP
     mkdir mycosnptree
     cd mycosnptree
-    if nextflow run rpetit3/mycosnp-nf -entry NFCORE_MYCOSNPTREE --input ../samples.csv --fasta /reference/~{accession}/masked/reference-consensus.fa --publish_dir_mode copy --rapidnj False --fasttree False --iqtree; then
+    if nextflow run rpetit3/mycosnp-nf -entry NFCORE_MYCOSNPTREE --input ../samples.csv --fasta /reference/~{accession}/consensus/reference-consensus.fa --publish_dir_mode copy --rapidnj False --fasttree False --iqtree; then
       # Everything finished, pack up the results and clean up
       find work/ -name "*.iqtree" | xargs -I {} cp {} ./
       rm -rf .nextflow/ work/
