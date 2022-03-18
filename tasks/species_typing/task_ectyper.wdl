@@ -37,9 +37,12 @@ task ectyper {
       --output ./ \
       --input ~{assembly}
     mv output.tsv ~{samplename}.tsv
+    # parse ECTyper TSV
+    cut -f 5 ~{samplename}.tsv | tail -n 1 | tee PREDICTED_SEROTYPE
   >>>
   output {
     File ectyper_results = "~{samplename}.tsv"
+    String ectyper_predicted_serotype = read_string("PREDICTED_SEROTYPE")
     String ectyper_version = read_string("VERSION")
   }
   runtime {

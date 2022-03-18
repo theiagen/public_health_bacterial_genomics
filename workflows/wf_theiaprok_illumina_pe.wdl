@@ -120,6 +120,7 @@ workflow theiaprok_illumina_pe {
         serotypefinder_serotype = merlin_magic.serotypefinder_serotype,
         ectyper_results = merlin_magic.ectyper_results,
         ectyper_version = merlin_magic.ectyper_version,
+        ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
         lissero_results = merlin_magic.lissero_results,
         lissero_version = merlin_magic.lissero_version,
         sistr_results = merlin_magic.sistr_results,
@@ -194,6 +195,7 @@ workflow theiaprok_illumina_pe {
     String? serotypefinder_serotype = merlin_magic.serotypefinder_serotype
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
+    String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
     #Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version

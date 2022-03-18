@@ -73,6 +73,7 @@ workflow merlin_magic {
   String? serotypefinder_serotype = serotypefinder.serotypefinder_serotype
   File? ectyper_results = ectyper.ectyper_results
   String? ectyper_version = ectyper.ectyper_version
+  String? ectyper_predicted_serotype = ectyper.ectyper_predicted_serotype
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
