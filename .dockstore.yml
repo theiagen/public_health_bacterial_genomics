@@ -42,6 +42,6 @@ workflows:
     - empty.json
  - name: MycoSNP_Tree
    subclass: WDL
-   primaryDescriptorPath: /workflows/wf_mycosnp_trees.wdl
+   primaryDescriptorPath: /workflows/wf_mycosnp_tree.wdl
    testParameterFiles:
     - empty.json
