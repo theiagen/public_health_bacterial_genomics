@@ -39,6 +39,8 @@ task mycosnp {
     String reference_strain = strain
     String reference_accession = accession
     File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta.gz"
+    File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
+    File vcf_index = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz.tbi"
     File full_results = "~{samplename}.tar.gz"
   }
   runtime {

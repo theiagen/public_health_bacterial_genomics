@@ -2,7 +2,8 @@ version 1.0
 
 task mycosnptree {
   input {
-    Array[File] assembly_fasta
+    Array[File] vcf
+    Array[File] vcf_index
     Array[String] samplename
     String docker="quay.io/theiagen/mycosnp:dev"
     String strain="B11205"
@@ -12,29 +13,32 @@ task mycosnptree {
     date | tee DATE
     echo $(nextflow pull rpetit3/mycosnp-nf 2>&1) | sed 's/^.*revision: //;' | tee MYCOSNPTREE_VERSION
 
-    assembly_array=(~{sep=' ' assembly_fasta})
-    assembly_array_len=$(echo "${#assembly_array[@]}")
+    vcf_array=(~{sep=' ' vcf})
+    vcf_array_len=$(echo "${#vcf[@]}")
+    vcf_index_array=(~{sep=' ' vcf_index})
+    vcf_index_array_len=$(echo "${#vcf_index[@]}")
     samplename_array=(~{sep=' ' samplename})
     samplename_array_len=$(echo "${#samplename_array[@]}")
 
-    # Ensure assembly, and samplename arrays are of equal length
-    if [ "$assembly_array_len" -ne "$samplename_array_len" ]; then
-      echo "Assembly array (length: $assembly_array_len) and samplename array (length: $samplename_array_len) are of unequal length." >&2
+    # Ensure vcf, vcf_index, and samplename arrays are of equal length
+    if [ "$vcf_array_len" -ne "$samplename_array_len" ] || [ "$vcf_index_array_len" -ne "$samplename_array_len" ]; then
+      echo "VCF array (length: $vcf_array_len), VCF index array (length: $vcf_index_array_len), and samplename array (length: $samplename_array_len) are of unequal length." >&2
       exit 1
     fi
 
     # Make sample FOFN
-    echo "sample,fasta" > samples.csv
-    for index in ${!assembly_array[@]}; do
-      assembly=${assembly_array[$index]}
+    echo "sample,vcf,vcf_index" > samples.csv
+    for index in ${!vcf_array[@]}; do
+      vcf=${vcf_array[$index]}
+      vcf_index=${vcf_index_array[$index]}
       samplename=${samplename_array[$index]}
-      echo -e "${samplename},${assembly}" >> samples.csv
+      echo -e "${samplename},${vcf},${vcf_index}" >> samples.csv
     done
 
     # Run MycoSNP
     mkdir mycosnptree
     cd mycosnptree
-    if nextflow run rpetit3/mycosnp-nf -entry NFCORE_MYCOSNPTREE --input ../samples.csv --fasta /reference/~{accession}/consensus/reference-consensus.fa --publish_dir_mode copy --rapidnj False --fasttree False --iqtree; then
+    if nextflow run rpetit3/mycosnp-nf -entry NFCORE_MYCOSNPTREE --input ../samples.csv --ref_dir /reference/~{accession} --publish_dir_mode copy; then
       # Everything finished, pack up the results and clean up
       find work/ -name "*.iqtree" | xargs -I {} cp {} ./
       rm -rf .nextflow/ work/
@@ -51,8 +55,9 @@ task mycosnptree {
     String analysis_date = read_string("DATE")
     String reference_strain = strain
     String reference_accession = accession
-    File mycosnptree_tree = "mycosnptree/results/combined/phylogeny/iqtree/alignment.fasta.treefile"
-    File mycosnptree_iqtree_log = "mycosnptree/alignment.fasta.iqtree"
+    File mycosnptree_rapidnj_tree = "mycosnotree/results/combined/phylogeny/rapidnj/rapidnj_phylogeny.tre"
+    File mycosnptree_fasttree_tree = "mycosnotree/results/combined/phylogeny/fasttree/fasttree_phylogeny.tre"
+    File mycosnptree_alignment = "mycosnptree/results/combined/vcf-to-fasta/combined-tree_vcf-to-fasta.fasta"
     File mycosnptree_full_results = "mycosnptree.tar.gz"
   }
   runtime {
