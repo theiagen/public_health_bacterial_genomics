@@ -31,7 +31,6 @@ workflow mycosnp_consensus_assembly {
     String analysis_date = mycosnp.analysis_date
     String reference_strain = mycosnp.reference_strain
     String reference_accession = mycosnp.reference_accession
-    File assembly_fasta = mycosnp.assembly_fasta
     File vcf = mycosnp.vcf
     File vcf_index = mycosnp.vcf_index
     File full_results = mycosnp.full_results
