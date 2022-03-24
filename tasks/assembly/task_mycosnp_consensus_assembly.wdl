@@ -22,7 +22,7 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_combined_analysis; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
@@ -38,6 +38,7 @@ task mycosnp {
     String analysis_date = read_string("DATE")
     String reference_strain = strain
     String reference_accession = accession
+    File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta.gz"
     File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
     File vcf_index = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz.tbi"
     File full_results = "~{samplename}.tar.gz"
