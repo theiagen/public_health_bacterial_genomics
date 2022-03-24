@@ -8,13 +8,13 @@ workflow mycosnp_tree {
     description: "A WDL wrapper around the phylogeny components of mycosnp-nf, for whole genome sequencing analysis of fungal organisms, including Candida auris."
   }
   input {
-    Array[String] samplename
-    Array[File] assembly_fasta
+    Array[File] vcf
+    Array[File] vcf_index
   }
   call mycosnptree_nf.mycosnptree {
     input:
-      assembly_fasta = assembly_fasta,
-      samplename = samplename
+      vcf = vcf,
+      vcf_index = vcf_index
   }
   call versioning.version_capture{
     input:
@@ -29,8 +29,9 @@ workflow mycosnp_tree {
     String analysis_date = mycosnptree.analysis_date
     String reference_strain = mycosnptree.reference_strain
     String reference_accession = mycosnptree.reference_accession
-    File mycosnp_tree_finaltree = mycosnptree.mycosnptree_tree
-    File mycosnp_tree_iqtree_log = mycosnptree.mycosnptree_iqtree_log
+    File mycosnp_rapidnf_tree = mycosnptree.mycosnptree_rapidnj_tree 
+    File mycosnp_fastree_tree = mycosnptree.mycosnptree_fasttree_tree
+    File mycosnp_alignment = mycosnptree.mycosnptree_alignment
     File mycosnp_tree_full_results = mycosnptree.mycosnptree_full_results
   }
 }
