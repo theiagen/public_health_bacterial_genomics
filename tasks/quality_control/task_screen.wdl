@@ -42,12 +42,12 @@ task check_reads {
       percent_read1=$((read1_num / read2_num * 100))
       percent_read2=$((read2_num / read1_num * 100))
 
-      # compare proportion here 
+      # compare proportion of reads with one another; if less than 50% quit
       if [ "$flag" = "PASS" ] ; then
-        if [ "percent_read1" -lt "~min_proportion" ] ; then
-          flag="FAIL; more than 50 percent of the reads are present in ~{read2} than ~{read1}"
-        elif [ "$percent_read2" -lt "~min_proportion" ] ; then
-          flag="FAIL; more than 50 percent of the reads are present in ~{read1} than ~{read2}"
+        if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
+          flag="FAIL; more than 50 percent of the total reads are found in ~{read2} compared to ~{read1}"
+        elif [ "$percent_read2" -lt "~{min_proportion}" ] ; then
+          flag="FAIL; more than 50 percent of the total reads are found in ~{read1} compared to ~{read2}"
         else
           flag="PASS"
         fi
@@ -76,7 +76,7 @@ task check_reads {
       if [ "${flag}" = "PASS" ]; then
         # determine genome size
               
-        # First Pass
+        # First Pass; assuming average depth
         mash sketch -o test -k 31 -m 3 -r ~{read1} ~{read2} > mash-output.txt 2>&1
         grep "Estimated genome size:" mash-output.txt | \
           awk '{if($4){printf("%d", $4)}} END {if (!NR) print "0"}' > genome_size_output
@@ -118,11 +118,11 @@ task check_reads {
             flag="FAIL; the estimated coverage is less than the minimum of ~{min_coverage}x"
           else
             flag="PASS"
-          fi    
-        fi    
+          fi  # estuimated coverage check close
+        fi # estimated genome size check close
 
     
-      fi # third and fourth check close
+      fi # mash sketch check close
 
     fi # closes if skip_screen == "False" check
     echo $flag | tee FLAG
