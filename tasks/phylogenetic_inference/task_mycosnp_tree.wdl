@@ -26,6 +26,7 @@ task mycosnptree {
     # Make sample FOFN
     touch samples.csv
     for index in ${!vcf_array[@]}; do
+      vcf=${vcf_array[$index]}
       echo -e "${vcf}" >> samples.csv
     done
 
