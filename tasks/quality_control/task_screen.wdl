@@ -24,14 +24,13 @@ task check_reads {
         cat_reads="cat"
       fi
 
-      # count number of reads
-      # sometimes fastqs do not have 4 lines per read, so this might fail one day
+      # check one: number of reads
       read1_num=`eval "$cat_reads ~{read1}" | awk '{s++}END{print s/4}'`
       read2_num=`eval "$cat_reads ~{read2}" | awk '{s++}END{print s/4}'`
       # awk '{s++}END{print s/4' counts the number of lines and divides them by 4
       # key assumption: in fastq there will be four lines per read
+      # sometimes fastqs do not have 4 lines per read, so this might fail one day
 
-      # if below the min_read number, set pass/fail flag
       if [ "${read1_num}" -le "~{min_reads}" ] || [ "${read2_num}" -le "~{min_reads}" ]; then
         flag="FAIL; the number of reads is below the minimum of ~{min_reads}"
       else
@@ -42,18 +41,18 @@ task check_reads {
       percent_read1=$((read1_num / read2_num * 100))
       percent_read2=$((read2_num / read1_num * 100))
 
-      # compare proportion of reads with one another; if less than 50% quit
+      # check two: proportion of reads
       if [ "$flag" = "PASS" ] ; then
         if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total reads are found in ~{read2} compared to ~{read1}"
+          flag="FAIL; more than 50 percent of the total reads are found in R2 compared to R1"
         elif [ "$percent_read2" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total reads are found in ~{read1} compared to ~{read2}"
+          flag="FAIL; more than 50 percent of the total reads are found in R1 compared to R2"
         else
           flag="PASS"
         fi
       fi
 
-      # if passes first check, continue to second check
+      # check three: number of basepairs
       if [ "${flag}" = "PASS" ]; then
         # count number of basepairs
         # this only works if the fastq has 4 lines per read, so this might fail one day
@@ -64,15 +63,14 @@ task check_reads {
         # tr -d '\n' removes line endings
         # wc -c counts characters
 
-        # if below the min_basepairs number, set pass/fail flag
         if [ "${read1_bp}" -le "~{min_basepairs}" ] || [ "${read2_bp}" -le "~{min_basepairs}" ] ; then
           flag="FAIL; the number of basepairs is below the minimum of ~{min_basepairs}"
         else
           flag="PASS"
         fi    
-      fi # closes second check
+      fi
 
-      #if passes second check, continue to third check
+      #checks four and five: estimated genome size and coverage
       if [ "${flag}" = "PASS" ]; then
         # determine genome size
               
@@ -107,7 +105,6 @@ task check_reads {
         estimated_genome_size=`head -n1 genome_size_output`
         estimated_coverage=`head -n1 coverage_output`
 
-        # if below/above min/max genome size, set pass/fail flag
         if [ "${estimated_genome_size}" -ge "~{max_genome_size}" ] ; then
           flag="FAIL; the genome size is estimated to be larger than the maximum of ~{max_genome_size} bps"
         elif [ "${estimated_genome_size}" -le "~{min_genome_size}" ] ; then
@@ -118,20 +115,17 @@ task check_reads {
             flag="FAIL; the estimated coverage is less than the minimum of ~{min_coverage}x"
           else
             flag="PASS"
-          fi  # estuimated coverage check close
-        fi # estimated genome size check close
-
+          fi 
+        fi
+      fi 
+    fi 
     
-      fi # mash sketch check close
-
-    fi # closes if skip_screen == "False" check
     echo $flag | tee FLAG
   >>>
   output {
-    # do something fancy to only output one variable
     String read_screen = read_string("FLAG")
   }
-  runtime { ### NOT SURE
+  runtime {
     docker: "quay.io/bactopia/gather_samples:2.0.2"
     memory: "2 GB"
     cpu: 2
@@ -140,5 +134,3 @@ task check_reads {
     maxRetries: 3
   }
 }
-
-# proportion : 100 in R1 20 in R2, R2 needs to be at least 50% of R1 and/or vice versa
