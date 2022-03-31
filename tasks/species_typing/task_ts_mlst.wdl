@@ -34,7 +34,7 @@ task ts_mlst {
       ~{'--minid' + minid} \
       ~{'--mincov' + mincov} \
       ~{'--minscore' + minscore} \
-      !{assembly} \
+      ~{assembly} \
       >> ~{samplename}_ts_mlst.tsv
       
     # parse ts mlst tsv
