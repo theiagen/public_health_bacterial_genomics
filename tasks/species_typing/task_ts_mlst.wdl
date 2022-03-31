@@ -30,16 +30,24 @@ task ts_mlst {
     mlst \
       --threads ~{cpu} \
       ~{true="--nopath" false="" nopath} \
-      ~{'--scheme' + scheme} \
-      ~{'--minid' + minid} \
-      ~{'--mincov' + mincov} \
-      ~{'--minscore' + minscore} \
+      ~{'--scheme ' + scheme} \
+      ~{'--minid ' + minid} \
+      ~{'--mincov ' + mincov} \
+      ~{'--minscore ' + minscore} \
       ~{assembly} \
       >> ~{samplename}_ts_mlst.tsv
       
-    # parse ts mlst tsv
-    echo "ST$(cut -f 3 ~{samplename}_ts_mlst.tsv | tail -n 1)" > PREDICTED_MLST
-    cut -f 2 ~{samplename}_ts_mlst.tsv | tail -n 1 | tee PUBMLST_SCHEME
+    # parse ts mlst tsv for relevant outputs
+    if [ $(wc -l ~{samplename}_ts_mlst.tsv | awk '{ print $1 }') -eq 1 ]; then
+      predicted_mlst="No ST predicted"
+      pubmlst_scheme="NA"
+    else
+      predicted_mlst="ST$(cut -f3 ~{samplename}_ts_mlst.tsv | tail -n 1)" 
+      pubmlst_scheme="$(cut -f2 ~{samplename}_ts_mlst.tsv | tail -n 1)"
+    fi
+    
+    echo $predicted_mlst | tee PREDICTED_MLST
+    echo $pubmlst_scheme | tee PUBMLST_SCHEME
   >>>
   output {
     File ts_mlst_results = "~{samplename}_ts_mlst.tsv"
