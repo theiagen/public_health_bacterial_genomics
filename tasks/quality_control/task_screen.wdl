@@ -14,7 +14,7 @@ task check_reads {
   }
   command <<<
     flag="PASS"
-    estimated_genome_size="NA"
+    estimated_genome_size="0"
     if [[ "~{skip_screen}" = "false" ]] ; then
       
       # set cat command based on compression
@@ -125,7 +125,7 @@ task check_reads {
   >>>
   output {
     String read_screen = read_string("FLAG")
-    String? est_genome_length = read_string("EST_GENOME_LENGTH")
+    Int? est_genome_length = read_string("EST_GENOME_LENGTH")
   }
   runtime {
     docker: "quay.io/bactopia/gather_samples:2.0.2"
