@@ -14,7 +14,7 @@ task check_reads {
   }
   command <<<
     flag="PASS"
-
+    estimated_genome_size="NA"
     if [[ "~{skip_screen}" = "false" ]] ; then
       
       # set cat command based on compression
@@ -121,6 +121,7 @@ task check_reads {
     fi 
     
     echo $flag | tee FLAG
+    echo $estimated_genome_size | tee EST_GENOME_LENGTH
   >>>
   output {
     String read_screen = read_string("FLAG")
