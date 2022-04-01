@@ -42,8 +42,13 @@ task ts_mlst {
       predicted_mlst="No ST predicted"
       pubmlst_scheme="NA"
     else
-      predicted_mlst="ST$(cut -f3 ~{samplename}_ts_mlst.tsv | tail -n 1)" 
       pubmlst_scheme="$(cut -f2 ~{samplename}_ts_mlst.tsv | tail -n 1)"
+        if [ pubmlst_scheme="No ST predicted" ]; then
+          predicted_mlst="No ST predicted"
+          pubmlst_scheme="NA"
+        else
+          predicted_mlst="ST$(cut -f3 ~{samplename}_ts_mlst.tsv | tail -n 1)"
+        fi  
     fi
     
     echo $predicted_mlst | tee PREDICTED_MLST
@@ -52,6 +57,7 @@ task ts_mlst {
   output {
     File ts_mlst_results = "~{samplename}_ts_mlst.tsv"
     String ts_mlst_predicted_st = read_string("PREDICTED_MLST")
+    String ts_mlst_pubmlst_scheme = read_string("PUBMLST_SCHEME")
     String ts_mlst_version = read_string("VERSION")
   }
   runtime {
