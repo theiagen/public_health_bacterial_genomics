@@ -43,7 +43,7 @@ task ts_mlst {
       pubmlst_scheme="NA"
     else
       pubmlst_scheme="$(cut -f2 ~{samplename}_ts_mlst.tsv | tail -n 1)"
-        if [ pubmlst_scheme="No ST predicted" ]; then
+        if [ "$pubmlst_scheme" == "-" ]; then
           predicted_mlst="No ST predicted"
           pubmlst_scheme="NA"
         else
