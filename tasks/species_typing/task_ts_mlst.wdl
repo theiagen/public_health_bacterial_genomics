@@ -50,6 +50,7 @@ task ts_mlst {
         else
           if [ "$predicted_mlst" == "ST-" ]; then
           predicted_mlst="No ST predicted"
+          fi
         fi  
     fi
     
