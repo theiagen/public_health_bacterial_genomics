@@ -48,7 +48,7 @@ task ts_mlst {
           predicted_mlst="No ST predicted"
           pubmlst_scheme="NA"
         else
-          if [ "$predicted_mlst" == "-" ]; then
+          if [ "$predicted_mlst" == "ST-" ]; then
           predicted_mlst="No ST predicted"
         fi  
     fi
