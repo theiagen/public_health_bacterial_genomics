@@ -5,12 +5,21 @@ task abricate {
     File assembly
     String samplename
     String database
+    # Parameters 
+    #  --minid Minimum DNA %identity [80]
+    # --mincov Minimum DNA %coverage [80]
+    Int minid = 80
+    Int mincov = 80
   }
   command <<<
     date | tee DATE
     abricate -v | tee ABRICATE_VERSION
     
-    abricate --db ~{database} ~{assembly} > ~{samplename}_abricate_hits.tsv
+    abricate \
+      --db ~{database} \
+      ~{'--minid ' + minid} \
+      ~{'--mincov ' + mincov} \
+      ~{assembly} > ~{samplename}_abricate_hits.tsv
     
   >>>
   output {
