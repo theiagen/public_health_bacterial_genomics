@@ -23,6 +23,11 @@ workflow theiaprok_illumina_pe {
     File read1_raw
     File read2_raw
     String? run_id
+    String? collection_date
+    String? originating_lab
+    String? city
+    String? county
+    String? zip
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
@@ -101,6 +106,11 @@ workflow theiaprok_illumina_pe {
             read1 = read1_raw,
             read2 = read2_raw,
             run_id = run_id,
+            collection_date = collection_date,
+            originating_lab = originating_lab,
+            city = city,
+            county = county,
+            zip = zip,
             theiaprok_illumina_pe_version = version_capture.phbg_version,
             theiaprok_illumina_pe_analysis_date = version_capture.date,
             seq_platform = seq_method,
