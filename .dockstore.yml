@@ -35,6 +35,11 @@ workflows:
    primaryDescriptorPath: /workflows/wf_theiaprok_illumina_pe.wdl
    testParameterFiles:
     - empty.json
+- name: Mercury_PE_Prep_NARMS_CCPHL
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_mercury_pe_prep.wdl
+   testParameterFiles:
+    - empty.json
  - name: MycoSNP_Consensus_Assembly
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_mycosnp_consensus_assembly.wdl
