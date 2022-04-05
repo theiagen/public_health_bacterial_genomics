@@ -11,7 +11,6 @@ workflow mercury_pe_prep {
     # Required Metadata (TheiaCoV GC Outputs)
     String sample_id
     # Required Metadata (User Inputs)
-    String bioproject_accession
     #String collection_date
     String filetype = "fastq"
     String instrument_model = "Illumina MiSeq"
@@ -35,7 +34,6 @@ workflow mercury_pe_prep {
   if (n50_value >= n50_value_threshold) {
     call submission_prep.ncbi_prep_one_sample {
       input:
-        bioproject_accession = bioproject_accession,
         biosample_accession = biosample_accession,
         filetype = filetype,
         instrument_model = instrument_model,
