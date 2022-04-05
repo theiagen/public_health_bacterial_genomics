@@ -17,9 +17,9 @@ task ts_mlst {
     # --minscore [n.n]  Minumum score out of 100 to match a scheme (when auto --scheme) (default '50')
     Boolean nopath = false
     String? scheme
-    Float minid = 95.0
-    Float mincov = 10.0
-    Float minscore = 50.0
+    Float? minid
+    Float? mincov
+    Float? minscore
   }
   command <<<
     echo $(mlst --version 2>&1) | sed 's/mlst //' | tee VERSION
