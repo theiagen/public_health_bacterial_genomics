@@ -8,8 +8,8 @@ task abricate {
     # Parameters 
     #  --minid Minimum DNA %identity [80]
     # --mincov Minimum DNA %coverage [80]
-    Int minid = 80
-    Int mincov = 80
+    Int? minid
+    Int? mincov
   }
   command <<<
     date | tee DATE
