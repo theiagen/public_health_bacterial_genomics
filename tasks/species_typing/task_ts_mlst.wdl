@@ -15,7 +15,7 @@ task ts_mlst {
     # --minid [n.n]     DNA %identity of full allelle to consider 'similar' [~] (default '95')
     # --mincov [n.n]    DNA %cov to report partial allele at all [?] (default '10')
     # --minscore [n.n]  Minumum score out of 100 to match a scheme (when auto --scheme) (default '50')
-    Boolean nopath = false
+    Boolean nopath = true
     String? scheme
     Float? minid
     Float? mincov
