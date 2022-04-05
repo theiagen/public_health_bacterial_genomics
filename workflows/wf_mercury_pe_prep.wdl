@@ -19,7 +19,6 @@ workflow mercury_pe_prep {
     String library_source = "GENOMIC"
     String library_strategy = "WGS"
     String organism
-    String serovar
     String seq_platform = "ILLUMINA"
     String geo_loc_name = "USA:CA"
     String lat_lon = "missing"
@@ -28,6 +27,7 @@ workflow mercury_pe_prep {
     Int n50_value
     # Optional Metadata
     String? biosample_accession
+    String? serovar
     # Optional User-Defined Thresholds for Generating Submission Files
     Int n50_value_threshold = 25000
   }

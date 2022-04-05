@@ -15,13 +15,13 @@ task ncbi_prep_one_sample {
     String library_source = "GENOMIC"
     String library_strategy = "WGS"
     String organism
-    String serovar
     String seq_platform = "ILLUMINA"
     String geo_loc_name = "USA:CA"
     String lat_lon = "missing"
     String county_id = "CA-Contra Costa"
     String design_description = "MiSeq Nextera XT shotgun sequencing of cultured isolate"
     #optional metadata
+    String? serovar
     String? biosample_accession = "{populate_with_bioSample_accession}"
     #runtime
     String docker_image = "quay.io/staphb/vadr:1.3"
@@ -42,10 +42,10 @@ task ncbi_prep_one_sample {
       ISOLATION_SOURCE="error"
     fi
 
-    if echo $1 | grep -i -- "-S";
+    if echo "${sample_id}" | grep -i -- "-S";
     then
       BIOPROJECT_ACCESSION="PRJNA292661"
-    elif echo $1 | grep -i -- "-C";
+    elif echo "${sample_id}" | grep -i -- "-C";
     then
       BIOPROJECT_ACCESSION="PRJNA292664"
     else
@@ -59,13 +59,13 @@ task ncbi_prep_one_sample {
     #echo 20${COLLECTION_DATE:0:2}-${COLLECTION_DATE:2:4} | tee COLLECTION_DATE
     
     #Format BioSample Attributes
-    echo -e "*sample_name\tsample_title\tBIOPROJECT_ACCESSION\t*organism\tstrain\tisolate\t*collected_by\t*COLLECTION_DATE\t*geo_loc_name\t*ISOLATION_SOURCE\t*lat_lon\tculture_collection\tgenotype\tpassage_history\tpathotype\tserotype\tserovar\tsubgroup\tsubtype\tdescription" > ~{sample_id}_biosample_attributes.tsv    
+    echo -e "*sample_name\tsample_title\tbioproject_accession\t*organism\tstrain\tisolate\t*collected_by\t*collection_date\t*geo_loc_name\t*isolation_source\t*lat_lon\tculture_collection\tgenotype\tpassage_history\tpathotype\tserotype\tserovar\tsubgroup\tsubtype\tdescription" > ~{sample_id}_biosample_attributes.tsv    
     echo -e "~{sample_id}\t\t${BIOPROJECT_ACCESSION}\t~{organism}\t~{sample_id}\t\t~{county_id}\t${COLLECTION_DATE}\t~{geo_loc_name}\t${ISOLATION_SOURCE}\t~{lat_lon}\t\t\t\t\t\t~{serovar}\t\t\t" >> ~{sample_id}_biosample_attributes.tsv    
     #Format SRA Reads & Metadata
     cp ~{read1} ~{sample_id}_R1.fastq.gz
     cp ~{read2} ~{sample_id}_R2.fastq.gz
 
-    echo -e "BIOPROJECT_ACCESSION\tlibrary_ID\ttitle\tlibrary_strategy\tlibrary_source\tlibrary_selection\tlibrary_layout\tplatform\tinstrument_model\tdesign_description\tfiletype\tfilename\tfilename2\tfilename3\tfilename4\tassembly\tfasta_file" > ~{sample_id}_sra_metadata.tsv    
+    echo -e "bioproject_accession\tlibrary_ID\ttitle\tlibrary_strategy\tlibrary_source\tlibrary_selection\tlibrary_layout\tplatform\tinstrument_model\tdesign_description\tfiletype\tfilename\tfilename2\tfilename3\tfilename4\tassembly\tfasta_file" > ~{sample_id}_sra_metadata.tsv    
     echo -e "${BIOPROJECT_ACCESSION}\t~{sample_id}\tGenomic sequencing of ~{organism}: ${ISOLATION_SOURCE}\t~{library_strategy}\t~{library_source}\t~{library_selection}\t~{library_layout}\t~{seq_platform}\t~{instrument_model}\t~{design_description}\t~{filetype}\t~{sample_id}_R1.fastq.gz\t~{sample_id}_R2.fastq.gz\t\t\t\t" >> ~{sample_id}_sra_metadata.tsv
   >>>
   output {
