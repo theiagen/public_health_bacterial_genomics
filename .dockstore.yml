@@ -35,7 +35,7 @@ workflows:
    primaryDescriptorPath: /workflows/wf_theiaprok_illumina_pe.wdl
    testParameterFiles:
     - empty.json
-- name: Mercury_PE_Prep_NARMS_CCPHL
+ - name: Mercury_PE_Prep_NARMS_CCPHL
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_mercury_pe_prep.wdl
    testParameterFiles:
