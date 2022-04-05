@@ -103,6 +103,7 @@ workflow theiaprok_illumina_pe {
         quast_version = quast.version,
         genome_length = quast.genome_length,
         number_contigs = quast.number_contigs,
+        n50_value = quast.n50_value,
         cg_pipeline_report = cg_pipeline.cg_pipeline_report,
         cg_pipeline_docker = cg_pipeline.cg_pipeline_docker,
         est_coverage = cg_pipeline.est_coverage,
@@ -175,6 +176,7 @@ workflow theiaprok_illumina_pe {
     String quast_version = quast.version
     Int genome_length = quast.genome_length
     Int number_contigs = quast.number_contigs
+    Int n50_value = quast.n50_value
     File cg_pipeline_report = cg_pipeline.cg_pipeline_report
     String cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
     Float est_coverage = cg_pipeline.est_coverage
