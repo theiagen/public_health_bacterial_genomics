@@ -31,6 +31,7 @@ workflow theiaprok_illumina_pe {
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
+    Int? abricate_min_cvg
   }
   call versioning.version_capture{
     input:
@@ -80,7 +81,8 @@ workflow theiaprok_illumina_pe {
         input:
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename,
-          database = "ncbi"
+          database = "ncbi",
+          mincov = abricate_min_cvg
       }
       call ts_mlst.ts_mlst {
         input: 
