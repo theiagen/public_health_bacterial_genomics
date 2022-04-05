@@ -30,7 +30,7 @@ workflows:
    primaryDescriptorPath: /workflows/wf_tbprofiler_ont.wdl
    testParameterFiles:
     - empty.json
- - name: TheiaProk_Illumina_PE
+ - name: TheiaProk_Illumina_PE_CCPHL
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_theiaprok_illumina_pe.wdl
    testParameterFiles:
