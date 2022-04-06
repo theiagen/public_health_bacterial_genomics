@@ -14,7 +14,7 @@ task check_reads {
   }
   command <<<
     flag="PASS"
-
+    estimated_genome_size=0
     if [[ "~{skip_screen}" = "false" ]] ; then
       
       # set cat command based on compression
@@ -37,22 +37,7 @@ task check_reads {
         flag="PASS"
       fi
 
-      # set proportion variables for easy comparison
-      percent_read1=$((read1_num / read2_num * 100))
-      percent_read2=$((read2_num / read1_num * 100))
-
-      # check two: proportion of reads
-      if [ "$flag" = "PASS" ] ; then
-        if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total reads are found in R2 compared to R1"
-        elif [ "$percent_read2" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total reads are found in R1 compared to R2"
-        else
-          flag="PASS"
-        fi
-      fi
-
-      # check three: number of basepairs
+      # checks two and three: number of basepairs and proportion of sequence
       if [ "${flag}" = "PASS" ]; then
         # count number of basepairs
         # this only works if the fastq has 4 lines per read, so this might fail one day
@@ -63,10 +48,24 @@ task check_reads {
         # tr -d '\n' removes line endings
         # wc -c counts characters
 
-        if [ "${read1_bp}" -le "~{min_basepairs}" ] || [ "${read2_bp}" -le "~{min_basepairs}" ] ; then
-          flag="FAIL; the number of basepairs is below the minimum of ~{min_basepairs}"
+        # set proportion variables for easy comparison
+        percent_read1=$((read1_bp / read2_bp * 100))
+        percent_read2=$((read2_bp / read1_bp * 100))
+
+        if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
+          flag="FAIL; more than 50 percent of the total sequence is found in R2 compared to R1"
+        elif [ "$percent_read2" -lt "~{min_proportion}" ] ; then
+          flag="FAIL; more than 50 percent of the total sequence is found in R1 compared to R2"
         else
           flag="PASS"
+        fi
+
+        if [ "$flag" = "PASS" ] ; then
+          if [ "${read1_bp}" -le "~{min_basepairs}" ] || [ "${read2_bp}" -le "~{min_basepairs}" ] ; then
+            flag="FAIL; the number of basepairs is below the minimum of ~{min_basepairs}"
+          else
+            flag="PASS"
+          fi
         fi    
       fi
 
@@ -115,15 +114,18 @@ task check_reads {
             flag="FAIL; the estimated coverage is less than the minimum of ~{min_coverage}x"
           else
             flag="PASS"
+            echo $estimated_genome_size | tee EST_GENOME_LENGTH
           fi 
         fi
       fi 
     fi 
     
     echo $flag | tee FLAG
+    echo $estimated_genome_size | tee EST_GENOME_LENGTH
   >>>
   output {
     String read_screen = read_string("FLAG")
+    Int est_genome_length = read_int("EST_GENOME_LENGTH")
   }
   runtime {
     docker: "quay.io/bactopia/gather_samples:2.0.2"
