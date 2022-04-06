@@ -32,31 +32,28 @@ task ncbi_prep_one_sample {
   }
 
   command <<<
-    if (echo "${sample_id}" | grep -i "GB";)
+    if (echo ~{sample_id} | grep -i "GB";)
     then
       ISOLATION_SOURCE="Ground Beef"
-    elif (echo "${sample_id}" | grep -i "CB";)
+    elif (echo ~{sample_id} | grep -i "CB";)
     then
       ISOLATION_SOURCE="Chicken Breast"
     else
       ISOLATION_SOURCE="error"
     fi
 
-    if (echo "${sample_id}" | grep -i -- "-S";)
+    if (echo ~{sample_id} | grep -i -- "-S";)
     then
       BIOPROJECT_ACCESSION="PRJNA292661"
-    elif (echo "${sample_id}" | grep -i -- "-C";)
+    elif (echo ~{sample_id} | grep -i -- "-C";)
     then
       BIOPROJECT_ACCESSION="PRJNA292664"
     else
       BIOPROJECT_ACCESSION="error"
     fi
 
-    COLLECTION_DATE=($(echo "${sample_id}" | grep -o '[0-9]\+' | tr -d '\n' | head -c 4))
+    COLLECTION_DATE=($(echo ~{sample_id} | grep -o '[0-9]\+' | tr -d '\n' | head -c 4))
     COLLECTION_DATE=($(echo 20${COLLECTION_DATE:0:2}-${COLLECTION_DATE:2:4}))
-
-    #echo "${sample_id}" | grep -o '[0-9]\+' | tr -d '\n' | head -c 4 | tee COLLECTION_DATE
-    #echo 20${COLLECTION_DATE:0:2}-${COLLECTION_DATE:2:4} | tee COLLECTION_DATE
     
     #Format BioSample Attributes
     echo -e "*sample_name\tsample_title\tbioproject_accession\t*organism\tstrain\tisolate\t*collected_by\t*collection_date\t*geo_loc_name\t*isolation_source\t*lat_lon\tculture_collection\tgenotype\tpassage_history\tpathotype\tserotype\tserovar\tsubgroup\tsubtype\tdescription" > ~{sample_id}_biosample_attributes.tsv    
