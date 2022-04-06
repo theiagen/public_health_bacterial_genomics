@@ -55,3 +55,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_mashtree_fasta.wdl
    testParameterFiles:
     - empty.json
+ - name: Mercury_Batch_CCPHL
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_mercury_batch.wdl
+   testParameterFiles:
+    - empty.json
