@@ -9,6 +9,7 @@ import "../tasks/quality_control/task_screen.wdl" as screen
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/gene_typing/task_abricate.wdl" as abricate
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
+import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
 
@@ -22,6 +23,11 @@ workflow theiaprok_illumina_pe {
     File read1_raw
     File read2_raw
     String? run_id
+    String? collection_date
+    String? originating_lab
+    String? city
+    String? county
+    String? zip
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
@@ -76,6 +82,11 @@ workflow theiaprok_illumina_pe {
           samplename = samplename,
           database = "ncbi"
       }
+      call ts_mlst.ts_mlst {
+        input: 
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
       call merlin_magic.merlin_magic {
         input:
           merlin_tag = gambit.merlin_tag,
@@ -95,6 +106,11 @@ workflow theiaprok_illumina_pe {
             read1 = read1_raw,
             read2 = read2_raw,
             run_id = run_id,
+            collection_date = collection_date,
+            originating_lab = originating_lab,
+            city = city,
+            county = county,
+            zip = zip,
             theiaprok_illumina_pe_version = version_capture.phbg_version,
             theiaprok_illumina_pe_analysis_date = version_capture.date,
             seq_platform = seq_method,
@@ -128,6 +144,10 @@ workflow theiaprok_illumina_pe {
             abricate_amr_results = abricate_amr.abricate_results,
             abricate_amr_database = abricate_amr.abricate_database,
             abricate_amr_version = abricate_amr.abricate_version,
+            ts_mlst_results = ts_mlst.ts_mlst_results,
+            ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st,
+            ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme,
+            ts_mlst_version = ts_mlst.ts_mlst_version,
             serotypefinder_report = merlin_magic.serotypefinder_report,
             serotypefinder_docker = merlin_magic.serotypefinder_docker,
             serotypefinder_serotype = merlin_magic.serotypefinder_serotype,
@@ -208,6 +228,11 @@ workflow theiaprok_illumina_pe {
     File? abricate_amr_results = abricate_amr.abricate_results
     String? abricate_amr_database = abricate_amr.abricate_database
     String? abricate_amr_version = abricate_amr.abricate_version
+    #MLST Typing
+    File? ts_mlst_results = ts_mlst.ts_mlst_results
+    String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
+    String? ts_mlst_version = ts_mlst.ts_mlst_version
+    String? ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
