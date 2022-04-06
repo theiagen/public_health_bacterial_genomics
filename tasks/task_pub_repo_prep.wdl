@@ -63,7 +63,7 @@ task ncbi_prep_one_sample {
     cp ~{read2} ~{sample_id}_R2.fastq.gz
 
     echo -e "bioproject_accession\tlibrary_ID\ttitle\tlibrary_strategy\tlibrary_source\tlibrary_selection\tlibrary_layout\tplatform\tinstrument_model\tdesign_description\tfiletype\tfilename\tfilename2\tfilename3\tfilename4\tassembly\tfasta_file" > ~{sample_id}_sra_metadata.tsv    
-    echo -e "${BIOPROJECT_ACCESSION}\t~{sample_id}\tGenomic sequencing of ~{organism}: ${ISOLATION_SOURCE}\t~{library_strategy}\t~{library_source}\t~{library_selection}\t~{library_layout}\t~{seq_platform}\t~{instrument_model}\t~{design_description}\t~{filetype}\t~{sample_id}_R1.fastq.gz\t~{sample_id}_R2.fastq.gz\t\t\t\t" >> ~{sample_id}_sra_metadata.tsv
+    echo -e "${BIOPROJECT_ACCESSION}\t~{sample_id}\tWGS of ~{organism}: ${COLLECTION_DATE:0:4} NARMS ${ISOLATION_SOURCE} ~{sample_id}\t~{library_strategy}\t~{library_source}\t~{library_selection}\t~{library_layout}\t~{seq_platform}\t~{instrument_model}\t~{design_description}\t~{filetype}\t~{sample_id}_R1.fastq.gz\t~{sample_id}_R2.fastq.gz\t\t\t\t" >> ~{sample_id}_sra_metadata.tsv
   >>>
   output {
     File biosample_attributes = "~{sample_id}_biosample_attributes.tsv"
