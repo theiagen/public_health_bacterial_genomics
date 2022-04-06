@@ -107,6 +107,9 @@ task quast {
           if "# contigs" in line[0]:
             with open("NUMBER_CONTIGS", 'wt') as number_contigs:
               number_contigs.write(line[1])
+          if "N50" in line[0]:
+            with open("N50_VALUE", 'wt') as n50_value:
+              n50_value.write(line[1])
     CODE
 
   >>>
@@ -116,6 +119,7 @@ task quast {
     String pipeline_date = read_string("DATE")
     Int genome_length = read_int("GENOME_LENGTH")
     Int number_contigs = read_int("NUMBER_CONTIGS")
+    Int n50_value = read_int("N50_VALUE")
   }
   runtime {
     docker:  "~{docker}"
