@@ -69,7 +69,7 @@ workflow theiaprok_illumina_pe {
           read1 = read1_raw,
           read2 = read2_raw,
           samplename = samplename,
-          genome_length = quast.genome_length
+          genome_length = clean_check_reads.est_genome_length
       }
       call gambit.gambit {
         input:
