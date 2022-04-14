@@ -46,8 +46,8 @@ task mycosnp {
     grep "^Coverage After Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_COVERAGE_CLEAN
 
     # Assembly Metrics
-    zcat ~{samplename}/combined/consensus/~{samplename}.fasta.gz | grep -v "^>" | grep -o "N" | wc -l | tee NUMBER_NS
-    zcat ~{samplename}/combined/consensus/~{samplename}.fasta.gz | grep -v "^>" | grep -o "." | wc -l | tee ASSEMBLY_SIZE
+    zcat ~{samplename}/results/combined/consensus/~{samplename}.fasta.gz | grep -v "^>" | grep -o "N" | wc -l | tee NUMBER_NS
+    zcat ~{samplename}/results/combined/consensus/~{samplename}.fasta.gz | grep -v "^>" | grep -o "." | wc -l | tee ASSEMBLY_SIZE
   >>>
   output {
     String mycosnp_version = read_string("MYCOSNP_VERSION")
