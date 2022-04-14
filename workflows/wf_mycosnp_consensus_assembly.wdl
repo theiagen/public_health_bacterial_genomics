@@ -31,9 +31,23 @@ workflow mycosnp_consensus_assembly {
     String analysis_date = mycosnp.analysis_date
     String reference_strain = mycosnp.reference_strain
     String reference_accession = mycosnp.reference_accession
+    Int read_raw = mycosnp.read_raw
+    Float gc_raw = mycosnp.gc_raw
+    Float phred_raw = mycosnp.phred_raw
+    Float coverage_raw = mycosnp.coverage_raw
+    Int read_clean = mycosnp.read_clean
+    Int read_pairs_clean = mycosnp.read_pairs_clean
+    Int read_unpaired_clean = mycosnp.read_unpaired_clean
+    Float coverage_clean = mycosnp.coverage_clean
+    Float phred_clean = mycosnp.phred_clean
+    Float coverage_clean = mycosnp.coverage_clean
+    Int number_n = mycosnp.number_n
+    Int assembly_size = mycosnp.assembly_size
     File assembly_fasta = mycosnp.assembly_fasta
     File vcf = mycosnp.vcf
     File vcf_index = mycosnp.vcf_index
+    File multiqc = mycosnp.multiqc
     File full_results = mycosnp.full_results
   }
 }
+
