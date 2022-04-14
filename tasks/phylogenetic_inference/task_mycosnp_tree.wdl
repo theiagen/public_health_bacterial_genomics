@@ -49,7 +49,7 @@ task mycosnptree {
     String analysis_date = read_string("DATE")
     String reference_strain = strain
     String reference_accession = accession
-    File mycosnptree_rapidnj_tree = "mycosnptree/results/combined/phylogeny/rapidnj/rapidnj_phylogeny.tre"
+    File mycosnptree_rapidnj_tree = "mycosnptree/results/combined/phylogeny/rapidnj/rapidnj_phylogeny.nh"
     File mycosnptree_fasttree_tree = "mycosnptree/results/combined/phylogeny/fasttree/fasttree_phylogeny.tre"
     File mycosnptree_alignment = "mycosnptree/results/combined/vcf-to-fasta/vcf-to-fasta.fasta"
     File mycosnptree_full_results = "mycosnptree.tar.gz"
