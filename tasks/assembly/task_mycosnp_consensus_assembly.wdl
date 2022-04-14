@@ -22,7 +22,7 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_combined_analysis; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
@@ -62,7 +62,7 @@ task mycosnp {
     Int read_clean = read_int("MYCOSNP_READS_CLEAN")
     Int read_pairs_clean = read_int("MYCOSNP_READ_PAIRS_CLEAN")
     Int read_unpaired_clean = read_int("MYCOSNP_READ_UNPAIRED_CLEAN")
-    Float coverage_clean = read_float("MYCOSNP_GC_CLEAN")
+    Float gc_clean = read_float("MYCOSNP_GC_CLEAN")
     Float phred_clean = read_float("MYCOSNP_PHRED_CLEAN")
     Float coverage_clean = read_float("MYCOSNP_COVERAGE_CLEAN")
     Int number_n = read_int("NUMBER_NS")

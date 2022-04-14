@@ -38,7 +38,7 @@ workflow mycosnp_consensus_assembly {
     Int read_clean = mycosnp.read_clean
     Int read_pairs_clean = mycosnp.read_pairs_clean
     Int read_unpaired_clean = mycosnp.read_unpaired_clean
-    Float coverage_clean = mycosnp.coverage_clean
+    Float gc_clean = mycosnp.gc_clean
     Float phred_clean = mycosnp.phred_clean
     Float coverage_clean = mycosnp.coverage_clean
     Int number_n = mycosnp.number_n
@@ -50,4 +50,3 @@ workflow mycosnp_consensus_assembly {
     File full_results = mycosnp.full_results
   }
 }
-
