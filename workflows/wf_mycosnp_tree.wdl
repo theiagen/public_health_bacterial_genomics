@@ -29,7 +29,7 @@ workflow mycosnp_tree {
     String analysis_date = mycosnptree.analysis_date
     String reference_strain = mycosnptree.reference_strain
     String reference_accession = mycosnptree.reference_accession
-    File mycosnp_rapidnf_tree = mycosnptree.mycosnptree_rapidnj_tree 
+    File mycosnp_rapidnj_tree = mycosnptree.mycosnptree_rapidnj_tree 
     File mycosnp_fastree_tree = mycosnptree.mycosnptree_fasttree_tree
     File mycosnp_alignment = mycosnptree.mycosnptree_alignment
     File mycosnp_tree_full_results = mycosnptree.mycosnptree_full_results
