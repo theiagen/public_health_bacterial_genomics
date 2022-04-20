@@ -42,7 +42,9 @@ workflow mycosnp_consensus_assembly {
     Float phred_clean = mycosnp.phred_clean
     Float coverage_clean = mycosnp.coverage_clean
     Int number_n = mycosnp.number_n
+    Float percent_reference_coverage = mycosnp.percent_reference_coverage
     Int assembly_size = mycosnp.assembly_size
+    Int consensus_n_variant_min_depth = mycosnp.consensus_n_variant_min_depth
     File assembly_fasta = mycosnp.assembly_fasta
     File vcf = mycosnp.vcf
     File vcf_index = mycosnp.vcf_index

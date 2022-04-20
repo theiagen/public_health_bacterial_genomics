@@ -10,6 +10,7 @@ task mycosnp {
     String accession = "GCA_016772135"
     Int memory = 16
     Int cpu = 4
+    Int min_depth = 10
   }
   command <<<
     date | tee DATE
@@ -26,6 +27,8 @@ task mycosnp {
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
+      gunzip ~{samplename}/results/combined/consensus/~{samplename}.fasta.gz
+      genomeCoverageBed -ibam ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.bam -d > ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt
       tar -cf - ~{samplename}/ | gzip -n --best > ~{samplename}.tar.gz
     else
       # Run failed
@@ -46,8 +49,9 @@ task mycosnp {
     grep "^Coverage After Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_COVERAGE_CLEAN
 
     # Assembly Metrics
-    zcat ~{samplename}/results/combined/consensus/~{samplename}.fasta.gz | grep -v "^>" | grep -o "N" | wc -l | tee NUMBER_NS
-    zcat ~{samplename}/results/combined/consensus/~{samplename}.fasta.gz | grep -v "^>" | grep -o "." | wc -l | tee ASSEMBLY_SIZE
+    awk '{if ($3 < ~{min_depth}) {print $0}}' ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt | wc -l | tee NUMBER_NS
+    wc -l ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt | cut -f 1 -d " " | tee ASSEMBLY_SIZE
+    echo "($(cat ASSEMBLY_SIZE) - $(cat NUMBER_NS)) / $(cat ASSEMBLY_SIZE) * 100" | xargs -I {} awk 'BEGIN {printf("%.2f\n", {})}' | tee PERCENT_REFERENCE_COVERAGE
   >>>
   output {
     String mycosnp_version = read_string("MYCOSNP_VERSION")
@@ -66,8 +70,10 @@ task mycosnp {
     Float phred_clean = read_float("MYCOSNP_PHRED_CLEAN")
     Float coverage_clean = read_float("MYCOSNP_COVERAGE_CLEAN")
     Int number_n = read_int("NUMBER_NS")
+    Float percent_reference_coverage = read_float("PERCENT_REFERENCE_COVERAGE")
     Int assembly_size = read_int("ASSEMBLY_SIZE")
-    File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta.gz"
+    Int consensus_n_variant_min_depth = min_depth
+    File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta"
     File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
     File vcf_index = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz.tbi"
     File multiqc = "~{samplename}/results/multiqc/multiqc_report.html"
