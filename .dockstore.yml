@@ -40,3 +40,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_mashtree_fasta.wdl
    testParameterFiles:
     - empty.json
+ - name: NCBI-AMRFinderPlus
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_amrfinderplus.wdl
+   testParameterFiles:
+    - empty.json
