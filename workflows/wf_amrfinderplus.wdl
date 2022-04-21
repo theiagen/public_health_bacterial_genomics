@@ -1,6 +1,6 @@
 version 1.0
 
-import "../gene_typing/task_amrfinderplus.wdl" as amrfindertask
+import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfindertask
 import "../tasks/task_versioning.wdl" as versioning
 
 workflow amrfinderplus_wf {

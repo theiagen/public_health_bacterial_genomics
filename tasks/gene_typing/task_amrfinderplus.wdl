@@ -19,7 +19,7 @@ task amrfinderplus {
     amrfinder --plus \
       ~{'--name ' + samplename} \
       ~{'--nucleotide ' + assembly} \
-      ~{'--organism ' + organism} \# optional MUST HAVE CORRECT SYNTAX
+      ~{'--organism ' + organism} \
       ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
       ~{'--threads ' + cpu} \
       ~{'--coverage_min ' + mincov} \
