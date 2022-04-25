@@ -25,9 +25,7 @@ task amrfinderplus {
       ~{'--coverage_min ' + mincov} \
       ~{'--ident_min ' + minid} 
     
-    # TODO add python code to parse out different types of results based on 'Element Type' column
     # Element Type possibilities: AMR, STRESS, and VIRULENCE 
-    
     # create headers for 3 output files; tee to 3 files and redirect STDOUT to dev null so it doesn't print to log file
     head -n 1 ~{samplename}_amrfinder_all.tsv | tee ~{samplename}_amrfinder_stress.tsv ~{samplename}_amrfinder_virulence.tsv ~{samplename}_amrfinder_amr.tsv >/dev/null
     # looks for all rows with STRESS, AMR, or VIRULENCE and append to TSVs
@@ -47,7 +45,7 @@ task amrfinderplus {
   runtime {
     memory: "8 GB"
     cpu: cpu
-    docker: "quay.io/staphb/ncbi-amrfinderplus:3.10.20" # will eventually change to 3.10.24
+    docker: "quay.io/staphb/ncbi-amrfinderplus:3.10.24"
     disks: "local-disk 100 SSD"
     preemptible: 0
   }
