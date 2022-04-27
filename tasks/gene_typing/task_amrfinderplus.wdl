@@ -56,30 +56,42 @@ task amrfinderplus_nuc {
     elif [[ "~{organism}" == *"Vibrio_cholerae"* ]] || [[ "~{organism}" == *"Vibrio cholerae"* ]]; then 
       amrfinder_organism="Vibrio_cholerae"
     else 
-      # set as blank in case nothing matches? amrfinder will run with a blank string
-      amrfinder_organism=""
+      echo "Either Gambit predicted taxon is not supported by NCBI-AMRFinderPlus or the user did not supply an organism as input."
+      echo "Skipping the use of amrfinder --organism optional parameter."
     fi
 
     # checking bash variable
     echo "amrfinder_organism is set to:" ${amrfinder_organism}
-
-    # always use --plus flag, others may be left out if param is optional and not supplied 
-    amrfinder --plus \
-      --organism ${amrfinder_organism} \
-      ~{'--name ' + samplename} \
-      ~{'--nucleotide ' + assembly} \
-      ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
-      ~{'--threads ' + cpu} \
-      ~{'--coverage_min ' + mincov} \
-      ~{'--ident_min ' + minid} 
     
+    # if amrfinder_organism variable is set, use --organism flag, otherwise do not use --organism flag
+    if [[ -v amrfinder_organism ]] ; then
+      # always use --plus flag, others may be left out if param is optional and not supplied 
+      amrfinder --plus \
+        --organism ${amrfinder_organism} \
+        ~{'--name ' + samplename} \
+        ~{'--nucleotide ' + assembly} \
+        ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
+        ~{'--threads ' + cpu} \
+        ~{'--coverage_min ' + mincov} \
+        ~{'--ident_min ' + minid} 
+    else 
+      # always use --plus flag, others may be left out if param is optional and not supplied 
+      amrfinder --plus \
+        ~{'--name ' + samplename} \
+        ~{'--nucleotide ' + assembly} \
+        ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
+        ~{'--threads ' + cpu} \
+        ~{'--coverage_min ' + mincov} \
+        ~{'--ident_min ' + minid}
+    fi 
+      
     # Element Type possibilities: AMR, STRESS, and VIRULENCE 
     # create headers for 3 output files; tee to 3 files and redirect STDOUT to dev null so it doesn't print to log file
     head -n 1 ~{samplename}_amrfinder_all.tsv | tee ~{samplename}_amrfinder_stress.tsv ~{samplename}_amrfinder_virulence.tsv ~{samplename}_amrfinder_amr.tsv >/dev/null
     # looks for all rows with STRESS, AMR, or VIRULENCE and append to TSVs
-    grep 'STRESS' ~{samplename}_amrfinder_all.tsv >>~{samplename}_amrfinder_stress.tsv
-    grep 'VIRULENCE' ~{samplename}_amrfinder_all.tsv >>~{samplename}_amrfinder_virulence.tsv
-    grep 'AMR' ~{samplename}_amrfinder_all.tsv >>~{samplename}_amrfinder_amr.tsv
+    grep 'STRESS' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_stress.tsv
+    grep 'VIRULENCE' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_virulence.tsv
+    grep 'AMR' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_amr.tsv
   >>>
   output {
     File amrfinderplus_all_report = "~{samplename}_amrfinder_all.tsv"
