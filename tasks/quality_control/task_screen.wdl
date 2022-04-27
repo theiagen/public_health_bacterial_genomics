@@ -49,8 +49,9 @@ task check_reads {
         # wc -c counts characters
 
         # set proportion variables for easy comparison
-        percent_read1=$(python3 -c "print(round(($read1_bp / $read2_bp)*100,2))")
-        percent_read2=$(python3 -c "print(round(($read2_bp / $read1_bp)*100,2))")
+        # removing the , 2) to make these integers instead of floats
+        percent_read1=$(python3 -c "print(round(($read1_bp / $read2_bp)*100))")
+        percent_read2=$(python3 -c "print(round(($read2_bp / $read1_bp)*100))")
 
         if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
           flag="FAIL; more than 50 percent of the total sequence is found in R2 (BP: $read2_bp; PERCENT: $percent_read2) compared to R1 (BP: $read1_bp; PERCENT: $percent_read1)"
