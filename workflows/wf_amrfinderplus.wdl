@@ -8,7 +8,7 @@ workflow amrfinderplus_wf {
       File assembly
       String samplename
     }
-  call amrfindertask.amrfinderplus {
+  call amrfindertask.amrfinderplus_nuc {
     input:
       assembly = assembly,
       samplename = samplename
@@ -17,12 +17,12 @@ workflow amrfinderplus_wf {
     input:
   }
   output {
-    String amrfinderplus_version = amrfinderplus.amrfinderplus_version
+    String amrfinderplus_version = amrfinderplus_nuc.amrfinderplus_version
     String amrfinderplus_wf_version = version_capture.phbg_version
     String amrfinderplus_wf_analysis_date = version_capture.date
-    File amrfinderplus_all_report = amrfinderplus.amrfinderplus_all_report
-    File amrfinderplus_amr_report = amrfinderplus.amrfinderplus_amr_report
-    File amrfinderplus_stress_report = amrfinderplus.amrfinderplus_stress_report
-    File amrfinderplus_virulence_report = amrfinderplus.amrfinderplus_virulence_report
+    File amrfinderplus_all_report = amrfinderplus_nuc.amrfinderplus_all_report
+    File amrfinderplus_amr_report = amrfinderplus_nuc.amrfinderplus_amr_report
+    File amrfinderplus_stress_report = amrfinderplus_nuc.amrfinderplus_stress_report
+    File amrfinderplus_virulence_report = amrfinderplus_nuc.amrfinderplus_virulence_report
     }
  }
