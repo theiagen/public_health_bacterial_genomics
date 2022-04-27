@@ -1,6 +1,6 @@
 version 1.0
 
-task amrfinderplus {
+task amrfinderplus_nuc {
   input {
     File assembly
     String samplename
@@ -48,5 +48,6 @@ task amrfinderplus {
     docker: "quay.io/staphb/ncbi-amrfinderplus:3.10.24"
     disks: "local-disk 100 SSD"
     preemptible: 0
+    maxRetries: 3
   }
 }
