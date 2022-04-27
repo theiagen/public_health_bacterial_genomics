@@ -91,7 +91,8 @@ task amrfinderplus_nuc {
     # looks for all rows with STRESS, AMR, or VIRULENCE and append to TSVs
     grep 'STRESS' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_stress.tsv
     grep 'VIRULENCE' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_virulence.tsv
-    grep 'AMR' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_amr.tsv
+    # || true is so that the final grep exits with code 0, preventing failures
+    grep 'AMR' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_amr.tsv || true
   >>>
   output {
     File amrfinderplus_all_report = "~{samplename}_amrfinder_all.tsv"
