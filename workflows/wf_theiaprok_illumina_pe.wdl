@@ -8,6 +8,7 @@ import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/quality_control/task_screen.wdl" as screen
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/gene_typing/task_abricate.wdl" as abricate
+import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_versioning.wdl" as versioning
@@ -82,6 +83,12 @@ workflow theiaprok_illumina_pe {
           samplename = samplename,
           database = "ncbi"
       }
+      call amrfinderplus.amrfinderplus_nuc as amrfinderplus_task {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename,
+          organism = gambit.gambit_predicted_taxon
+      }
       call ts_mlst.ts_mlst {
         input: 
           assembly = shovill_pe.assembly_fasta,
@@ -145,6 +152,11 @@ workflow theiaprok_illumina_pe {
             abricate_amr_results = abricate_amr.abricate_results,
             abricate_amr_database = abricate_amr.abricate_database,
             abricate_amr_version = abricate_amr.abricate_version,
+            amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report,
+            amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report,
+            amrfinderplus_stress_report = amrfinderplus_task.amrfinderplus_stress_report,
+            amrfinderplus_virulence_report = amrfinderplus_task.amrfinderplus_virulence_report,
+            amrfinderplus_version = amrfinderplus_task.amrfinderplus_version,
             ts_mlst_results = ts_mlst.ts_mlst_results,
             ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st,
             ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme,
@@ -230,6 +242,12 @@ workflow theiaprok_illumina_pe {
     File? abricate_amr_results = abricate_amr.abricate_results
     String? abricate_amr_database = abricate_amr.abricate_database
     String? abricate_amr_version = abricate_amr.abricate_version
+    # NCBI-AMRFinderPlus Outputs
+    File? amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report
+    File? amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report
+    File? amrfinderplus_stress_report = amrfinderplus_task.amrfinderplus_stress_report
+    File? amrfinderplus_virulence_report = amrfinderplus_task.amrfinderplus_virulence_report
+    String? amrfinderplus_version = amrfinderplus_task.amrfinderplus_version
     #MLST Typing
     File? ts_mlst_results = ts_mlst.ts_mlst_results
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
