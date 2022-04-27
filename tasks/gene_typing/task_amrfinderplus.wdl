@@ -60,13 +60,14 @@ task amrfinderplus_nuc {
       amrfinder_organism=""
     fi
 
+    # checking bash variable
     echo "amrfinder_organism is set to:" ${amrfinder_organism}
 
-    # always use --plus flag, others may be left out if param is option and not supplied
+    # always use --plus flag, others may be left out if param is optional and not supplied 
     amrfinder --plus \
+      --organism ${amrfinder_organism} \
       ~{'--name ' + samplename} \
       ~{'--nucleotide ' + assembly} \
-      ~{'--organism ' + organism} \
       ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
       ~{'--threads ' + cpu} \
       ~{'--coverage_min ' + mincov} \
