@@ -20,40 +20,40 @@ task amrfinderplus_nuc {
     ### set $amrfinder_organism BASH variable based on gambit_predicted_taxon or user-defined input string
     ### final variable has strict syntax/spelling based on list from amrfinder --list_organisms
     # there may be other Acinetobacter species to add later, like those in the A. baumannii-calcoaceticus species complex
-    if [[ ~{organism} == *"Acinetobacter_baumannii"* ]] || [[ ~{organism} == *"Acinetobacter baumannii"* ]]; then
+    if [[ "~{organism}" == *"Acinetobacter_baumannii"* ]] || [[ "~{organism}" == *"Acinetobacter baumannii"* ]]; then
       amrfinder_organism="Acinetobacter_baumannii"
-    elif [[ ~{organism} == *"Campylobacter"* ]] || [[ ~{organism} == *"Campylobacter coli"* ]] || [[ ~{organism} == *"Campylobacter jejuni"* ]]; then
+    elif [[ "~{organism}" == *"Campylobacter"* ]] || [[ "~{organism}" == *"Campylobacter coli"* ]] || [[ "~{organism}" == *"Campylobacter jejuni"* ]]; then
       amrfinder_organism="Campylobacter"
-    elif [[ ~{organism} == *"Clostridioides_difficile"* ]] || [[ ~{organism} == *"Clostridioides difficile"* ]]; then
+    elif [[ "~{organism}" == *"Clostridioides_difficile"* ]] || [[ "~{organism}" == *"Clostridioides difficile"* ]]; then
       amrfinder_organism="Clostridioides_difficile"
-    elif [[ ~{organism} == *"Enterococcus_faecalis"* ]] || [[ ~{organism} == *"Enterococcus faecalis"* ]] ; then 
+    elif [[ "~{organism}" == *"Enterococcus_faecalis"* ]] || [[ "~{organism}" == *"Enterococcus faecalis"* ]] ; then 
       amrfinder_organism="Enterococcus_faecalis"
-    elif [[ ~{organism} == *"Enterococcus_faecium"* ]] || [[ ~{organism} == *"Enterococcus faecium"* ]] || [[ ~{organism} == *"Enterococcus hirae"* ]]; then 
+    elif [[ "~{organism}" == *"Enterococcus_faecium"* ]] || [[ "~{organism}" == *"Enterococcus faecium"* ]] || [[ "~{organism}" == *"Enterococcus hirae"* ]]; then 
       amrfinder_organism="Enterococcus_faecium"
     # should capture all Shigella and Escherichia species
-    elif [[ ~{organism} == *"Escherichia"* ]] || [[ ~{organism} == *"Shigella"* ]] ; then 
+    elif [[ "~{organism}" == *"Escherichia"* ]] || [[ "~{organism}" == *"Shigella"* ]] ; then 
       amrfinder_organism="Escherichia"
     # add other Klebsiella species? Cannot use K. oxytoca as per amrfinderplus wiki
-    elif [[ ~{organism} == *"Klebsiella aerogenes"* ]] || [[ ~{organism} == *"Klebsiella pnemoniae"* ]]; then 
+    elif [[ "~{organism}" == *"Klebsiella aerogenes"* ]] || [[ "~{organism}" == *"Klebsiella pnemoniae"* ]]; then 
       amrfinder_organism="Klebsiella"
-    elif [[ ~{organism} == *"Neisseria gonorrhoeae"* ]] || [[ ~{organism} == *"Neisseria meningitidis"* ]]; then 
+    elif [[ "~{organism}" == *"Neisseria gonorrhoeae"* ]] || [[ "~{organism}" == *"Neisseria meningitidis"* ]]; then 
       amrfinder_organism="Neisseria"
-    elif [[ ~{organism} == *"Pseudomonas_aeruginosa"* ]] || [[ ~{organism} == *"Pseudomonas aeruginosa"* ]]; then 
+    elif [[ "~{organism}" == *"Pseudomonas_aeruginosa"* ]] || [[ "~{organism}" == *"Pseudomonas aeruginosa"* ]]; then 
       amrfinder_organism="Pseudomonas_aeruginosa"
     # pretty broad, could work on Salmonella bongori and other species
-    elif [[ ~{organism} == *"Salmonella"* ]] || [[ ~{organism} == *"Salmonella enterica"* ]]; then 
+    elif [[ "~{organism}" == *"Salmonella"* ]] || [[ "~{organism}" == *"Salmonella enterica"* ]]; then 
       amrfinder_organism="Salmonella"
-    elif [[ ~{organism} == *"Staphylococcus_aureus"* ]] || [[ ~{organism} == *"Staphylococcus aureus"* ]]; then 
+    elif [[ "~{organism}" == *"Staphylococcus_aureus"* ]] || [[ "~{organism}" == *"Staphylococcus aureus"* ]]; then 
       amrfinder_organism="Staphylococcus_aureus"
-    elif [[ ~{organism} == *"Staphylococcus_pseudintermedius"* ]] || [[ ~{organism} == *"Staphylococcus pseudintermedius"* ]]; then 
+    elif [[ "~{organism}" == *"Staphylococcus_pseudintermedius"* ]] || [[ "~{organism}" == *"Staphylococcus pseudintermedius"* ]]; then 
       amrfinder_organism="Staphylococcus_pseudintermedius"
-    elif [[ ~{organism} == *"Streptococcus_agalactiae"* ]] || [[ ~{organism} == *"Streptococcus agalactiae"* ]]; then 
+    elif [[ "~{organism}" == *"Streptococcus_agalactiae"* ]] || [[ "~{organism}" == *"Streptococcus agalactiae"* ]]; then 
       amrfinder_organism="Streptococcus_agalactiae"
-    elif [[ ~{organism} == *"Streptococcus_pneumoniae"* ]] || [[ ~{organism} == *"Streptococcus pneumoniae"* ]]; then 
+    elif [[ "~{organism}" == *"Streptococcus_pneumoniae"* ]] || [[ "~{organism}" == *"Streptococcus pneumoniae"* ]]; then 
       amrfinder_organism="Streptococcus_pneumoniae"
-    elif [[ ~{organism} == *"Streptococcus_pyogenes"* ]] || [[ ~{organism} == *"Streptococcus pyogenes"* ]]; then 
+    elif [[ "~{organism}" == *"Streptococcus_pyogenes"* ]] || [[ "~{organism}" == *"Streptococcus pyogenes"* ]]; then 
       amrfinder_organism="Streptococcus_pyogenes"
-    elif [[ ~{organism} == *"Vibrio_cholerae"* ]] || [[ ~{organism} == *"Vibrio cholerae"* ]]; then 
+    elif [[ "~{organism}" == *"Vibrio_cholerae"* ]] || [[ "~{organism}" == *"Vibrio cholerae"* ]]; then 
       amrfinder_organism="Vibrio_cholerae"
     else 
       # set as blank in case nothing matches? amrfinder will run with a blank string
