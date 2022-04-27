@@ -8,10 +8,10 @@ task version_capture {
     volatile: true
   }
   command {
-    PHBG_Version="PHBG v.0.4-dev"
+    PHBG_Version="PHBG v0.4.0-dev"
     ~{default='' 'export TZ=' + timezone}
     date +"%Y-%m-%d" > TODAY
-    echo $PHBG_Version > PHBG_VERSION
+    echo "$PHBG_Version" > PHBG_VERSION
   }
   output {
     String date = read_string("TODAY")
