@@ -93,14 +93,36 @@ task amrfinderplus_nuc {
     grep 'VIRULENCE' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_virulence.tsv
     # || true is so that the final grep exits with code 0, preventing failures
     grep 'AMR' ~{samplename}_amrfinder_all.tsv >> ~{samplename}_amrfinder_amr.tsv || true
+
+    # create string outputs for all genes identified in AMR, STRESS, VIRULENCE
+    amr_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
+    stress_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_stress.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
+    virulence_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_virulence.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
+
+    # if variable for list of genes is EMPTY, write string saying it is empty to float to Terra table
+    if [ -z "${amr_genes}" ]; then
+       amr_genes="No AMR genes detected by NCBI-AMRFinderPlus"
+    fi 
+    if [ -z "${stress_genes}" ]; then
+       stress_genes="No STRESS genes detected by NCBI-AMRFinderPlus"
+    fi 
+    if [ -z "${virulence_genes}" ]; then
+       virulence_genes="No VIRULENCE genes detected by NCBI-AMRFinderPlus"
+    fi 
+
+    # create final output strings
+    echo "${amr_genes}" > AMR_GENES
+    echo "${stress_genes}" > STRESS_GENES
+    echo "${virulence_genes}" > VIRULENCE_GENES
   >>>
   output {
     File amrfinderplus_all_report = "~{samplename}_amrfinder_all.tsv"
     File amrfinderplus_amr_report = "~{samplename}_amrfinder_amr.tsv"
     File amrfinderplus_stress_report = "~{samplename}_amrfinder_stress.tsv"
     File amrfinderplus_virulence_report = "~{samplename}_amrfinder_virulence.tsv"
-    #### commented out for now. Not sure how to output what organism was used if it was not defined as an input paramter
-    # String amrfinder_organism = organism 
+    String amrfinderplus_amr_genes = read_string("AMR_GENES")
+    String amrfinderplus_stress_genes = read_string("STRESS_GENES")
+    String amrfinderplus_virulence_genes = read_string("VIRULENCE_GENES")
     String amrfinderplus_version = read_string("AMRFINDER_VERSION")
   }
   runtime {
