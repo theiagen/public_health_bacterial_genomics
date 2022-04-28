@@ -7,7 +7,6 @@ import "../tasks/quality_control/task_quast.wdl" as quast
 import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/quality_control/task_screen.wdl" as screen
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
-import "../tasks/gene_typing/task_abricate.wdl" as abricate
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
@@ -77,12 +76,6 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-      call abricate.abricate as abricate_amr {
-        input:
-          assembly = shovill_pe.assembly_fasta,
-          samplename = samplename,
-          database = "ncbi"
-      }
       call amrfinderplus.amrfinderplus_nuc as amrfinderplus_task {
         input:
           assembly = shovill_pe.assembly_fasta,
@@ -149,9 +142,6 @@ workflow theiaprok_illumina_pe {
             gambit_version = gambit.gambit_version,
             gambit_db_version = gambit.gambit_db_version,
             gambit_docker = gambit.gambit_docker,
-            abricate_amr_results = abricate_amr.abricate_results,
-            abricate_amr_database = abricate_amr.abricate_database,
-            abricate_amr_version = abricate_amr.abricate_version,
             amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report,
             amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report,
             amrfinderplus_stress_report = amrfinderplus_task.amrfinderplus_stress_report,
@@ -238,10 +228,6 @@ workflow theiaprok_illumina_pe {
     String? gambit_version = gambit.gambit_version
     String? gambit_db_version = gambit.gambit_db_version
     String? gambit_docker = gambit.gambit_docker
-    #AMR Screening
-    File? abricate_amr_results = abricate_amr.abricate_results
-    String? abricate_amr_database = abricate_amr.abricate_database
-    String? abricate_amr_version = abricate_amr.abricate_version
     # NCBI-AMRFinderPlus Outputs
     File? amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report
     File? amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report
