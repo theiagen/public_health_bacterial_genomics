@@ -52,9 +52,9 @@ task export_taxon_tables {
     File amrfinderplus_amr_report
     File amrfinderplus_stress_report
     File amrfinderplus_virulence_report
-    String amrfinderplus_amr_genes
-    String amrfinderplus_stress_genes
-    String amrfinderplus_virulence_genes
+    String? amrfinderplus_amr_genes
+    String? amrfinderplus_stress_genes
+    String? amrfinderplus_virulence_genes
     String amrfinderplus_version
     String ts_mlst_results
     String ts_mlst_predicted_st
