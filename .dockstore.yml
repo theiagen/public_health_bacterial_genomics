@@ -42,7 +42,7 @@ workflows:
     - empty.json
  - name: Kraken2_PE
    subclass: WDL
-   primaryDescriptorPath:/workflows/wf_kraken2_pe.wdl
+   primaryDescriptorPath: /workflows/wf_kraken2_pe.wdl
    testParameterFiles:
     - empty.json
  - name: Kraken2_SE
