@@ -11,6 +11,7 @@ task amrfinderplus_nuc {
     Int? minid
     Int? mincov
     Int cpu = 4
+    String docker = "quay.io/staphb/ncbi-amrfinderplus:3.10.24"
   }
   command <<<
     # logging info
@@ -128,7 +129,7 @@ task amrfinderplus_nuc {
   runtime {
     memory: "8 GB"
     cpu: cpu
-    docker: "quay.io/staphb/ncbi-amrfinderplus:3.10.24"
+    docker: docker
     disks: "local-disk 100 SSD"
     preemptible: 0
     maxRetries: 3
