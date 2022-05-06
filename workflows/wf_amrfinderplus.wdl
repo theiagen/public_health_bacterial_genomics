@@ -18,6 +18,7 @@ workflow amrfinderplus_wf {
   }
   output {
     String amrfinderplus_version = amrfinderplus_nuc.amrfinderplus_version
+    String amrfinderplus_db_version = amrfinderplus_nuc.amrfinderplus_db_version
     String amrfinderplus_wf_version = version_capture.phbg_version
     String amrfinderplus_wf_analysis_date = version_capture.date
     File amrfinderplus_all_report = amrfinderplus_nuc.amrfinderplus_all_report

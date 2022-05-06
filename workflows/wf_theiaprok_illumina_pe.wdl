@@ -150,6 +150,7 @@ workflow theiaprok_illumina_pe {
             amrfinderplus_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes,
             amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes,
             amrfinderplus_version = amrfinderplus_task.amrfinderplus_version,
+            amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version,
             ts_mlst_results = ts_mlst.ts_mlst_results,
             ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st,
             ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme,
@@ -240,6 +241,7 @@ workflow theiaprok_illumina_pe {
     String? amrfinderplus_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes
     String? amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
     String? amrfinderplus_version = amrfinderplus_task.amrfinderplus_version
+    String? amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version
     #MLST Typing
     File? ts_mlst_results = ts_mlst.ts_mlst_results
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
