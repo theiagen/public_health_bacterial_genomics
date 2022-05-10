@@ -21,7 +21,7 @@ task trimmomatic_pe {
     ~{read1} ~{read2} \
     -baseout ~{samplename}.fastq.gz \
     SLIDINGWINDOW:~{trimmomatic_window_size}:~{trimmomatic_quality_trim_score} \
-    MINLEN:~{trimmomatic_minlen} > ~{samplename}.trim.stats.txt
+    MINLEN:~{trimmomatic_minlen} &> ~{samplename}.trim.stats.txt
   >>>
   output {
     File read1_trimmed = "~{samplename}_1P.fastq.gz"
