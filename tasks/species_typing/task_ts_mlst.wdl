@@ -7,7 +7,7 @@ task ts_mlst {
   input {
     File assembly
     String samplename
-    String docker = "staphb/mlst:2.19.0"
+    String docker = "staphb/mlst:2.22.0"
     Int? cpu = 4
     # Parameters
     # --nopath          Strip filename paths from FILE column (default OFF)
