@@ -45,3 +45,13 @@ workflows:
    primaryDescriptorPath: /workflows/wf_amrfinderplus.wdl
    testParameterFiles:
     - empty.json
+ - name: Kraken2_PE
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_kraken2_pe.wdl
+   testParameterFiles:
+    - empty.json
+ - name: Kraken2_SE
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_kraken2_se.wdl
+   testParameterFiles:
+    - empty.json
