@@ -3,7 +3,7 @@ version 1.0
 import "../tasks/taxon_id/task_kraken2.wdl" as kraken2
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow kraken2_se {
+workflow kraken2_se_wf {
   meta {
     description: "Classify single-end reads using Kraken2"
   }
