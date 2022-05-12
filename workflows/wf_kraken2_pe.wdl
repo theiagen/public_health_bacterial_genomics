@@ -30,7 +30,6 @@ workflow kraken2_pe {
     String kraken2_se_wf_analysis_date = version_capture.date
     # Kraken2
     String kraken2_version = kraken2_pe.kraken2_version
-    String kraken2_analysis_date = kraken2_pe.analysis_date
     String kraken2_docker = kraken2_pe.kraken2_docker
     File kraken2_report = kraken2_pe.kraken2_report
     File kraken2_classified_report = kraken2_pe.kraken2_classified_report
