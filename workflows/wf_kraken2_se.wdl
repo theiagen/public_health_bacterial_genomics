@@ -3,7 +3,7 @@ version 1.0
 import "../tasks/taxon_id/task_kraken2.wdl" as kraken2
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow kraken2_se {
+workflow kraken2_se_wf {
   meta {
     description: "Classify single-end reads using Kraken2"
   }
@@ -28,7 +28,6 @@ workflow kraken2_se {
     String kraken2_se_wf_analysis_date = version_capture.date
     # Kraken2
     String kraken2_version = kraken2_se.kraken2_version
-    String kraken2_analysis_date = kraken2_se.analysis_date
     String kraken2_docker = kraken2_se.kraken2_docker
     File kraken2_report = kraken2_se.kraken2_report
     File kraken2_classified_report = kraken2_se.kraken2_classified_report

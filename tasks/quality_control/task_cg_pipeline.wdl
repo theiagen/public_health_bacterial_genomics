@@ -32,6 +32,7 @@ task cg_pipeline {
           with open("R2_MEAN_Q", 'wt') as r2_mean_q:
             r2_mean_q.write(line["avgQuality"])
           coverage += float(line["coverage"])
+          coverage="{:.2f}".format(coverage)
           with open("EST_COVERAGE", 'wt') as est_coverage:
             est_coverage.write(str(coverage))
     CODE
