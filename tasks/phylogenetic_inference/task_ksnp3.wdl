@@ -31,16 +31,18 @@ task ksnp3 {
     echo -e "${assembly}\t${samplename}" >> ksnp3_input.tsv
   done
   # run ksnp3 on input assemblies
-  kSNP3 -in ksnp3_input.tsv -outdir ksnp3 -k ~{kmer_size} -core 
+  kSNP3 -in ksnp3_input.tsv -outdir ksnp3 -k ~{kmer_size} -core -vcf
   
   # rename ksnp3 outputs with cluster name 
   mv ksnp3/core_SNPs_matrix.fasta ~{cluster_name}_core_SNPs_matrix.fasta
   mv ksnp3/tree.core.tre ~{cluster_name}_core.tree
+  mv ksnp3/VCF.reference_genome.vcf ~{cluster_name}_reference.vcf
 
   >>>
   output {
     File ksnp3_matrix = "${cluster_name}_core_SNPs_matrix.fasta"
     File ksnp3_tree = "${cluster_name}_core.tree"
+    File ksnp3_vcf = "${cluster_name}_core.tree"
     String ksnp3_docker_image = docker_image
   }
   runtime {
