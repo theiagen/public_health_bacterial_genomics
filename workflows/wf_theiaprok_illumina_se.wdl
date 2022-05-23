@@ -34,7 +34,7 @@ workflow theiaprok_illumina_se {
   call versioning.version_capture{
     input:
   }
-  call screen.check_reads as raw_check_reads {
+  call screen.check_reads_se as raw_check_reads {
     input:
       read1 = read1_raw,
   }
@@ -44,7 +44,7 @@ workflow theiaprok_illumina_se {
         samplename = samplename,
         read1_raw = read1_raw,
     }
-    call screen.check_reads as clean_check_reads {
+    call screen.check_reads_se as clean_check_reads {
       input:
         read1 = read_QC_trim.read1_clean,
     }
@@ -89,7 +89,7 @@ workflow theiaprok_illumina_se {
           read1 = read_QC_trim.read1_clean,
       }
       if(defined(taxon_tables)) {
-        call terra_tools.export_taxon_tables {
+        call terra_tools.export_taxon_tables_se {
           input:
             terra_project = terra_project,
             terra_workspace = terra_workspace,
@@ -194,7 +194,6 @@ workflow theiaprok_illumina_se {
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
-    Float? r2_mean_q = cg_pipeline.r2_mean_q
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_se.assembly_fasta
     File? contigs_gfa = shovill_se.contigs_gfa
