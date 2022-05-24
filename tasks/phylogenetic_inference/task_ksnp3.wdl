@@ -42,7 +42,7 @@ task ksnp3 {
   # rename ksnp3 outputs with cluster name 
   mv ksnp3/core_SNPs_matrix.fasta ~{cluster_name}_core_SNPs_matrix.fasta
   mv ksnp3/tree.core.tre ~{cluster_name}_core.tree
-  mv ksnp3/VCF.reference_genome.vcf ~{cluster_name}_reference.vcf
+  mv ksnp3/VCF.*.vcf ~{cluster_name}_reference.vcf
 
   >>>
   output {
