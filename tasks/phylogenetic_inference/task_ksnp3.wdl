@@ -33,6 +33,12 @@ task ksnp3 {
   # run ksnp3 on input assemblies
   kSNP3 -in ksnp3_input.tsv -outdir ksnp3 -k ~{kmer_size} -core -vcf
   
+  echo "in out: "
+  ls ksnp3
+  
+  echo "find vcf file: "
+  find / -name *vcfss
+  
   # rename ksnp3 outputs with cluster name 
   mv ksnp3/core_SNPs_matrix.fasta ~{cluster_name}_core_SNPs_matrix.fasta
   mv ksnp3/tree.core.tre ~{cluster_name}_core.tree
