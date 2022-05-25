@@ -23,7 +23,7 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny --save_debug; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
