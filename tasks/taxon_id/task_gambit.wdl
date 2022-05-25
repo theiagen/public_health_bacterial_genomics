@@ -58,7 +58,6 @@ task gambit {
         f.write('NA')
       else:
         f.write(predicted['name'])
-      #f.write('NA' if predicted['name'] is None else predicted['name'])
     with open('PREDICTED_TAXON_RANK', 'w') as f:
       if predicted is None:
         f.write('NA')
@@ -66,7 +65,6 @@ task gambit {
         f.write('NA')
       else:
         f.write(predicted['rank'])
-     # f.write('NA' if predicted['rank'] is None else predicted['rank'])
     with open('PREDICTED_TAXON_THRESHOLD', 'w') as f:
       if predicted is None:
         f.write(fmt_dist(0))
@@ -74,7 +72,6 @@ task gambit {
         f.write(fmt_dist(0))
       else:
         f.write(fmt_dist(predicted['distance_threshold']))
-      #f.write(fmt_dist(0 if predicted['distance_threshold'] is None else predicted['distance_threshold']))
 
     # Next taxon
     with open('NEXT_TAXON', 'w') as f:
@@ -84,7 +81,6 @@ task gambit {
         f.write(predicted['name'])
       else:
         f.write(next_taxon['name'])
-      #f.write(predicted['name'] if next_taxon['name'] is None else next_taxon['name'])
     with open('NEXT_TAXON_RANK', 'w') as f:
       if next_taxon is None:
         f.write(predicted['rank'])
@@ -92,7 +88,6 @@ task gambit {
         f.write(predicted['rank'])
       else:
         f.write(next_taxon['rank'])
-      #f.write(predicted['rank'] if next_taxon['rank'] is None else next_taxon['rank'])
     with open('NEXT_TAXON_THRESHOLD', 'w') as f:
       if next_taxon is None:
         f.write(fmt_dist(0))
@@ -100,8 +95,7 @@ task gambit {
         f.write(fmt_dist(0))
       else:
         f.write(fmt_dist(next_taxon['distance_threshold']))
-      #f.write(fmt_dist(0 if next_taxon['distance_threshold'] is None else next_taxon['distance_threshold']))
-
+      
     # Table of closest genomes
     with open('~{closest_genomes_path}', 'w', newline='') as f:
       writer = csv.writer(f)
