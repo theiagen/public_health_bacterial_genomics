@@ -52,19 +52,55 @@ task gambit {
 
     # Predicted taxon
     with open('PREDICTED_TAXON', 'w') as f:
-      f.write('' if predicted is None else predicted['name'])
+      if predicted is None:
+        f.write('NA')
+      elif predicted['name'] is None:
+        f.write('NA')
+      else:
+        f.write(predicted['name'])
+      #f.write('NA' if predicted['name'] is None else predicted['name'])
     with open('PREDICTED_TAXON_RANK', 'w') as f:
-      f.write('' if predicted is None else predicted['rank'])
+      if predicted is None:
+        f.write('NA')
+      elif predicted['rank'] is None:
+        f.write('NA')
+      else:
+        f.write(predicted['rank'])
+     # f.write('NA' if predicted['rank'] is None else predicted['rank'])
     with open('PREDICTED_TAXON_THRESHOLD', 'w') as f:
-      f.write(fmt_dist(0 if predicted is None else predicted['distance_threshold']))
+      if predicted is None:
+        f.write(fmt_dist(0))
+      elif predicted['distance_threshold'] is None:
+        f.write(fmt_dist(0))
+      else:
+        f.write(fmt_dist(predicted['distance_threshold']))
+      #f.write(fmt_dist(0 if predicted['distance_threshold'] is None else predicted['distance_threshold']))
 
     # Next taxon
     with open('NEXT_TAXON', 'w') as f:
-      f.write(predicted['name'] if next_taxon is None else next_taxon['name'])
+      if next_taxon is None:
+        f.write(predicted['name'])
+      elif next_taxon['name'] is None:
+        f.write(predicted['name'])
+      else:
+        f.write(next_taxon['name'])
+      #f.write(predicted['name'] if next_taxon['name'] is None else next_taxon['name'])
     with open('NEXT_TAXON_RANK', 'w') as f:
-      f.write(predicted['rank'] if next_taxon is None else next_taxon['rank'])
+      if next_taxon is None:
+        f.write(predicted['rank'])
+      elif next_taxon['rank'] is None:
+        f.write(predicted['rank'])
+      else:
+        f.write(next_taxon['rank'])
+      #f.write(predicted['rank'] if next_taxon['rank'] is None else next_taxon['rank'])
     with open('NEXT_TAXON_THRESHOLD', 'w') as f:
-      f.write(fmt_dist(0 if next_taxon is None else next_taxon['distance_threshold']))
+      if next_taxon is None:
+        f.write(fmt_dist(0))
+      elif next_taxon['distance_threshold'] is None:
+        f.write(fmt_dist(0))
+      else:
+        f.write(fmt_dist(next_taxon['distance_threshold']))
+      #f.write(fmt_dist(0 if next_taxon['distance_threshold'] is None else next_taxon['distance_threshold']))
 
     # Table of closest genomes
     with open('~{closest_genomes_path}', 'w', newline='') as f:
