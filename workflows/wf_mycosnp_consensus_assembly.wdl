@@ -41,6 +41,8 @@ workflow mycosnp_consensus_assembly {
     Float gc_clean = mycosnp.gc_clean
     Float phred_clean = mycosnp.phred_clean
     Float coverage_clean = mycosnp.coverage_clean
+    Float mean_coverage_depth = mycosnp.mean_coverage_depth
+    Int reads_mapped = mycosnp.reads_mapped
     Int number_n = mycosnp.number_n
     Float percent_reference_coverage = mycosnp.percent_reference_coverage
     Int assembly_size = mycosnp.assembly_size

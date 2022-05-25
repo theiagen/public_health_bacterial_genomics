@@ -37,16 +37,18 @@ task mycosnp {
 
     # QC Metrics
     csvtk transpose -t ~{samplename}/results/stats/qc_report/qc_report.txt > tqc_report.txt
-    grep "^# Reads Before Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_READS_RAW
+    grep "^Reads Before Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_READS_RAW
     grep "^GC Before Trimming" tqc_report.txt | cut -f2 | sed 's/%//' | tee MYCOSNP_GC_RAW
-    grep "^Average Phred Before Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_PHRED_RAW
-    grep "^Coverage Before Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_COVERAGE_RAW
-    grep "^# Reads After Trimming" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READS_CLEAN
-    grep "^# Paired Reads After Trimming" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READ_PAIRS_CLEAN
-    grep "^# Unpaired Reads After Trimming" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READ_UNPAIRED_CLEAN
+    grep "^Average Q Score Before Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_PHRED_RAW
+    grep "^Reference Length Coverage Before Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_COVERAGE_RAW
+    grep "^Reads After Trimming" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READS_CLEAN
+    grep "^Paired Reads After Trimming" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READ_PAIRS_CLEAN
+    grep "^Unpaired Reads After Trimming" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READ_UNPAIRED_CLEAN
     grep "^GC After Trimming" tqc_report.txt | cut -f2 | sed 's/%//' | tee MYCOSNP_GC_CLEAN
-    grep "^Average Phred After Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_PHRED_CLEAN
-    grep "^Coverage After Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_COVERAGE_CLEAN
+    grep "^Average Q Score After Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_PHRED_CLEAN
+    grep "^Reference Length Coverage After Trimming" tqc_report.txt | cut -f2 | tee MYCOSNP_COVERAGE_CLEAN
+    grep "^Mean Coverage Depth" tqc_report.txt | cut -f2 | tee MYCOSNP_MEAN_COVERAGE_DEPTH
+    grep "^Reads Mapped" tqc_report.txt | cut -f2 | cut -f1 -d " " | tee MYCOSNP_READS_MAPPED
 
     # Assembly Metrics
     awk '{if ($3 < ~{min_depth}) {print $0}}' ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt | wc -l | tee NUMBER_NS
@@ -69,6 +71,8 @@ task mycosnp {
     Float gc_clean = read_float("MYCOSNP_GC_CLEAN")
     Float phred_clean = read_float("MYCOSNP_PHRED_CLEAN")
     Float coverage_clean = read_float("MYCOSNP_COVERAGE_CLEAN")
+    Float mean_coverage_depth = read_float("MYCOSNP_MEAN_COVERAGE_DEPTH")
+    Int reads_mapped = read_int("MYCOSNP_READS_MAPPED")
     Int number_n = read_int("NUMBER_NS")
     Float percent_reference_coverage = read_float("PERCENT_REFERENCE_COVERAGE")
     Int assembly_size = read_int("ASSEMBLY_SIZE")
