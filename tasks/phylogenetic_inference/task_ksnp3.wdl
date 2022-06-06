@@ -27,17 +27,10 @@ task ksnp3 {
   for index in ${!assembly_array[@]}; do
     assembly=${assembly_array[$index]}
     samplename=${samplename_array[$index]}
-    
     echo -e "${assembly}\t${samplename}" >> ksnp3_input.tsv
   done
   # run ksnp3 on input assemblies
   kSNP3 -in ksnp3_input.tsv -outdir ksnp3 -k ~{kmer_size} -core -vcf
-  
-  echo "in out: "
-  ls ksnp3
-  
-  echo "find vcf file: "
-  find / -name *vcfss
   
   # rename ksnp3 outputs with cluster name 
   mv ksnp3/core_SNPs_matrix.fasta ~{cluster_name}_core_SNPs_matrix.fasta
