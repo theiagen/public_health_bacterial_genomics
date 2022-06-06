@@ -11,6 +11,8 @@ task export_taxon_tables {
     File? reads
     File? read1
     File? read2
+    File? read1_clean
+    File? read2_clean
     String? run_id
     String? collection_date
     String? originating_lab
