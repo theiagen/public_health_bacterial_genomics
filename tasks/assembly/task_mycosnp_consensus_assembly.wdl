@@ -23,11 +23,10 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny --save_debug; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
-      gunzip ~{samplename}/results/combined/consensus/~{samplename}.fasta.gz
       genomeCoverageBed -ibam ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.bam -d > ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt
       tar -cf - ~{samplename}/ | gzip -n --best > ~{samplename}.tar.gz
     else
@@ -77,7 +76,6 @@ task mycosnp {
     Float percent_reference_coverage = read_float("PERCENT_REFERENCE_COVERAGE")
     Int assembly_size = read_int("ASSEMBLY_SIZE")
     Int consensus_n_variant_min_depth = min_depth
-    File assembly_fasta = "~{samplename}/results/combined/consensus/~{samplename}.fasta"
     File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
     File vcf_index = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz.tbi"
     File multiqc = "~{samplename}/results/multiqc/multiqc_report.html"
