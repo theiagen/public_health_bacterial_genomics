@@ -5,8 +5,8 @@ import "../tasks/phylogenetic_inference/task_snp_dists.wdl" as snp_dists
 import "../tasks/task_versioning.wdl" as versioning
 
 workflow ksnp3_workflow {
-	input {
-		Array[File] assembly_fasta
+  input {
+    Array[File] assembly_fasta
     Array[String] samplename
     String cluster_name
 	}
@@ -15,19 +15,19 @@ workflow ksnp3_workflow {
 			assembly_fasta = assembly_fasta,
       samplename = samplename,
       cluster_name = cluster_name
-	}
+  }
   call snp_dists.snp_dists {
     input:
       cluster_name = cluster_name,
       alignment = ksnp3_task.ksnp3_matrix
   }
-	call versioning.version_capture{
+  call versioning.version_capture{
     input:
   }
   output {
     String ksnp3_wf_version = version_capture.phbg_version
     String knsp3_wf_analysis_date = version_capture.date
-		
+
     File ksnp3_snp_matrix = snp_dists.snp_matrix
     File ksnp3_tree = ksnp3_task.ksnp3_tree
     String ksnp3_docker = ksnp3_task.ksnp3_docker_image
