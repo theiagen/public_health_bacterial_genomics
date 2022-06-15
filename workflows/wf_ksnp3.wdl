@@ -1,21 +1,22 @@
 version 1.0
 
-import "../tasks/task_phylo.wdl" as phylo
+import "../tasks/phylogenetic_inference/task_ksnp3.wdl" as ksnp3
+import "../tasks/phylogenetic_inference/task_snp_dists.wdl" as snp_dists
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow ksnp3 {
+workflow ksnp3_workflow {
 	input {
 		Array[File] assembly_fasta
     Array[String] samplename
     String cluster_name
 	}
-	call phylo.ksnp3 as ksnp3_task {
+	call ksnp3.ksnp3 as ksnp3_task {
 		input:
 			assembly_fasta = assembly_fasta,
       samplename = samplename,
       cluster_name = cluster_name
 	}
-  call phylo.snp_dists {
+  call snp_dists.snp_dists {
     input:
       cluster_name = cluster_name,
       alignment = ksnp3_task.ksnp3_matrix
