@@ -178,7 +178,7 @@ workflow theiaprok_illumina_pe {
             genotyphi_mykrobe_json = merlin_magic.genotyphi_mykrobe_json,
             genotyphi_version = merlin_magic.genotyphi_version,
             genotyphi_species = merlin_magic.genotyphi_species,
-            genotyphi_species_percentage = merlin_magic.genotyphi_species_percentage,
+            genotyphi_st_probes_percent_coverage = merlin_magic.genotyphi_st_probes_percent_coverage,
             genotyphi_final_genotype = merlin_magic.genotyphi_final_genotype,
             genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence,
             kleborate_output_file = merlin_magic.kleborate_output_file,
@@ -281,7 +281,7 @@ workflow theiaprok_illumina_pe {
     File? genotyphi_mykrobe_json = merlin_magic.genotyphi_mykrobe_json
     String? genotyphi_version = merlin_magic.genotyphi_version
     String? genotyphi_species = merlin_magic.genotyphi_species
-    String? genotyphi_species_percentage = merlin_magic.genotyphi_species_percentage
+    Float? genotyphi_st_probes_percent_coverage = merlin_magic.genotyphi_st_probes_percent_coverage
     String? genotyphi_final_genotype = merlin_magic.genotyphi_final_genotype
     String? genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence
     # Klebsiella Typing

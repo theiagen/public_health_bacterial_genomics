@@ -55,7 +55,7 @@ task genotyphi_pe {
     File genotyphi_mykrobe_json = "./~{samplename}.mykrobe_genotyphi.json"
     String genotyphi_version = read_string("GENOTYPHI_VERSION")
     String genotyphi_species = read_string("SPECIES")
-    String genotyphi_species_percentage = read_string("SPP_PERCENT")
+    Float genotyphi_st_probes_percent_coverage = read_string("SPP_PERCENT")
     String genotyphi_final_genotype = read_string("FINAL_GENOTYPE")
     String genotyphi_genotype_confidence = read_string("CONFIDENCE")
   }

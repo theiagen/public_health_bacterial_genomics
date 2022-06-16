@@ -103,7 +103,7 @@ workflow merlin_magic {
   File? genotyphi_mykrobe_json = genotyphi_task.genotyphi_mykrobe_json
   String? genotyphi_version = genotyphi_task.genotyphi_version
   String? genotyphi_species = genotyphi_task.genotyphi_species
-  String? genotyphi_species_percentage = genotyphi_task.genotyphi_species_percentage
+  Float? genotyphi_st_probes_percent_coverage = genotyphi_task.genotyphi_st_probes_percent_coverage
   String? genotyphi_final_genotype = genotyphi_task.genotyphi_final_genotype
   String? genotyphi_genotype_confidence = genotyphi_task.genotyphi_genotype_confidence
   # Klebsiella Typing
