@@ -98,6 +98,7 @@ workflow merlin_magic {
   String? seqsero2_predicted_antigenic_profile = seqsero2.seqsero2_predicted_antigenic_profile
   String? seqsero2_predicted_serotype = seqsero2.seqsero2_predicted_serotype
   String? seqsero2_predicted_contamination = seqsero2.seqsero2_predicted_contamination
+  # Salmonella serotype Typhi typing
   File? genotyphi_report_tsv = genotyphi_task.genotyphi_report_tsv 
   File? genotyphi_mykrobe_json = genotyphi_task.genotyphi_mykrobe_json
   String? genotyphi_version = genotyphi_task.genotyphi_version
