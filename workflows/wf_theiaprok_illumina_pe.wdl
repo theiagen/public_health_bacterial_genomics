@@ -174,6 +174,13 @@ workflow theiaprok_illumina_pe {
             seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile,
             seqsero2_predicted_serotype = merlin_magic.seqsero2_predicted_serotype,
             seqsero2_predicted_contamination = merlin_magic.seqsero2_predicted_contamination,
+            genotyphi_report_tsv = merlin_magic.genotyphi_report_tsv,
+            genotyphi_mykrobe_json = merlin_magic.genotyphi_mykrobe_json,
+            genotyphi_version = merlin_magic.genotyphi_version,
+            genotyphi_species = merlin_magic.genotyphi_species,
+            genotyphi_species_percentage = merlin_magic.genotyphi_species_percentage,
+            genotyphi_final_genotype = merlin_magic.genotyphi_final_genotype,
+            genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence,
             kleborate_output_file = merlin_magic.kleborate_output_file,
             kleborate_version = merlin_magic.kleborate_version,
             kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
@@ -192,15 +199,15 @@ workflow theiaprok_illumina_pe {
     }
   }
   output {
-    #Version Captures
+    # Version Captures
     String theiaprok_illumina_pe_version = version_capture.phbg_version
     String theiaprok_illumina_pe_analysis_date = version_capture.date
-    #Read Metadata
+    # Read Metadata
     String seq_platform = seq_method
-    #Sample Screening
+    # Sample Screening
     String raw_read_screen = raw_check_reads.read_screen
     String? clean_read_screen = clean_check_reads.read_screen
-    #Read QC
+    # Read QC
     Int? num_reads_raw1 = read_QC_trim.fastq_scan_raw1
     Int? num_reads_raw2 = read_QC_trim.fastq_scan_raw2
     String? num_reads_raw_pairs = read_QC_trim.fastq_scan_raw_pairs
@@ -212,7 +219,7 @@ workflow theiaprok_illumina_pe {
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
     Float? r2_mean_q = cg_pipeline.r2_mean_q
-    #Assembly and Assembly QC
+    # Assembly and Assembly QC
     File? assembly_fasta = shovill_pe.assembly_fasta
     File? contigs_gfa = shovill_pe.contigs_gfa
     String? shovill_pe_version = shovill_pe.shovill_version
@@ -224,7 +231,7 @@ workflow theiaprok_illumina_pe {
     File? cg_pipeline_report = cg_pipeline.cg_pipeline_report
     String? cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
     Float? est_coverage = cg_pipeline.est_coverage
-    #Taxon ID
+    # Taxon ID
     File? gambit_report = gambit.gambit_report_file
     File? gambit_closest_genomes = gambit.gambit_closest_genomes_file
     String? gambit_predicted_taxon = gambit.gambit_predicted_taxon
@@ -242,7 +249,7 @@ workflow theiaprok_illumina_pe {
     String? amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
     String? amrfinderplus_version = amrfinderplus_task.amrfinderplus_version
     String? amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version
-    #MLST Typing
+    # MLST Typing
     File? ts_mlst_results = ts_mlst.ts_mlst_results
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
     String? ts_mlst_version = ts_mlst.ts_mlst_version
@@ -254,10 +261,10 @@ workflow theiaprok_illumina_pe {
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
     String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
-    #Listeria Typing
+    # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
-    #Salmonella Typing
+    # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json
     File? sister_allele_fasta = merlin_magic.sistr_allele_fasta
@@ -269,7 +276,15 @@ workflow theiaprok_illumina_pe {
     String? seqsero2_predicted_antigenic_profile = merlin_magic.seqsero2_predicted_antigenic_profile
     String? seqsero2_predicted_serotype = merlin_magic.seqsero2_predicted_serotype
     String? seqsero2_predicted_contamination = merlin_magic.seqsero2_predicted_contamination
-    #Klebsiella Typing
+    # Salmonella serotype Typhi Typing
+    File? genotyphi_report_tsv = merlin_magic.genotyphi_report_tsv 
+    File? genotyphi_mykrobe_json = merlin_magic.genotyphi_mykrobe_json
+    String? genotyphi_version = merlin_magic.genotyphi_version
+    String? genotyphi_species = merlin_magic.genotyphi_species
+    String? genotyphi_species_percentage = merlin_magic.genotyphi_species_percentage
+    String? genotyphi_final_genotype = merlin_magic.genotyphi_final_genotype
+    String? genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence
+    # Klebsiella Typing
     File? kleborate_output_file = merlin_magic.kleborate_output_file
     String? kleborate_version = merlin_magic.kleborate_version
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
