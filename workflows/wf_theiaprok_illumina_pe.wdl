@@ -287,7 +287,7 @@ workflow theiaprok_illumina_pe {
     String? tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type
     String? tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
     # Legionella pneumophila typing
-    File? legsta_results = legsta.legsta_results
-    String? legsta_version = legsta.legsta_version
+    File? legsta_results = merlin_magic.legsta_results
+    String? legsta_version = merlin_magic.legsta_version
   }
 }
