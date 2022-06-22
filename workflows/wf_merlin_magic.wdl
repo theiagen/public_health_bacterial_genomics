@@ -74,6 +74,7 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
+  output {
   # Ecoli Typing
   File? serotypefinder_report = serotypefinder.serotypefinder_report
   String? serotypefinder_docker = serotypefinder.serotypefinder_docker
