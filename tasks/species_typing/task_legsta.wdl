@@ -13,7 +13,7 @@ task legsta {
   command <<<
     echo $(legsta --version 2>&1) | sed 's/^.*legsta //; s/ .*\$//;' | tee VERSION
     legsta \
-      ~{assmebly} > ~{samplename}.tsv
+      ~{assembly} > ~{samplename}.tsv
   >>>
   output {
     File legsta_results = "~{samplename}.tsv"

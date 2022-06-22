@@ -7,6 +7,7 @@ import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
 import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
+import "../tasks/species_typing/task_legsta.wdl" as legsta
 
 workflow merlin_magic {
   meta {
@@ -66,7 +67,13 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
-  output {
+  if (merlin_tag == "Legionella pneumophila") {
+    call legsta.legsta {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
+  }
   # Ecoli Typing
   File? serotypefinder_report = serotypefinder.serotypefinder_report
   String? serotypefinder_docker = serotypefinder.serotypefinder_docker
@@ -104,5 +111,8 @@ workflow merlin_magic {
   String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
   String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
+  # Legionella pneumophila Typing
+  File? legsta_results = legsta.legsta_results
+  String? legsta_version = legsta.legsta_version
  }
 }
