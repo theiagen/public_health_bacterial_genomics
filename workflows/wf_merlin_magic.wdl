@@ -115,3 +115,4 @@ workflow merlin_magic {
   File? legsta_results = legsta.legsta_results
   String? legsta_version = legsta.legsta_version
  }
+}
