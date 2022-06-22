@@ -186,8 +186,8 @@ workflow theiaprok_illumina_pe {
             tbprofiler_main_lineage = merlin_magic.tbprofiler_main_lineage,
             tbprofiler_sub_lineage = merlin_magic.tbprofiler_sub_lineage,
             tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type,
-            tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
-            legsta_results = merlin_magic.legsta_results
+            tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
+            legsta_results = merlin_magic.legsta_results,
             legsta_version = merlin_magic.legsta_version
         }
       }
