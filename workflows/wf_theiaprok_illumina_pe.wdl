@@ -188,6 +188,7 @@ workflow theiaprok_illumina_pe {
             tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type,
             tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
             legsta_results = merlin_magic.legsta_results,
+            legsta_alleles = merlin_magic.legsta_alleles,
             legsta_version = merlin_magic.legsta_version
         }
       }
@@ -288,6 +289,7 @@ workflow theiaprok_illumina_pe {
     String? tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
     # Legionella pneumophila typing
     File? legsta_results = merlin_magic.legsta_results
+    String? legsta_alleles = merlin_magic.legsta_alleles
     String? legsta_version = merlin_magic.legsta_version
   }
 }

@@ -114,6 +114,7 @@ workflow merlin_magic {
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
   # Legionella pneumophila Typing
   File? legsta_results = legsta.legsta_results
+  String? legsta_alleles = legsta.legsta_alleles
   String? legsta_version = legsta.legsta_version
  }
 }
