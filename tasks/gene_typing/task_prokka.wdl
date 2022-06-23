@@ -4,12 +4,14 @@ task prokka {
   input {
     File assembly
     String samplename
-    Int cpu
+    Int cpu = 8
+    Int memory = 16
     # Parameters 
     #  proteins recommended: when you have good quality reference genomes and want to ensure gene naming is consistent [false]
     #  prodigal_tf: prodigal training file
     # prokka_arguments: free string to add any other additional prokka arguments
     Boolean proteins = false
+    Boolean compliant = true
     File? prodigal_tf
     String? prokka_arguments
   }
@@ -19,8 +21,9 @@ task prokka {
     
   prokka \
     ~{prokka_arguments} \
-    --cpus ~{cpu}
+    --cpus 0
     --prefix ~{samplename}
+    ~{true='--compliant' false='' compliant}
     ~{true='--proteins' false='' proteins}
     ~{'--prodigaltf ' + prodigal_tf}      
     ~{assembly}
@@ -35,7 +38,7 @@ task prokka {
     String prokka_version = read_string("PROKKA_VERSION")
   }
   runtime {
-    memory: "8 GB"
+    memory: "~{memory} GB"
     cpu: cpu
     docker: "quay.io/staphb/abricate:1.0.0"
     disks: "local-disk 100 HDD"
