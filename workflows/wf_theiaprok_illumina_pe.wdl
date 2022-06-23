@@ -10,6 +10,7 @@ import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
+import "../tasks/gene_typing/task_prokka.wdl" as prokka
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
 
@@ -87,6 +88,7 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
+
       call merlin_magic.merlin_magic {
         input:
           merlin_tag = gambit.merlin_tag,

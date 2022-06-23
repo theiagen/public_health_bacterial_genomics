@@ -4,7 +4,6 @@ task prokka {
   input {
     File assembly
     String samplename
-    String database
     Int cpu
     # Parameters 
     #  proteins recommended: when you have good quality reference genomes and want to ensure gene naming is consistent [false]
@@ -15,22 +14,25 @@ task prokka {
     String? prokka_arguments
   }
   command <<<
-    date | tee DATE
-    abricate -v | tee ABRICATE_VERSION
+  date | tee DATE
+  prokka --version | tee PROKKA_VERSION
     
-    prokka \
-      ~{prokka_arguments} \
-      --cpus ~{cpu}
-      --prefix ~{samplename}
-      ~{true='--proteins' false='' proteins}
-      ~{'--prodigaltf ' + prodigal_tf}      
-      ~{assembly}
+  prokka \
+    ~{prokka_arguments} \
+    --cpus ~{cpu}
+    --prefix ~{samplename}
+    ~{true='--proteins' false='' proteins}
+    ~{'--prodigaltf ' + prodigal_tf}      
+    ~{assembly}
+  
     
   >>>
   output {
-    File abricate_results = "~{samplename}_abricate_hits.tsv"
-    String abricate_database = database
-    String abricate_version = read_string("ABRICATE_VERSION")
+    File prokka_gff = "~{samplename}.gff"
+    File prokka_gbk = "~{samplename}.gbk"
+    File prokka_sqn = "~{samplename}.sqn"
+    Array[File] prokka_outs = glob("~{samplename}*")
+    String prokka_version = read_string("PROKKA_VERSION")
   }
   runtime {
     memory: "8 GB"
