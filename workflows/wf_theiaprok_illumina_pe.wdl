@@ -88,7 +88,11 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-
+      call prokka.prokka {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
       call merlin_magic.merlin_magic {
         input:
           merlin_tag = gambit.merlin_tag,
@@ -249,6 +253,10 @@ workflow theiaprok_illumina_pe {
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
     String? ts_mlst_version = ts_mlst.ts_mlst_version
     String? ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme
+    # Prokka Results
+    File? prokka_gff = prokka.prokka_gff
+    File? prokka_gbk = prokka.prokka_gbk
+    File? prokka_sqn = prokka.prokka_sqn
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
