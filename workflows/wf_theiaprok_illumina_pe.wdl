@@ -105,6 +105,8 @@ workflow theiaprok_illumina_pe {
             samplename = samplename,
             read1 = read1_raw,
             read2 = read2_raw,
+            read1_clean = read_QC_trim.read1_clean,
+            read2_clean = read_QC_trim.read2_clean,
             run_id = run_id,
             collection_date = collection_date,
             originating_lab = originating_lab,
@@ -219,7 +221,9 @@ workflow theiaprok_illumina_pe {
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
     Float? r2_mean_q = cg_pipeline.r2_mean_q
-    # Assembly and Assembly QC
+    File? read1_clean = read_QC_trim.read1_clean
+    File? read2_clean = read_QC_trim.read2_clean
+    #Assembly and Assembly QC
     File? assembly_fasta = shovill_pe.assembly_fasta
     File? contigs_gfa = shovill_pe.contigs_gfa
     String? shovill_pe_version = shovill_pe.shovill_version

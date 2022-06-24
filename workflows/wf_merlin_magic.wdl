@@ -67,7 +67,7 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
-  if (merlin_tag == "Mycobacterium") {
+  if (merlin_tag == "Mycobacterium tuberculosis") {
     call tbprofiler.tbprofiler_pe as tbprofiler {
       input:
         read1 = read1,
