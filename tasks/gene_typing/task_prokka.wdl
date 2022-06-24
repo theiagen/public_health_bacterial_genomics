@@ -21,11 +21,11 @@ task prokka {
     
   prokka \
     ~{prokka_arguments} \
-    --cpus 0
-    --prefix ~{samplename}
-    ~{true='--compliant' false='' compliant}
-    ~{true='--proteins' false='' proteins}
-    ~{'--prodigaltf ' + prodigal_tf}      
+    --cpus 0 \
+    --prefix ~{samplename} \
+    ~{true='--compliant' false='' compliant} \
+    ~{true='--proteins' false='' proteins} \
+    ~{'--prodigaltf ' + prodigal_tf} \
     ~{assembly}
   
     
