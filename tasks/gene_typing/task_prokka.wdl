@@ -32,10 +32,10 @@ task prokka {
     
   >>>
   output {
-    File prokka_gff = "~{samplename}.gff"
-    File prokka_gbk = "~{samplename}.gbk"
-    File prokka_sqn = "~{samplename}.sqn"
-    Array[File] prokka_outs = glob("~{samplename}*")
+    File prokka_gff = "~{samplename}/~{samplename}.gff"
+    File prokka_gbk = "~{samplename}/~{samplename}.gbk"
+    File prokka_sqn = "~{samplename}/~{samplename}.sqn"
+    Array[File] prokka_outs = glob("~{samplename}/~{samplename}*")
     String prokka_version = read_string("PROKKA_VERSION")
   }
   runtime {
