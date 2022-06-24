@@ -6,6 +6,7 @@ task prokka {
     String samplename
     Int cpu = 8
     Int memory = 16
+    String docker_image = "staphb/abricate:1.14.5"
     # Parameters 
     #  proteins recommended: when you have good quality reference genomes and want to ensure gene naming is consistent [false]
     #  prodigal_tf: prodigal training file
@@ -40,7 +41,7 @@ task prokka {
   runtime {
     memory: "~{memory} GB"
     cpu: cpu
-    docker: "quay.io/staphb/abricate:1.0.0"
+    docker: docker
     disks: "local-disk 100 HDD"
   }
 }
