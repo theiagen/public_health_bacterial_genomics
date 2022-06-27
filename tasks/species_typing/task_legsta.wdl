@@ -17,12 +17,12 @@ task legsta {
     
     # parse outputs
     if [ ! -f ~{samplename}.tsv ]; then
-      LEGSTA_ALLELES="No SBT predicted"
+      SBT="No SBT predicted"
     else
-      SBT="$(tail -n 1 ~{samplename}.tsv | cut -f 2)"
+      SBT="ST$(tail -n 1 ~{samplename}.tsv | cut -f 2)"
     fi
 
-    echo ST$SBT | tee LEGSTA_SBT
+    echo $SBT | tee LEGSTA_SBT
 
   >>>
   output {
