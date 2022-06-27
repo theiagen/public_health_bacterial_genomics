@@ -16,21 +16,13 @@ task legsta {
       ~{assembly} > ~{samplename}.tsv
     
     # parse outputs
-    python3 <<CODE
-    import csv
-    with open("./~{samplename}.tsv",'r') as tsv_file:
-      tsv_reader=csv.reader(tsv_file, delimiter="\t")
-      tsv_data=list(tsv_reader)
-      tsv_dict=dict(zip(tsv_data[0], tsv_data[1]))
-      with open ("LEGSTA_ALLELES", 'wt') as Alleles:
-        alleles_list= ['SBT', 'flaA', 'pilE', 'asd', 'mip', 'mompS', 'proA', 'neuA']
-        alleles=[]
-        for i in alleles_list:
-          if tsv_dict[i] != '':
-            alleles.append(i + ":" + tsv_dict[i])
-        alleles_string=','.join(alleles)
-        Alleles.write(alleles_string)
-    CODE
+    for i in 2 3 4 5 6 7 8 9 ; do
+      ALLELE="$(head -n 1 ~{samplename}.tsv | cut -f $i)"
+      ALLELE_NUM="$(tail -n 1 ~{samplename}.tsv | cut -f $i)"
+      ALLELE_STRING+="${ALLELE}:${ALLELE_NUM},"
+    done
+    LEGSTA_ALLELES="$(echo $ALLELE_STRING | cut -d',' -f -8)"
+
   >>>
   output {
     File legsta_results = "~{samplename}.tsv"
