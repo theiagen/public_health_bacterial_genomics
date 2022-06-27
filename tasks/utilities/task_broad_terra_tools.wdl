@@ -94,7 +94,7 @@ task export_taxon_tables {
     String? tbprofiler_dr_type
     String? tbprofiler_resistance_genes
     File? legsta_results
-    String? legsta_sbt
+    String? legsta_predicted_sbt
     String? legsta_version
     
   }
