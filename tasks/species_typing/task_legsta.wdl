@@ -17,23 +17,17 @@ task legsta {
     
     # parse outputs
     if [ ! -f ~{samplename}.tsv ]; then
-      LEGSTA_ALLELES="No ST predicted"
+      LEGSTA_ALLELES="No SBT predicted"
     else
-      ALLELE_STRING=""
-      for i in 2 3 4 5 6 7 8 9 ; do
-        ALLELE="$(head -n 1 ~{samplename}.tsv | cut -f $i)"
-        ALLELE_NUM="$(tail -n 1 ~{samplename}.tsv | cut -f $i)"
-        ALLELE_STRING+="${ALLELE}:${ALLELE_NUM},"
-      done
-      LEGSTA_ALLELES="$(echo $ALLELE_STRING | cut -d',' -f -8)"
+      SBT="$(tail -n 1 ~{samplename}.tsv | cut -f 2)"
     fi
 
-    echo $LEGSTA_ALLELES | tee LEGSTA_ALLELES
+    echo $SBT | tee LEGSTA_SBT
 
   >>>
   output {
     File legsta_results = "~{samplename}.tsv"
-    String legsta_alleles = read_string("LEGSTA_ALLELES")
+    String legsta_predicted_sbt = read_string("LEGSTA_SBT")
     String legsta_version = read_string("VERSION")
   }
   runtime {
