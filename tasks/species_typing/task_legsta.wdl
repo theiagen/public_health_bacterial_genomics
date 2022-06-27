@@ -22,7 +22,7 @@ task legsta {
       SBT="$(tail -n 1 ~{samplename}.tsv | cut -f 2)"
     fi
 
-    echo $SBT | tee LEGSTA_SBT
+    echo ST$SBT | tee LEGSTA_SBT
 
   >>>
   output {
