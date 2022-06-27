@@ -9,6 +9,7 @@ task ksnp3 {
     String docker_image = "quay.io/staphb/ksnp3:3.1"
     Int memory = 8
     Int cpu = 4
+    Int disk_size = 100
   }
   command <<<
   assembly_array=(~{sep=' ' assembly_fasta})
@@ -47,7 +48,7 @@ task ksnp3 {
     docker: docker_image
     memory: "~{memory} GB"
     cpu: cpu
-    disks: "local-disk 100 SSD"
+    disks: "local-disk ~{disk_size} SSD"
     preemptible: 0
   }
 }
