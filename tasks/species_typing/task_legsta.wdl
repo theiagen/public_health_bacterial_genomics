@@ -16,12 +16,19 @@ task legsta {
       ~{assembly} > ~{samplename}.tsv
     
     # parse outputs
-    for i in 2 3 4 5 6 7 8 9 ; do
-      ALLELE="$(head -n 1 ~{samplename}.tsv | cut -f $i)"
-      ALLELE_NUM="$(tail -n 1 ~{samplename}.tsv | cut -f $i)"
-      ALLELE_STRING+="${ALLELE}:${ALLELE_NUM},"
-    done
-    LEGSTA_ALLELES="$(echo $ALLELE_STRING | cut -d',' -f -8)"
+    if [ ! -f ~{samplename}.tsv ]; then
+      LEGSTA_ALLELES="No ST predicted"
+    else
+      ALLELE_STRING=""
+      for i in 2 3 4 5 6 7 8 9 ; do
+        ALLELE="$(head -n 1 ~{samplename}.tsv | cut -f $i)"
+        ALLELE_NUM="$(tail -n 1 ~{samplename}.tsv | cut -f $i)"
+        ALLELE_STRING+="${ALLELE}:${ALLELE_NUM},"
+      done
+      LEGSTA_ALLELES="$(echo $ALLELE_STRING | cut -d',' -f -8)"
+    fi
+
+    echo $LEGSTA_ALLELES | tee LEGSTA_ALLELES
 
   >>>
   output {
