@@ -19,7 +19,8 @@ task mashtree_fasta {
     mashtree -v | tee VERSION
     
     # organize input assemblies
-    mv ~{sep=' ' assembly_fasta} .
+    mkdir mash_assemblies
+    mv ~{sep=' ' assembly_fasta} mash_assemblies
     #run mashtree
     mashtree \
       ~{'--truncLength ' + truncLength} \
@@ -31,7 +32,7 @@ task mashtree_fasta {
       ~{'--numcpus ' + cpu} \
       ~{'--outmatrix ' + cluster_name + '.tsv'} \
       ~{'--outtree ' + cluster_name + '.nwk'} \
-      *.fasta*
+      mash_assemblies/*
       
   >>>
   output {
