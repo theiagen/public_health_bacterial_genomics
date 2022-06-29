@@ -140,8 +140,8 @@ task gambit {
       merlin_tag="Legionella pneumophila"
     elif [[ ${predicted_taxon} == *"Listeria"* ]]; then 
       merlin_tag="Listeria"
-    elif [[ ${predicted_taxon} == *"Mycobacterium"* ]]; then 
-      merlin_tag="Mycobacterium"
+    elif [[ ${predicted_taxon} == *"Mycobacterium tuberculosis"* ]]; then 
+      merlin_tag="Mycobacterium tuberculosis"
     elif [[ ${predicted_taxon} == *"Neisseria"* ]]; then 
       merlin_tag="Neisseria"
     elif [[ ${predicted_taxon} == *"Salmonella"* ]]; then 
