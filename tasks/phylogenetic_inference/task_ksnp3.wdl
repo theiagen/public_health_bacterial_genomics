@@ -51,5 +51,6 @@ task ksnp3 {
     cpu: cpu
     disks: "local-disk ~{disk_size} SSD"
     preemptible: 0
+    maxRetries: 3
   }
 }
