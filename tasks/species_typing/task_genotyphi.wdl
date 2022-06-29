@@ -1,11 +1,11 @@
 version 1.0
 
-task genotyphi_pe {
-  # calling it _pe because mykrobe also accepts ONT read data. could add another task for ONT reads
+task genotyphi {
   # Inputs
   input {
     File read1
-    File read2
+    File? read2
+    Boolean ont_data=false
     String samplename
     String genotyphi_docker_image = "staphb/mykrobe:0.11.0"
     Int cpu = 4
@@ -23,6 +23,7 @@ task genotyphi_pe {
     --species typhi \
     --format json \
     --out ~{samplename}.mykrobe_genotyphi.json \
+    ~{true='--ont' false='' ont_data} \
     --seq ~{read1} ~{read2}
 
     # use genotyphi script to produce TSV

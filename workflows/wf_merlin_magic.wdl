@@ -52,7 +52,7 @@ workflow merlin_magic {
         samplename = samplename
     }
     if( seqsero2.seqsero2_predicted_serotype == "Typhi" || sistr.sistr_predicted_serotype == "Typhi" ) {
-      call genotyphi.genotyphi_pe as genotyphi_task {
+      call genotyphi.genotyphi as genotyphi_task {
         input: 
           read1 = read1,
           read2 = read2,
