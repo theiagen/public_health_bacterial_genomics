@@ -10,6 +10,9 @@ task nullarbor {
     String assembler = "skesa"
     String taxoner = "kraken2"
     String nullarbor_docker_image = "staphb/nullarbor:latest"
+    String kraken_db = "gsutil_uri"
+    String kraken2_db = "gsutil_uri"
+    String centrifuge_db = "gsutil_uri"
   }
   command <<<
     # capture date and version
@@ -17,7 +20,11 @@ task nullarbor {
     date | tee DATE
     # Print and save version
     nullarbor.pl --version | tee VERSION 
-    # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
+    #assign dbs for taxoners
+    KRAKEN_DEFAULT_DB="/kraken-db"
+    KRAKEN2_DEFAULT_DB="/kraken2-db"
+    CENTRIFUGE_DEFAULT_DB="/centrifuge-db"
+    # Run Nullarbor on the input assembly with the --all flag
     nullarbor.pl \
     --name ~{run_name} \
     --ref ~{ref_genome} \
