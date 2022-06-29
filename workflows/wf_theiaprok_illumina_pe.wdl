@@ -8,7 +8,6 @@ import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/quality_control/task_screen.wdl" as screen
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
-import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
