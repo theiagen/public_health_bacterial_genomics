@@ -140,6 +140,7 @@ workflow theiaprok_illumina_pe {
             gambit_report = gambit.gambit_report_file,
             gambit_predicted_taxon = gambit.gambit_predicted_taxon,
             gambit_predicted_taxon_rank = gambit.gambit_predicted_taxon_rank,
+            gambit_closest_genomes = gambit.gambit_closest_genomes_file,
             gambit_version = gambit.gambit_version,
             gambit_db_version = gambit.gambit_db_version,
             gambit_docker = gambit.gambit_docker,
