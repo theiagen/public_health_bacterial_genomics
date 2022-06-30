@@ -7,6 +7,7 @@ task mycosnptree {
     String docker="quay.io/theiagen/mycosnp:dev"
     String strain="B11205"
     String accession="GCA_016772135"
+    Int disk_size = 50
   }
   command <<<
     date | tee DATE
@@ -58,7 +59,7 @@ task mycosnptree {
     docker: "~{docker}"
     memory: "32 GB"
     cpu: 4
-    disks:  "local-disk 50 SSD"
+    disks:  "local-disk ~{disk_size} SSD"
     maxRetries: 3
     preemptible: 0
   }
