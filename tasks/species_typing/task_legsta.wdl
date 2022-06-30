@@ -20,10 +20,10 @@ task legsta {
       SBT="No SBT predicted"
     else
       SBT="ST$(tail -n 1 ~{samplename}.tsv | cut -f 2)"
-        if [ "$SBT" == "-" ]; then
+        if [ "$SBT" == "ST-" ]; then
           SBT="No SBT predicted"
         else
-          if [ "$SBT" == "" ]; then
+          if [ "$SBT" == "ST" ]; then
             SBT="No SBT predicted"
           fi
         fi  
