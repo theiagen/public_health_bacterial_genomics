@@ -11,7 +11,7 @@ task mycosnp {
     Int memory = 16
     Int cpu = 4
     Int min_depth = 10
-    Int disk_size = 50
+    Int disk_size = 100
   }
   command <<<
     date | tee DATE
@@ -86,7 +86,7 @@ task mycosnp {
     docker: "~{docker}"
     memory: "~{memory} GB"
     cpu: cpu
-    disks:  "local-disk ~{100} SSD"
+    disks:  "local-disk ~{disk_size} SSD"
     maxRetries: 3
     preemptible: 0
   }

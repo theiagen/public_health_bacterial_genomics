@@ -52,6 +52,7 @@ task mycosnptree {
     String reference_accession = accession
     File mycosnptree_rapidnj_tree = "mycosnptree/results/combined/phylogeny/rapidnj/rapidnj_phylogeny.nh"
     File mycosnptree_fasttree_tree = "mycosnptree/results/combined/phylogeny/fasttree/fasttree_phylogeny.nh"
+    File mycosnptree_iqtree_tree = "mycosnptree/results/combined/phylogeny/iqtree/iqtree_phylogeny.nh"
     File mycosnptree_alignment = "mycosnptree/results/combined/vcf-to-fasta/vcf-to-fasta.fasta"
     File mycosnptree_full_results = "mycosnptree.tar.gz"
   }
