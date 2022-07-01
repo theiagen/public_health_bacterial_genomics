@@ -34,7 +34,7 @@ task mycosnptree {
     # Run MycoSNP
     mkdir mycosnptree
     cd mycosnptree
-    if nextflow run rpetit3/mycosnp-nf --add_vcf_file ../samples.csv --ref_dir /reference/~{accession} --publish_dir_mode copy; then
+    if nextflow run rpetit3/mycosnp-nf --add_vcf_file ../samples.csv --ref_dir /reference/~{accession} --iqtree --publish_dir_mode copy; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
