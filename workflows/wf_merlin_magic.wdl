@@ -19,7 +19,7 @@ workflow merlin_magic {
     String merlin_tag
     File assembly
     File read1
-    File read2
+    File? read2
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
