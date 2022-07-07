@@ -22,17 +22,9 @@ task mycosnp {
     echo "~{samplename},~{read1},~{read2}" >> sample.csv
 
     # Debug
+    export TMP_DIR=$TMPDIR
+    export TMP=$TMPDIR
     env
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
-    df -h
-    mkdir -p /cromwell_root/tmp
-    export TMP_DIR=/cromwell_root/tmp
-    env
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
-    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
 
     # Run MycoSNP
     mkdir ~{samplename}
