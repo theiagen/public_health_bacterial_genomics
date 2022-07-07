@@ -21,8 +21,18 @@ task mycosnp {
     echo "sample,fastq_1,fastq_2" > sample.csv
     echo "~{samplename},~{read1},~{read2}" >> sample.csv
 
-    # Check free space
+    # Debug
+    env
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
     df -h
+    mkdir -p /cromwell_root/tmp
+    export TMP_DIR=/cromwell_root/tmp
+    env
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
+    echo "+++++++++++++++++++++++++++++++++++++++++++++++++"
 
     # Run MycoSNP
     mkdir ~{samplename}
