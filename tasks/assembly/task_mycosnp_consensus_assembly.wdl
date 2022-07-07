@@ -21,6 +21,9 @@ task mycosnp {
     echo "sample,fastq_1,fastq_2" > sample.csv
     echo "~{samplename},~{read1},~{read2}" >> sample.csv
 
+    # Check free space
+    df -h
+
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
