@@ -10,6 +10,7 @@ task mycosnp {
     String accession = "GCA_016772135"
     Int memory = 16
     Int cpu = 4
+    Int coverage = 100
     Int min_depth = 10
     Int disk_size = 100
   }
@@ -29,7 +30,7 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny --tmpdir $TMPDIR --max_cpus ~{cpu} --max_memory '~{memory}.GB' --rate 0 --coverage 100; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny --tmpdir $TMPDIR --max_cpus ~{cpu} --max_memory '~{memory}.GB' --rate 0 --coverage ~{coverage}; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
