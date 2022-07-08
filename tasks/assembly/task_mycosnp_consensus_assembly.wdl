@@ -8,8 +8,8 @@ task mycosnp {
     String docker = "quay.io/theiagen/mycosnp:dev"
     String strain = "B11205"
     String accession = "GCA_016772135"
-    Int memory = 16
-    Int cpu = 4
+    Int memory = 64
+    Int cpu = 8
     Int coverage = 100
     Int min_depth = 10
     Int disk_size = 100
