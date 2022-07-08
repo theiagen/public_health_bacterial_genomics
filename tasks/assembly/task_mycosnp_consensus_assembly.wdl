@@ -29,7 +29,7 @@ task mycosnp {
     # Run MycoSNP
     mkdir ~{samplename}
     cd ~{samplename}
-    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny --tmpdir $TMPDIR; then
+    if nextflow run rpetit3/mycosnp-nf --input ../sample.csv --ref_dir /reference/~{accession} --publish_dir_mode copy --skip_phylogeny --tmpdir $TMPDIR --max_cpus ~{cpu} --max_memory '~{memory}.GB'; then
       # Everything finished, pack up the results and clean up
       rm -rf .nextflow/ work/
       cd ..
