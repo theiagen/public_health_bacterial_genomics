@@ -33,6 +33,7 @@ workflow mycosnp_tree {
     File mycosnp_fastree_tree = mycosnptree.mycosnptree_fasttree_tree
     File mycosnp_iqtree_tree = mycosnptree.mycosnptree_iqtree_tree
     File mycosnp_alignment = mycosnptree.mycosnptree_alignment
+    File mycosnptree_snpdists = mycosnptree.mycosnptree_snpdists
     File mycosnp_tree_full_results = mycosnptree.mycosnptree_full_results
   }
 }
