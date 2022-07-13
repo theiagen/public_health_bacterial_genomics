@@ -54,6 +54,7 @@ task mycosnptree {
     File mycosnptree_fasttree_tree = "mycosnptree/results/combined/phylogeny/fasttree/fasttree_phylogeny.nh"
     File mycosnptree_iqtree_tree = "mycosnptree/results/combined/phylogeny/iqtree/iqtree_phylogeny.nh"
     File mycosnptree_alignment = "mycosnptree/results/combined/vcf-to-fasta/vcf-to-fasta.fasta"
+    File mycosnptree_snpdists = "mycosnptree/results/combined/snpdists/combined.tsv"
     File mycosnptree_full_results = "mycosnptree.tar.gz"
   }
   runtime {
