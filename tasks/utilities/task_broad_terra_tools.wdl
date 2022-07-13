@@ -149,7 +149,7 @@ task export_taxon_tables {
   >>>
   runtime {
     docker: "broadinstitute/terra-tools:tqdm"
-    memory: "1 GB"
+    memory: "8 GB"
     cpu: 1
     disks: "local-disk 10 HDD"
     dx_instance_type: "mem1_ssd1_v2_x2"
