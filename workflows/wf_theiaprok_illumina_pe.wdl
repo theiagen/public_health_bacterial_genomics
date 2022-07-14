@@ -11,6 +11,7 @@ import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/gene_typing/task_prokka.wdl" as prokka
+import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
 
@@ -89,6 +90,11 @@ workflow theiaprok_illumina_pe {
           samplename = samplename
       }
       call prokka.prokka {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
+      call plasmidfinder.plasmidfinder {
         input:
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
@@ -257,6 +263,10 @@ workflow theiaprok_illumina_pe {
     File? prokka_gff = prokka.prokka_gff
     File? prokka_gbk = prokka.prokka_gbk
     File? prokka_sqn = prokka.prokka_sqn
+    # Plasmidfinder Results
+    File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
+    File? plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs
+    String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
