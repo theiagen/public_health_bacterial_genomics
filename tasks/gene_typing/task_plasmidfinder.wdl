@@ -28,11 +28,23 @@ task plasmidfinder {
   ~{'-l ' + min_cov} \
   ~{'-t ' + threshold} 
 
+  # parse outputs
+  if [ ! -f results_tab.tsv ]; then
+    PF="No plasmids detected"
+  else
+    PF="$(tail -n +2 results_tab.tsv | cut -f 2 | sort | uniq -u | paste -s -d, - )"
+      if [ "$PF" == "" ]; then
+        PF="No plasmids detected"
+      fi  
+  fi
+  echo $PF | tee PLASMIDS
+
   mv results_tab.tsv ~{samplename}_results.tsv
   mv Hit_in_genome_seq.fsa ~{samplename}_seqs.fsa
 
   >>>
   output {
+    String plasmidfinder_plasmids = read_string("PLASMIDS")
     File plasmidfinder_results = "~{samplename}_results.tsv"
     File plasmidfinder_seqs = "~{samplename}_seqs.fsa"
     String plasmidfinder_docker = docker

@@ -264,6 +264,7 @@ workflow theiaprok_illumina_pe {
     File? prokka_gbk = prokka.prokka_gbk
     File? prokka_sqn = prokka.prokka_sqn
     # Plasmidfinder Results
+    String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
     File? plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs
     String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
