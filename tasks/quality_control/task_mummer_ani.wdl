@@ -62,7 +62,7 @@ task animummer {
     Float ani_highest_percent_bases_aligned = read_float("ANI_HIGHEST_PERCENT_BASES_ALIGNED")
     File ani_output_tsv = "~{samplename}.ani-mummer.out.tsv"
     String ani_top_species_match = read_string("ANI_TOP_SPECIES_MATCH")
-    String mummer_version = read_string("MUMMER_VERSION")
+    String ani_mummer_version = read_string("MUMMER_VERSION")
   }
   runtime {
     docker:  "~{docker}"
