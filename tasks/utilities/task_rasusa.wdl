@@ -28,7 +28,7 @@ task rasusa {
     else
       OUTPUT_FILES="~{samplename}_R1.fastq.gz ~{samplename}_R2.fastq.gz"
     fi
-      
+     
     rasusa \
       -i ~{read1} ~{read2} \
       --coverage "~{coverage}" \
@@ -40,7 +40,7 @@ task rasusa {
   >>>
   output {
     File read1_subsampled = "~{samplename}_R1.fastq.gz"
-    File? read2_subsampled = "~{samplename}_R1.fastq.gz"
+    File? read2_subsampled = "~{samplename}_R2.fastq.gz"
     String rasusa_version = read_string("VERSION")
   }
   runtime {
