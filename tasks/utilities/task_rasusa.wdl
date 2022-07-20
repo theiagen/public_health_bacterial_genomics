@@ -10,7 +10,6 @@ task rasusa {
     String samplename
     String docker = "staphb/rasusa:0.6.0"
     Int cpu = 4
-
     # RASUA Parameters
     #  --bases [STRING] Explicitly set the number of bases required e.g., 4.3kb, 7Tb, 9000, 4.1MB. If this option is given, --coverage and --genome-size are ignored
     #  --coverage [FLOAT] The desired coverage to sub-sample the reads to. If --bases is not provided, this option and --genome-size are required
@@ -34,7 +33,7 @@ task rasusa {
       --coverage "~{coverage}" \
       --genome-size "~{genome_size}" \
       ~{'--seed ' + seed} \
-      ~{'--basses ' + bases} \
+      ~{'--bases ' + bases} \
       -o ${OUTPUT_FILES}
 
   >>>
