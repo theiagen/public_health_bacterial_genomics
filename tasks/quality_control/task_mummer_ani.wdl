@@ -48,7 +48,9 @@ task animummer {
       # Parse out species name from reference fasta filename
       # use percent bases aligned to pull relevant line, cut down to query and ref fasta filenames, sed to remove your query filename, xargs to remove whitespaces & stuff
       # cut on periods to pull out genus_species (in future this will inlucde lineages for Listeria)
-      grep "$(cat ANI_HIGHEST_PERCENT)" ~{samplename}.ani-mummer.out.tsv | cut -f 1,2 | sed "s|~{assembly}||g" | xargs | cut -d '.' -f 3 | tee ANI_TOP_SPECIES_MATCH
+      # have to create assembly_file_basename bash variable since output TSV does not include full path to assembly file, only filename
+      assembly_file_basename=$(basename ~{assembly})
+      grep "$(cat ANI_HIGHEST_PERCENT)" ~{samplename}.ani-mummer.out.tsv | cut -f 1,2 | sed "s|${assembly_file_basename}||g" | xargs | cut -d '.' -f 3 | tee ANI_TOP_SPECIES_MATCH
       echo "ANI top species match is: $(cat ANI_TOP_SPECIES_MATCH)"
     else 
       # User specified a reference genome, use fasta filename as output string
