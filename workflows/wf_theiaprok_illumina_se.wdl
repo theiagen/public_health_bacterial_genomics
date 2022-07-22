@@ -107,9 +107,9 @@ workflow theiaprok_illumina_se {
             theiaprok_illumina_se_version = version_capture.phbg_version,
             theiaprok_illumina_se_analysis_date = version_capture.date,
             seq_platform = seq_method,
-            num_reads_raw1 = read_QC_trim.fastqc_number_reads,
-            fastqc_version = read_QC_trim.fastqc_version, # make this an input variable
-            num_reads_clean1 = read_QC_trim.fastqc_clean_number_reads,
+            num_reads_raw1 = read_QC_trim.fastq_scan_raw_number_reads ,
+            fastq_scan_version = read_QC_trim.fastq_scan_version,
+            num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads,
             trimmomatic_version = read_QC_trim.trimmomatic_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
             r1_mean_q = cg_pipeline.r1_mean_q,
