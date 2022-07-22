@@ -35,6 +35,11 @@ workflows:
    primaryDescriptorPath: /workflows/wf_theiaprok_illumina_pe.wdl
    testParameterFiles:
     - empty.json
+ - name: TheiaProk_Illumina_SE
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_theiaprok_illumina_se.wdl
+   testParameterFiles:
+    - empty.json
  - name: MashTree_FASTA
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_mashtree_fasta.wdl
