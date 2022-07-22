@@ -115,7 +115,7 @@ workflow theiaprok_illumina_se {
             r1_mean_q = cg_pipeline.r1_mean_q,
             assembly_fasta = shovill_se.assembly_fasta,
             contigs_gfa = shovill_se.contigs_gfa,
-            shovill_se_version = shovill_se.shovill_version,  # change this to be an input varaible
+            shovill_se_version = shovill_se.shovill_version,
             quast_report = quast.quast_report,
             quast_version = quast.version,
             genome_length = quast.genome_length,
