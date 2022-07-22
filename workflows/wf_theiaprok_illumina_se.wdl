@@ -86,7 +86,7 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename,
           read1 = read_QC_trim.read1_clean,
-          paired_end = true
+          paired_end = false
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {

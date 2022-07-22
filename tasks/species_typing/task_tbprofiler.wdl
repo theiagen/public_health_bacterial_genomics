@@ -1,6 +1,6 @@
 version 1.0
 
-task tbprofiler_pe {
+task tbprofiler {
   # Inputs
   input {
     File read1

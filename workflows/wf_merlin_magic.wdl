@@ -20,7 +20,7 @@ workflow merlin_magic {
     File assembly
     File read1
     File? read2
-    Boolean paired_end = false
+    Boolean paired_end = true
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
@@ -71,7 +71,7 @@ workflow merlin_magic {
     }
   }
   if (merlin_tag == "Mycobacterium tuberculosis") {
-    call tbprofiler.tbprofiler_pe as tbprofiler {
+    call tbprofiler.tbprofiler as tbprofiler {
       input:
         read1 = read1,
         read2 = read2,
