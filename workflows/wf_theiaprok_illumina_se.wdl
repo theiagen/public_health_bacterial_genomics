@@ -200,9 +200,9 @@ workflow theiaprok_illumina_se {
     String raw_read_screen = raw_check_reads.read_screen
     String? clean_read_screen = clean_check_reads.read_screen
     # Read QC
-    Int? num_reads_raw1 = read_QC_trim.fastqc_number_reads
-    String? fastq_scan_version = read_QC_trim.fastqc_version
-    Int? num_reads_clean1 = read_QC_trim.fastqc_clean_number_reads
+    Int? num_reads_raw1 = read_QC_trim.fastq_scan_raw_number_reads
+    String? fastq_scan_version = read_QC_trim.fastq_scan_version
+    Int? num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
