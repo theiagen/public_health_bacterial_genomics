@@ -26,7 +26,7 @@ task tbprofiler {
     # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
     tb-profiler profile \
       -1 ~{read1} \
-      ~{true='-2 ~{read2}' false='' paired_end} \
+      ~{true="-2 ~{read2}" false='' paired_end} \
       --prefix ~{samplename} \
       --mapper ~{mapper} \
       --caller ~{caller} \
