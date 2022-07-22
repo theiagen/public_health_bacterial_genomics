@@ -85,7 +85,8 @@ workflow theiaprok_illumina_se {
           merlin_tag = gambit.merlin_tag,
           assembly = shovill_se.assembly_fasta,
           samplename = samplename,
-          read1 = read_QC_trim.read1_clean
+          read1 = read_QC_trim.read1_clean,
+          paired_end = true
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {

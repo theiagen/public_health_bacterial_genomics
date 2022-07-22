@@ -20,6 +20,7 @@ workflow merlin_magic {
     File assembly
     File read1
     File? read2
+    Boolean paired_end = false
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
@@ -50,7 +51,8 @@ workflow merlin_magic {
       input: 
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        paired_end = paired_end
     }
     if( seqsero2.seqsero2_predicted_serotype == "Typhi" || sistr.sistr_predicted_serotype == "Typhi" ) {
       call genotyphi.genotyphi as genotyphi_task {
@@ -73,7 +75,8 @@ workflow merlin_magic {
       input:
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        paired_end = paired_end
     }
   }
   if (merlin_tag == "Legionella pneumophila") {

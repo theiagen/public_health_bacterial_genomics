@@ -13,7 +13,7 @@ task tbprofiler_pe {
     Float? min_af = 0.1
     Float? min_af_pred = 0.1
     Int? cov_frac_threshold = 1
-    Boolean paired_end = true
+    Boolean paired_end
   }
   command <<<
     # update TBDB

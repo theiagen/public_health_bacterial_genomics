@@ -8,7 +8,7 @@ task seqsero2 {
     String samplename
     String mode ="a"
     String seqsero2_docker_image = "quay.io/staphb/seqsero2:1.2.1"
-    Boolean paired_end = true
+    Boolean paired_end
   }
 
   command <<<
