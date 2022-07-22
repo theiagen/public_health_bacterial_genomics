@@ -76,7 +76,6 @@ workflow merlin_magic {
         read1 = read1,
         read2 = read2,
         samplename = samplename,
-        paired_end = paired_end
     }
   }
   if (merlin_tag == "Legionella pneumophila") {

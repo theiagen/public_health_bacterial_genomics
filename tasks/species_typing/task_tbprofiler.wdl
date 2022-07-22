@@ -13,7 +13,6 @@ task tbprofiler {
     Float? min_af = 0.1
     Float? min_af_pred = 0.1
     Int? cov_frac_threshold = 1
-    Boolean paired_end
   }
   command <<<
     # update TBDB
@@ -23,10 +22,15 @@ task tbprofiler {
     # Print and save version
     tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
     
+    if [ -z "~{read2}" ] ; then
+      INPUT_READS="-1 ~{read1}"
+    else
+      INPUT_READS="-1 ~{read1} -2 ~{read2}"
+    fi
+
     # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
     tb-profiler profile \
-      -1 ~{read1} \
-      ~{true="-2 ~{read2}" false='' paired_end} \
+      ${INPUT_READS} \
       --prefix ~{samplename} \
       --mapper ~{mapper} \
       --caller ~{caller} \
