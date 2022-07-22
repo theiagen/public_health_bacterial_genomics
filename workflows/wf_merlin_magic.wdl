@@ -46,7 +46,7 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }
-    call seqsero2.seqsero2_pe as seqsero2 {
+    call seqsero2.seqsero2 as seqsero2 {
       input: 
         read1 = read1,
         read2 = read2,
