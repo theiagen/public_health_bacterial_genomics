@@ -4,7 +4,7 @@ task seqsero2 {
   # Inputs
   input {
     File read1
-    File read2
+    File? read2
     String samplename
     String mode ="a"
     String seqsero2_docker_image = "quay.io/staphb/seqsero2:1.2.1"
