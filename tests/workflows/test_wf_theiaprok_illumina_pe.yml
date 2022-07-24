@@ -306,7 +306,7 @@
     - path: miniwdl_run/call-read_QC_trim/workflow.log
       contains: ["wdl", "theiaprok_illumina_pe", "NOTICE", "done"]
     - path: miniwdl_run/call-shovill_pe/command
-      md5sum: bfaae75277eebf00d1f3b8d35efc7ef9
+      md5sum: c7525f21ea1cf4c2da648402f0605933
     - path: miniwdl_run/call-shovill_pe/inputs.json
       contains: ["assembler", "skesa", "fastq", "test"]
     - path: miniwdl_run/call-shovill_pe/outputs.json
@@ -353,7 +353,7 @@
     - path: miniwdl_run/call-version_capture/inputs.json
       md5sum: 8a80554c91d9fca8acb82f023de02f11
     - path: miniwdl_run/call-version_capture/outputs.json
-      md5sum: 9eafde1e808338e8d5aaaae866ffc35f
+      contains: ["version_capture", "date", "phbg_version"]
     - path: miniwdl_run/call-version_capture/task.log
       contains: ["wdl", "theiaprok_illumina_pe", "version_capture", "done"]
     - path: miniwdl_run/inputs.json
