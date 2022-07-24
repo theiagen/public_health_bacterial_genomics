@@ -1,0 +1,25 @@
+wf_theiaprok_illumina_pe:
+  - workflows/wf_theiaprok_illumina_pe.wdl
+  - tasks/assembly/task_shovill.wdl
+  - tasks/quality_control/task_quast.wdl
+  - tasks/quality_control/task_cg_pipeline.wdl
+  - tasks/quality_control/task_screen.wdl
+  - tasks/taxon_id/task_gambit.wdl
+  - tasks/gene_typing/task_amrfinderplus.wdl
+  - tasks/species_typing/task_ts_mlst.wdl
+  - tasks/task_versioning.wdl
+  - tasks/utilities/task_broad_terra_tools.wdl
+  - workflows/wf_read_QC_trim.wdl
+  - tasks/quality_control/task_trimmomatic.wdl
+  - tasks/quality_control/task_bbduk.wdl
+  - tasks/quality_control/task_fastq_scan.wdl
+  - workflows/wf_merlin_magic.wdl
+  - tasks/species_typing/task_serotypefinder.wdl
+  - tasks/species_typing/task_ectyper.wdl
+  - tasks/species_typing/task_lissero.wdl
+  - tasks/species_typing/task_sistr.wdl
+  - tasks/species_typing/task_seqsero2.wdl
+  - tasks/species_typing/task_kleborate.wdl
+  - tasks/species_typing/task_tbprofiler.wdl
+  - tasks/species_typing/task_legsta.wdl
+  - tasks/species_typing/task_genotyphi.wdl

@@ -7,6 +7,7 @@ task shovill_pe {
     String samplename
     String docker = "quay.io/staphb/shovill:1.1.0"
     Int min_contig_length = 200
+    String assembler = "spades"
   }
   command <<<
     shovill --version | head -1 | tee VERSION
@@ -14,13 +15,16 @@ task shovill_pe {
     --outdir out \
     --R1 ~{read1_cleaned} \
     --R2 ~{read2_cleaned} \
-    --minlen ~{min_contig_length}
+    --minlen ~{min_contig_length} \
+    --assembler ~{assembler}
     mv out/contigs.fa out/~{samplename}_contigs.fasta
-    mv out/contigs.gfa out/~{samplename}_contigs.gfa
+    if [-f out/contigs.gfa ]; then
+      mv out/contigs.gfa out/~{samplename}_contigs.gfa
+    fi
   >>>
   output {
 	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
-	  File contigs_gfa = "out/~{samplename}_contigs.gfa"
+	  File? contigs_gfa = "out/~{samplename}_contigs.gfa"
     String shovill_version = read_string("VERSION")
   }
   runtime {
@@ -46,11 +50,13 @@ task shovill_se {
     --se ~{read1_cleaned} 
     --minlen ~{min_contig_length}
     mv out/contigs.fa out/~{samplename}_contigs.fasta
-    mv out/contigs.gfa out/~{samplename}_contigs.gfa
+    if [-f out/contigs.gfa ]; then
+      mv out/contigs.gfa out/~{samplename}_contigs.gfa
+    fi
   >>>
   output {
 	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
-	  File contigs_gfa = "out/~{samplename}_contigs.gfa"
+	  File? contigs_gfa = "out/~{samplename}_contigs.gfa"
     String shovill_version = read_string("VERSION")
   }
   runtime {
