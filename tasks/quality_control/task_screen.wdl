@@ -4,13 +4,13 @@ task check_reads {
   input {
     File read1
     File read2
-    Int min_reads = 7472
-    Int min_basepairs = 2241820
-    Int min_genome_size = 100000
-    Int max_genome_size = 18040666
-    Int min_coverage = 10
-    Int min_proportion = 50
-    Boolean skip_screen = false 
+    Int min_reads
+    Int min_basepairs
+    Int min_genome_size
+    Int max_genome_size
+    Int min_coverage
+    Int min_proportion
+    Boolean skip_screen
   }
   command <<<
     flag="PASS"
@@ -142,12 +142,12 @@ task check_reads {
 task check_reads_se {
   input {
     File read1
-    Int min_reads = 7472
-    Int min_basepairs = 2241820
-    Int min_genome_size = 100000
-    Int max_genome_size = 18040666
-    Int min_coverage = 10
-    Boolean skip_screen = false 
+    Int min_reads
+    Int min_basepairs
+    Int min_genome_size
+    Int max_genome_size 
+    Int min_coverage
+    Boolean skip_screen 
   }
   command <<<
     flag="PASS"

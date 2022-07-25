@@ -29,13 +29,25 @@ workflow theiaprok_illumina_se {
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
+    Int min_reads = 7472
+    Int min_basepairs = 2241820
+    Int min_genome_size = 100000
+    Int max_genome_size = 18040666
+    Int min_coverage = 10
+    Boolean skip_screen = false 
   }
   call versioning.version_capture{
     input:
   }
   call screen.check_reads_se as raw_check_reads { 
     input:
-      read1 = read1_raw
+      read1 = read1_raw,
+      min_reads = min_reads,
+      min_basepairs = min_basepairs,
+      min_genome_size = min_genome_size,
+      max_genome_size = max_genome_size,
+      min_coverage = min_coverage,
+      skip_screen = skip_screen
   }
   if (raw_check_reads.read_screen=="PASS") {
     call read_qc.read_QC_trim {
@@ -45,7 +57,13 @@ workflow theiaprok_illumina_se {
     }
     call screen.check_reads_se as clean_check_reads {
       input:
-        read1 = read_QC_trim.read1_clean
+        read1 = read_QC_trim.read1_clean,
+        min_reads = min_reads,
+        min_basepairs = min_basepairs,
+        min_genome_size = min_genome_size,
+        max_genome_size = max_genome_size,
+        min_coverage = min_coverage,
+        skip_screen = skip_screen
     }
     if (clean_check_reads.read_screen=="PASS") {
       call shovill.shovill_se {
