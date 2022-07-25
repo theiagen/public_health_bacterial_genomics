@@ -54,38 +54,39 @@ task snp_dists {
             orderedList.append(line)
     g.close()
 
+    # Seems inappropriate for snp-dists use case; removing for now
     #This is to make sure that if the names aren't exactly the same in the ordered file
     #(eg. doesn't include ".cleaned"), they will still work
-    newOrderedList = []
-    for item in orderedList:
-        original = 1
-        for isolate in isolates:
-            if str(item) in str(isolate):
-                newOrderedList.append(isolate)
-                original = 0
-            elif str(isolate) in str(item):
-                newOrderedList.append(isolate)
-                original = 0
-            else:
-                continue
-        if original==1:
-            newOrderedList.append(item)
+    #newOrderedList = []
+    #for item in orderedList:
+    #    original = 1
+    #    for isolate in isolates:
+    #        if str(item) in str(isolate):
+    #            newOrderedList.append(isolate)
+    #            original = 0
+    #        elif str(isolate) in str(item):
+    #           newOrderedList.append(isolate)
+    #           original = 0
+    #        else:
+    #            continue
+    #    if original==1:
+    #        newOrderedList.append(item)
 
     #Open the output file and write the first line
     z=open("~{cluster_name}_snp_distance_matrix.tsv", 'w')
     z.write(".")
-    for item in newOrderedList:
+    for item in orderedList:
         z.write('\t')
         z.write(str(item))
     z.write('\n')
 
     #Write the matrix using the ordered pairs dictionary
-    for item1 in newOrderedList:
+    for item1 in orderedList:
         z.write(str(item1))
-        for item2 in newOrderedList:
+        for item2 in orderedList:
             if item1 == item2:
                 z.write('\t')
-                z.write("0")
+                z.write("-")
             else:
                 z.write('\t')
                 z.write(str(pairwiseDict[item1, item2]))
