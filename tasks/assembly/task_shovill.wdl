@@ -64,8 +64,8 @@ task shovill_pe {
     
   >>>
   output {
-	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
-	  File? contigs_gfa = "out/~{samplename}_contigs.gfa"
+    File assembly_fasta = "out/~{samplename}_contigs.fasta"
+    File? contigs_gfa = "out/~{samplename}_contigs.gfa"
     File? contigs_fastg = "out/~{samplename}_contigs.fastg"
     File? contigs_lastgraph = "out/~{samplename}_contigs.LastGraph"
     String shovill_version = read_string("VERSION")
@@ -136,8 +136,8 @@ task shovill_se {
     fi
   >>>
   output {
- 	  File assembly_fasta = "out/~{samplename}_contigs.fasta"
-	  File? contigs_gfa = "out/~{samplename}_contigs.gfa"
+    File assembly_fasta = "out/~{samplename}_contigs.fasta"
+    File? contigs_gfa = "out/~{samplename}_contigs.gfa"
     File? contigs_fastg = "out/~{samplename}_contigs.fastg"
     File? contigs_lastgraph = "out/~{samplename}_contigs.LastGraph"
     String shovill_version = read_string("VERSION")
