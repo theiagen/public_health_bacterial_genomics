@@ -85,7 +85,7 @@ task snp_dists {
         for item2 in newOrderedList:
             if item1 == item2:
                 z.write('\t')
-                z.write("-")
+                z.write("0")
             else:
                 z.write('\t')
                 z.write(str(pairwiseDict[item1, item2]))
@@ -99,6 +99,7 @@ task snp_dists {
     String date = read_string("DATE")
     String version = read_string("VERSION")
     File snp_matrix = "${cluster_name}_snp_distance_matrix.tsv"
+    File snp-dists-molten-ordered = "snp-dists-molten-ordered.tsv"
   }
   runtime {
     docker: "quay.io/staphb/snp-dists:0.8.2"
