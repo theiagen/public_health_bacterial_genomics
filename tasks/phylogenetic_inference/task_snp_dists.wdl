@@ -17,7 +17,7 @@ task snp_dists {
     snp-dists -m ~{alignment} | awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' > snp-dists-molten-ordered.tsv 
 
     # create list of isolates in order of SNP-dists 
-    cut -f2 snp-dists-molten-ordered.tsv | awk '!seen[$0]++' > inputFile.tsv
+    cut -f2 snp-dists-molten-ordered.tsv | awk '!seen[$0]++' > ordered-isolates.tsv
 
     python <<CODE
     # This script is based on Logan Fink's https://github.com/StaPH-B/CDPHE/blob/master/ordered_pairwise_matrix_generator_1.0.py
