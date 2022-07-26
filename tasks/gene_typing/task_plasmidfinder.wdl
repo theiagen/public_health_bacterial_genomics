@@ -21,7 +21,7 @@ task plasmidfinder {
 
   if [[ ! -z "~{database}" ]]; then 
     echo "User database identified; ~{database} will be utilized for alignment"
-    plasmidfinder_db_version="~{gambit_db_genomes}"
+    plasmidfinder_db_version="~{database}"
   else
     plasmidfinder_db_version="unmodified from gambit container: ~{docker}"
   fi
