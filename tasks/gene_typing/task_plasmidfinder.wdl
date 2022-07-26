@@ -19,6 +19,15 @@ task plasmidfinder {
   command <<<
   date | tee DATE
 
+  if [[ ! -z "~{database}" ]]; then 
+    echo "User database identified; ~{database} will be utilized for alignment"
+    plasmidfinder_db_version="~{gambit_db_genomes}"
+  else
+    plasmidfinder_db_version="unmodified from gambit container: ~{docker}"
+  fi
+
+  echo ${plasmidfinder_db_version} | tee PLASMIDFINDER_DB_VERSION
+
   plasmidfinder.py \
   -i ~{assembly} \
   -x \
@@ -30,11 +39,11 @@ task plasmidfinder {
 
   # parse outputs
   if [ ! -f results_tab.tsv ]; then
-    PF="No plasmids detected"
+    PF="No plasmids detected in database"
   else
     PF="$(tail -n +2 results_tab.tsv | cut -f 2 | sort | uniq -u | paste -s -d, - )"
       if [ "$PF" == "" ]; then
-        PF="No plasmids detected"
+        PF="No plasmids detected in database"
       fi  
   fi
   echo $PF | tee PLASMIDS
@@ -48,6 +57,7 @@ task plasmidfinder {
     File plasmidfinder_results = "~{samplename}_results.tsv"
     File plasmidfinder_seqs = "~{samplename}_seqs.fsa"
     String plasmidfinder_docker = docker
+    String plasmidfinder_db_version = read_string("PLASMIDFINDER_DB_VERSION")
   }
   runtime {
     memory: "~{memory} GB"

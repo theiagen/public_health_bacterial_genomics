@@ -268,6 +268,7 @@ workflow theiaprok_illumina_pe {
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
     File? plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs
     String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
+    String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
