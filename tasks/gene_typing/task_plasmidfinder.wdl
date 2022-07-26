@@ -20,10 +20,10 @@ task plasmidfinder {
   date | tee DATE
 
   if [[ ! -z "~{database}" ]]; then 
-    echo "User database identified; ~{database} will be utilized for alignment"
+    echo "User database identified; ~{database} will be utilized for analysis"
     plasmidfinder_db_version="~{database}"
   else
-    plasmidfinder_db_version="unmodified from gambit container: ~{docker}"
+    plasmidfinder_db_version="unmodified from plasmidfinder docker container"
   fi
 
   echo ${plasmidfinder_db_version} | tee PLASMIDFINDER_DB_VERSION
