@@ -47,17 +47,17 @@ workflow pangenome_snp_workflow {
     String pirate_wf_version = version_capture.phbg_version
     String pirate_wf_analysis_date = version_capture.date
     # pirate_outputs
-    File pirate_pangenome_summary = pirate_task.pirate_pangenome_summary
-    File pirate_gene_families_ordered = pirate_task.pirate_gene_families_ordered
-    File pirate_unique_alleles = pirate_task.pirate_unique_alleles
-    File pirate_binary_fasta = pirate_task.pirate_binary_fasta
-    File pirate_binary_tree = pirate_task.pirate_binary_tree
-    File pirate_pangenome_gfa = pirate_task.pirate_pangenome_gfa
-    File? pirate_pangenome_alignment_fasta = pirate_task.pirate_pangenome_alignment_fasta
-    File? pirate_pangenome_alignment_gff = pirate_task.pirate_pangenome_alignment_gff
-    File? pirate_core_alignment_fasta = pirate_task.pirate_core_alignment_fasta
-    File? pirate_core_alignment_gff = pirate_task.pirate_core_alignment_gff
-    String pirate_docker_image = pirate_task.docker_image
+    File pirate_pangenome_summary = pirate.pirate_pangenome_summary
+    File pirate_gene_families_ordered = pirate.pirate_gene_families_ordered
+    File pirate_unique_alleles = pirate.pirate_unique_alleles
+    File pirate_binary_fasta = pirate.pirate_binary_fasta
+    File pirate_binary_tree = pirate.pirate_binary_tree
+    File pirate_pangenome_gfa = pirate.pirate_pangenome_gfa
+    File? pirate_pangenome_alignment_fasta = pirate.pirate_pangenome_alignment_fasta
+    File? pirate_pangenome_alignment_gff = pirate.pirate_pangenome_alignment_gff
+    File? pirate_core_alignment_fasta = pirate.pirate_core_alignment_fasta
+    File? pirate_core_alignment_gff = pirate.pirate_core_alignment_gff
+    String pirate_docker_image = pirate.pirate_docker_image
     # iqtree outputs
     String? iqtree_version = core_iqtree.version
     File? pirate_core_ml_tree = core_iqtree.ml_tree
