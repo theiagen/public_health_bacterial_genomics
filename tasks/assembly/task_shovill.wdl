@@ -50,7 +50,7 @@ task shovill_pe {
     ~{true='--noreadcorr' false='' noreadcorr} \
     ~{true='--nostitch' false='' nostitch} \
     ~{true='--nocorr' false='' nocorr}
-    
+
     mv out/contigs.fa out/~{samplename}_contigs.fasta
 
     if [ "~{assembler}" == "spades" ] ; then
