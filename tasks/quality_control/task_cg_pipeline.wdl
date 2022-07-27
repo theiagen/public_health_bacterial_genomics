@@ -18,6 +18,7 @@ task cg_pipeline {
     python3 <<CODE
     import csv
     #grab output average quality and coverage scores by column header
+    coverage = 0.0
     with open("~{samplename}_readMetrics.tsv",'r') as tsv_file:
       tsv_reader = list(csv.DictReader(tsv_file, delimiter="\t"))
       for line in tsv_reader:
@@ -25,17 +26,25 @@ task cg_pipeline {
         if any(x in line["File"] for x in fwd_tags):
           with open("R1_MEAN_Q", 'wt') as r1_mean_q:
             r1_mean_q.write(line["avgQuality"])
-          coverage = float(line["coverage"])
+          
+          # run_assembly_readMetrics can report coverage as '.'
+          try:
+            coverage = float(line["coverage"])
+          except ValueError:
+            continue
           print(coverage)
           
         else:
           with open("R2_MEAN_Q", 'wt') as r2_mean_q:
             r2_mean_q.write(line["avgQuality"])
-          coverage += float(line["coverage"])
-        #coverage="{:.2f}".format(coverage)
-        with open("EST_COVERAGE", 'wt') as est_coverage:
-          est_coverage.write(str(coverage))
-          
+          # run_assembly_readMetrics can report coverage as '.'
+          try:
+            coverage += float(line["coverage"])
+          except ValueError:
+            continue
+
+      with open("EST_COVERAGE", 'wt') as est_coverage:
+        est_coverage.write(str(coverage))
     CODE
 
     # R2_MEAN_Q to make SE workflow work otherwise read_float fails
