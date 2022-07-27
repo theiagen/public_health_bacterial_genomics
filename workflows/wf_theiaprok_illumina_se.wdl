@@ -115,7 +115,7 @@ workflow theiaprok_illumina_se {
             taxon_tables = taxon_tables,
             samplename = samplename,
             read1 = read1_raw,
-            read 2 = "",
+            read2 = "",
             read1_clean = read_QC_trim.read1_clean,
             read2_clean = "",
             reads = "",
