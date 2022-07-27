@@ -153,7 +153,7 @@ workflow theiaprok_illumina_pe {
             assembly_fasta = shovill_pe.assembly_fasta,
             contigs_gfa = shovill_pe.contigs_gfa,
             shovill_pe_version = shovill_pe.shovill_version,
-            shovill_se_version = "",a
+            shovill_se_version = "",
             quast_report = quast.quast_report,
             quast_version = quast.version,
             genome_length = quast.genome_length,
