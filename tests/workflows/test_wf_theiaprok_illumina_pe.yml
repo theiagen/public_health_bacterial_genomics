@@ -54,7 +54,7 @@
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_virulence.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
     - path: miniwdl_run/call-cg_pipeline/command
-      md5sum: 23ea06b9ceea5f4b57b6a09304b80bb6
+      md5sum: a5906b2307ae2e28c792fe7e4f6c085a
     - path: miniwdl_run/call-cg_pipeline/inputs.json
       contains: ["genome_length", "fastq", "samplename", "test"]
     - path: miniwdl_run/call-cg_pipeline/outputs.json
