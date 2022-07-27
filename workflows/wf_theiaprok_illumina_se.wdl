@@ -128,6 +128,7 @@ workflow theiaprok_illumina_se {
             num_reads_raw1 = read_QC_trim.fastq_scan_raw_number_reads ,
             fastq_scan_version = read_QC_trim.fastq_scan_version,
             num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads,
+            num_reads_clean2 = "",
             trimmomatic_version = read_QC_trim.trimmomatic_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
             r1_mean_q = cg_pipeline.r1_mean_q,
@@ -203,7 +204,8 @@ workflow theiaprok_illumina_se {
             tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
             legsta_results = merlin_magic.legsta_results,
             legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt,
-            legsta_version = merlin_magic.legsta_version
+            legsta_version = merlin_magic.legsta_version,
+            
         }
       }
     }
