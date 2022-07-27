@@ -221,8 +221,8 @@ workflow theiaprok_illumina_se {
   }
   output {
     # Version Captures
-    String theiaprok_illumina_pe_version = version_capture.phbg_version
-    String theiaprok_illumina_pe_analysis_date = version_capture.date
+    String theiaprok_illumina_se_version = version_capture.phbg_version
+    String theiaprok_illumina_se_analysis_date = version_capture.date
     # Read Metadata
     String seq_platform = seq_method
     # Sample Screening
