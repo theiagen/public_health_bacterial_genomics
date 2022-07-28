@@ -17,10 +17,10 @@ task agrvate {
   command <<<
     echo $(agrvate -v 2>&1) | sed 's/agrvate v//;' | tee VERSION
     agrvate \
-        ~{true="--typing_only" false="" verify} \
+        ~{true="--typing_only" false="" typing_only} \
         -i $fasta_name
     cp results/~{samplename}-summary.tab ~{samplename}.tsv
-    tar -czvf ~{sample_name}.tar.gz results/
+    tar -czvf ~{samplename}.tar.gz results/
   >>>
   output {
     File agrvate_summary = "~{samplename}.tsv"

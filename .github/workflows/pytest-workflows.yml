@@ -80,6 +80,7 @@ jobs:
             /home/runner/pytest_workflow_*/**/stderr*
             /home/runner/pytest_workflow_*/**/script*
             /home/runner/pytest_workflow_*/**/rc
+            /home/runner/pytest_workflow_*/**/command
             /home/runner/pytest_workflow_*/**/*.txt
             /home/runner/pytest_workflow_*/**/*.log
             /home/runner/pytest_workflow_*/**/*.out

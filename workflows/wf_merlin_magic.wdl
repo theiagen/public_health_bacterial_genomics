@@ -19,7 +19,8 @@ workflow merlin_magic {
     String merlin_tag
     File assembly
     File read1
-    File read2
+    File? read2
+    Boolean paired_end = true
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
@@ -46,11 +47,12 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }
-    call seqsero2.seqsero2_pe as seqsero2 {
+    call seqsero2.seqsero2 as seqsero2 {
       input: 
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        paired_end = paired_end
     }
     if( seqsero2.seqsero2_predicted_serotype == "Typhi" || sistr.sistr_predicted_serotype == "Typhi" ) {
       call genotyphi.genotyphi as genotyphi_task {
@@ -69,7 +71,7 @@ workflow merlin_magic {
     }
   }
   if (merlin_tag == "Mycobacterium tuberculosis") {
-    call tbprofiler.tbprofiler_pe as tbprofiler {
+    call tbprofiler.tbprofiler {
       input:
         read1 = read1,
         read2 = read2,

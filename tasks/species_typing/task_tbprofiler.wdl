@@ -1,10 +1,10 @@
 version 1.0
 
-task tbprofiler_pe {
+task tbprofiler {
   # Inputs
   input {
     File read1
-    File read2
+    File? read2
     String samplename
     String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
     String? mapper = "bwa"
@@ -21,8 +21,25 @@ task tbprofiler_pe {
     date | tee DATE
     # Print and save version
     tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
+    
+    if [ -z "~{read2}" ] ; then
+      INPUT_READS="-1 ~{read1}"
+    else
+      INPUT_READS="-1 ~{read1} -2 ~{read2}"
+    fi
+
     # Run Kleborate on the input assembly with the --all flag and output with samplename prefix
-    tb-profiler profile -1 ~{read1} -2 ~{read2} --prefix ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
+    tb-profiler profile \
+      ${INPUT_READS} \
+      --prefix ~{samplename} \
+      --mapper ~{mapper} \
+      --caller ~{caller} \
+      --min_depth ~{min_depth} \
+      --af ~{min_af} \
+      --reporting_af \
+      ~{min_af_pred} \
+      --coverage_fraction_threshold ~{cov_frac_threshold} \
+      --csv --txt
 
     #Collate results
     tb-profiler collate --prefix ~{samplename}
