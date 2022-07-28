@@ -31,7 +31,8 @@ workflow theiaprok_illumina_pe {
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
-    Boolean skip_ani = false
+    # by default do not call ANI task, but user has ability to enable this task if working with enteric pathogens or supply their own high-quality reference genome
+    Boolean call_ani = false
   }
   call versioning.version_capture{
     input:
@@ -77,8 +78,7 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-      # by default do not skip ani, but user has ability to skip
-      if (skip_ani == false) {
+      if (call_ani == true) {
       call ani.animummer as ani {
         input:
           assembly = shovill_pe.assembly_fasta,
