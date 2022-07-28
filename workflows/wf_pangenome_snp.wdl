@@ -61,13 +61,12 @@ workflow pangenome_snp_workflow {
     File? pirate_core_alignment_fasta = pirate.pirate_core_alignment_fasta
     File? pirate_core_alignment_gff = pirate.pirate_core_alignment_gff
     String pirate_docker_image = pirate.pirate_docker_image
-    # iqtree outputs
-    String? iqtree_version = pan_iqtree.version
-    File? pirate_core_ml_tree = core_iqtree.ml_tree
-    File? pirate_pan_ml_tree = pan_iqtree.ml_tree
     # snp_dists outputs
-    String? snp_dists_version = pan_snp_dists.version
     File? pirate_core_snp_matrix = core_snp_dists.snp_matrix
     File? pirate_pan_snp_matrix = pan_snp_dists.snp_matrix
+    # iqtree outputs
+    String? pirate_iqtree_version = pan_iqtree.version
+    File? pirate_iqtree_core_tree = core_iqtree.ml_tree
+    File? pirate_iqtree_pan_tree = pan_iqtree.ml_tree
   }
 }
