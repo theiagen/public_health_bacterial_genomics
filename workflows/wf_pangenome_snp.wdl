@@ -10,7 +10,7 @@ workflow pangenome_snp_workflow {
     Array[File] prokka_gff
     String cluster_name
     Boolean align = true
-    Boolean core = true
+    Boolean core = false
   }
   call pirate.pirate as pirate {
     input:
