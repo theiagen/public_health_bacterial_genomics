@@ -10,6 +10,7 @@ workflow pangenome_snp_workflow {
     Array[File] prokka_gff
     String cluster_name
     Boolean align = true
+    Boolean core = true
   }
   call pirate.pirate as pirate {
     input:
@@ -18,26 +19,28 @@ workflow pangenome_snp_workflow {
       align = align
   }
   if (align == true) {
-  call iqtree.iqtree as core_iqtree {
-    input:
-      alignment = pirate.pirate_core_alignment_fasta,
-      cluster_name = cluster_name
-  }
-  call iqtree.iqtree as pan_iqtree {
-    input:
-      alignment = pirate.pirate_pangenome_alignment_fasta,
-      cluster_name = cluster_name
-  }
-  call snp_dists.snp_dists as core_snp_dists {
-    input:
-      alignment = pirate.pirate_core_alignment_fasta,
-      cluster_name = cluster_name
-  }
-  call snp_dists.snp_dists as pan_snp_dists {
-    input:
-      alignment = pirate.pirate_pangenome_alignment_fasta,
-      cluster_name = cluster_name
-  }
+    call iqtree.iqtree as pan_iqtree {
+      input:
+        alignment = pirate.pirate_pangenome_alignment_fasta,
+        cluster_name = cluster_name
+    }
+    call snp_dists.snp_dists as pan_snp_dists {
+      input:
+        alignment = pirate.pirate_pangenome_alignment_fasta,
+        cluster_name = cluster_name
+    }
+    if (core == true) {
+      call iqtree.iqtree as core_iqtree {
+        input:
+          alignment = pirate.pirate_core_alignment_fasta,
+          cluster_name = cluster_name
+      }
+      call snp_dists.snp_dists as core_snp_dists {
+        input:
+          alignment = pirate.pirate_core_alignment_fasta,
+          cluster_name = cluster_name
+      }
+    }
   }
   call versioning.version_capture{
     input:
@@ -59,11 +62,11 @@ workflow pangenome_snp_workflow {
     File? pirate_core_alignment_gff = pirate.pirate_core_alignment_gff
     String pirate_docker_image = pirate.pirate_docker_image
     # iqtree outputs
-    String? iqtree_version = core_iqtree.version
+    String? iqtree_version = pan_iqtree.version
     File? pirate_core_ml_tree = core_iqtree.ml_tree
     File? pirate_pan_ml_tree = pan_iqtree.ml_tree
     # snp_dists outputs
-    String? snp_dists_version = core_snp_dists.version
+    String? snp_dists_version = pan_snp_dists.version
     File? pirate_core_snp_matrix = core_snp_dists.snp_matrix
     File? pirate_pan_snp_matrix = pan_snp_dists.snp_matrix
   }

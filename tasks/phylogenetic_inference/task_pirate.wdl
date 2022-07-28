@@ -8,7 +8,7 @@ task pirate {
     String? steps = "50,60,70,80,90,95,98" # % identity thresholds to use for pangenome construction [default: 50,60,70,80,90,95,98]
     String? features = "CDS" # features to use for pangenome construction [default: CDS]
     Boolean? nucl = false # CDS are not translated to AA sequence [default: off]
-    String? panopt = "" # additional arguments to pass to pangenome_contruction
+    String? panopt # additional arguments to pass to pangenome_contruction
     Int memory = 8
     Int cpu = 4
     String docker_image = "quay.io/biocontainers/pirate:1.0.5--hdfd78af_0"
@@ -21,7 +21,7 @@ task pirate {
 
   # pirate requires the directory containing the gff files as input
   mkdir INPUT_DIR
-  mv ${gff_array[@]} INPUT_DIR
+  ln -s ~{sep=' ' prokka_gff} INPUT_DIR
 
   # run pirate on input gff
   PIRATE \

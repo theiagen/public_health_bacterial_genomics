@@ -19,7 +19,7 @@ task iqtree {
     numGenomes=`grep -o '>' ~{alignment} | wc -l`
     if [ $numGenomes -gt 3 ]
     then
-      cp ~{alignment} msa.fasta
+      cp ~{alignment} ./msa.fasta
       iqtree \
       -nt AUTO \
       -s msa.fasta \
