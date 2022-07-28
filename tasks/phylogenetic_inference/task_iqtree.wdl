@@ -4,7 +4,7 @@ task iqtree {
   input {
     File alignment
     String cluster_name
-    String iqtree_model = "HKY" # match bactopia, use GTR+F+I to match grandeur
+    String iqtree_model = "HKY" # match bactopia, use GTR+F+I to match grandeur, use GTR+G4 for nullarbor
     String iqtree_bootstraps = 1000 #  Ultrafast bootstrap replicates
     String alrt = 1000 # SH-like approximate likelihood ratio test (SH-aLRT) replicates
     Boolean asr = false # Ancestral state reconstruction by empirical Bayes
@@ -27,7 +27,7 @@ task iqtree {
       -bb ~{iqtree_bootstraps} \
       -alrt ~{alrt} \
       ~{true="--asr" false="" asr} \
-      iqtree_opts
+      ~{iqtree_opts}
 
       cp msa.fasta.contree ~{cluster_name}_msa.tree
     fi
