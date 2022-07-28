@@ -55,3 +55,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_kraken2_se.wdl
    testParameterFiles:
     - empty.json
+ - name: RASUSA
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_rasusa.wdl
+   testParameterFiles:
+    - empty.json
