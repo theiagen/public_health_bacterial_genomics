@@ -22,8 +22,7 @@ task cg_pipeline {
     with open("~{samplename}_readMetrics.tsv",'r') as tsv_file:
       tsv_reader = list(csv.DictReader(tsv_file, delimiter="\t"))
       for line in tsv_reader:
-        fwd_tags=["_1.", "_R1."]
-        if any(x in line["File"] for x in fwd_tags):
+        if "~{read1}" in line["File"]:
           with open("R1_MEAN_Q", 'wt') as r1_mean_q:
             r1_mean_q.write(line["avgQuality"])
           
