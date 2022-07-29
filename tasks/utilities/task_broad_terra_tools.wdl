@@ -19,8 +19,8 @@ task export_taxon_tables {
     String? city
     String? county
     String? zip
-    String theiaprok_illumina_pe_version
-    String theiaprok_illumina_pe_analysis_date
+    String? theiaprok_illumina_pe_version
+    String? theiaprok_illumina_pe_analysis_date
     String? theiaprok_illumina_se_version
     String? theiaprok_illumina_se_analysis_date
     String seq_platform
