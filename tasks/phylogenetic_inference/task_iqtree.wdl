@@ -4,12 +4,12 @@ task iqtree {
   input {
     File alignment
     String cluster_name
-    String iqtree_model = "HKY" # match bactopia, use GTR+F+I to match grandeur, use GTR+G4 for nullarbor
+    String iqtree_model = "GTR+F+I" # For comparison to other tools use HKY for bactopia, GTR+F+I for grandeur, GTR+G4 for nullarbor, GTR+G for dryad
     String iqtree_bootstraps = 1000 #  Ultrafast bootstrap replicates
     String alrt = 1000 # SH-like approximate likelihood ratio test (SH-aLRT) replicates
     Boolean asr = false # Ancestral state reconstruction by empirical Bayes
     String? iqtree_opts = ""
-    String docker = "quay.io/biocontainers/iqtree:2.1.4_beta--hdcc8f71_0"
+    String docker = "staphb/iqtree2:2.1.2"
   }
   command <<<
     # date and version control
