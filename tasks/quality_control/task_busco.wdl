@@ -9,28 +9,36 @@ task busco {
     String samplename
     String docker = "ezlabgva/busco:v5.3.2_cv1"
     Boolean eukaryote = false
-
   }
   command <<<
+    # get version
     busco --version | tee "VERSION"
-
+ 
+    # run busco
+    # -i input assembly
+    # -m geno for genome input
+    # -o output file tag
+    # --auto-lineage-euk looks at only eukaryotic organisms
+    # --auto-lineage-prok looks at only prokaryotic organisms; default
     busco \
       -i ~{assembly} \
       -m geno \
       -o ~{samplename} \
       ~{true='--auto-lineage-euk' false='--auto-lineage-prok' eukaryote}
 
-    echo short_summary.specific.*.~{samplename}.txt | awk -F'.' '{ print $3 }' | tee DATABASE
+    # grab the database version and format it according to BUSCO recommendations
+    cat ~{samplename}/short_summary.specific.*.~{samplename}.txt | grep "dataset is:" | cut -d' ' -f 6,9 | sed 's/,//' | sed 's/ / (/' | sed 's/$/)/' | tee DATABASE
+    
+    # extract the results string
+    cat ~{samplename}/short_summary.specific.*.~{samplename}.txt | grep "C:" | tee BUSCO_RESULTS
 
-
-
-
+    cp ~{samplename}/short_summary.specific.*.~{samplename}.txt ~{samplename}_busco-summary.txt
   >>>
   output {
     String busco_version = read_string("VERSION")
     String busco_database = read_string("DATABASE")
-    File busco_output = "short_summary.specific.*.~{samplename}.txt"
-
+    String busco_results = read_string("BUSCO_RESULTS")
+    File busco_output = "~{samplename}_busco-summary.txt"
   }
   runtime {
     docker: "~{docker}"
