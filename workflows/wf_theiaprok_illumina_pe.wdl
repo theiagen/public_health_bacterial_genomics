@@ -6,6 +6,7 @@ import "../tasks/assembly/task_shovill.wdl" as shovill
 import "../tasks/quality_control/task_quast.wdl" as quast
 import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/quality_control/task_screen.wdl" as screen
+import "../tasks/quality_control/task_busco.wdl" as busco
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
@@ -96,6 +97,11 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
+      call busco.busco {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
       call amrfinderplus.amrfinderplus_nuc as amrfinderplus_task {
         input:
           assembly = shovill_pe.assembly_fasta,
@@ -165,6 +171,10 @@ workflow theiaprok_illumina_pe {
             gambit_version = gambit.gambit_version,
             gambit_db_version = gambit.gambit_db_version,
             gambit_docker = gambit.gambit_docker,
+            busco_version = busco.busco_version,
+            busco_database = busco.busco_database,
+            busco_results = busco.busco_results,
+            busco_report = busco.busco_report,
             amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report,
             amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report,
             amrfinderplus_stress_report = amrfinderplus_task.amrfinderplus_stress_report,
@@ -261,6 +271,10 @@ workflow theiaprok_illumina_pe {
     File? cg_pipeline_report = cg_pipeline.cg_pipeline_report
     String? cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
     Float? est_coverage = cg_pipeline.est_coverage
+    String? busco_version = busco.busco_version
+    String? busco_database = busco.busco_database
+    String? busco_results = busco.busco_results
+    File? busco_report = busco.busco_report
     # Taxon ID
     File? gambit_report = gambit.gambit_report_file
     File? gambit_closest_genomes = gambit.gambit_closest_genomes_file

@@ -38,7 +38,7 @@ task busco {
     String busco_version = read_string("VERSION")
     String busco_database = read_string("DATABASE")
     String busco_results = read_string("BUSCO_RESULTS")
-    File busco_output = "~{samplename}_busco-summary.txt"
+    File busco_report = "~{samplename}_busco-summary.txt"
   }
   runtime {
     docker: "~{docker}"
