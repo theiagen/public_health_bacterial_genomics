@@ -36,7 +36,7 @@ task export_taxon_tables {
     Float r1_mean_q
     Float? r2_mean_q
     File assembly_fasta
-    File contigs_gfa
+    File? contigs_gfa
     String? shovill_pe_version
     String? shovill_se_version
     File quast_report
