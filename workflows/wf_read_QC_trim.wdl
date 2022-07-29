@@ -6,7 +6,7 @@ import "../tasks/quality_control/task_fastq_scan.wdl" as fastq_scan
 
 workflow read_QC_trim {
   meta {
-    description: "Runs basic QC (FastQC), trimming (Trimmomatic), and adapter removal (bbduk) on illumina PE reads"
+    description: "Runs basic QC (fastq_scan), trimming (Trimmomatic), and adapter removal (bbduk) on illumina PE reads"
   }
 
   input {
