@@ -9,7 +9,7 @@ task iqtree {
     String alrt = 1000 # SH-like approximate likelihood ratio test (SH-aLRT) replicates
     Boolean asr = false # Ancestral state reconstruction by empirical Bayes
     String? iqtree_opts = ""
-    String docker = "staphb/iqtree2:2.1.2"
+    String docker = "staphb/iqtree:1.6.7"
   }
   command <<<
     # date and version control
