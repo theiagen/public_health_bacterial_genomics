@@ -7,7 +7,6 @@ task iqtree {
     String iqtree_model = "GTR+F+I" # For comparison to other tools use HKY for bactopia, GTR+F+I for grandeur, GTR+G4 for nullarbor, GTR+G for dryad
     String iqtree_bootstraps = 1000 #  Ultrafast bootstrap replicates
     String alrt = 1000 # SH-like approximate likelihood ratio test (SH-aLRT) replicates
-    Boolean asr = false # Ancestral state reconstruction by empirical Bayes
     String? iqtree_opts = ""
     String docker = "staphb/iqtree:1.6.7"
   }
@@ -26,7 +25,6 @@ task iqtree {
       -m ~{iqtree_model} \
       -bb ~{iqtree_bootstraps} \
       -alrt ~{alrt} \
-      ~{true="--asr" false="" asr} \
       ~{iqtree_opts}
 
       cp msa.fasta.contree ~{cluster_name}_msa.tree
