@@ -6,7 +6,7 @@ task tbprofiler {
     File read1
     File? read2
     String samplename
-    String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
+    String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:4.2.0--pypyh5e36f6f_0"
     String? mapper = "bwa"
     String? caller = "bcftools"
     Int? min_depth = 10
