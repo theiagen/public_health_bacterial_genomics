@@ -37,7 +37,7 @@ task iqtree {
   }
   runtime {
     docker: "~{docker}"
-    memory: "8 GB"
+    memory: "32 GB"
     cpu: 4
     disks: "local-disk 100 SSD"
     preemptible: 0
