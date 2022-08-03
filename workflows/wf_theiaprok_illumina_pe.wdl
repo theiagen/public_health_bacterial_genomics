@@ -99,7 +99,7 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-      if (call_ani == true) {
+      if (call_ani) {
       call ani.animummer as ani {
         input:
           assembly = shovill_pe.assembly_fasta,
