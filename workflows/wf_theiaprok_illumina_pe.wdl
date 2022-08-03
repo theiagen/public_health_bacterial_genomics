@@ -6,6 +6,7 @@ import "../tasks/assembly/task_shovill.wdl" as shovill
 import "../tasks/quality_control/task_quast.wdl" as quast
 import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/quality_control/task_screen.wdl" as screen
+import "../tasks/quality_control/task_busco.wdl" as busco
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
@@ -22,6 +23,7 @@ workflow theiaprok_illumina_pe {
     String seq_method = "ILLUMINA"
     File read1_raw
     File read2_raw
+    Int? genome_size
     String? run_id
     String? collection_date
     String? originating_lab
@@ -80,7 +82,8 @@ workflow theiaprok_illumina_pe {
         input:
           samplename = samplename,
           read1_cleaned = read_QC_trim.read1_clean,
-          read2_cleaned = read_QC_trim.read2_clean
+          read2_cleaned = read_QC_trim.read2_clean,
+          genome_size = select_first([genome_size, clean_check_reads.est_genome_length])
       }
       call quast.quast {
         input:
@@ -92,9 +95,14 @@ workflow theiaprok_illumina_pe {
           read1 = read1_raw,
           read2 = read2_raw,
           samplename = samplename,
-          genome_length = clean_check_reads.est_genome_length
+          genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
       }
       call gambit.gambit {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
+      call busco.busco {
         input:
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
@@ -175,6 +183,10 @@ workflow theiaprok_illumina_pe {
             gambit_version = gambit.gambit_version,
             gambit_db_version = gambit.gambit_db_version,
             gambit_docker = gambit.gambit_docker,
+            busco_version = busco.busco_version,
+            busco_database = busco.busco_database,
+            busco_results = busco.busco_results,
+            busco_report = busco.busco_report,
             ani_highest_percent = ani.ani_highest_percent,
             ani_highest_percent_bases_aligned = ani.ani_highest_percent_bases_aligned,
             ani_output_tsv = ani.ani_output_tsv,
@@ -276,6 +288,10 @@ workflow theiaprok_illumina_pe {
     File? cg_pipeline_report = cg_pipeline.cg_pipeline_report
     String? cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
     Float? est_coverage = cg_pipeline.est_coverage
+    String? busco_version = busco.busco_version
+    String? busco_database = busco.busco_database
+    String? busco_results = busco.busco_results
+    File? busco_report = busco.busco_report
     # Taxon ID
     File? gambit_report = gambit.gambit_report_file
     File? gambit_closest_genomes = gambit.gambit_closest_genomes_file

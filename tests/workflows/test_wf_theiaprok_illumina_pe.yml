@@ -310,7 +310,7 @@
     - path: miniwdl_run/call-read_QC_trim/workflow.log
       contains: ["wdl", "theiaprok_illumina_pe", "NOTICE", "done"]
     - path: miniwdl_run/call-shovill_pe/command
-      md5sum: 557dcb9ae8d4994ceb868717b9a717cf
+      md5sum: 4da23cf81b4e283431966d070aef43a7
     - path: miniwdl_run/call-shovill_pe/inputs.json
       contains: ["assembler", "skesa", "fastq", "test"]
     - path: miniwdl_run/call-shovill_pe/outputs.json
