@@ -21,6 +21,7 @@ workflow theiaprok_illumina_se {
     String samplename
     String seq_method = "ILLUMINA"
     File read1_raw
+    Int? genome_size
     String? run_id
     String? collection_date
     String? originating_lab
@@ -70,7 +71,9 @@ workflow theiaprok_illumina_se {
       call shovill.shovill_se {
         input:
           samplename = samplename,
-          read1_cleaned = read_QC_trim.read1_clean
+          read1_cleaned = read_QC_trim.read1_clean,
+          genome_size = select_first([genome_size, clean_check_reads.est_genome_length])
+
       }
       call quast.quast {
         input:
@@ -81,7 +84,7 @@ workflow theiaprok_illumina_se {
         input:
           read1 = read1_raw,
           samplename = samplename,
-          genome_length = clean_check_reads.est_genome_length
+          genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
       }
       call gambit.gambit {
         input:
