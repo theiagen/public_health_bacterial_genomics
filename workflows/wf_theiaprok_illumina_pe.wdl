@@ -7,6 +7,7 @@ import "../tasks/quality_control/task_quast.wdl" as quast
 import "../tasks/quality_control/task_cg_pipeline.wdl" as cg_pipeline
 import "../tasks/quality_control/task_screen.wdl" as screen
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
+import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_versioning.wdl" as versioning
@@ -30,6 +31,8 @@ workflow theiaprok_illumina_pe {
     File? taxon_tables
     String terra_project="NA"
     String terra_workspace="NA"
+    # by default do not call ANI task, but user has ability to enable this task if working with enteric pathogens or supply their own high-quality reference genome
+    Boolean call_ani = false
     Int min_reads = 7472
     Int min_basepairs = 2241820
     Int min_genome_size = 100000
@@ -95,6 +98,13 @@ workflow theiaprok_illumina_pe {
         input:
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
+      }
+      if (call_ani) {
+      call ani.animummer as ani {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
       }
       call amrfinderplus.amrfinderplus_nuc as amrfinderplus_task {
         input:
@@ -165,6 +175,11 @@ workflow theiaprok_illumina_pe {
             gambit_version = gambit.gambit_version,
             gambit_db_version = gambit.gambit_db_version,
             gambit_docker = gambit.gambit_docker,
+            ani_highest_percent = ani.ani_highest_percent,
+            ani_highest_percent_bases_aligned = ani.ani_highest_percent_bases_aligned,
+            ani_output_tsv = ani.ani_output_tsv,
+            ani_top_species_match = ani.ani_top_species_match,
+            ani_mummer_version = ani.ani_mummer_version,
             amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report,
             amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report,
             amrfinderplus_stress_report = amrfinderplus_task.amrfinderplus_stress_report,
@@ -269,6 +284,12 @@ workflow theiaprok_illumina_pe {
     String? gambit_version = gambit.gambit_version
     String? gambit_db_version = gambit.gambit_db_version
     String? gambit_docker = gambit.gambit_docker
+    # ani-mummer
+    Float? ani_highest_percent = ani.ani_highest_percent
+    Float? ani_highest_percent_bases_aligned = ani.ani_highest_percent_bases_aligned
+    File? ani_output_tsv = ani.ani_output_tsv
+    String? ani_top_species_match = ani.ani_top_species_match
+    String? ani_mummer_version = ani.ani_mummer_version
     # NCBI-AMRFinderPlus Outputs
     File? amrfinderplus_all_report = amrfinderplus_task.amrfinderplus_all_report
     File? amrfinderplus_amr_report = amrfinderplus_task.amrfinderplus_amr_report
