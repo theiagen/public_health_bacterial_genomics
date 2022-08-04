@@ -13,10 +13,28 @@ task legsta {
   command <<<
     echo $(legsta --version 2>&1) | sed 's/^.*legsta //; s/ .*\$//;' | tee VERSION
     legsta \
-      ~{assmebly} > ~{samplename}.tsv
+      ~{assembly} > ~{samplename}.tsv
+    
+    # parse outputs
+    if [ ! -f ~{samplename}.tsv ]; then
+      SBT="No SBT predicted"
+    else
+      SBT="ST$(tail -n 1 ~{samplename}.tsv | cut -f 2)"
+        if [ "$SBT" == "ST-" ]; then
+          SBT="No SBT predicted"
+        else
+          if [ "$SBT" == "ST" ]; then
+            SBT="No SBT predicted"
+          fi
+        fi  
+    fi
+
+    echo $SBT | tee LEGSTA_SBT
+
   >>>
   output {
     File legsta_results = "~{samplename}.tsv"
+    String legsta_predicted_sbt = read_string("LEGSTA_SBT")
     String legsta_version = read_string("VERSION")
   }
   runtime {

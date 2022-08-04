@@ -1,0 +1,368 @@
+- name: theiaprok_illumina_pe_cromwell
+  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
+  tags:
+    - wf_theiaprok_illumina_pe
+    - wf_theiaprok_illumina_pe_cromwell
+  files:
+    - path: log.err
+      contains: ["Successfully released change log lock", "INFO", "WORKFLOW_METADATA_SUMMARY_ENTRY", "liquibase"]
+    - path: log.out
+      contains: ["workflow finished with status 'Succeeded'", "theiaprok_illumina_pe", "Done", "No ST predicted"]
+    - path: metadata.json
+      contains: ["outputs", "theiaprok_illumina_pe", "Succeeded", "No ST predicted"]
+
+- name: theiaprok_illumina_pe_miniwdl
+  command: miniwdl run -i ./tests/inputs/wf_theiaprok_illumina_pe.json -d miniwdl_run/. --verbose --error-json ./workflows/wf_theiaprok_illumina_pe.wdl
+  tags:
+    - wf_theiaprok_illumina_pe
+    - wf_theiaprok_illumina_pe_miniwdl
+  files:
+    - path: miniwdl_run/call-amrfinderplus_task/command
+      md5sum: cbcb16101728ff39abab80c88c21fb60
+    - path: miniwdl_run/call-amrfinderplus_task/inputs.json
+      contains: ["assembly", "fasta", "organism", "test"]
+    - path: miniwdl_run/call-amrfinderplus_task/outputs.json
+      contains: ["amrfinderplus_all_report", "STRESS", "tsv", "NCBI"]
+    - path: miniwdl_run/call-amrfinderplus_task/stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-amrfinderplus_task/stderr.txt.offset
+    - path: miniwdl_run/call-amrfinderplus_task/stdout.txt
+      contains: ["Gambit", "AMRFinder", "blast", "report"]
+    - path: miniwdl_run/call-amrfinderplus_task/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "amrfinderplus", "done"]
+    - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_DB_VERSION
+      md5sum: c4396919ac552deedcb6a35fc4b65a79
+    - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_VERSION
+      md5sum: b54f25593aeab5346df95ad08bf41a61
+    - path: miniwdl_run/call-amrfinderplus_task/work/AMR_GENES
+      md5sum: b6017eebef847ac2471107ca6197b5c5
+    - path: miniwdl_run/call-amrfinderplus_task/work/DATE
+    - path: miniwdl_run/call-amrfinderplus_task/work/STRESS_GENES
+      md5sum: 4bd51f5d569c0eafb786b26558921e3a
+    - path: miniwdl_run/call-amrfinderplus_task/work/VIRULENCE_GENES
+      md5sum: 9c9c511ab5bfade46f0db1b2ee5b4666
+    - path: miniwdl_run/call-amrfinderplus_task/work/_miniwdl_inputs/0/test_contigs.fasta
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-amrfinderplus_task/work/amrfinder.STDOUT-and-STDERR.log
+      contains: ["AMRFinder", "blast", "report"]
+    - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_all.tsv
+      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+    - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_amr.tsv
+      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+    - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_stress.tsv
+      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+    - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_virulence.tsv
+      md5sum: a5cc7b0baa9e11c9a31540800d0a740c
+    - path: miniwdl_run/call-cg_pipeline/command
+      md5sum: 21d0f9cc8d024c64f152f557c3fb1ea0
+    - path: miniwdl_run/call-cg_pipeline/inputs.json
+      contains: ["genome_length", "fastq", "samplename", "test"]
+    - path: miniwdl_run/call-cg_pipeline/outputs.json
+      contains: ["lyveset", "cg_pipeline", "est_coverage", "r2_mean_q"]
+    - path: miniwdl_run/call-cg_pipeline/stderr.txt
+      md5sum: ce20ed8880cbf02437861ed9d858680f
+    - path: miniwdl_run/call-cg_pipeline/stderr.txt.offset
+    - path: miniwdl_run/call-cg_pipeline/stdout.txt
+    - path: miniwdl_run/call-cg_pipeline/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "cg_pipeline", "done"]
+    - path: miniwdl_run/call-cg_pipeline/work/DATE
+    - path: miniwdl_run/call-cg_pipeline/work/EST_COVERAGE
+      md5sum: 30565a8911a6bb487e3745c0ea3c8224
+    - path: miniwdl_run/call-cg_pipeline/work/R1_MEAN_Q
+    - path: miniwdl_run/call-cg_pipeline/work/R2_MEAN_Q
+    - path: miniwdl_run/call-cg_pipeline/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
+    - path: miniwdl_run/call-cg_pipeline/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
+    - path: miniwdl_run/call-cg_pipeline/work/test_readMetrics.tsv
+      contains: ["File", "fastq", "coverage"]
+    - path: miniwdl_run/call-clean_check_reads/command
+      md5sum: 71c87eedcf3bb6b237e817f640b0c85b
+    - path: miniwdl_run/call-clean_check_reads/inputs.json
+      contains: ["read1", "fastq", "skip_screen", "true"]
+    - path: miniwdl_run/call-clean_check_reads/outputs.json
+      contains: ["check_reads", "PASS"]
+    - path: miniwdl_run/call-clean_check_reads/stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-clean_check_reads/stderr.txt.offset
+    - path: miniwdl_run/call-clean_check_reads/stdout.txt
+      md5sum: 9e807ce699271c3f647c7594df2b5b0a
+    - path: miniwdl_run/call-clean_check_reads/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "check_reads", "done"]
+    - path: miniwdl_run/call-clean_check_reads/work/EST_GENOME_LENGTH
+      md5sum: 897316929176464ebc9ad085f31e7284
+    - path: miniwdl_run/call-clean_check_reads/work/FLAG
+      md5sum: 32c0be4fb7f3030bf9c74c0a836d4f2e
+    - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
+    - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
+    - path: miniwdl_run/call-gambit/command
+      md5sum: 7a0a0eac64d0d0667876512bb265a13a
+    - path: miniwdl_run/call-gambit/inputs.json
+      contains: ["assembly", "fasta", "samplename", "test"]
+    - path: miniwdl_run/call-gambit/outputs.json
+      contains: ["gambit", "csv", "json", "Candidatus"]
+    - path: miniwdl_run/call-gambit/stderr.txt
+      md5sum: 6309bdacabb0b2ff1b12ba8382dbb5ad
+    - path: miniwdl_run/call-gambit/stderr.txt.offset
+    - path: miniwdl_run/call-gambit/stdout.txt
+      contains: ["gambit"]
+    - path: miniwdl_run/call-gambit/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "gambit", "done"]
+    - path: miniwdl_run/call-gambit/work/CLOSEST_DISTANCE
+    - path: miniwdl_run/call-gambit/work/DATE
+    - path: miniwdl_run/call-gambit/work/GAMBIT_DB_VERSION
+      md5sum: 665bf196d268251de28d9e3de0a449f7
+    - path: miniwdl_run/call-gambit/work/GAMBIT_VERSION
+      md5sum: 6f7e3a39515a2c5db8a447b6dc4c88f2
+    - path: miniwdl_run/call-gambit/work/MERLIN_TAG
+      md5sum: 08e9de24ab150d083240557cec091d53
+    - path: miniwdl_run/call-gambit/work/NEXT_TAXON
+      md5sum: 26c494b537bdacdebbdf9c6eaaf4f5f9
+    - path: miniwdl_run/call-gambit/work/NEXT_TAXON_RANK
+      md5sum: 030e7a0c88678ad58332b67fe03a78e6
+    - path: miniwdl_run/call-gambit/work/NEXT_TAXON_THRESHOLD
+      md5sum: 59279928ebaac7b4ba1a9eb232658732
+    - path: miniwdl_run/call-gambit/work/PREDICTED_TAXON
+      md5sum: d4cd0dabcf4caa22ad92fab40844c786
+    - path: miniwdl_run/call-gambit/work/PREDICTED_TAXON_RANK
+      md5sum: d4cd0dabcf4caa22ad92fab40844c786
+    - path: miniwdl_run/call-gambit/work/PREDICTED_TAXON_THRESHOLD
+      md5sum: 01e08d38c9dbee1eacb6a7ac987a5cb8
+    - path: miniwdl_run/call-gambit/work/_miniwdl_inputs/0/test_contigs.fasta
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-gambit/work/test_gambit.json
+      contains: ["Candidatus", "matched", "distance_threshold", "GCF"]
+    - path: miniwdl_run/call-gambit/work/test_gambit_closest.csv
+      contains: ["Candidatus", "matched", "distance_threshold", "GCF"]
+    - path: miniwdl_run/call-merlin_magic/inputs.json
+      contains: ["assembly", "fasta", "samplename", "test"]
+    - path: miniwdl_run/call-merlin_magic/outputs.json
+      md5sum: a5cac6164d4efaf16cb30472595c6f21
+    - path: miniwdl_run/call-merlin_magic/workflow.log
+      contains: ["wdl", "theiaprok_illumina_pe", "merlin", "done"]
+    - path: miniwdl_run/call-quast/command
+      md5sum: bcc316b346ea2b1781564e0024966643
+    - path: miniwdl_run/call-quast/inputs.json
+      contains: ["assembly", "fasta", "samplename", "test"]
+    - path: miniwdl_run/call-quast/outputs.json
+      contains: ["quast", "n50_value", "tsv", "version"]
+    - path: miniwdl_run/call-quast/stderr.txt
+    - path: miniwdl_run/call-quast/stderr.txt.offset
+    - path: miniwdl_run/call-quast/stdout.txt
+      contains: ["quast", "Contigs", "Finished", "time"]
+    - path: miniwdl_run/call-quast/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "quast", "done"]
+    - path: miniwdl_run/call-quast/work/DATE
+    - path: miniwdl_run/call-quast/work/GENOME_LENGTH
+    - path: miniwdl_run/call-quast/work/N50_VALUE
+    - path: miniwdl_run/call-quast/work/NUMBER_CONTIGS
+    - path: miniwdl_run/call-quast/work/VERSION
+      md5sum: 2c7df92842ce15d90ae7c85aef9bd610
+    - path: miniwdl_run/call-quast/work/_miniwdl_inputs/0/test_contigs.fasta
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-quast/work/basic_stats/GC_content_plot.pdf
+    - path: miniwdl_run/call-quast/work/basic_stats/Nx_plot.pdf
+    - path: miniwdl_run/call-quast/work/basic_stats/cumulative_plot.pdf
+    - path: miniwdl_run/call-quast/work/basic_stats/test_contigs_GC_content_plot.pdf
+    - path: miniwdl_run/call-quast/work/icarus.html
+    - path: miniwdl_run/call-quast/work/icarus_viewers/contig_size_viewer.html
+    - path: miniwdl_run/call-quast/work/quast.log
+      contains: ["quast", "Contigs", "Finished", "time"]
+    - path: miniwdl_run/call-quast/work/report.html
+    - path: miniwdl_run/call-quast/work/report.pdf
+    - path: miniwdl_run/call-quast/work/report.tex
+      contains: ["Assembly", "length", "contigs", "N50"]
+    - path: miniwdl_run/call-quast/work/report.txt
+      contains: ["Assembly", "length", "contigs", "N50"]
+    - path: miniwdl_run/call-quast/work/test_report.tsv
+      contains: ["Assembly", "length", "contigs", "N50"]
+    - path: miniwdl_run/call-quast/work/transposed_report.tex
+      contains: ["Assembly", "length", "contigs", "tabular"]
+    - path: miniwdl_run/call-quast/work/transposed_report.tsv
+      contains: ["Assembly", "length", "contigs", "test"]
+    - path: miniwdl_run/call-quast/work/transposed_report.txt
+      contains: ["Assembly", "length", "contigs", "test"]
+    - path: miniwdl_run/call-raw_check_reads/command
+      md5sum: 09f3e4ef7fb0e71591b819895345b811
+    - path: miniwdl_run/call-raw_check_reads/inputs.json
+      contains: ["read1", "fastq", "skip_screen", "true"]
+    - path: miniwdl_run/call-raw_check_reads/outputs.json
+      contains: ["check_reads", "PASS"]
+    - path: miniwdl_run/call-raw_check_reads/stderr.txt
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-raw_check_reads/stderr.txt.offset
+    - path: miniwdl_run/call-raw_check_reads/stdout.txt
+      md5sum: 9e807ce699271c3f647c7594df2b5b0a
+    - path: miniwdl_run/call-raw_check_reads/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "check_reads", "done"]
+    - path: miniwdl_run/call-raw_check_reads/work/EST_GENOME_LENGTH
+      md5sum: 897316929176464ebc9ad085f31e7284
+    - path: miniwdl_run/call-raw_check_reads/work/FLAG
+      md5sum: 32c0be4fb7f3030bf9c74c0a836d4f2e
+    - path: miniwdl_run/call-raw_check_reads/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
+    - path: miniwdl_run/call-raw_check_reads/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/command
+      md5sum: fc9ad89802cc7ae946fad65908d690b5
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/inputs.json
+      contains: ["read", "fastq", "sample", "test"]
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/outputs.json
+      contains: ["bbduk", "fastq", "adapter_stats", "test"]
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/stderr.txt
+      contains: ["bbmap", "fastq", "Input", "Removed"]
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/stderr.txt.offset
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/stdout.txt
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "bbduk_pe", "done"]
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/DATE
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/_miniwdl_inputs/0/test_1P.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/_miniwdl_inputs/0/test_2P.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.adapters.stats.txt
+      md5sum: 6328466d2d542ef57fb6843d5aa89611
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.matched_phix.fq
+      md5sum: d41d8cd98f00b204e9800998ecf8427e
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.paired_1.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.paired_2.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.phix.stats.txt
+      md5sum: e7c6494642c2131ed1751848c95407f0
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.rmadpt_1.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test.rmadpt_2.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test_1.clean.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/work/test_2.clean.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/command
+      md5sum: defcec6b76ad89c40ab8a6c9db2c7185
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/inputs.json
+      contains: ["read", "fastq"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/outputs.json
+      contains: ["read", "fastq", "fastq_scan_report"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/stderr.txt
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/stderr.txt.offset
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/stdout.txt
+      contains: ["fastq", "qc_stats", "read_lengths"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "fastq_scan_clean", "done"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/DATE
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/READ1_SEQS
+      md5sum: 5fcafec683df465a99878ceaffe8a294
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/READ2_SEQS
+      md5sum: 5fcafec683df465a99878ceaffe8a294
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/READ_PAIRS
+      md5sum: 5fcafec683df465a99878ceaffe8a294
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/VERSION
+      md5sum: 8e4e9cdfbacc9021a3175ccbbbde002b
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/test_1.clean_fastq-scan.json
+      md5sum: 85d8de64c394c59362419e66badcc594
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_clean/work/test_2.clean_fastq-scan.json
+      md5sum: 209e27240fc9e3de7b8432da60a2e274
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/command
+      md5sum: dd41c4de4594f801e90d70ccb6553c3c
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/inputs.json
+      contains: ["read", "fastq"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/outputs.json
+      contains: ["read", "fastq", "fastq_scan_report"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/stderr.txt
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/stderr.txt.offset
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/stdout.txt
+      contains: ["fastq", "qc_stats", "read_lengths"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "fastq_scan_raw", "done"]
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/DATE
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/READ1_SEQS
+      md5sum: 75fa2f47fecb5dec8d244366881e76ec
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/READ2_SEQS
+      md5sum: 75fa2f47fecb5dec8d244366881e76ec
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/READ_PAIRS
+      md5sum: 75fa2f47fecb5dec8d244366881e76ec
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/SRR2838702_R1_fastq-scan.json
+      md5sum: c4a64c8fd27fa357206e0d41b74866e2
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/SRR2838702_R2_fastq-scan.json
+      md5sum: e81f34050c11995771de79182f06d793
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/VERSION
+      md5sum: 8e4e9cdfbacc9021a3175ccbbbde002b
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/command
+      md5sum: 3f966c008f430725abd007b202e726bd
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/inputs.json
+      contains: ["read", "fastq", "test", "trimmomatic_minlen"]
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/outputs.json
+      contains: ["read", "fastq", "test", "trimmomatic"]
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stderr.txt
+      md5sum: ce20ed8880cbf02437861ed9d858680f
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stderr.txt.offset
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stdout.txt
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "trimmomatic_pe", "done"]
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/DATE
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/VERSION
+      md5sum: 8101a7d1176f0618534a4695fb8c1092
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/test.trim.stats.txt
+      md5sum: 509449f69e9593adff0d77cfaece7e91
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/test_1P.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/test_1U.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/test_2P.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/work/test_2U.fastq.gz
+    - path: miniwdl_run/call-read_QC_trim/inputs.json
+      contains: ["read_QC_trim", "R1", "fastq", "test"]
+    - path: miniwdl_run/call-read_QC_trim/outputs.json
+      contains: ["read_QC_trim", "fastq_scan_clean2", "fastq", "read1_clean"]
+    - path: miniwdl_run/call-read_QC_trim/workflow.log
+      contains: ["wdl", "theiaprok_illumina_pe", "NOTICE", "done"]
+    - path: miniwdl_run/call-shovill_pe/command
+      md5sum: 4da23cf81b4e283431966d070aef43a7
+    - path: miniwdl_run/call-shovill_pe/inputs.json
+      contains: ["assembler", "skesa", "fastq", "test"]
+    - path: miniwdl_run/call-shovill_pe/outputs.json
+      contains: ["shovill_pe", "assembly", "fasta", "gfa"]
+    - path: miniwdl_run/call-shovill_pe/stderr.txt
+      contains: ["shovill", "size", "total", "Done"]
+    - path: miniwdl_run/call-shovill_pe/stderr.txt.offset
+    - path: miniwdl_run/call-shovill_pe/stdout.txt
+      contains: ["kmc", "lighter", "FLASH", "pilon"]
+    - path: miniwdl_run/call-shovill_pe/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "shovill_pe", "done"]
+    - path: miniwdl_run/call-shovill_pe/work/VERSION
+      md5sum: aa587ff96ec9446114124a405f192173
+    - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
+    - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
+    - path: miniwdl_run/call-shovill_pe/work/out/shovill.corrections
+      contains: ["Contig"]
+    - path: miniwdl_run/call-shovill_pe/work/out/shovill.log
+      contains: ["shovill", "size", "total", "Done"]
+    - path: miniwdl_run/call-shovill_pe/work/out/skesa.fasta
+    - path: miniwdl_run/call-shovill_pe/work/out/test_contigs.fasta
+    - path: miniwdl_run/call-ts_mlst/command
+      md5sum: 63112aec6576f773f638e96b3d52bf7c
+    - path: miniwdl_run/call-ts_mlst/inputs.json
+      contains: ["assembly", "fasta", "sample", "test"]
+    - path: miniwdl_run/call-ts_mlst/outputs.json
+      contains: ["ts_mlst", "ST", "tsv", "version"]
+    - path: miniwdl_run/call-ts_mlst/stderr.txt
+      contains: ["mlst", "depend", "Done"]
+    - path: miniwdl_run/call-ts_mlst/stderr.txt.offset
+    - path: miniwdl_run/call-ts_mlst/stdout.txt
+      md5sum: 4999136655ea4799df028af149742d87
+    - path: miniwdl_run/call-ts_mlst/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "ts_mlst", "done"]
+    - path: miniwdl_run/call-ts_mlst/work/PREDICTED_MLST
+      md5sum: c55d857f0c5bda37f86000ed996f2c0c
+    - path: miniwdl_run/call-ts_mlst/work/PUBMLST_SCHEME
+      md5sum: e321471812e5c4b54c9c58319aec9f2b
+    - path: miniwdl_run/call-ts_mlst/work/VERSION
+      md5sum: 27ff9dc14d779bc4bea1df4d0b1f8f9c
+    - path: miniwdl_run/call-ts_mlst/work/_miniwdl_inputs/0/test_contigs.fasta
+    - path: miniwdl_run/call-ts_mlst/work/test_ts_mlst.tsv
+      md5sum: cb4c953253bd9fe6ea9ceda9e57ac172
+    - path: miniwdl_run/call-version_capture/inputs.json
+      md5sum: 8a80554c91d9fca8acb82f023de02f11
+    - path: miniwdl_run/call-version_capture/outputs.json
+      contains: ["version_capture", "date", "phbg_version"]
+    - path: miniwdl_run/call-version_capture/task.log
+      contains: ["wdl", "theiaprok_illumina_pe", "version_capture", "done"]
+    - path: miniwdl_run/inputs.json
+      contains: ["theiaprok_illumina_pe", "skip_screen", "fastq", "skesa"]
+    - path: miniwdl_run/outputs.json
+      contains: ["theiaprok_illumina_pe", "predicted", "VIRULENCE", "genome_length"]
+    - path: miniwdl_run/workflow.log
+      contains: ["wdl", "theiaprok_illumina_pe", "NOTICE", "done"]

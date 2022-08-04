@@ -7,6 +7,8 @@ import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
 import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
+import "../tasks/species_typing/task_legsta.wdl" as legsta
+import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 
 workflow merlin_magic {
   meta {
@@ -17,7 +19,8 @@ workflow merlin_magic {
     String merlin_tag
     File assembly
     File read1
-    File read2
+    File? read2
+    Boolean paired_end = true
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
@@ -44,11 +47,20 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }
-    call seqsero2.seqsero2_pe as seqsero2 {
+    call seqsero2.seqsero2 as seqsero2 {
       input: 
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        paired_end = paired_end
+    }
+    if( seqsero2.seqsero2_predicted_serotype == "Typhi" || sistr.sistr_predicted_serotype == "Typhi" ) {
+      call genotyphi.genotyphi as genotyphi_task {
+        input: 
+          read1 = read1,
+          read2 = read2,
+          samplename = samplename
+      }
     }
   }
   if (merlin_tag == "Klebsiella") {
@@ -58,11 +70,18 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
-  if (merlin_tag == "Mycobacterium") {
-    call tbprofiler.tbprofiler_pe as tbprofiler {
+  if (merlin_tag == "Mycobacterium tuberculosis") {
+    call tbprofiler.tbprofiler {
       input:
         read1 = read1,
         read2 = read2,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Legionella pneumophila") {
+    call legsta.legsta {
+      input:
+        assembly = assembly,
         samplename = samplename
     }
   }
@@ -89,6 +108,14 @@ workflow merlin_magic {
   String? seqsero2_predicted_antigenic_profile = seqsero2.seqsero2_predicted_antigenic_profile
   String? seqsero2_predicted_serotype = seqsero2.seqsero2_predicted_serotype
   String? seqsero2_predicted_contamination = seqsero2.seqsero2_predicted_contamination
+  # Salmonella serotype Typhi typing
+  File? genotyphi_report_tsv = genotyphi_task.genotyphi_report_tsv 
+  File? genotyphi_mykrobe_json = genotyphi_task.genotyphi_mykrobe_json
+  String? genotyphi_version = genotyphi_task.genotyphi_version
+  String? genotyphi_species = genotyphi_task.genotyphi_species
+  Float? genotyphi_st_probes_percent_coverage = genotyphi_task.genotyphi_st_probes_percent_coverage
+  String? genotyphi_final_genotype = genotyphi_task.genotyphi_final_genotype
+  String? genotyphi_genotype_confidence = genotyphi_task.genotyphi_genotype_confidence
   # Klebsiella Typing
   File? kleborate_output_file = kleborate.kleborate_output_file
   String? kleborate_version = kleborate.kleborate_version
@@ -104,5 +131,9 @@ workflow merlin_magic {
   String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
   String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
+  # Legionella pneumophila Typing
+  File? legsta_results = legsta.legsta_results
+  String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
+  String? legsta_version = legsta.legsta_version
  }
 }
