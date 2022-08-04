@@ -121,7 +121,7 @@ workflow theiaprok_illumina_se {
       }
       call prokka.prokka {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call plasmidfinder.plasmidfinder {
