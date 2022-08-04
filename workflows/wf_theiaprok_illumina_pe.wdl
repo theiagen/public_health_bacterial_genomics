@@ -258,7 +258,15 @@ workflow theiaprok_illumina_pe {
             tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
             legsta_results = merlin_magic.legsta_results,
             legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt,
-            legsta_version = merlin_magic.legsta_version
+            legsta_version = merlin_magic.legsta_version,
+            prokka_gff = prokka.prokka_gff,
+            prokka_gbk = prokka.prokka_gbk,
+            prokka_sqn = prokka.prokka_sqn,
+            plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids,
+            plasmidfinder_results = plasmidfinder.plasmidfinder_results,
+            plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
+            plasmidfinder_docker = plasmidfinder.plasmidfinder_docker,
+            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
         }
       }
     }
