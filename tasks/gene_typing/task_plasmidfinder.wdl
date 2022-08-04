@@ -11,9 +11,9 @@ task plasmidfinder {
     String? database_path
     String? method_path
     # minimum coverage threshold
-    Int? min_cov 
+    Float? min_cov 
     # minimum blast identity threshold
-    Int? threshold
+    Float? threshold
 
   }
   command <<<
