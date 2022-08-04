@@ -126,7 +126,7 @@ workflow theiaprok_illumina_se {
       }
       call plasmidfinder.plasmidfinder {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call merlin_magic.merlin_magic {
