@@ -197,6 +197,7 @@ workflow theiaprok_illumina_se {
             amrfinderplus_version = amrfinderplus_task.amrfinderplus_version,
             amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version,
             resfinder_pheno_table = resfinder_task.resfinder_pheno_table,
+            resfinder_pheno_table_species = resfinder_task.resfinder_pheno_table_species,
             resfinder_seqs = resfinder_task.resfinder_hit_in_genome_seq,
             resfinder_results = resfinder_task.resfinder_results_tab,
             resfinder_pointfinder_pheno_table = resfinder_task.pointfinder_pheno_table,
@@ -313,6 +314,7 @@ workflow theiaprok_illumina_se {
     String? amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version
     # Resfinder Outputs
     File? resfinder_pheno_table = resfinder_task.resfinder_pheno_table
+    File? resfinder_pheno_table_species = resfinder_task.resfinder_pheno_table_species
     File? resfinder_seqs = resfinder_task.resfinder_hit_in_genome_seq
     File? resfinder_results = resfinder_task.resfinder_results_tab
     File? resfinder_pointfinder_pheno_table = resfinder_task.pointfinder_pheno_table
