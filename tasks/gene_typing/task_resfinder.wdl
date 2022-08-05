@@ -29,7 +29,7 @@ task resfinder {
     elif [[ "~{organism}" == *"Klebsiella"* ]]; then 
       resfinder_organism="klebsiella"
     # because some people spell the species 'gonorrhea' differently
-    elif [[ "~{organism}" == *"Neisseria"*"gonorrhea"* ]] || [[ "~{organism}" == *"Neisseria"*"gonorrhoeae"* ]]; then 
+    elif [[ "~{organism}" == *"Neisseria"*"gonorrhoeae"* ]]; then 
       resfinder_organism="neisseria gonorrhoeae"
     elif [[ "~{organism}" == *"Salmonella"* ]]; then 
       resfinder_organism="salmonella"
@@ -42,15 +42,12 @@ task resfinder {
       echo "Skipping the use of resfinder --species optional parameter."
     fi
 
-    # checking bash variable
-    echo "resfinder_organism is set to:" ${resfinder_organism}
-
     # if resfinder_organism variable is set, use --species flag, otherwise do not use --species flag
     if [[ -v resfinder_organism ]] ; then
       run_resfinder.py \
         --inputfasta ~{assembly} \
         --outputPath . \
-        --species "'${resfinder_organism}'" \
+        ~{'--species "' + organism + '"'} \
         ~{true="--acquired" false="" acquired} \
         ~{'--min_cov ' + min_cov} \
         ~{'--threshold ' + threshold} \
