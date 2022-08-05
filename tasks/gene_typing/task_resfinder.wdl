@@ -50,7 +50,7 @@ task resfinder {
       run_resfinder.py \
         --inputfasta ~{assembly} \
         --outputPath . \
-        ~{'--species "' + organism + '"'} \
+        --species ${resfinder_organism} \
         ~{true="--acquired" false="" acquired} \
         ~{'--min_cov ' + min_cov} \
         ~{'--threshold ' + threshold} \
@@ -59,6 +59,7 @@ task resfinder {
       run_resfinder.py \
         --inputfasta ~{assembly} \
         --outputPath . \
+        --species "other" \
         ~{true="--acquired" false="" acquired} \
         ~{'--min_cov ' + min_cov} \
         ~{'--threshold ' + threshold} 
@@ -66,9 +67,6 @@ task resfinder {
 
     # rename files
     mv pheno_table.txt ~{samplename}_pheno_table.txt
-    if [ -f pheno_table_species.txt ]; then
-      mv pheno_table_species.txt ~{samplename}_pheno_table_species.txt
-    fi
     mv ResFinder_Hit_in_genome_seq.fsa ~{samplename}_ResFinder_Hit_in_genome_seq.fsa
     mv ResFinder_Resistance_gene_seq.fsa ~{samplename}_ResFinder_Resistance_gene_seq.fsa
     mv ResFinder_results_tab.txt ~{samplename}_ResFinder_results_tab.txt
@@ -80,7 +78,6 @@ task resfinder {
   >>>
   output {
     File resfinder_pheno_table = "~{samplename}_pheno_table.txt"
-    File? resfinder_pheno_table_species = "~{samplename}_pheno_table_species.txt"
     File resfinder_hit_in_genome_seq = "~{samplename}_ResFinder_Hit_in_genome_seq.fsa"
     File resfinder_resistance_gene_seq = "~{samplename}_ResFinder_Resistance_gene_seq.fsa"
     File resfinder_results_tab = "~{samplename}_ResFinder_results_tab.txt"
