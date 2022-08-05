@@ -18,7 +18,11 @@ task resfinder {
     echo "unmodified from resfinder docker container" > RESFINDER_DB_VERSION
 
     # set $resfinder_organism BASH variable based on gambit_predicted_taxon or user-defined input string
-    if [[ "~{organism}" == *"Campylobacter"* ]]; then
+    if [[ "~{organism}" == *"Campylobacter"*"jejuni"* ]]; then
+      resfinder_organism="campylobacter jejuni"
+    elif [[ "~{organism}" == *"Campylobacter"*"coli"* ]]; then
+      resfinder_organism="campylobacter coli"
+    elif [[ "~{organism}" == *"Campylobacter"* ]]; then
       resfinder_organism="campylobacter"
     elif [[ "~{organism}" == *"Enterococcus"*"faecalis"* ]]; then 
       resfinder_organism="enterococcus faecalis"
@@ -28,7 +32,6 @@ task resfinder {
       resfinder_organism="escherichia coli"
     elif [[ "~{organism}" == *"Klebsiella"* ]]; then 
       resfinder_organism="klebsiella"
-    # because some people spell the species 'gonorrhea' differently
     elif [[ "~{organism}" == *"Neisseria"*"gonorrhoeae"* ]]; then 
       resfinder_organism="neisseria gonorrhoeae"
     elif [[ "~{organism}" == *"Salmonella"* ]]; then 
@@ -37,6 +40,8 @@ task resfinder {
       resfinder_organism="staphylococcus aureus"
     elif [[ "~{organism}" == *"Mycobacterium"*"tuberculosis"* ]]; then 
       resfinder_organism="mycobacterium tuberculosis"
+    elif [[ "~{organism}" == *"Helicobacter"*"pylori"* ]]; then 
+      resfinder_organism="helicobacter pylori"
     else 
       echo "Either Gambit predicted taxon is not supported by resfinder or the user did not supply an organism as input."
       echo "Skipping the use of resfinder --species optional parameter."
