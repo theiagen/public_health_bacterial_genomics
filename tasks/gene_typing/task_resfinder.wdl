@@ -19,24 +19,24 @@ task resfinder {
 
     # set $resfinder_organism BASH variable based on gambit_predicted_taxon or user-defined input string
     if [[ "~{organism}" == *"Campylobacter"* ]]; then
-      resfinder_organism="Campylobacter"
+      resfinder_organism="campylobacter"
     elif [[ "~{organism}" == *"Enterococcus"*"faecalis"* ]]; then 
-      resfinder_organism="Enterococcus faecalis"
+      resfinder_organism="enterococcus faecalis"
     elif [[ "~{organism}" == *"Enterococcus"*"faecium"* ]]; then 
-      resfinder_organism="Enterococcus faecium"
+      resfinder_organism="enterococcus faecium"
     elif [[ "~{organism}" == *"Escherichia"*"coli"* ]]; then 
-      resfinder_organism="Escherichia coli"
+      resfinder_organism="escherichia coli"
     elif [[ "~{organism}" == *"Klebsiella"* ]]; then 
-      resfinder_organism="Klebsiella"
+      resfinder_organism="klebsiella"
     # because some people spell the species 'gonorrhea' differently
     elif [[ "~{organism}" == *"Neisseria"*"gonorrhea"* ]] || [[ "~{organism}" == *"Neisseria"*"gonorrhoeae"* ]]; then 
-      resfinder_organism="Neisseria gonorrhoeae"
+      resfinder_organism="neisseria gonorrhoeae"
     elif [[ "~{organism}" == *"Salmonella"* ]]; then 
-      resfinder_organism="Salmonella"
+      resfinder_organism="salmonella"
     elif [[ "~{organism}" == *"Staphylococcus"*"aureus"* ]]; then 
-      resfinder_organism="Staphylococcus aureus"
+      resfinder_organism="staphylococcus aureus"
     elif [[ "~{organism}" == *"Mycobacterium"*"tuberculosis"* ]]; then 
-      resfinder_organism="Mycobacterium tuberculosis"
+      resfinder_organism="mycobacterium tuberculosis"
     else 
       echo "Either Gambit predicted taxon is not supported by resfinder or the user did not supply an organism as input."
       echo "Skipping the use of resfinder --species optional parameter."
@@ -50,7 +50,7 @@ task resfinder {
       run_resfinder.py \
         --inputfasta ~{assembly} \
         --outputPath . \
-        --species ${resfinder_organism} \
+        --species "'${resfinder_organism}'" \
         ~{true="--acquired" false="" acquired} \
         ~{'--min_cov ' + min_cov} \
         ~{'--threshold ' + threshold} \
@@ -65,8 +65,11 @@ task resfinder {
         ~{'--threshold ' + threshold} 
     fi
 
+    resfinder_organism="${resfinder_organism// /_}"
+
     # rename files
     mv pheno_table.txt ~{samplename}_pheno_table.txt
+    
     mv ResFinder_Hit_in_genome_seq.fsa ~{samplename}_ResFinder_Hit_in_genome_seq.fsa
     mv ResFinder_Resistance_gene_seq.fsa ~{samplename}_ResFinder_Resistance_gene_seq.fsa
     mv ResFinder_results_tab.txt ~{samplename}_ResFinder_results_tab.txt
