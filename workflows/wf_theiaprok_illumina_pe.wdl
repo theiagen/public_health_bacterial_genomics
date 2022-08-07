@@ -10,6 +10,7 @@ import "../tasks/quality_control/task_busco.wdl" as busco
 import "../tasks/taxon_id/task_gambit.wdl" as gambit
 import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
+import "../tasks/gene_typing/task_resfinder.wdl" as resfinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
@@ -41,6 +42,7 @@ workflow theiaprok_illumina_pe {
     Int max_genome_size = 18040666
     Int min_coverage = 10
     Int min_proportion = 50
+    Boolean call_resfinder = false
     Boolean skip_screen = false 
   }
   call versioning.version_capture{
@@ -119,6 +121,14 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename,
           organism = gambit.gambit_predicted_taxon
+      }
+      if (call_resfinder) {
+      call resfinder.resfinder as resfinder_task {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename,
+          organism = gambit.gambit_predicted_taxon
+        }
       }
       call ts_mlst.ts_mlst {
         input: 
@@ -201,6 +211,14 @@ workflow theiaprok_illumina_pe {
             amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes,
             amrfinderplus_version = amrfinderplus_task.amrfinderplus_version,
             amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version,
+            resfinder_pheno_table = resfinder_task.resfinder_pheno_table,
+            resfinder_pheno_table_species = resfinder_task.resfinder_pheno_table_species,
+            resfinder_seqs = resfinder_task.resfinder_hit_in_genome_seq,
+            resfinder_results = resfinder_task.resfinder_results_tab,
+            resfinder_pointfinder_pheno_table = resfinder_task.pointfinder_pheno_table,
+            resfinder_pointfinder_results = resfinder_task.pointfinder_results,
+            resfinder_db_version = resfinder_task.resfinder_db_version,
+            resfinder_docker = resfinder_task.resfinder_docker,
             ts_mlst_results = ts_mlst.ts_mlst_results,
             ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st,
             ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme,
@@ -316,6 +334,15 @@ workflow theiaprok_illumina_pe {
     String? amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
     String? amrfinderplus_version = amrfinderplus_task.amrfinderplus_version
     String? amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version
+    # Resfinder Outputs
+    File? resfinder_pheno_table = resfinder_task.resfinder_pheno_table
+    File? resfinder_pheno_table_species = resfinder_task.resfinder_pheno_table_species
+    File? resfinder_seqs = resfinder_task.resfinder_hit_in_genome_seq
+    File? resfinder_results = resfinder_task.resfinder_results_tab
+    File? resfinder_pointfinder_pheno_table = resfinder_task.pointfinder_pheno_table
+    File? resfinder_pointfinder_results = resfinder_task.pointfinder_results
+    String? resfinder_db_version = resfinder_task.resfinder_db_version
+    String? resfinder_docker = resfinder_task.resfinder_docker
     # MLST Typing
     File? ts_mlst_results = ts_mlst.ts_mlst_results
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
