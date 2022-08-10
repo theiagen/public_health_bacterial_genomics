@@ -34,15 +34,22 @@ task ksnp3 {
   kSNP3 -in ksnp3_input.tsv -outdir ksnp3 -k ~{kmer_size} -core -vcf
   
   # rename ksnp3 outputs with cluster name 
-  mv ksnp3/core_SNPs_matrix.fasta ~{cluster_name}_core_SNPs_matrix.fasta
-  mv ksnp3/tree.core.tre ~{cluster_name}_core.tree
-  mv ksnp3/VCF.*.vcf ~{cluster_name}_core.vcf
+  mv ksnp3/core_SNPs_matrix.fasta ksnp3/~{cluster_name}_core_SNPs_matrix.fasta
+  mv ksnp3/tree.core.tre ksnp3/~{cluster_name}_core.tree
+  mv ksnp3/VCF.*.vcf ksnp3/~{cluster_name}_core.vcf
+  mv ksnp3/SNPs_all_matrix.fasta ksnp3/~{cluster_name}_pan_SNPs_matrix.fasta
+  mv ksnp3/tree.parsimony.tre ksnp3/~{cluster_name}_pan_parsiomony.tree
+  
 
   >>>
   output {
-    File ksnp3_matrix = "${cluster_name}_core_SNPs_matrix.fasta"
-    File ksnp3_tree = "${cluster_name}_core.tree"
-    File ksnp3_vcf = "${cluster_name}_core.vcf"
+    File ksnp3_core_matrix = "ksnp3/${cluster_name}_core_SNPs_matrix.fasta"
+    File ksnp3_core_tree = "ksnp3/${cluster_name}_core.tree"
+    File ksnp3_core_vcf = "ksnp3/${cluster_name}_core.vcf"
+    File ksnp3_pan_matrix = "ksnp3/~{cluster_name}_pan_SNPs_matrix.fasta"
+    File ksnp3_pan_parsimony_tree = "ksnp3/~{cluster_name}_pan_parsiomony.tree"
+    Array[File] ksnp_outs = glob("ksnp3/*")
+
     String ksnp3_docker_image = docker_image
   }
   runtime {

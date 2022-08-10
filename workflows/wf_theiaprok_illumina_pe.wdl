@@ -12,6 +12,8 @@ import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/gene_typing/task_resfinder.wdl" as resfinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
+import "../tasks/gene_typing/task_prokka.wdl" as prokka
+import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
 
@@ -132,6 +134,16 @@ workflow theiaprok_illumina_pe {
       }
       call ts_mlst.ts_mlst {
         input: 
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
+      call prokka.prokka {
+        input:
+          assembly = shovill_pe.assembly_fasta,
+          samplename = samplename
+      }
+      call plasmidfinder.plasmidfinder {
+        input:
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
@@ -264,7 +276,15 @@ workflow theiaprok_illumina_pe {
             tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
             legsta_results = merlin_magic.legsta_results,
             legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt,
-            legsta_version = merlin_magic.legsta_version
+            legsta_version = merlin_magic.legsta_version,
+            prokka_gff = prokka.prokka_gff,
+            prokka_gbk = prokka.prokka_gbk,
+            prokka_sqn = prokka.prokka_sqn,
+            plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids,
+            plasmidfinder_results = plasmidfinder.plasmidfinder_results,
+            plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
+            plasmidfinder_docker = plasmidfinder.plasmidfinder_docker,
+            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
         }
       }
     }
@@ -348,6 +368,16 @@ workflow theiaprok_illumina_pe {
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
     String? ts_mlst_version = ts_mlst.ts_mlst_version
     String? ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme
+    # Prokka Results
+    File? prokka_gff = prokka.prokka_gff
+    File? prokka_gbk = prokka.prokka_gbk
+    File? prokka_sqn = prokka.prokka_sqn
+    # Plasmidfinder Results
+    String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
+    File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
+    File? plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs
+    String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
+    String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
