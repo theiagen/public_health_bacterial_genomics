@@ -243,6 +243,7 @@ workflow theiaprok_illumina_pe {
             ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
             lissero_results = merlin_magic.lissero_results,
             lissero_version = merlin_magic.lissero_version,
+            lissero_serotype = merlin_magic.lissero_serotype,
             sistr_results = merlin_magic.sistr_results,
             sistr_allele_json = merlin_magic.sistr_allele_json,
             sister_allele_fasta = merlin_magic.sistr_allele_fasta,
@@ -388,6 +389,7 @@ workflow theiaprok_illumina_pe {
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
+    String? lissero_serotype = merlin_magic.lissero_serotype
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json

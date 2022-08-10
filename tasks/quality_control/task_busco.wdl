@@ -26,19 +26,26 @@ task busco {
       -o ~{samplename} \
       ~{true='--auto-lineage-euk' false='--auto-lineage-prok' eukaryote}
 
-    # grab the database version and format it according to BUSCO recommendations
-    cat ~{samplename}/short_summary.specific.*.~{samplename}.txt | grep "dataset is:" | cut -d' ' -f 6,9 | sed 's/,//' | sed 's/ / (/' | sed 's/$/)/' | tee DATABASE
-    
-    # extract the results string
-    cat ~{samplename}/short_summary.specific.*.~{samplename}.txt | grep "C:" | tee BUSCO_RESULTS
+    # check for existence of output file; otherwise display a string that says the output was not created
+    if [ -f ~{samplename}/short_summary.specific.*.~{samplename}.txt ]; then
 
-    cp ~{samplename}/short_summary.specific.*.~{samplename}.txt ~{samplename}_busco-summary.txt
+      # grab the database version and format it according to BUSCO recommendations
+      cat ~{samplename}/short_summary.specific.*.~{samplename}.txt | grep "dataset is:" | cut -d' ' -f 6,9 | sed 's/,//' | sed 's/ / (/' | sed 's/$/)/' | tee DATABASE
+      
+      # extract the results string
+      cat ~{samplename}/short_summary.specific.*.~{samplename}.txt | grep "C:" | tee BUSCO_RESULTS
+
+      cp ~{samplename}/short_summary.specific.*.~{samplename}.txt ~{samplename}_busco-summary.txt
+    else
+      echo "BUSCO FAILED" | tee BUSCO_RESULTS
+      echo "NA" > DATABASE
+    fi
   >>>
   output {
     String busco_version = read_string("VERSION")
     String busco_database = read_string("DATABASE")
     String busco_results = read_string("BUSCO_RESULTS")
-    File busco_report = "~{samplename}_busco-summary.txt"
+    File? busco_report = "~{samplename}_busco-summary.txt"
   }
   runtime {
     docker: "~{docker}"
