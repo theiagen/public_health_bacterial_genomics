@@ -96,6 +96,7 @@ workflow merlin_magic {
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
+  String? lissero_serotype = lissero.lissero_serotype
   # Salmonella Typing
   File? sistr_results = sistr.sistr_results
   File? sistr_allele_json = sistr.sistr_allele_json
