@@ -65,3 +65,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_rasusa.wdl
    testParameterFiles:
     - empty.json
+ - name: Pangenome_SNP
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_pangenome_snp.wdl
+   testParameterFiles:
+    - empty.json
