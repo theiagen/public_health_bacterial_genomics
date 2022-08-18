@@ -9,6 +9,7 @@ import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
+import "../tasks/species_typing/task_seroba.wdl" as seroba
 
 workflow merlin_magic {
   meta {
@@ -85,6 +86,15 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
+  if (merlin_tag == "Streptococcus pneumoniae") {
+    call seroba.seroba {
+      input:
+        read1 = read1,
+        read2 = read2,
+        samplename = samplename
+    }
+  }
+
   output {
   # Ecoli Typing
   File? serotypefinder_report = serotypefinder.serotypefinder_report
