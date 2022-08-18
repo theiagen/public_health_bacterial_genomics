@@ -42,7 +42,7 @@ task poppunk {
 
     # move all database/reference files into single directory to feed into poppunk
     mkdir -v "${GPS_DB_NAME}"
-    mv -v ~{GPS_dists_npy} ~{GPS_dists_pkl} ~{GPS_h5} ~{GPS_refs} \
+    ln -vs ~{GPS_dists_npy} ~{GPS_dists_pkl} ~{GPS_h5} ~{GPS_refs} \
       ~{GPS_refs_dists_npy} ~{GPS_refs_dists_pkl} ~{GPS_refs_h5} ~{GPS_clusters_csv} \
       ~{GPS_fit_npz} ~{GPS_fit_pkl} ~{GPS_graph_gt} ~{GPS_qcreport_txt} \
       ~{GPS_unword_clusters_csv} ~{GPS_refs_graph_gt} ~{GPS_external_clusters_csv} \
