@@ -10,6 +10,7 @@ import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 import "../tasks/species_typing/task_seroba.wdl" as seroba
+import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
 
 workflow merlin_magic {
   meta {
@@ -93,6 +94,11 @@ workflow merlin_magic {
         read2 = read2,
         samplename = samplename
     }
+    call poppunk_spneumo.poppunk as poppunk_task {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
   }
 
   output {
@@ -146,5 +152,9 @@ workflow merlin_magic {
   File? legsta_results = legsta.legsta_results
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
   String? legsta_version = legsta.legsta_version
+  # Streptococcus pneumoniae Typing
+  String? poppunk_gps_cluster = poppunk_task.poppunk_gps_cluster
+  File? poppunk_gps_external_cluster_csv = poppunk_task.poppunk_gps_external_cluster_csv
+  String? poppunk_version = poppunk_task.poppunk_version
  }
 }
