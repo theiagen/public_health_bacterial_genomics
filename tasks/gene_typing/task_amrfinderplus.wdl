@@ -19,7 +19,7 @@ task amrfinderplus_nuc {
     amrfinder --version | tee AMRFINDER_VERSION
     
     # capture the database version; strip out unnecessary output, remove "Database version: " that prints in front of the actual database version
-    amrfinder --database_version 2>/dev/null | grep "Database version" | sed 's|Database version: ||' >AMRFINDER_DB_VERSION
+    amrfinder --database_version 2>/dev/null | grep "Database version" | sed 's|Database version: ||' | tee AMRFINDER_DB_VERSION
 
     ### set $amrfinder_organism BASH variable based on gambit_predicted_taxon or user-defined input string
     ### final variable has strict syntax/spelling based on list from amrfinder --list_organisms
