@@ -8,16 +8,19 @@ task amrfinderplus_nuc {
     # --indent_min Minimum DNA %identity [0-1]; default is 0.9 (90%) or curated threshold if it exists
     # --mincov Minimum DNA %coverage [0-1]; default is 0.5 (50%)
     String? organism # make optional?
-    Int? minid
-    Int? mincov
+    Float? minid
+    Float? mincov
     Int cpu = 4
-    String docker = "quay.io/staphb/ncbi-amrfinderplus:3.10.24"
+    String docker = "staphb/ncbi-amrfinderplus:3.10.36"
   }
   command <<<
     # logging info
     date | tee DATE
     amrfinder --version | tee AMRFINDER_VERSION
     
+    # capture the database version; strip out unnecessary output, remove "Database version: " that prints in front of the actual database version
+    amrfinder --database_version 2>/dev/null | grep "Database version" | sed 's|Database version: ||' >AMRFINDER_DB_VERSION
+
     ### set $amrfinder_organism BASH variable based on gambit_predicted_taxon or user-defined input string
     ### final variable has strict syntax/spelling based on list from amrfinder --list_organisms
     # there may be other Acinetobacter species to add later, like those in the A. baumannii-calcoaceticus species complex
@@ -68,7 +71,6 @@ task amrfinderplus_nuc {
     # if amrfinder_organism variable is set, use --organism flag, otherwise do not use --organism flag
     if [[ -v amrfinder_organism ]] ; then
       # always use --plus flag, others may be left out if param is optional and not supplied 
-      # send STDOUT/ERR to log file for capturing database version
       amrfinder --plus \
         --organism ${amrfinder_organism} \
         ~{'--name ' + samplename} \
@@ -76,21 +78,17 @@ task amrfinderplus_nuc {
         ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
         ~{'--threads ' + cpu} \
         ~{'--coverage_min ' + mincov} \
-        ~{'--ident_min ' + minid} 2>&1 | tee amrfinder.STDOUT-and-STDERR.log
+        ~{'--ident_min ' + minid}
     else 
       # always use --plus flag, others may be left out if param is optional and not supplied 
-      # send STDOUT/ERR to log file for capturing database version
       amrfinder --plus \
         ~{'--name ' + samplename} \
         ~{'--nucleotide ' + assembly} \
         ~{'-o ' + samplename + '_amrfinder_all.tsv'} \
         ~{'--threads ' + cpu} \
         ~{'--coverage_min ' + mincov} \
-        ~{'--ident_min ' + minid} 2>&1 | tee amrfinder.STDOUT-and-STDERR.log
+        ~{'--ident_min ' + minid}
     fi
-
-    # capture the database version from the stdout and stderr file that was just created
-    grep "Database version:" amrfinder.STDOUT-and-STDERR.log | sed 's|Database version: ||' >AMRFINDER_DB_VERSION
 
     # Element Type possibilities: AMR, STRESS, and VIRULENCE 
     # create headers for 3 output files; tee to 3 files and redirect STDOUT to dev null so it doesn't print to log file
