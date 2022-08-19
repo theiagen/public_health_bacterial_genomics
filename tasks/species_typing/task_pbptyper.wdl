@@ -32,8 +32,8 @@ task pbptyper {
 
   >>>
   output {
-    String  pbptyper_pbptype_predicted = read_string("pbptype.txt")
-    File pbptyper_pbptype_predicted_tsv = "~{samplename}.tsv" A tab-delimited file with the predicted PBP type
+    String pbptyper_pbptype_predicted = read_string("pbptype.txt")
+    File pbptyper_pbptype_predicted_tsv = "~{samplename}.tsv" # A tab-delimited file with the predicted PBP type
     File pbptyper_pbptype_1A_tsv = "~{samplename}-1A.tblastn.tsv" # A tab-delimited file of all blast hits against 1A
     File pbptyper_pbptype_2B_tsv = "~{samplename}-2B.tblastn.tsv" # A tab-delimited file of all blast hits against 2B
     File pbptyper_pbptype_2X_tsv = "~{samplename}-2X.tblastn.tsv" # A tab-delimited file of all blast hits against 2X
