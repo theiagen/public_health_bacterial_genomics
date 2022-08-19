@@ -90,11 +90,13 @@ workflow merlin_magic {
     }
   }
   if (merlin_tag == "Streptococcus pneumoniae") {
-    call seroba.seroba {
-      input:
-        read1 = read1,
-        read2 = read2,
-        samplename = samplename
+    if (paired_end) {
+      call seroba.seroba as seroba_task {
+        input:
+          read1 = read1,
+          read2 = read2,
+          samplename = samplename
+      }
     }
     call pbptyper.pbptyper as pbptyper_task {
       input:
@@ -169,5 +171,8 @@ workflow merlin_magic {
   String? poppunk_gps_cluster = poppunk_task.poppunk_gps_cluster
   File? poppunk_gps_external_cluster_csv = poppunk_task.poppunk_gps_external_cluster_csv
   String? poppunk_version = poppunk_task.poppunk_version
+  String? seroba_version = seroba_task.seroba_version
+  String? seroba_serotype = seroba_task.seroba_serotype
+  String? seroba_contamination = seroba_task.seroba_contamination
  }
 }

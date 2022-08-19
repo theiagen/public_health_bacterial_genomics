@@ -270,7 +270,7 @@ workflow theiaprok_illumina_se {
             plasmidfinder_results = plasmidfinder.plasmidfinder_results,
             plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
             plasmidfinder_docker = plasmidfinder.plasmidfinder_docker,
-            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
+            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version,
             pbptyper_pbptype_predicted = merlin_magic.pbptyper_pbptype_predicted,
             pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv,
             pbptyper_pbptype_1A_tsv = merlin_magic.pbptyper_pbptype_1A_tsv,
