@@ -28,62 +28,66 @@ task kaptive {
     ~{'--min_coverage ' + min_coverage} \
     --no_seq_out \
     --no_json \
-    --out ~{samplename}_kaptive_out \
+    --out ~{samplename}_kaptive_out_k \
     --assembly ~{assembly} \
-    --k_refs ~{reference_loci}
+    --k_refs ~{reference_loci_k}
     # parse outputs
     python3 <<CODE
     import csv
-    with open("./~{samplename}_kaptive_out_table.txt",'r') as tsv_file:
+    with open("./~{samplename}_kaptive_out_k_table.txt",'r') as tsv_file:
       tsv_reader=csv.reader(tsv_file, delimiter="\t")
       tsv_data=list(tsv_reader)
       tsv_dict=dict(zip(tsv_data[0], tsv_data[1]))
-      with open ("SPECIES", 'wt') as Species:
-        kleb_species=tsv_dict['species']
-        Species.write(kleb_species)
-      with open ("MLST_SEQUENCE_TYPE", 'wt') as MLST_Sequence_Type:
-        mlst=tsv_dict['ST']
-        MLST_Sequence_Type.write(mlst)
-      with open ("VIRULENCE_SCORE", 'wt') as Virulence_Score:
-        virulence_level=tsv_dict['virulence_score']
-        Virulence_Score.write(virulence_level)
-      with open ("RESISTANCE_SCORE", 'wt') as Resistance_Score:
-        resistance_level=tsv_dict['resistance_score']
-        Resistance_Score.write(resistance_level)
-      with open ("NUM_RESISTANCE_GENES", 'wt') as Num_Resistance_Genes:
-        resistance_genes_count=tsv_dict['num_resistance_genes']
-        Num_Resistance_Genes.write(resistance_genes_count)
-      with open ("BLA_RESISTANCE_GENES", 'wt') as BLA_Resistance_Genes:
-        bla_res_genes_list=['Bla_acquired', 'Bla_inhR_acquired', 'Bla_ESBL_acquired', 'Bla_ESBL_inhR_acquired', 'Bla_Carb_acquired']
-        bla_res_genes=[]
-        for i in bla_res_genes_list:
-          if tsv_dict[i] != '-':
-            bla_res_genes.append(tsv_dict[i])
-        bla_res_genes_string=';'.join(bla_res_genes)
-        BLA_Resistance_Genes.write(bla_res_genes_string)
-      with open ("ESBL_RESISTANCE_GENES", 'wt') as ESBL_Resistance_Genes:
-        esbl_res_genes_list=['Bla_ESBL_acquired', 'Bla_ESBL_inhR_acquired']
-        esbl_res_genes=[]
-        for i in esbl_res_genes_list:
-          if tsv_dict[i] != '-':
-            bla_res_genes.append(tsv_dict[i])
-        esbl_res_genes_string=';'.join(esbl_res_genes)
-        ESBL_Resistance_Genes.write(esbl_res_genes_string)
-      with open ("KEY_RESISTANCE_GENES", 'wt') as Key_Resistance_Genes:
-        key_res_genes_list= ['Col_acquired', 'Fcyn_acquired', 'Flq_acquired', 'Rif_acquired', 'Bla_acquired', 'Bla_inhR_acquired', 'Bla_ESBL_acquired', 'Bla_ESBL_inhR_acquired', 'Bla_Carb_acquired']
-        key_res_genes=[]
-        for i in key_res_genes_list:
-          if tsv_dict[i] != '-':
-            key_res_genes.append(tsv_dict[i])
-        key_res_genes_string=';'.join(key_res_genes)
-        Key_Resistance_Genes.write(key_res_genes_string)
-      with open ("GENOMIC_RESISTANCE_MUTATIONS", 'wt') as Resistance_Mutations:
-        res_mutations_list= ['Bla_chr', 'SHV_mutations', 'Omp_mutations', 'Col_mutations', 'Flq_mutations']
-        res_mutations=[]
-        for i in res_mutations_list:
-          if tsv_dict[i] != '-':
-            res_mutations.append(tsv_dict[i])
-        res_mutations_string=';'.join(res_mutations)
-        Resistance_Mutations.write(res_mutations_string)
+      with open ("BEST_MATCH_LOCUS_K", 'wt') as Best_Match_Locus_K:
+        kaptive_locus_k=tsv_dict['Best match locus']
+        Best_Match_Locus_K.write(kaptive_locus_k)
+      with open ("MATCH_CONFIDENCE_K", 'wt') as Match_Confidence_K:
+        kaptive_confidence_k=tsv_dict['Match confidence']
+        Match_Confidence_K.write(kaptive_confidence_k)
+      with open ("NUM_EXPECTED_INSIDE_K", 'wt') as Num_Expected_Inside_K:
+        expected_count_inside_k=tsv_dict['Expected genes in locus']
+        Num_Expected_Inside_K.write(expected_count_inside_k)
+      with open ("EXPECTED_GENES_IN_LOCUS_K", 'wt') as Expected_Inside_K:
+        expected_in_k=tsv_dict['Expected genes in locus, details']
+        Expected_Inside_K.write(expected_in_k)
+      with open ("NUM_EXPECTED_OUTSIDE_K", 'wt') as Num_Expected_Outside_K:
+        expected_count_outside_k=tsv_dict['Expected genes outside locus']
+        Num_Expected_Outside_K.write(expected_count_outside_k)
+      with open ("EXPECTED_GENES_OUT_LOCUS_K", 'wt') as Expected_Outside_K:
+        expected_out_k=tsv_dict['Expected genes outside locus, details']
+        Expected_Outside_K.write(expected_out_k)
+      with open ("NUM_OTHER_INSIDE_K", 'wt') as Num_Other_Inside_K:
+        other_count_inside_k=tsv_dict['Other genes in locus']
+        Num_Other_Inside_K.write(other_count_inside_k)
+      with open ("OTHER_GENES_IN_LOCUS_K", 'wt') as Other_Inside_K:
+        other_in_k=tsv_dict['Other genes in locus, details']
+        Other_Inside_K.write(other_in_k)
+      with open ("NUM_OTHER_OUTSIDE_K", 'wt') as Num_Other_Outside_K:
+        other_count_outside_k=tsv_dict['Other genes outside locus']
+        Num_Other_Outside_K.write(other_count_outside_k)
+      with open ("OTHER_GENES_OUT_LOCUS_K", 'wt') as Other_Outside_K:
+        other_out_k=tsv_dict['Expected genes outside locus, details']
+        Other_Outside_K.write(other_out_k)
     CODE
   >>>
+  output {
+    File kaptive_output_file = "{samplename}_kaptive_out_k_table.txt"
+    String kaptive_version = read_string("VERSION")
+    String kaptive_k_match = read_string("BEST_MATCH_LOCUS_K")
+    String kaptive_k_confidence = read_string("MATCH_CONFIDENCE")
+    String kaptive_k_expected_inside_count = read_string("NUM_EXPECTED_INSIDE_K")
+    String kaptive_k_expected_inside_genes = read_string("EXPECTED_GENES_IN_LOCUS_K")
+    String kaptive_k_expected_outside_count = read_string("NUM_EXPECTED_OUTSIDE_K")
+    String kaptive_k_expected_outside_genes = read_string("EXPECTED_GENES_OUT_LOCUS_K")
+    String kaptive_k_other_inside_count = read_string("NUM_OTHER_INSIDE_K")
+    String kaptive_k_other_inside_genes = read_string("OTHER_GENES_IN_LOCUS_K")
+    String kaptive_k_other_outside_count = read_string("NUM_OTHER_OUTSIDE_K")
+    String kaptive_k_other_outside_genes = read_string("OTHER_GENES_OUT_LOCUS_K")
+  }
+  runtime {
+    docker:       "~{kaptive_docker_image}"
+    memory:       "16 GB"
+    cpu:          8
+    disks:        "local-disk 100 SSD"
+  }
+}
