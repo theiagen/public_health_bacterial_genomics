@@ -1,13 +1,14 @@
 version 1.0
 
-task seqsero2_pe {
+task seqsero2 {
   # Inputs
   input {
     File read1
-    File read2
+    File? read2
     String samplename
     String mode ="a"
     String seqsero2_docker_image = "quay.io/staphb/seqsero2:1.2.1"
+    Boolean paired_end
   }
 
   command <<<
@@ -19,7 +20,7 @@ task seqsero2_pe {
     # Run SeqSero2 on the input read data
     SeqSero2_package.py \
     -p 8 \
-    -t 2 \
+    ~{true='-t 2' false='-t 3' paired_end} \
     -m ~{mode} \
     -n ~{samplename} \
     -d ~{samplename}_seqseqro2_output_dir \

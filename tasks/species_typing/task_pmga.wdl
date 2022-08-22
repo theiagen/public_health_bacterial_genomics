@@ -30,7 +30,7 @@ task pmga {
 
     output {
         String version = read_string("VERSION")
-        String docker = "~{docker}"
+        String pmga_docker = "~{docker}"
         String pmga_speciesdb = read_string("PMGA_SPECIESDB")
         String pmga_serotype = read_string("PMGA_SEROTYPE")
         String pmga_genes = read_string("PMGA_GENES")

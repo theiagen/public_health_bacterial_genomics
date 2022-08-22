@@ -1,6 +1,6 @@
 version 1.0
 
-import "wf_read_QC_trim.wdl" as read_qc
+import "wf_read_QC_trim_se.wdl" as read_qc
 import "wf_merlin_magic.wdl" as merlin_magic
 import "../tasks/assembly/task_shovill.wdl" as shovill
 import "../tasks/quality_control/task_quast.wdl" as quast
@@ -17,7 +17,7 @@ import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
 
-workflow theiaprok_illumina_pe {
+workflow theiaprok_illumina_se {
   meta {
     description: "De-novo genome assembly, taxonomic ID, and QC of paired-end bacterial NGS data"
   }
@@ -25,7 +25,6 @@ workflow theiaprok_illumina_pe {
     String samplename
     String seq_method = "ILLUMINA"
     File read1_raw
-    File read2_raw
     Int? genome_size
     String? run_id
     String? collection_date
@@ -43,117 +42,110 @@ workflow theiaprok_illumina_pe {
     Int min_genome_size = 100000
     Int max_genome_size = 18040666
     Int min_coverage = 10
-    Int min_proportion = 50
     Boolean call_resfinder = false
     Boolean skip_screen = false 
   }
   call versioning.version_capture{
     input:
   }
-  call screen.check_reads as raw_check_reads {
+  call screen.check_reads_se as raw_check_reads { 
     input:
       read1 = read1_raw,
-      read2 = read2_raw,
       min_reads = min_reads,
       min_basepairs = min_basepairs,
       min_genome_size = min_genome_size,
       max_genome_size = max_genome_size,
       min_coverage = min_coverage,
-      min_proportion = min_proportion,
       skip_screen = skip_screen
   }
   if (raw_check_reads.read_screen=="PASS") {
     call read_qc.read_QC_trim {
       input:
         samplename = samplename,
-        read1_raw = read1_raw,
-        read2_raw = read2_raw
+        read1_raw = read1_raw
     }
-    call screen.check_reads as clean_check_reads {
+    call screen.check_reads_se as clean_check_reads {
       input:
         read1 = read_QC_trim.read1_clean,
-        read2 = read_QC_trim.read2_clean,
         min_reads = min_reads,
         min_basepairs = min_basepairs,
         min_genome_size = min_genome_size,
         max_genome_size = max_genome_size,
         min_coverage = min_coverage,
-        min_proportion = min_proportion,
         skip_screen = skip_screen
     }
     if (clean_check_reads.read_screen=="PASS") {
-      call shovill.shovill_pe {
+      call shovill.shovill_se {
         input:
           samplename = samplename,
           read1_cleaned = read_QC_trim.read1_clean,
-          read2_cleaned = read_QC_trim.read2_clean,
           genome_size = select_first([genome_size, clean_check_reads.est_genome_length])
+
       }
       call quast.quast {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call cg_pipeline.cg_pipeline {
         input:
           read1 = read1_raw,
-          read2 = read2_raw,
           samplename = samplename,
           genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
       }
       call gambit.gambit {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call busco.busco {
-        input:
-          assembly = shovill_pe.assembly_fasta,
+          input:
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       if (call_ani) {
       call ani.animummer as ani {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       }
       call amrfinderplus.amrfinderplus_nuc as amrfinderplus_task {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename,
           organism = gambit.gambit_predicted_taxon
       }
       if (call_resfinder) {
       call resfinder.resfinder as resfinder_task {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename,
           organism = gambit.gambit_predicted_taxon
         }
-      }
+      }      
       call ts_mlst.ts_mlst {
         input: 
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call prokka.prokka {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call plasmidfinder.plasmidfinder {
         input:
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
       call merlin_magic.merlin_magic {
         input:
           merlin_tag = gambit.merlin_tag,
-          assembly = shovill_pe.assembly_fasta,
+          assembly = shovill_se.assembly_fasta,
           samplename = samplename,
           read1 = read_QC_trim.read1_clean,
-          read2 = read_QC_trim.read2_clean
+          paired_end = false
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {
@@ -164,32 +156,25 @@ workflow theiaprok_illumina_pe {
             taxon_tables = taxon_tables,
             samplename = samplename,
             read1 = read1_raw,
-            read2 = read2_raw,
             read1_clean = read_QC_trim.read1_clean,
-            read2_clean = read_QC_trim.read2_clean,
             run_id = run_id,
             collection_date = collection_date,
             originating_lab = originating_lab,
             city = city,
             county = county,
             zip = zip,
-            theiaprok_illumina_pe_version = version_capture.phbg_version,
-            theiaprok_illumina_pe_analysis_date = version_capture.date,
+            theiaprok_illumina_se_version = version_capture.phbg_version,
+            theiaprok_illumina_se_analysis_date = version_capture.date,
             seq_platform = seq_method,
-            num_reads_raw1 = read_QC_trim.fastq_scan_raw1,
-            num_reads_raw2 = read_QC_trim.fastq_scan_raw2,
-            num_reads_raw_pairs = read_QC_trim.fastq_scan_raw_pairs,
+            num_reads_raw1 = read_QC_trim.fastq_scan_raw_number_reads,
             fastq_scan_version = read_QC_trim.fastq_scan_version,
-            num_reads_clean1 = read_QC_trim.fastq_scan_clean1,
-            num_reads_clean2 = read_QC_trim.fastq_scan_clean2,
-            num_reads_clean_pairs = read_QC_trim.fastq_scan_clean_pairs,
+            num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads,
             trimmomatic_version = read_QC_trim.trimmomatic_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
             r1_mean_q = cg_pipeline.r1_mean_q,
-            r2_mean_q = cg_pipeline.r2_mean_q,
-            assembly_fasta = shovill_pe.assembly_fasta,
-            contigs_gfa = shovill_pe.contigs_gfa,
-            shovill_pe_version = shovill_pe.shovill_version,
+            assembly_fasta = shovill_se.assembly_fasta,
+            contigs_gfa = shovill_se.contigs_gfa,
+            shovill_se_version = shovill_se.shovill_version,
             quast_report = quast.quast_report,
             quast_version = quast.version,
             genome_length = quast.genome_length,
@@ -285,40 +270,33 @@ workflow theiaprok_illumina_pe {
             plasmidfinder_results = plasmidfinder.plasmidfinder_results,
             plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
             plasmidfinder_docker = plasmidfinder.plasmidfinder_docker,
-            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
+            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version            
+            
         }
       }
     }
   }
   output {
     # Version Captures
-    String theiaprok_illumina_pe_version = version_capture.phbg_version
-    String theiaprok_illumina_pe_analysis_date = version_capture.date
+    String theiaprok_illumina_se_version = version_capture.phbg_version
+    String theiaprok_illumina_se_analysis_date = version_capture.date
     # Read Metadata
     String seq_platform = seq_method
     # Sample Screening
     String raw_read_screen = raw_check_reads.read_screen
     String? clean_read_screen = clean_check_reads.read_screen
     # Read QC
-    Int? num_reads_raw1 = read_QC_trim.fastq_scan_raw1
-    Int? num_reads_raw2 = read_QC_trim.fastq_scan_raw2
-    String? num_reads_raw_pairs = read_QC_trim.fastq_scan_raw_pairs
+    Int? num_reads_raw1 = read_QC_trim.fastq_scan_raw_number_reads
     String? fastq_scan_version = read_QC_trim.fastq_scan_version
-    Int? num_reads_clean1 = read_QC_trim.fastq_scan_clean1
-    Int? num_reads_clean2 = read_QC_trim.fastq_scan_clean2
-    String? num_reads_clean_pairs = read_QC_trim.fastq_scan_clean_pairs
+    Int? num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
-    Float? r2_mean_q = cg_pipeline.r2_mean_q
     File? read1_clean = read_QC_trim.read1_clean
-    File? read2_clean = read_QC_trim.read2_clean
     #Assembly and Assembly QC
-    File? assembly_fasta = shovill_pe.assembly_fasta
-    File? contigs_gfa = shovill_pe.contigs_gfa
-    File? contigs_fastg = shovill_pe.contigs_fastg
-    File? contigs_lastgraph = shovill_pe.contigs_lastgraph
-    String? shovill_pe_version = shovill_pe.shovill_version
+    File? assembly_fasta = shovill_se.assembly_fasta
+    File? contigs_gfa = shovill_se.contigs_gfa
+    String? shovill_se_version = shovill_se.shovill_version
     File? quast_report = quast.quast_report
     String? quast_version = quast.version
     Int? genome_length = quast.genome_length
@@ -378,7 +356,7 @@ workflow theiaprok_illumina_pe {
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
     File? plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs
     String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
-    String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
+    String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version   
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker

@@ -20,7 +20,8 @@ workflow merlin_magic {
     String merlin_tag
     File assembly
     File read1
-    File read2
+    File? read2
+    Boolean paired_end = true
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -54,11 +55,12 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }
-    call seqsero2.seqsero2_pe as seqsero2 {
+    call seqsero2.seqsero2 as seqsero2 {
       input: 
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        paired_end = paired_end
     }
     if( seqsero2.seqsero2_predicted_serotype == "Typhi" || sistr.sistr_predicted_serotype == "Typhi" ) {
       call genotyphi.genotyphi as genotyphi_task {
@@ -77,7 +79,7 @@ workflow merlin_magic {
     }
   }
   if (merlin_tag == "Mycobacterium tuberculosis") {
-    call tbprofiler.tbprofiler_pe as tbprofiler {
+    call tbprofiler.tbprofiler {
       input:
         read1 = read1,
         read2 = read2,
@@ -102,6 +104,7 @@ workflow merlin_magic {
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
+  String? lissero_serotype = lissero.lissero_serotype
   # Salmonella Typing
   File? sistr_results = sistr.sistr_results
   File? sistr_allele_json = sistr.sistr_allele_json
