@@ -43,8 +43,6 @@
       md5sum: 9c9c511ab5bfade46f0db1b2ee5b4666
     - path: miniwdl_run/call-amrfinderplus_task/work/_miniwdl_inputs/0/test_contigs.fasta
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: miniwdl_run/call-amrfinderplus_task/work/amrfinder.STDOUT-and-STDERR.log
-      contains: ["AMRFinder", "blast", "report"]
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_all.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_amr.tsv
