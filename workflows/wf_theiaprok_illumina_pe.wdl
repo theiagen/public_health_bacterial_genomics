@@ -267,6 +267,19 @@ workflow theiaprok_illumina_pe {
             kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
             kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
             kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
+            kaptive_output_file_k = merlin_magic.kaptive_output_file_k
+            kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
+            kaptive_version = merlin_magic.kaptive_version
+            kaptive_k_match = merlin_magic.kaptive_k_match
+            kaptive_k_expected_inside_genes = merlin_magic.kaptive_k_expected_inside_genes
+            kaptive_k_expected_outside_genes = merlin_magic.kaptive_k_expected_outside_genes
+            kaptive_k_other_inside_genes = merlin_magic.kaptive_k_other_inside_genes
+            kaptive_k_other_outside_genes = merlin_magic.kaptive_k_other_outside_genes
+            kaptive_oc_match = merlin_magic.kaptive_oc_match
+            kaptive_oc_expected_inside_genes = merlin_magic.kaptive_oc_expected_inside_genes
+            kaptive_oc_expected_outside_genes = merlin_magic.kaptive_oc_expected_outside_genes
+            kaptive_oc_other_inside_genes = merlin_magic.kaptive_oc_other_inside_genes
+            kaptive_oc_other_outside_genes = merlin_magic.kaptive_oc_other_outside_genes
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
             tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -416,6 +429,20 @@ workflow theiaprok_illumina_pe {
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
     String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type
+    # Acinetobacter Typing
+    File? kaptive_output_file_k = merlin_magic.kaptive_output_file_k
+    File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
+    String? kaptive_version = merlin_magic.kaptive_version
+    String? kaptive_k_match = merlin_magic.kaptive_k_match
+    String? kaptive_k_expected_inside_genes = merlin_magic.kaptive_k_expected_inside_genes
+    String? kaptive_k_expected_outside_genes = merlin_magic.kaptive_k_expected_outside_genes
+    String? kaptive_k_other_inside_genes = merlin_magic.kaptive_k_other_inside_genes
+    String? kaptive_k_other_outside_genes = merlin_magic.kaptive_k_other_outside_genes
+    String? kaptive_oc_match = merlin_magic.kaptive_oc_match
+    String? kaptive_oc_expected_inside_genes = merlin_magic.kaptive_oc_expected_inside_genes
+    String? kaptive_oc_expected_outside_genes = merlin_magic.kaptive_oc_expected_outside_genes
+    String? kaptive_oc_other_inside_genes = merlin_magic.kaptive_oc_other_inside_genes
+    String? kaptive_oc_other_outside_genes = merlin_magic.kaptive_oc_other_outside_genes
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam

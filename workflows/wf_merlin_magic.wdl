@@ -9,7 +9,7 @@ import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
-import "../tasks/species_typing/kaptive.wdl" as kaptive
+import "../tasks/species_typing/task_kaptive.wdl" as kaptive
 
 workflow merlin_magic {
   meta {
@@ -131,6 +131,20 @@ workflow merlin_magic {
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
   String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type
+  # Acinetobacter Typing
+  File? kaptive_output_file_k = kaptive.kaptive_output_file_k
+  File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
+  String? kaptive_version = kaptive.kaptive_version
+  String? kaptive_k_match = kaptive.kaptive_k_match
+  String? kaptive_k_expected_inside_genes = kaptive.kaptive_k_expected_inside_genes
+  String? kaptive_k_expected_outside_genes = kaptive.kaptive_k_expected_outside_genes
+  String? kaptive_k_other_inside_genes = kaptive.kaptive_k_other_inside_genes
+  String? kaptive_k_other_outside_genes = kaptive.kaptive_k_other_outside_genes
+  String? kaptive_oc_match = kaptive.kaptive_oc_match
+  String? kaptive_oc_expected_inside_genes = kaptive.kaptive_oc_expected_inside_genes
+  String? kaptive_oc_expected_outside_genes = kaptive.kaptive_oc_expected_outside_genes
+  String? kaptive_oc_other_inside_genes = kaptive.kaptive_oc_other_inside_genes
+  String? kaptive_oc_other_outside_genes = kaptive.kaptive_oc_other_outside_genes
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
   File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam
