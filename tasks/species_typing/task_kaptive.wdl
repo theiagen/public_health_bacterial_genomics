@@ -4,9 +4,6 @@ task kaptive {
   # Inputs
   input {
     File assembly
-    File reference_loci_k = "./kaptive/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.gbk"
-    File logic_loci_k = "./kaptive/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.logic"
-    File reference_loci_oc = "./kaptive/reference_database/Acinetobacter_baumannii_OC_locus_primary_reference.gbk"
     String samplename
     String kaptive_docker_image = "quay.io/staphb/kaptive:2.0.3"
     # Parameters
@@ -19,6 +16,8 @@ task kaptive {
   }
 
   command <<<
+    #find absolute path of kaptive directory
+    KAPTIVE_DIR=$(dirname "$(which kaptive.py)")
     # capture date and version
     # Print and save date
     date | tee DATE
@@ -34,7 +33,7 @@ task kaptive {
     --no_json \
     --out ~{samplename}_kaptive_out_k \
     --assembly ~{assembly} \
-    --k_refs ~{reference_loci_k}
+    --k_refs ${KAPTIVE_DIR}/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.gbk
     # parse outputs
     python3 <<CODE
     import csv
@@ -80,7 +79,7 @@ task kaptive {
     --no_json \
     --out ~{samplename}_kaptive_out_oc \
     --assembly ~{assembly} \
-    --k_refs ~{reference_loci_oc}
+    --k_refs ${KAPTIVE_DIR}/reference_database/Acinetobacter_baumannii_OC_locus_primary_reference.gbk
     python3 <<CODE
     import csv
     with open("./~{samplename}_kaptive_out_oc_table.txt",'r') as tsv_file:
