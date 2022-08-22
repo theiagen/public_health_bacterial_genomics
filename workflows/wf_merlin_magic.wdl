@@ -162,7 +162,7 @@ workflow merlin_magic {
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
   String? legsta_version = legsta.legsta_version
   # Streptococcus pneumoniae Typing
-  String? pbptyper_pbptype_predicted = pbptyper_task.pbptyper_pbptype_predicted
+  String? pbptyper_predicted_1A_2B_2X = pbptyper_task.pbptyper_predicted_1A_2B_2X
   File? pbptyper_pbptype_predicted_tsv = pbptyper_task.pbptyper_pbptype_predicted_tsv
   File? pbptyper_pbptype_1A_tsv = pbptyper_task.pbptyper_pbptype_1A_tsv
   File? pbptyper_pbptype_2B_tsv = pbptyper_task.pbptyper_pbptype_2B_tsv
