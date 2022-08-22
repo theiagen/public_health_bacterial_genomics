@@ -9,6 +9,7 @@ import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
+import "../tasks/species_typing/kaptive.wdl" as kaptive
 
 workflow merlin_magic {
   meta {
@@ -20,6 +21,13 @@ workflow merlin_magic {
     File assembly
     File read1
     File read2
+  }
+    if (merlin_tag == "Acinetobacter baumannii") {
+    call kaptive.kaptive {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
