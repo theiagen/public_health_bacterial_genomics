@@ -4,9 +4,9 @@ task kaptive {
   # Inputs
   input {
     File assembly
-    File reference_loci_k = "/kaptive/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.gbk"
-    File logic_loci_k = "/kaptive/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.logic"
-    File reference_loci_oc = "/kaptive/reference_database/Acinetobacter_baumannii_OC_locus_primary_reference.gbk"
+    File reference_loci_k = "./kaptive/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.gbk"
+    File logic_loci_k = "./kaptive/reference_database/Acinetobacter_baumannii_k_locus_primary_reference.logic"
+    File reference_loci_oc = "./kaptive/reference_database/Acinetobacter_baumannii_OC_locus_primary_reference.gbk"
     String samplename
     String kaptive_docker_image = "quay.io/staphb/kaptive:2.0.3"
     # Parameters
