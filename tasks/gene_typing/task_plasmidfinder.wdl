@@ -6,7 +6,7 @@ task plasmidfinder {
     String samplename
     Int cpu = 8
     Int memory = 16
-    String docker = "staphb/plasmidfinder:2.1.6"
+    String docker = "quay.io/biocontainers/plasmidfinder:2.1.6--py310hdfd78af_1"
     String? database
     String? database_path
     String? method_path
