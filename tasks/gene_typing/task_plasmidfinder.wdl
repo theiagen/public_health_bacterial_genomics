@@ -6,7 +6,7 @@ task plasmidfinder {
     String samplename
     Int cpu = 8
     Int memory = 16
-    String docker = "quay.io/biocontainers/plasmidfinder:2.1.6--py310hdfd78af_1"
+    String docker = "staphb/plasmidfinder:2.1.6"
     String? database
     String? database_path
     String? method_path
@@ -16,10 +16,7 @@ task plasmidfinder {
     Float? threshold
 
   }
-  command <<<
-  env
-  df -h
-  
+  command <<<  
   date | tee DATE
 
   if [[ ! -z "~{database}" ]]; then 
