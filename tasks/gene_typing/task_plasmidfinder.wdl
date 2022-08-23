@@ -17,6 +17,8 @@ task plasmidfinder {
 
   }
   command <<<
+  env
+  
   date | tee DATE
 
   if [[ ! -z "~{database}" ]]; then 
