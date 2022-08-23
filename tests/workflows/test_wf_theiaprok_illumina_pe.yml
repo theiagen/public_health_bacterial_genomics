@@ -18,22 +18,21 @@
     - wf_theiaprok_illumina_pe_miniwdl
   files:
     - path: miniwdl_run/call-amrfinderplus_task/command
-      md5sum: cbcb16101728ff39abab80c88c21fb60
+      md5sum: fe664da0e4d1746919e25ddcf76cc20d
     - path: miniwdl_run/call-amrfinderplus_task/inputs.json
       contains: ["assembly", "fasta", "organism", "test"]
     - path: miniwdl_run/call-amrfinderplus_task/outputs.json
       contains: ["amrfinderplus_all_report", "STRESS", "tsv", "NCBI"]
     - path: miniwdl_run/call-amrfinderplus_task/stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: miniwdl_run/call-amrfinderplus_task/stderr.txt.offset
     - path: miniwdl_run/call-amrfinderplus_task/stdout.txt
-      contains: ["Gambit", "AMRFinder", "blast", "report"]
+      contains: ["Gambit", "AMRFinder"]
     - path: miniwdl_run/call-amrfinderplus_task/task.log
       contains: ["wdl", "theiaprok_illumina_pe", "amrfinderplus", "done"]
     - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_DB_VERSION
-      md5sum: c4396919ac552deedcb6a35fc4b65a79
+      md5sum: f2805db31ce8498ca8cb9ba16d12548e
     - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_VERSION
-      md5sum: b54f25593aeab5346df95ad08bf41a61
+      md5sum: 8f87daf07709865a95a12013aa2cbe08
     - path: miniwdl_run/call-amrfinderplus_task/work/AMR_GENES
       md5sum: b6017eebef847ac2471107ca6197b5c5
     - path: miniwdl_run/call-amrfinderplus_task/work/DATE
@@ -133,7 +132,6 @@
     - path: miniwdl_run/call-merlin_magic/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-merlin_magic/outputs.json
-      md5sum: a5cac6164d4efaf16cb30472595c6f21
     - path: miniwdl_run/call-merlin_magic/workflow.log
       contains: ["wdl", "theiaprok_illumina_pe", "merlin", "done"]
     - path: miniwdl_run/call-quast/command
