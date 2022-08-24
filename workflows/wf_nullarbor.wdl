@@ -9,7 +9,9 @@ workflow nullarbor_workflow {
   input {
     String? run_name
     File ref_genome
-    File read_paths_file
+    Array[File] read1
+    Array[File] read2
+    Array[String] samplename
     String? tree_builder
     String? assembler
     String? taxoner
@@ -25,7 +27,9 @@ workflow nullarbor_workflow {
     input:
       run_name = run_name,
       ref_genome = ref_genome,
-      read_paths_file = read_paths_file,
+      read1 = read1,
+      read2 = read2,
+      samplename = samplename,
       tree_builder = tree_builder,
       assembler = assembler,
       taxoner = taxoner,
@@ -47,4 +51,3 @@ workflow nullarbor_workflow {
     File nullarbor_report = nullarbor_task.nullarbor_report
   }
 }
-  
