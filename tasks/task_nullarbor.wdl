@@ -31,6 +31,7 @@ task nullarbor_tsv {
     mkdir cent_db
   
     tar -C k1_db -xzvf ~{kraken1_db}
+    mv k1_db/minikraken2_v2_8GB_201904_UPDATE/* k1_db/
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
     #assign dbs for taxoners
