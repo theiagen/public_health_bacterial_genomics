@@ -37,9 +37,9 @@ task nullarbor_tsv {
     tar -C k2_db/ -xzvf k2_db/*.tar.gz
     tar -C cent_db/ -xzvf cent_db/*.tar.gz
     #assign dbs for taxoners
-    export KRAKEN_DEFAULT_DB=./k1_db
-    export KRAKEN2_DEFAULT_DB=./k2_db
-    export CENTRIFUGE_DEFAULT_DB=./cent_db
+    export KRAKEN_DEFAULT_DB=k1_db
+    export KRAKEN2_DEFAULT_DB=k2_db
+    export CENTRIFUGE_DEFAULT_DB=cent_db
 
     read1_array=(~{sep=' ' read1})
     read1_array_len=$(echo "${#read1_array[@]}")
