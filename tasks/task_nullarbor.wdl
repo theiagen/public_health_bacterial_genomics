@@ -29,9 +29,9 @@ task nullarbor_tsv {
     mkdir k1_db
     mkdir k2_db
     mkdir cent_db
-    gsutil cp ~{kraken1_db} k1_db/
-    gsutil cp ~{kraken2_db} k2_db/
-    gsutil cp ~{centrifuge_db} cent_db/
+    gsutil -m cp ~{kraken1_db} k1_db/
+    gsutil -m cp ~{kraken2_db} k2_db/
+    gsutil -m cp ~{centrifuge_db} cent_db/
 
     tar -C k1_db/ -xzvf  k1_db/*.tgz
     tar -C k2_db/ -xzvf k2_db/*.tar.gz
