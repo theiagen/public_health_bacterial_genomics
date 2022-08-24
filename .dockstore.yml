@@ -55,3 +55,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_kraken2_se.wdl
    testParameterFiles:
     - empty.json
+ - name: Nullarbor
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_nullarbor.wdl
+   testParameterFiles:
+    - empty.json

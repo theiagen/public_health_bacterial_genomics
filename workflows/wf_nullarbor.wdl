@@ -2,7 +2,6 @@ version 1.0
 
 import "../tasks/task_nullarbor.wdl" as nullarbor
 
-
 workflow nullarbor_workflow {
   meta {
     description: "Nullarbor workflow"
@@ -22,7 +21,7 @@ workflow nullarbor_workflow {
     String? kraken2_db
     String? centrifuge_db
   }
-  call nullarbor.nullarbor_tsv {
+  call nullarbor.nullarbor_tsv as nullarbor_task {
     input:
       run_name = run_name,
       ref_genome = ref_genome,
@@ -41,18 +40,11 @@ workflow nullarbor_workflow {
   }
   output {
     # Version Capture
-    String theiacov_illumina_pe_version = version_capture.phvg_version
-    String theiacov_illumina_pe_analysis_date = version_capture.date
-    # Read Metadata
-    String  seq_platform = seq_method
-    # Read QC
-    File read1_dehosted = read_QC_trim.read1_dehosted
-  # Quasitools
-    String quasitools_version = quasitools.quasitools_version
-    String quasitools_date = quasitools.quasitools_date
-    File quasitools_coverage_file = quasitools.coverage_file
-    File quasitools_dr_report = quasitools.dr_report
-    File quasitools_hydra_vcf = quasitools.hydra_vcf
-    File quasitools_mutations_report = quasitools.mutations_report
+    String nullarbor_version =  nullarbor_task.nullarbor_version
+    String nullarbor_docker = nullarbor_task.nullarbor_docker
+    String nullarbor_analysis_date = nullarbor_task.analysis_date
+    File nullarbor_components = nullarbor_task.nullarbor_components
+    File nullarbor_report = nullarbor_task.nullarbor_report
   }
 }
+  

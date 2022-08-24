@@ -5,7 +5,9 @@ task nullarbor_tsv {
   input { 
     String run_name = "run1"
     File ref_genome
-    File read_paths_file
+    Array[File] read1
+    Array[File] read2
+    Array[String] samplename
     String tree_builder = "iqtree_fast"
     String assembler = "skesa"
     String taxoner = "kraken2"
@@ -34,19 +36,48 @@ task nullarbor_tsv {
     export KRAKEN_DEFAULT_DB=./k1_db/
     export KRAKEN2_DEFAULT_DB=./k2_db/
     export CENTRIFUGE_DEFAULT_DB=./cent_db/
+
+    read1_array=(~{sep=' ' read1})
+    read1_array_len=$(echo "${#read1_array[@]}")
+    read2_array=(~{sep=' ' read2})
+    read2_array_len=$(echo "${#read2_array[@]}")
+    samplename_array=(~{sep=' ' samplename})
+    samplename_array_len=$(echo "${#samplename_array[@]}")
+    
+    # Ensure assembly, and samplename arrays are of equal length
+    if [ "$read1_array_len" -ne "$samplename_array_len" ]; then
+      echo "Read1 array array (length: $read1_array_len) and samplename array (length: $samplename_array_len) are of unequal length." >&2
+      exit 1
+    fi
+
+    if [ "$read2_array_len" -ne "$samplename_array_len" ]; then
+      echo "Read2 array (length: $read2_array_len) and samplename array (length: $samplename_array_len) are of unequal length." >&2
+      exit 1
+    fi
+
+  # create file of filenames for kSNP3 input
+  touch nullarbor_input.tsv
+    for index in ${!read1_array[@]}; do
+    read1=${read1_array[$index]}
+    read2=${read2_array[$index]}
+    samplename=${samplename_array[$index]}
+    
+    echo -e "${samplename}\t${read1}\t${read2}" >> nullarbor_input.tsv
+  done
+
     # Run check for the log
     nullarbor.pl --check > ~{run_name}.nullarbor_check.txt
     # Run Nullarbor on the input assembly with the --all flag
     nullarbor.pl \
         --name ~{run_name} \
         --ref ~{ref_genome} \
-        --input ~{read_paths_file} \
+        --input nullarbor_input.tsv \
         --outdir ./nullarbor_outdir/ \
-        --treebuilder ~{treebuilder} \
+        --treebuilder ~{tree_builder} \
         --taxoner ~{taxoner} \
         --mode ~{mode}
-    nice make all -j 2 -l 4 -C ~{outdir} 2>&1 | tee -a ~{outdir}/nullarbor.log
-    make preview -C ~{outdir}
+    make preview -C ./nullarbor_outdir/
+    nice make all -j 2 -l 4 -C ./nullarbor_outdir/ 2>&1 | tee -a ./nullarbor_outdir/nullarbor.log
         # add line to zip entire output dir and save as ~{run_name}.output_dir.zip
   >>>
    output {
