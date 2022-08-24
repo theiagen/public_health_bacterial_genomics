@@ -15,9 +15,9 @@ task nullarbor_tsv {
     String mode = "all"
     Int memory = 128
     Int cpu = 16
-    String kraken1_db = "gs://theiagen-public-files/terra/theiaprok-files/minikraken2_v2_8GB_201904.tgz"
-    String kraken2_db = "gs://theiagen-public-files/terra/theiaprok-files/k2_eupathdb48_20201113.tar.gz"
-    String centrifuge_db = "gs://theiagen-public-files/terra/theiaprok-files/p_compressed+h+v.tar.gz"
+    File kraken1_db = "gs://theiagen-public-files/terra/theiaprok-files/minikraken2_v2_8GB_201904.tgz"
+    File kraken2_db = "gs://theiagen-public-files/terra/theiaprok-files/k2_eupathdb48_20201113.tar.gz"
+    File centrifuge_db = "gs://theiagen-public-files/terra/theiaprok-files/p_compressed+h+v.tar.gz"
   }
   command <<<
     # capture date and version
