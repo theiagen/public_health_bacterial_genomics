@@ -319,7 +319,6 @@
     - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-shovill_pe/work/out/shovill.corrections
-      contains: ["Contig"]
     - path: miniwdl_run/call-shovill_pe/work/out/shovill.log
       contains: ["shovill", "size", "total", "Done"]
     - path: miniwdl_run/call-shovill_pe/work/out/skesa.fasta
