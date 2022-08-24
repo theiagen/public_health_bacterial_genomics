@@ -53,7 +53,7 @@ task nullarbor_tsv {
     String nullarbor_version = read_string("VERSION")
     String nullarbor_docker = docker
     String analysis_date = read_string("DATE")
-    File nullarbor_componenets = "./nullarbor_outdir/~{run_name}.nullarbor_check.txt"
+    File nullarbor_components = "./nullarbor_outdir/~{run_name}.nullarbor_check.txt"
     File nullarbor_report = "./nullarbor_outdir/report/~{run_name}.html"
     #File nullarbor_output_dir = " ~{run_name}.output_dir.zip"
     

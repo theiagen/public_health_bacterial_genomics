@@ -1,8 +1,11 @@
-import "tasks/task_nullarbor.wdl" as nullarbor
+version 1.0
 
-workflow hivgc_illumina_pe {
+import "../tasks/task_nullarbor.wdl" as nullarbor
+
+
+workflow nullarbor_workflow {
   meta {
-    description: "Reference-based consensus calling for viral amplicon sequencing data"
+    description: "Nullarbor workflow"
   }
   input {
     String? run_name
@@ -19,21 +22,22 @@ workflow hivgc_illumina_pe {
     String? kraken2_db
     String? centrifuge_db
   }
-    call nullarbor.nullarbor_tsv {
+  call nullarbor.nullarbor_tsv {
     input:
-      run_name = run_name
-      ref_genome = ref_genome
-      read_paths_file = read_paths_file
-      tree_builder = tree_builder
-      assembler = assembler
-      taxoner = taxoner
-      mode = mode
-      docker = docker
-      memory = memory
-      cpu = cpu
-      kraken1_db = kraken1_db
-      kraken2_db = kraken2_db
+      run_name = run_name,
+      ref_genome = ref_genome,
+      read_paths_file = read_paths_file,
+      tree_builder = tree_builder,
+      assembler = assembler,
+      taxoner = taxoner,
+      mode = mode,
+      docker = docker,
+      memory = memory,
+      cpu = cpu,
+      kraken1_db = kraken1_db,
+      kraken2_db = kraken2_db,
       centrifuge_db = centrifuge_db
+
   }
   output {
     # Version Capture
