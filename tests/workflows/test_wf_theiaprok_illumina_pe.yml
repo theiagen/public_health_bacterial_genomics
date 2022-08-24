@@ -57,7 +57,6 @@
     - path: miniwdl_run/call-cg_pipeline/outputs.json
       contains: ["lyveset", "cg_pipeline", "est_coverage", "r2_mean_q"]
     - path: miniwdl_run/call-cg_pipeline/stderr.txt
-      md5sum: ce20ed8880cbf02437861ed9d858680f
     - path: miniwdl_run/call-cg_pipeline/stderr.txt.offset
     - path: miniwdl_run/call-cg_pipeline/stdout.txt
     - path: miniwdl_run/call-cg_pipeline/task.log
@@ -97,7 +96,6 @@
     - path: miniwdl_run/call-gambit/outputs.json
       contains: ["gambit", "csv", "json", "Candidatus"]
     - path: miniwdl_run/call-gambit/stderr.txt
-      md5sum: 6309bdacabb0b2ff1b12ba8382dbb5ad
     - path: miniwdl_run/call-gambit/stderr.txt.offset
     - path: miniwdl_run/call-gambit/stdout.txt
       contains: ["gambit"]
@@ -283,7 +281,6 @@
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/outputs.json
       contains: ["read", "fastq", "test", "trimmomatic"]
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stderr.txt
-      md5sum: ce20ed8880cbf02437861ed9d858680f
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stderr.txt.offset
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stdout.txt
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/task.log
