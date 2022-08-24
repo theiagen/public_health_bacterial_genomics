@@ -420,5 +420,11 @@ workflow theiaprok_illumina_se {
     String? poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster
     File? poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv
     String? poppunk_version = merlin_magic.poppunk_version
+    String? seroba_version = merlin_magic.seroba_version
+    String? seroba_serotype = merlin_magic.seroba_serotype
+    String? seroba_contamination = merlin_magic.seroba_contamination
+    String? seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype
+    String? seroba_ariba_identity = merlin_magic.seroba_ariba_identity
+    File? seroba_details = merlin_magic.seroba_details
   }
 }
