@@ -32,6 +32,7 @@ task nullarbor_tsv {
     echo one
     tar -C k1_db -xzvf ~{kraken1_db}
     mv k1_db/minikraken2_v2_8GB_201904_UPDATE/* k1_db/
+    touch k1_db/database.idx
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
     echo two
