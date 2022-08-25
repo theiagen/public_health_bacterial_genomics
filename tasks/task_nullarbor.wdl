@@ -29,21 +29,22 @@ task nullarbor_tsv {
     mkdir k1_db
     mkdir k2_db
     mkdir cent_db
-  
+    echo one
     tar -C k1_db -xzvf ~{kraken1_db}
     mv k1_db/minikraken2_v2_8GB_201904_UPDATE/* k1_db/
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
-
+    echo two
     echo tar
     ls k1_db
     ls k2_db
     ls cent_db
+    echo three
     #assign dbs for taxoners
     export KRAKEN_DEFAULT_DB=k1_db
     export KRAKEN2_DEFAULT_DB=k2_db
     export CENTRIFUGE_DEFAULT_DB=cent_db
-
+    echo four
     read1_array=(~{sep=' ' read1})
     read1_array_len=$(echo "${#read1_array[@]}")
     read2_array=(~{sep=' ' read2})
