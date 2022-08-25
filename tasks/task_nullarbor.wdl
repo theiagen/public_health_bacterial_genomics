@@ -89,7 +89,7 @@ task nullarbor_tsv {
         --taxoner ~{taxoner}
 
     make preview -C nullarbor_outdir/
-    nice make all -j 2 -l 4 -C ./nullarbor_outdir/ 2>&1 | tee -a ./nullarbor_outdir/nullarbor.log
+    nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
         # add line to zip entire output dir and save as ~{run_name}.output_dir.zip
   >>>
    output {
