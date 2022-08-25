@@ -86,7 +86,8 @@ task nullarbor_tsv {
         --outdir nullarbor_outdir/ \
         --assembler ~{assembler} \
         --treebuilder ~{tree_builder} \
-        --taxoner ~{taxoner}
+        --taxoner ~{taxoner} \
+        --verbose
 
     make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
