@@ -12,7 +12,6 @@ task nullarbor_tsv {
     String assembler = "skesa"
     String taxoner = "kraken2"
     String docker = "quay.io/biocontainers/nullarbor:2.0.20191013--hdfd78af_3"
-    String mode = "all"
     Int memory = 128
     Int cpu = 16
     File kraken1_db = "gs://theiagen-public-files/terra/theiaprok-files/minikraken_20171019_8GB_kraken1.tgz"
@@ -87,9 +86,9 @@ task nullarbor_tsv {
         --outdir nullarbor_outdir/ \
         --assembler ~{assembler} \
         --treebuilder ~{tree_builder} \
-        --taxoner ~{taxoner} \
-        --mode ~{mode}
-    make preview -C ./nullarbor_outdir/
+        --taxoner ~{taxoner}
+
+    make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C ./nullarbor_outdir/ 2>&1 | tee -a ./nullarbor_outdir/nullarbor.log
         # add line to zip entire output dir and save as ~{run_name}.output_dir.zip
   >>>
