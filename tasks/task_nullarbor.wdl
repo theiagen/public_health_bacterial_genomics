@@ -33,11 +33,12 @@ task nullarbor_tsv {
     tar -C k1_db -xzvf ~{kraken1_db}
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
-    mv cent_db/p_compressed+h+v.1.cf cent_db/cent_db.1.cf
-    mv cent_db/p_compressed+h+v.2.cf cent_db/cent_db.2.cf
-    mv cent_db/p_compressed+h+v.3.cf cent_db/cent_db.3.cf
+    mv cent_db/p_compressed+h+v.1.cf cent_db.1.cf
+    mv cent_db/p_compressed+h+v.2.cf cent_db.2.cf
+    mv cent_db/p_compressed+h+v.3.cf cent_db.3.cf
     mv k1_db/minikraken_20171019_8GB/* k1_db/
     echo two
+    ls
     ls k1_db
     ls k2_db
     ls cent_db
