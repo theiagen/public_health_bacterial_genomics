@@ -15,7 +15,7 @@ task nullarbor_tsv {
     String mode = "all"
     Int memory = 128
     Int cpu = 16
-    File kraken1_db = "gs://theiagen-public-files/terra/theiaprok-files/minikraken2_v2_8GB_201904.tgz"
+    File kraken1_db = "gs://theiagen-public-files/terra/theiaprok-files/minikraken_20171019_8GB_kraken1.tgz"
     File kraken2_db = "gs://theiagen-public-files/terra/theiaprok-files/k2_eupathdb48_20201113.tar.gz"
     File centrifuge_db = "gs://theiagen-public-files/terra/theiaprok-files/p_compressed+h+v.tar.gz"
   }
@@ -31,15 +31,9 @@ task nullarbor_tsv {
     mkdir cent_db
     echo one
     tar -C k1_db -xzvf ~{kraken1_db}
-    mv k1_db/minikraken2_v2_8GB_201904_UPDATE/* k1_db/
-    touch database.idx
-    touch database.kdb
-    mv database.idx k1_db/
-    mv database.kdb k1_db/
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
     echo two
-    echo tar
     ls k1_db
     ls k2_db
     ls cent_db
