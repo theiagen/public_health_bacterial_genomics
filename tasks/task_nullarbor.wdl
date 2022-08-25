@@ -34,6 +34,11 @@ task nullarbor_tsv {
     mv k1_db/minikraken2_v2_8GB_201904_UPDATE/* k1_db/
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
+
+    echo tar
+    ls k1_db
+    ls k2_db
+    ls cent_db
     #assign dbs for taxoners
     export KRAKEN_DEFAULT_DB=k1_db
     export KRAKEN2_DEFAULT_DB=k2_db
