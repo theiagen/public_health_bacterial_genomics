@@ -73,8 +73,10 @@ task kaptive {
         Other_Outside_K.write(other_out_k)
     CODE
     kaptive.py \
+    ~{'--start_end_margin ' + start_end_margin} \
     ~{'--min_gene_id ' + min_identity} \
     ~{'--min_gene_cov ' + min_coverage} \
+    ~{'--low_gene_id ' + low_gene_id} \
     --no_seq_out \
     --no_json \
     --out ~{samplename}_kaptive_out_oc \
