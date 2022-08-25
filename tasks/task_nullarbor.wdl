@@ -29,6 +29,7 @@ task nullarbor_tsv {
     mkdir k1_db
     mkdir k2_db
     mkdir cent_db
+    mkdir ~{outdir}
     echo one
     tar -C k1_db -xzvf ~{kraken1_db}
     tar -C k2_db -xzvf ~{kraken2_db}
