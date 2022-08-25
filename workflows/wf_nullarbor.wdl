@@ -15,7 +15,6 @@ workflow nullarbor_workflow {
     String? tree_builder
     String? assembler
     String? taxoner
-    String? mode
     String? docker
     Int? memory
     Int? cpu
@@ -33,7 +32,6 @@ workflow nullarbor_workflow {
       tree_builder = tree_builder,
       assembler = assembler,
       taxoner = taxoner,
-      mode = mode,
       docker = docker,
       memory = memory,
       cpu = cpu,
