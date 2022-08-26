@@ -99,7 +99,7 @@ task nullarbor_tsv {
     String analysis_date = read_string("DATE")
     File nullarbor_components = "nullarbor_outdir/~{run_name}.nullarbor_check.txt"
     File nullarbor_report = "nullarbor_outdir/report/~{run_name}.html"
-    File nullarbor_output_dir = " ~{run_name}_gzipped.tar.gz"
+    File nullarbor_output_dir = "~{run_name}_gzipped.tar.gz"
     
   }
   runtime {
