@@ -104,7 +104,7 @@ task nullarbor_tsv {
       docker: "~{docker}"
       memory: "~{memory} GB"
       cpu: cpu
-      disks: "local-disk 200 SSD"
+      disks: "local-disk 500 SSD"
       preemptible: 0
   }
 }
