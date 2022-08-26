@@ -83,7 +83,7 @@ task nullarbor_tsv {
         --name ~{run_name} \
         --ref ~{ref_genome} \
         --input nullarbor_input.tsv \
-        --outdir nullarbor_outdir/ \
+        --outdir nullarbor_outdir \
         --assembler ~{assembler} \
         --treebuilder ~{tree_builder} \
         --taxoner ~{taxoner} \
