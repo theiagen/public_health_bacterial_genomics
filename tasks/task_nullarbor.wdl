@@ -86,6 +86,7 @@ task nullarbor_tsv {
         --assembler ~{assembler} \
         --treebuilder ~{tree_builder} \
         --taxoner ~{taxoner} \
+        --summary \
         --verbose
     #Run makefile
     make preview -C nullarbor_outdir/
