@@ -38,7 +38,6 @@ workflow nullarbor_workflow {
       kraken1_db = kraken1_db,
       kraken2_db = kraken2_db,
       centrifuge_db = centrifuge_db
-
   }
   output {
     # Version Capture
