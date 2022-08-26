@@ -100,13 +100,12 @@ task nullarbor_tsv {
     File nullarbor_components = "nullarbor_outdir/~{run_name}.nullarbor_check.txt"
     File nullarbor_report = "nullarbor_outdir/report/~{run_name}.html"
     File nullarbor_output_dir = "~{run_name}_gzipped.tar.gz"
-    
   }
   runtime {
       docker: "~{docker}"
       memory: "~{memory} GB"
       cpu: cpu
-      disks: "local-disk 100 SSD"
+      disks: "local-disk 200 SSD"
       preemptible: 0
   }
 }
