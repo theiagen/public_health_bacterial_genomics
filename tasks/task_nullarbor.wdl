@@ -91,7 +91,7 @@ task nullarbor_tsv {
 
     make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
-        # add line to zip entire output dir and save as ~{run_name}.output_dir.zip
+    tar -c -f -z -v ~{run_name}_gzipped.tar.gz /home/ubuntu
   >>>
    output {
     String nullarbor_version = read_string("VERSION")
