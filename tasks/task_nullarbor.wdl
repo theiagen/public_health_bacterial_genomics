@@ -75,7 +75,6 @@ task nullarbor_tsv {
     
     echo -e "${samplename}\t${read1}\t${read2}" >> nullarbor_input.tsv
   done
-
     # Run check for the log
     nullarbor.pl --check > ~{run_name}.nullarbor_check.txt
     # Run Nullarbor on the input assembly with the --all flag
