@@ -87,7 +87,7 @@ task nullarbor_tsv {
         --treebuilder ~{tree_builder} \
         --taxoner ~{taxoner} \
         --verbose
-#Run makefile
+    #Run makefile
     make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
     tar -c -f -z -v ~{run_name}_gzipped.tar.gz nullarbor_outdir/
