@@ -136,15 +136,9 @@ workflow merlin_magic {
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
   String? kaptive_version = kaptive.kaptive_version
   String? kaptive_k_match = kaptive.kaptive_k_match
-  String? kaptive_k_expected_inside_genes = kaptive.kaptive_k_expected_inside_genes
-  String? kaptive_k_expected_outside_genes = kaptive.kaptive_k_expected_outside_genes
-  String? kaptive_k_other_inside_genes = kaptive.kaptive_k_other_inside_genes
-  String? kaptive_k_other_outside_genes = kaptive.kaptive_k_other_outside_genes
+  String? kaptive_k_confidence = kaptive.kaptive_k_confidence
   String? kaptive_oc_match = kaptive.kaptive_oc_match
-  String? kaptive_oc_expected_inside_genes = kaptive.kaptive_oc_expected_inside_genes
-  String? kaptive_oc_expected_outside_genes = kaptive.kaptive_oc_expected_outside_genes
-  String? kaptive_oc_other_inside_genes = kaptive.kaptive_oc_other_inside_genes
-  String? kaptive_oc_other_outside_genes = kaptive.kaptive_oc_other_outside_genes
+  String? kaptive_oc_confidence = kaptive.kaptive_oc_confidence
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
   File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam

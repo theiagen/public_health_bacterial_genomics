@@ -271,15 +271,9 @@ workflow theiaprok_illumina_pe {
             kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc,
             kaptive_version = merlin_magic.kaptive_version,
             kaptive_k_match = merlin_magic.kaptive_k_match,
-            kaptive_k_expected_inside_genes = merlin_magic.kaptive_k_expected_inside_genes,
-            kaptive_k_expected_outside_genes = merlin_magic.kaptive_k_expected_outside_genes,
-            kaptive_k_other_inside_genes = merlin_magic.kaptive_k_other_inside_genes,
-            kaptive_k_other_outside_genes = merlin_magic.kaptive_k_other_outside_genes,
+            kaptive_k_confidence = merlin_magic.kaptive_k_confidence,
             kaptive_oc_match = merlin_magic.kaptive_oc_match,
-            kaptive_oc_expected_inside_genes = merlin_magic.kaptive_oc_expected_inside_genes,
-            kaptive_oc_expected_outside_genes = merlin_magic.kaptive_oc_expected_outside_genes,
-            kaptive_oc_other_inside_genes = merlin_magic.kaptive_oc_other_inside_genes,
-            kaptive_oc_other_outside_genes = merlin_magic.kaptive_oc_other_outside_genes,
+            kaptive_oc_confidence = merlin_magic.kaptive_oc_confidence,
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
             tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -434,15 +428,9 @@ workflow theiaprok_illumina_pe {
     File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
     String? kaptive_version = merlin_magic.kaptive_version
     String? kaptive_k_match = merlin_magic.kaptive_k_match
-    String? kaptive_k_expected_inside_genes = merlin_magic.kaptive_k_expected_inside_genes
-    String? kaptive_k_expected_outside_genes = merlin_magic.kaptive_k_expected_outside_genes
-    String? kaptive_k_other_inside_genes = merlin_magic.kaptive_k_other_inside_genes
-    String? kaptive_k_other_outside_genes = merlin_magic.kaptive_k_other_outside_genes
+    String? kaptive_k_confidence = merlin_magic.kaptive_k_confidence
     String? kaptive_oc_match = merlin_magic.kaptive_oc_match
-    String? kaptive_oc_expected_inside_genes = merlin_magic.kaptive_oc_expected_inside_genes
-    String? kaptive_oc_expected_outside_genes = merlin_magic.kaptive_oc_expected_outside_genes
-    String? kaptive_oc_other_inside_genes = merlin_magic.kaptive_oc_other_inside_genes
-    String? kaptive_oc_other_outside_genes = merlin_magic.kaptive_oc_other_outside_genes
+    String? kaptive_oc_confidence = merlin_magic.kaptive_oc_confidence
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam

@@ -119,10 +119,12 @@ task kaptive {
         other_out_oc=tsv_dict['Expected genes outside locus, details']
         Other_Outside_OC.write(other_out_oc)
     CODE
+    mv -v ~{samplename}_kaptive_out_k_table.txt ~{samplename}_kaptive_out_k_table.tsv
+    mv -v ~{samplename}_kaptive_out_oc_table.txt ~{samplename}_kaptive_out_oc_table.tsv
   >>>
   output {
-    File kaptive_output_file_k = "~{samplename}_kaptive_out_k_table.txt"
-    File kaptive_output_file_oc = "~{samplename}_kaptive_out_oc_table.txt"
+    File kaptive_output_file_k = "~{samplename}_kaptive_out_k_table.tsv"
+    File kaptive_output_file_oc = "~{samplename}_kaptive_out_oc_table.tsv"
     String kaptive_version = read_string("VERSION")
     String kaptive_k_match = read_string("BEST_MATCH_LOCUS_K")
     String kaptive_k_confidence = read_string("MATCH_CONFIDENCE_K")
