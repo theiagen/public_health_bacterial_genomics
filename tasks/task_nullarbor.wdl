@@ -76,7 +76,8 @@ task nullarbor_tsv {
     echo -e "${samplename}\t${read1}\t${read2}" >> nullarbor_input.tsv
   done
     # Run check for the log
-    nullarbor.pl --check > ~{run_name}.nullarbor_check.txt
+    touch ~{run_name}.nullarbor_check.txt
+    nullarbor.pl --check >> ~{run_name}.nullarbor_check.txt
     # Run Nullarbor on the input assembly with the --all flag
     nullarbor.pl \
         --name ~{run_name} \
@@ -91,7 +92,7 @@ task nullarbor_tsv {
     #Run makefile
     make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
-    #tar -c -f -z -v ~{run_name}_gzipped.tar.gz nullarbor_outdir/
+    tar -czvf ~{run_name}_gzipped.tar.gz nullarbor_outdir/*
   >>>
    output {
     String nullarbor_version = read_string("VERSION")
