@@ -38,11 +38,10 @@ task nullarbor_tsv {
     mv cent_db/p_compressed+h+v.3.cf cent_db.3.cf
     mv k1_db/minikraken_20171019_8GB/* k1_db/
     echo two
-    ls
-    ls k1_db
-    ls k2_db
-    ls cent_db
+    
     echo three
+    echo pwd
+    pwd
     #assign dbs for taxoners
     export KRAKEN_DEFAULT_DB=k1_db
     export KRAKEN2_DEFAULT_DB=k2_db
@@ -93,6 +92,7 @@ task nullarbor_tsv {
     make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
     tar -czvf ~{run_name}_gzipped.tar.gz nullarbor_outdir/*
+    
   >>>
    output {
     String nullarbor_version = read_string("VERSION")
