@@ -91,7 +91,10 @@ task nullarbor_tsv {
     #Run makefile
     make preview -C nullarbor_outdir/
     nice make all -j 2 -l 4 -C nullarbor_outdir/ 2>&1 | tee -a nullarbor_outdir/nullarbor.log
-    tar -cfv ~{run_name}_gzipped.tar nullarbor_outdir/*
+
+    echo "nullarbor complete,tarballing results now"
+
+    tar -cf - nullarbor_outdir/ | gzip -n best > ~{run_name}.tar.gz
 
   >>>
    output {
@@ -100,7 +103,7 @@ task nullarbor_tsv {
     String analysis_date = read_string("DATE")
     File nullarbor_components = "nullarbor_outdir/~{run_name}.nullarbor_check.txt"
     File nullarbor_report = "nullarbor_outdir/report/~{run_name}.html"
-    File nullarbor_output_dir = "~{run_name}_gzipped.tar"
+    File nullarbor_output_dir = "~{run_name}.tar.gz"
   }
   runtime {
       docker: "~{docker}"
