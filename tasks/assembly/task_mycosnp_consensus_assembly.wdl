@@ -86,6 +86,8 @@ task mycosnp {
     File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
     File vcf_index = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz.tbi"
     File multiqc = "~{samplename}/results/multiqc/multiqc_report.html"
+    File bam_file = "~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.bam"
+    File bam_bai_file = "~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.bam.bai"
     File full_results = "~{samplename}.tar.gz"
   }
   runtime {

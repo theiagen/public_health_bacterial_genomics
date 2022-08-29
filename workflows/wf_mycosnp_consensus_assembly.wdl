@@ -50,6 +50,8 @@ workflow mycosnp_consensus_assembly {
     File vcf = mycosnp.vcf
     File vcf_index = mycosnp.vcf_index
     File multiqc = mycosnp.multiqc
+    File myco_bam = mycosnp.bam_file
+    File myco_bam_bai = mycosnp.bam_bai
     File full_results = mycosnp.full_results
   }
 }
