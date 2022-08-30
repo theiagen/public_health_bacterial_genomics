@@ -24,12 +24,10 @@ task nullarbor_tsv {
     date | tee DATE
     # Print and save version
     nullarbor.pl --version | tee VERSION 
-    #untar taxoner
+    # untar taxoner dbs
     mkdir k1_db
     mkdir k2_db
     mkdir cent_db
-
-    echo one
     tar -C k1_db -xzvf ~{kraken1_db}
     tar -C k2_db -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
@@ -37,13 +35,7 @@ task nullarbor_tsv {
     mv cent_db/p_compressed+h+v.2.cf cent_db.2.cf
     mv cent_db/p_compressed+h+v.3.cf cent_db.3.cf
     mv k1_db/minikraken_20171019_8GB/* k1_db/
-
-    echo two
-    
-    echo three
-    echo pwd
-    pwd
-    #assign dbs for taxoners
+    # assign dbs for taxoners
     export KRAKEN_DEFAULT_DB=k1_db
     export KRAKEN2_DEFAULT_DB=k2_db
     export KRAKEN2_DB_PATH=k2_db
