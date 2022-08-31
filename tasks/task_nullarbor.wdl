@@ -37,8 +37,8 @@ task nullarbor_tsv {
     mv k1_db/minikraken_20171019_8GB/* k1_db/
     # assign dbs for taxoners
     export KRAKEN_DEFAULT_DB=k1_db
-    export KRAKEN2_DEFAULT_DB=k2_db/
-    export KRAKEN2_DB_PATH=k2_db/
+    export KRAKEN2_DEFAULT_DB=./k2_db/
+    export KRAKEN2_DB_PATH=./k2_db/
     export CENTRIFUGE_DEFAULT_DB=cent_db
     echo four
     read1_array=(~{sep=' ' read1})
@@ -48,7 +48,7 @@ task nullarbor_tsv {
     samplename_array=(~{sep=' ' samplename})
     samplename_array_len=$(echo "${#samplename_array[@]}")
     
-    # Ensure assembly, and samplename arrays are of equal length
+    # Ensure read, and samplename arrays are of equal length
     if [ "$read1_array_len" -ne "$samplename_array_len" ]; then
       echo "Read1 array array (length: $read1_array_len) and samplename array (length: $samplename_array_len) are of unequal length." >&2
       exit 1
