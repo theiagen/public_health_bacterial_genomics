@@ -95,6 +95,7 @@ task nullarbor_tsv {
     String nullarbor_docker = "~{docker}"
     String analysis_date = read_string("DATE")
     File nullarbor_components = "nullarbor_outdir/~{run_name}.nullarbor_check.txt"
+    File nullarbor_report = "/cromwell_root/nullarbor_outdir/report/index.html"
     File nullarbor_output_dir = "~{run_name}.tar.gz"
   }
   runtime {
