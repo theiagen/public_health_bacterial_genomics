@@ -37,8 +37,8 @@ task nullarbor_tsv {
     mv k1_db/minikraken_20171019_8GB/* k1_db/
     # assign dbs for taxoners
     export KRAKEN_DEFAULT_DB=k1_db
-    export KRAKEN2_DEFAULT_DB=./k2_db/
-    export KRAKEN2_DB_PATH=./k2_db/
+    export KRAKEN2_DEFAULT_DB=/cromwell_root/k2_db/
+    export KRAKEN2_DB_PATH=/cromwell_root/k2_db/
     export CENTRIFUGE_DEFAULT_DB=cent_db
     echo four
     read1_array=(~{sep=' ' read1})
