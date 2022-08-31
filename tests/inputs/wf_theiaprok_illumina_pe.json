@@ -4,5 +4,5 @@
     "theiaprok_illumina_pe.read2_raw": "bactopia-tests/data/species/portiera/illumina/SRR2838702_R2.fastq.gz",
     "theiaprok_illumina_pe.skip_screen": true,
     "theiaprok_illumina_pe.shovill_pe.assembler": "skesa",
-    "merlin_magic.call_poppunk": false
+    "theiaprok_illumina_pe.merlin_magic.call_poppunk": false
 }
