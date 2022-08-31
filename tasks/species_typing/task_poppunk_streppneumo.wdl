@@ -62,17 +62,21 @@ task poppunk {
       --external-clustering "${GPS_EXTERNAL_CLUSTERS_CSV}"
 
     # parse output CSV for GPSC (Global Pneumococcal Sequence Cluster)
-    cut -d ',' -f 2 ~{samplename}_poppunk/~{samplename}_poppunk_external_clusters.csv | tail -n 1 > GPSC.txt
+    if [ -f ~{samplename}_poppunk/~{samplename}_poppunk_external_clusters.csv ]; then
+      cut -d ',' -f 2 ~{samplename}_poppunk/~{samplename}_poppunk_external_clusters.csv | tail -n 1 > GPSC.txt
 
-    # if GPSC is "NA", overwrite with helpful message
-    if [[ "$(cat GPSC.txt)" == "NA" ]]; then
-      echo "Potential novel GPS Cluster identified, please email globalpneumoseq@gmail.com to have novel clusters added to the database and a GPSC cluster name assigned after you have checked for low level contamination which may contribute to biased accessory distances." >GPSC.txt
+      # if GPSC is "NA", overwrite with helpful message
+      if [[ "$(cat GPSC.txt)" == "NA" ]]; then
+        echo "Potential novel GPS Cluster identified, please email globalpneumoseq@gmail.com to have novel clusters added to the database and a GPSC cluster name assigned after you have checked for low level contamination which may contribute to biased accessory distances." >GPSC.txt
+      fi
+    else
+      echo "poppunk failed" > GPSC.txt
     fi
 
   >>>
   output {
     String poppunk_gps_cluster = read_string("GPSC.txt")
-    File poppunk_gps_external_cluster_csv = "~{samplename}_poppunk/~{samplename}_poppunk_external_clusters.csv"
+    File? poppunk_gps_external_cluster_csv = "~{samplename}_poppunk/~{samplename}_poppunk_external_clusters.csv"
     String poppunk_version = read_string("VERSION")
   }
   runtime {

@@ -25,6 +25,7 @@ workflow merlin_magic {
     File read1
     File? read2
     Boolean paired_end = true
+    Boolean call_poppunk = true
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
@@ -103,11 +104,13 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }      
-    call poppunk_spneumo.poppunk as poppunk_task {
-      input:
-        assembly = assembly,
-        samplename = samplename
-    }  
+    if (call_poppunk) {
+      call poppunk_spneumo.poppunk as poppunk_task {
+        input:
+          assembly = assembly,
+          samplename = samplename
+      }  
+    }
   }
 
   output {
