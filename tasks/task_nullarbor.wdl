@@ -26,10 +26,10 @@ task nullarbor_tsv {
     nullarbor.pl --version | tee VERSION 
     # untar taxoner dbs
     mkdir k1_db
-    mkdir k2_db
+    mkdir /cromwell_root/k2_db
     mkdir cent_db
     tar -C k1_db -xzvf ~{kraken1_db}
-    tar -C k2_db -xzvf ~{kraken2_db}
+    tar -C /cromwell_root/k2_db/ -xzvf ~{kraken2_db}
     tar -C cent_db -xzvf ~{centrifuge_db}
     mv cent_db/p_compressed+h+v.1.cf cent_db.1.cf
     mv cent_db/p_compressed+h+v.2.cf cent_db.2.cf
