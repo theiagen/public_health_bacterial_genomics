@@ -87,7 +87,7 @@ task nullarbor_tsv {
 
     echo "nullarbor complete,tarballing results now"
 
-    tar -cf - nullarbor_outdir/ | gzip -n > ~{run_name}.tar.gz
+    tar -cf - nullarbor_outdir/ | gzip -n --best > ~{run_name}.tar.gz
 
   >>>
    output {
