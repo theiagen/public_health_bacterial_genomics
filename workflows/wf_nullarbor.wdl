@@ -44,7 +44,6 @@ workflow nullarbor_workflow {
     String nullarbor_version =  nullarbor_task.nullarbor_version
     String nullarbor_docker = nullarbor_task.nullarbor_docker
     String nullarbor_analysis_date = nullarbor_task.analysis_date
-    File nullarbor_components = nullarbor_task.nullarbor_components
     File nullarbor_report = nullarbor_task.nullarbor_report
     File nullarbor_outputdir = nullarbor_task.nullarbor_output_dir
   }
