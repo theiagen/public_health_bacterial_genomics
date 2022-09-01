@@ -1,5 +1,5 @@
 - name: theiaprok_illumina_pe_cromwell
-  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
+  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe_cromwell.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
   tags:
     - wf_theiaprok_illumina_pe
     - wf_theiaprok_illumina_pe_cromwell
