@@ -206,6 +206,7 @@ workflow theiaprok_illumina_se {
             amrfinderplus_amr_genes = amrfinderplus_task.amrfinderplus_amr_genes,
             amrfinderplus_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes,
             amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes,
+            amrfinderplus_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes,
             amrfinderplus_version = amrfinderplus_task.amrfinderplus_version,
             amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version,
             resfinder_pheno_table = resfinder_task.resfinder_pheno_table,
@@ -331,6 +332,7 @@ workflow theiaprok_illumina_se {
     String? amrfinderplus_amr_genes = amrfinderplus_task.amrfinderplus_amr_genes
     String? amrfinderplus_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes
     String? amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
+    String? amrfinderplus_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
     String? amrfinderplus_version = amrfinderplus_task.amrfinderplus_version
     String? amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version
     # Resfinder Outputs
