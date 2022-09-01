@@ -104,7 +104,7 @@ task amrfinderplus_nuc {
     stress_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_stress.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
     virulence_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_virulence.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
     # create string outputs for AMR drug resistance classes
-    amr_classes=$(awk -F '\t' '{ print $12 }' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | uniq | tr '\n' ', ' | sed 's/.$//')
+    amr_classes=$(awk -F '\t' '{ print $12 }' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | sort | uniq | tr '\n' ', ' | sed 's/.$//')
 
     # if variable for list of genes is EMPTY, write string saying it is empty to float to Terra table
     if [ -z "${amr_genes}" ]; then
