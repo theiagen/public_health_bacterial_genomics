@@ -270,7 +270,13 @@ workflow theiaprok_illumina_se {
             plasmidfinder_results = plasmidfinder.plasmidfinder_results,
             plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
             plasmidfinder_docker = plasmidfinder.plasmidfinder_docker,
-            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version            
+            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version,
+            pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X,
+            pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv,
+            pbptyper_version = merlin_magic.pbptyper_version,
+            poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster,
+            poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv,
+            poppunk_version = merlin_magic.poppunk_version            
             
         }
       }
@@ -407,5 +413,12 @@ workflow theiaprok_illumina_se {
     File? legsta_results = merlin_magic.legsta_results
     String? legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt
     String? legsta_version = merlin_magic.legsta_version
+    # Streptococcus pneumoniae Typing
+    String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
+    File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv
+    String? pbptyper_version = merlin_magic.pbptyper_version
+    String? poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster
+    File? poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv
+    String? poppunk_version = merlin_magic.poppunk_version
   }
 }

@@ -1,5 +1,5 @@
 - name: theiaprok_illumina_pe_cromwell
-  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
+  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe_cromwell.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
   tags:
     - wf_theiaprok_illumina_pe
     - wf_theiaprok_illumina_pe_cromwell
@@ -90,7 +90,7 @@
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-gambit/command
-      md5sum: 7a0a0eac64d0d0667876512bb265a13a
+      md5sum: f5e4433d1b994998f68fc8568166fcde
     - path: miniwdl_run/call-gambit/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-gambit/outputs.json
