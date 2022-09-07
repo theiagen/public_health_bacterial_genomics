@@ -176,7 +176,6 @@ workflow merlin_magic {
   String? poppunk_version = poppunk_task.poppunk_version
   String? seroba_version = seroba_task.seroba_version
   String? seroba_serotype = seroba_task.seroba_serotype
-  String? seroba_contamination = seroba_task.seroba_contamination
   String? seroba_ariba_serotype = seroba_task.seroba_ariba_serotype
   String? seroba_ariba_identity = seroba_task.seroba_ariba_identity
   File? seroba_details = seroba_task.seroba_details

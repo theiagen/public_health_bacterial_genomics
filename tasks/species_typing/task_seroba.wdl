@@ -15,7 +15,6 @@ task seroba {
 
     # check for serotype grouping & contamination flag
     cut -f2 ~{samplename}/pred.tsv > SEROTYPE
-    cut -f3 ~{samplename}/pred.tsv > CONTAMINATION
 
     # check for detailed serogroup information
     if [ -f ~{samplename}/detailed_serogroup_info.txt ]; then 
@@ -30,7 +29,6 @@ task seroba {
   output {
     String seroba_version = read_string("VERSION")
     String seroba_serotype = read_string("SEROTYPE")
-    String seroba_contamination = read_string("CONTAMINATION")
     String seroba_ariba_serotype = read_string("ARIBA_SEROTYPE")
     String seroba_ariba_identity = read_string("ARIBA_IDENTITY")
     File? seroba_details = "~{samplename}/detailed_serogroup_info.txt"
