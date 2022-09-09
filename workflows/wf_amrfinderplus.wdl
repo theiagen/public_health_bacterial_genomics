@@ -29,5 +29,6 @@ workflow amrfinderplus_wf {
     String amrfinderplus_stress_genes = amrfinderplus_nuc.amrfinderplus_stress_genes
     String amrfinderplus_virulence_genes = amrfinderplus_nuc.amrfinderplus_virulence_genes
     String amrfinderplus_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
+    String amrfinderplus_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses
     }
  }
