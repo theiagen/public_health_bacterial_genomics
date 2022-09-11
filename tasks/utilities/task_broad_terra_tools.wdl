@@ -137,6 +137,17 @@ task export_taxon_tables {
     File? plasmidfinder_seqs
     String? plasmidfinder_docker
     String? plasmidfinder_db_version
+    String? pbptyper_predicted_1A_2B_2X
+    File? pbptyper_pbptype_predicted_tsv 
+    String? pbptyper_version 
+    String? poppunk_gps_cluster
+    File? poppunk_gps_external_cluster_csv
+    String? poppunk_version
+    String? seroba_version
+    String? seroba_serotype
+    String? seroba_ariba_serotype
+    String? seroba_ariba_identity
+    File? seroba_details
     
   }
   command <<<
