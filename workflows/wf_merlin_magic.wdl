@@ -139,8 +139,10 @@ workflow merlin_magic {
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
   String? kaptive_version = kaptive.kaptive_version
   String? kaptive_k_match = kaptive.kaptive_k_match
+  String? kaptive_k_type = kaptive.kaptive_k_type
   String? kaptive_k_confidence = kaptive.kaptive_k_confidence
   String? kaptive_oc_match = kaptive.kaptive_oc_match
+  String? kaptive_oc_type = kaptive.kaptive_oc_type
   String? kaptive_oc_confidence = kaptive.kaptive_oc_confidence
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
