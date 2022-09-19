@@ -6,6 +6,7 @@ task kaptive {
     File assembly
     String samplename
     String kaptive_docker_image = "quay.io/staphb/kaptive:2.0.3"
+    Int cpu = 4
     # Parameters
     Int start_end_margin = 10 # determines flexibility in identifying the start and end of a locus - if this value is 10, a locus match that is missing the first 8 base pairs will still count as capturing the start of the locus (default: 10) 
     Float min_identity = 90.0 # minimum required percent coverage for the gene BLAST search via tBLASTn (default: 90.0)
@@ -25,6 +26,7 @@ task kaptive {
     kaptive.py --version | tee VERSION 
     # Run Kaptive on the input assembly with the --all flag and output with samplename prefix
     kaptive.py \
+    -t ~{cpu} \
     ~{'--start_end_margin ' + start_end_margin} \
     ~{'--min_gene_id ' + min_identity} \
     ~{'--min_gene_cov ' + min_coverage} \
@@ -44,6 +46,9 @@ task kaptive {
       with open ("BEST_MATCH_LOCUS_K", 'wt') as Best_Match_Locus_K:
         kaptive_locus_k=tsv_dict['Best match locus']
         Best_Match_Locus_K.write(kaptive_locus_k)
+      with open ("BEST_MATCH_TYPE_K", 'wt') as Best_Match_Type_K:
+        kaptive_type_k=tsv_dict['Best match type']
+        Best_Match_Type_K.write(kaptive_type_k)
       with open ("MATCH_CONFIDENCE_K", 'wt') as Match_Confidence_K:
         kaptive_confidence_k=tsv_dict['Match confidence']
         Match_Confidence_K.write(kaptive_confidence_k)
@@ -73,6 +78,7 @@ task kaptive {
         Other_Outside_K.write(other_out_k)
     CODE
     kaptive.py \
+    -t ~{cpu} \
     ~{'--start_end_margin ' + start_end_margin} \
     ~{'--min_gene_id ' + min_identity} \
     ~{'--min_gene_cov ' + min_coverage} \
@@ -91,6 +97,9 @@ task kaptive {
       with open ("BEST_MATCH_LOCUS_OC", 'wt') as Best_Match_Locus_OC:
         kaptive_locus_oc=tsv_dict['Best match locus']
         Best_Match_Locus_OC.write(kaptive_locus_oc)
+      with open ("BEST_MATCH_TYPE_OC", 'wt') as Best_Match_Type_OC:
+        kaptive_type_oc=tsv_dict['Best match type']
+        Best_Match_Type_OC.write(kaptive_type_oc)
       with open ("MATCH_CONFIDENCE_OC", 'wt') as Match_Confidence_OC:
         kaptive_confidence_oc=tsv_dict['Match confidence']
         Match_Confidence_OC.write(kaptive_confidence_oc)
@@ -127,6 +136,7 @@ task kaptive {
     File kaptive_output_file_oc = "~{samplename}_kaptive_out_oc_table.tsv"
     String kaptive_version = read_string("VERSION")
     String kaptive_k_match = read_string("BEST_MATCH_LOCUS_K")
+    String kaptive_k_type = read_string("BEST_MATCH_TYPE_K")
     String kaptive_k_confidence = read_string("MATCH_CONFIDENCE_K")
     String kaptive_k_expected_inside_count = read_string("NUM_EXPECTED_INSIDE_K")
     String kaptive_k_expected_inside_genes = read_string("EXPECTED_GENES_IN_LOCUS_K")
@@ -137,6 +147,7 @@ task kaptive {
     String kaptive_k_other_outside_count = read_string("NUM_OTHER_OUTSIDE_K")
     String kaptive_k_other_outside_genes = read_string("OTHER_GENES_OUT_LOCUS_K")
     String kaptive_oc_match = read_string("BEST_MATCH_LOCUS_OC")
+    String kaptive_oc_type = read_string("BEST_MATCH_TYPE_OC")
     String kaptive_oc_confidence = read_string("MATCH_CONFIDENCE_OC")
     String kaptive_oc_expected_inside_count = read_string("NUM_EXPECTED_INSIDE_OC")
     String kaptive_oc_expected_inside_genes = read_string("EXPECTED_GENES_IN_LOCUS_OC")
@@ -148,9 +159,9 @@ task kaptive {
     String kaptive_oc_other_outside_genes = read_string("OTHER_GENES_OUT_LOCUS_OC")
   }
   runtime {
-    docker:       "~{kaptive_docker_image}"
-    memory:       "16 GB"
-    cpu:          8
-    disks:        "local-disk 100 SSD"
+    docker: "~{kaptive_docker_image}"
+    memory: "8 GB"
+    cpu: cpu
+    disks: "local-disk 100 SSD"
   }
 }
