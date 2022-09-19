@@ -25,6 +25,7 @@ workflow merlin_magic {
     File read1
     File? read2
     Boolean paired_end = true
+    Boolean call_poppunk = true
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -96,6 +97,29 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
+  if (merlin_tag == "Streptococcus pneumoniae") {
+    if (paired_end) {
+      call seroba.seroba as seroba_task {
+        input:
+          read1 = read1,
+          read2 = read2,
+          samplename = samplename
+      }
+    }
+    call pbptyper.pbptyper as pbptyper_task {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }      
+    if (call_poppunk) {
+      call poppunk_spneumo.poppunk as poppunk_task {
+        input:
+          assembly = assembly,
+          samplename = samplename
+      }  
+    }
+  }
+
   output {
   # Ecoli Typing
   File? serotypefinder_report = serotypefinder.serotypefinder_report
@@ -157,5 +181,20 @@ workflow merlin_magic {
   File? legsta_results = legsta.legsta_results
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
   String? legsta_version = legsta.legsta_version
+  # Streptococcus pneumoniae Typing
+  String? pbptyper_predicted_1A_2B_2X = pbptyper_task.pbptyper_predicted_1A_2B_2X
+  File? pbptyper_pbptype_predicted_tsv = pbptyper_task.pbptyper_pbptype_predicted_tsv
+  File? pbptyper_pbptype_1A_tsv = pbptyper_task.pbptyper_pbptype_1A_tsv
+  File? pbptyper_pbptype_2B_tsv = pbptyper_task.pbptyper_pbptype_2B_tsv
+  File? pbptyper_pbptype_2X_tsv = pbptyper_task.pbptyper_pbptype_2X_tsv
+  String? pbptyper_version = pbptyper_task.pbptyper_version
+  String? poppunk_gps_cluster = poppunk_task.poppunk_gps_cluster
+  File? poppunk_gps_external_cluster_csv = poppunk_task.poppunk_gps_external_cluster_csv
+  String? poppunk_version = poppunk_task.poppunk_version
+  String? seroba_version = seroba_task.seroba_version
+  String? seroba_serotype = seroba_task.seroba_serotype
+  String? seroba_ariba_serotype = seroba_task.seroba_ariba_serotype
+  String? seroba_ariba_identity = seroba_task.seroba_ariba_identity
+  File? seroba_details = seroba_task.seroba_details
  }
 }
