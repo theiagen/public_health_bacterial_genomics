@@ -10,6 +10,9 @@ import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 import "../tasks/species_typing/task_kaptive.wdl" as kaptive
+import "../tasks/species_typing/task_seroba.wdl" as seroba
+import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
+import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
 
 workflow merlin_magic {
   meta {
