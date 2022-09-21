@@ -148,6 +148,7 @@ workflow merlin_magic {
   # Klebsiella Typing
   File? kleborate_output_file = kleborate.kleborate_output_file
   String? kleborate_version = kleborate.kleborate_version
+  String? kleborate_docker = kleborate.kleborate_docker
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
   String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type

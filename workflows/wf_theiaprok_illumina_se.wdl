@@ -249,6 +249,7 @@ workflow theiaprok_illumina_se {
             genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence,
             kleborate_output_file = merlin_magic.kleborate_output_file,
             kleborate_version = merlin_magic.kleborate_version,
+            kleborate_docker = merlin_magic.kleborate_docker,
             kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
             kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
             kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
@@ -403,6 +404,7 @@ workflow theiaprok_illumina_se {
     # Klebsiella Typing
     File? kleborate_output_file = merlin_magic.kleborate_output_file
     String? kleborate_version = merlin_magic.kleborate_version
+    String? kleborate_docker = merlin_magic.kleborate_docker
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
     String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type

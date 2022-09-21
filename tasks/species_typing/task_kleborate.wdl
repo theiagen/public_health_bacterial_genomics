@@ -118,6 +118,7 @@ task kleborate {
   output {
     File kleborate_output_file = "~{samplename}_kleborate_out.tsv"
     String kleborate_version = read_string("VERSION")
+    String kleborate_docker = kleborate_docker_image
     String kleborate_mlst_sequence_type = read_string("MLST_SEQUENCE_TYPE")
     String kleborate_virulence_score = read_string("VIRULENCE_SCORE")
     String kleborate_resistance_score = read_string("RESISTANCE_SCORE")
