@@ -38,6 +38,7 @@ task pbptyper {
     File pbptyper_pbptype_2B_tsv = "~{samplename}-2B.tblastn.tsv" # A tab-delimited file of all blast hits against 2B
     File pbptyper_pbptype_2X_tsv = "~{samplename}-2X.tblastn.tsv" # A tab-delimited file of all blast hits against 2X
     String pbptyper_version = read_string("VERSION")
+    String pbptyper_docker = docker
   }
   runtime {
     docker: "~{docker}"
