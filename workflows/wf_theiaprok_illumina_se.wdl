@@ -255,12 +255,12 @@ workflow theiaprok_illumina_se {
             kaptive_output_file_k = merlin_magic.kaptive_output_file_k,
             kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc,
             kaptive_version = merlin_magic.kaptive_version,
-            kaptive_k_match = merlin_magic.kaptive_k_match,
+            kaptive_k_locus = merlin_magic.kaptive_k_match,
             kaptive_k_type = merlin_magic.kaptive_k_type,
-            kaptive_k_confidence = merlin_magic.kaptive_k_confidence,
-            kaptive_oc_match = merlin_magic.kaptive_oc_match,
+            kaptive_kl_confidence = merlin_magic.kaptive_k_confidence,
+            kaptive_oc_locus = merlin_magic.kaptive_oc_match,
             kaptive_oc_type = merlin_magic.kaptive_oc_type,
-            kaptive_oc_confidence = merlin_magic.kaptive_oc_confidence,
+            kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence,
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
             tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -413,12 +413,12 @@ workflow theiaprok_illumina_se {
     File? kaptive_output_file_k = merlin_magic.kaptive_output_file_k
     File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
     String? kaptive_version = merlin_magic.kaptive_version
-    String? kaptive_k_match = merlin_magic.kaptive_k_match
+    String? kaptive_k_locus = merlin_magic.kaptive_k_match
     String? kaptive_k_type = merlin_magic.kaptive_k_type
-    String? kaptive_k_confidence = merlin_magic.kaptive_k_confidence
-    String? kaptive_oc_match = merlin_magic.kaptive_oc_match
+    String? kaptive_kl_confidence = merlin_magic.kaptive_k_confidence
+    String? kaptive_oc_locus = merlin_magic.kaptive_oc_match
     String? kaptive_oc_type = merlin_magic.kaptive_oc_type
-    String? kaptive_oc_confidence = merlin_magic.kaptive_oc_confidence
+    String? kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam
