@@ -274,7 +274,6 @@ workflow theiaprok_illumina_pe {
             kaptive_k_type = merlin_magic.kaptive_k_type,
             kaptive_kl_confidence = merlin_magic.kaptive_k_confidence,
             kaptive_oc_locus = merlin_magic.kaptive_oc_match,
-            kaptive_oc_type = merlin_magic.kaptive_oc_type,
             kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence,
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
@@ -444,7 +443,6 @@ workflow theiaprok_illumina_pe {
     String? kaptive_k_type = merlin_magic.kaptive_k_type
     String? kaptive_kl_confidence = merlin_magic.kaptive_k_confidence
     String? kaptive_oc_locus = merlin_magic.kaptive_oc_match
-    String? kaptive_oc_type = merlin_magic.kaptive_oc_type
     String? kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
