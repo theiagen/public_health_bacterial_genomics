@@ -98,9 +98,15 @@ task kleborate {
       with open ("K_TYPE", 'wt') as Ktype:
         ktype=tsv_dict['K_type']
         Ktype.write(ktype)
+      with open ("K_LOCUS", 'wt') as Klocus:
+        klocus=tsv_dict['K_locus']
+        Klocus.write(klocus)
       with open ("O_TYPE", 'wt') as Otype:
         otype=tsv_dict['O_type']
         Otype.write(otype)
+      with open ("O_LOCUS", 'wt') as Olocus:
+        olocus=tsv_dict['O_locus']
+        Olocus.write(olocus)
       with open ("K_LOCUS_CONFIDENCE", 'wt') as K_locus_confidence:
         k_locus_confidence=tsv_dict['K_locus_confidence']
         K_locus_confidence.write(k_locus_confidence)
@@ -120,8 +126,10 @@ task kleborate {
     String kleborate_esbl_resistance_genes = read_string("ESBL_RESISTANCE_GENES")
     String kleborate_key_resistance_genes = read_string("KEY_RESISTANCE_GENES")
     String kleborate_genomic_resistance_mutations = read_string("GENOMIC_RESISTANCE_MUTATIONS")
+    String kleborate_klocus = read_string("K_LOCUS")
     String kleborate_ktype = read_string("K_TYPE")
     String kleborate_otype = read_string("O_TYPE")
+    String kleborate_olocus = read_string("O_LOCUS")
     String kleborate_klocus_confidence = read_string("K_LOCUS_CONFIDENCE")
     String kleborate_olocus_confidence = read_string("O_LOCUS_CONFIDENCE")
   }

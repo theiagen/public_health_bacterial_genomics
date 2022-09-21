@@ -252,7 +252,9 @@ workflow theiaprok_illumina_se {
             kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
             kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
             kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
+            kleborate_klocus = merlin_magic.kleborate_klocus,
             kleborate_ktype = merlin_magic.kleborate_ktype,
+            kleborate_olocus = merlin_magic.kleborate_olocus,
             kleborate_otype = merlin_magic.kleborate_otype,
             kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence,
             kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence,
@@ -404,7 +406,9 @@ workflow theiaprok_illumina_se {
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
     String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type
+    String? kleborate_klocus = merlin_magic.kleborate_klocus
     String? kleborate_ktype = merlin_magic.kleborate_ktype
+    String? kleborate_olocus = merlin_magic.kleborate_olocus
     String? kleborate_otype = merlin_magic.kleborate_otype
     String? kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence
     String? kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence

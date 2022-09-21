@@ -151,7 +151,9 @@ workflow merlin_magic {
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
   String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type
+  String? kleborate_klocus = kleborate.kleborate_klocus
   String? kleborate_ktype = kleborate.kleborate_ktype
+  String? kleborate_olocus = kleborate.kleborate_olocus
   String? kleborate_otype = kleborate.kleborate_otype
   String? kleborate_klocus_confidence = kleborate.kleborate_klocus_confidence
   String? kleborate_olocus_confidence = kleborate.kleborate_olocus_confidence
