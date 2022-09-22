@@ -198,7 +198,9 @@ workflow merlin_magic {
   String? pbptyper_docker = pbptyper_task.pbptyper_docker
   String? poppunk_gps_cluster = poppunk_task.poppunk_gps_cluster
   File? poppunk_gps_external_cluster_csv = poppunk_task.poppunk_gps_external_cluster_csv
+  String? poppunk_GPS_db_version = poppunk_task.poppunk_GPS_db_version
   String? poppunk_version = poppunk_task.poppunk_version
+  String? poppunk_docker = poppunk_task.poppunk_docker
   String? seroba_version = seroba_task.seroba_version
   String? seroba_serotype = seroba_task.seroba_serotype
   String? seroba_ariba_serotype = seroba_task.seroba_ariba_serotype

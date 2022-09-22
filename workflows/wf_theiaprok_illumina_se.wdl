@@ -292,8 +292,9 @@ workflow theiaprok_illumina_se {
             pbptyper_docker = merlin_magic.pbptyper_docker,
             poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster,
             poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv,
-            poppunk_version = merlin_magic.poppunk_version            
-            
+            poppunk_GPS_db_version = merlin_magic.poppunk_gps_external_cluster_csv,
+            poppunk_version = merlin_magic.poppunk_version,
+            poppunk_docker = merlin_magic.poppunk_docker,
         }
       }
     }
@@ -452,6 +453,8 @@ workflow theiaprok_illumina_se {
     String? pbptyper_docker = merlin_magic.pbptyper_docker
     String? poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster
     File? poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv
+    String? poppunk_GPS_db_version = merlin_magic.poppunk_GPS_db_version
     String? poppunk_version = merlin_magic.poppunk_version
+    String? poppunk_docker = merlin_magic.poppunk_docker
   }
 }
