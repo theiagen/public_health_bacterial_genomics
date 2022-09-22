@@ -9,10 +9,10 @@ import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
+import "../tasks/species_typing/task_kaptive.wdl" as kaptive
 import "../tasks/species_typing/task_seroba.wdl" as seroba
 import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
-
 
 workflow merlin_magic {
   meta {
@@ -26,6 +26,13 @@ workflow merlin_magic {
     File? read2
     Boolean paired_end = true
     Boolean call_poppunk = true
+  }
+    if (merlin_tag == "Acinetobacter baumannii") {
+    call kaptive.kaptive {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
   }
   if (merlin_tag == "Escherichia") {
     call serotypefinder.serotypefinder {
@@ -151,6 +158,16 @@ workflow merlin_magic {
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
   String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type
+  # Acinetobacter Typing
+  File? kaptive_output_file_k = kaptive.kaptive_output_file_k
+  File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
+  String? kaptive_version = kaptive.kaptive_version
+  String? kaptive_k_match = kaptive.kaptive_k_match
+  String? kaptive_k_type = kaptive.kaptive_k_type
+  String? kaptive_k_confidence = kaptive.kaptive_k_confidence
+  String? kaptive_oc_match = kaptive.kaptive_oc_match
+  String? kaptive_oc_type = kaptive.kaptive_oc_type
+  String? kaptive_oc_confidence = kaptive.kaptive_oc_confidence
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
   File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam
