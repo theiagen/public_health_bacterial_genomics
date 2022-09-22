@@ -311,6 +311,7 @@ workflow theiaprok_illumina_pe {
             poppunk_version = merlin_magic.poppunk_version,
             poppunk_docker = merlin_magic.poppunk_docker,
             seroba_version = merlin_magic.seroba_version,
+            seroba_docker = merlin_magic.seroba_docker,
             seroba_serotype = merlin_magic.seroba_serotype,
             seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype,
             seroba_ariba_identity = merlin_magic.seroba_ariba_identity,
@@ -485,6 +486,7 @@ workflow theiaprok_illumina_pe {
     String? poppunk_version = merlin_magic.poppunk_version
     String? poppunk_docker = merlin_magic.poppunk_docker
     String? seroba_version = merlin_magic.seroba_version
+    String? seroba_docker = merlin_magic.seroba_docker
     String? seroba_serotype = merlin_magic.seroba_serotype
     String? seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype
     String? seroba_ariba_identity = merlin_magic.seroba_ariba_identity
