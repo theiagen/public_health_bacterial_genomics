@@ -155,9 +155,16 @@ workflow merlin_magic {
   # Klebsiella Typing
   File? kleborate_output_file = kleborate.kleborate_output_file
   String? kleborate_version = kleborate.kleborate_version
+  String? kleborate_docker = kleborate.kleborate_docker
   String? kleborate_key_resistance_genes = kleborate.kleborate_key_resistance_genes
   String? kleborate_genomic_resistance_mutations = kleborate.kleborate_genomic_resistance_mutations
   String? kleborate_mlst_sequence_type = kleborate.kleborate_mlst_sequence_type
+  String? kleborate_klocus = kleborate.kleborate_klocus
+  String? kleborate_ktype = kleborate.kleborate_ktype
+  String? kleborate_olocus = kleborate.kleborate_olocus
+  String? kleborate_otype = kleborate.kleborate_otype
+  String? kleborate_klocus_confidence = kleborate.kleborate_klocus_confidence
+  String? kleborate_olocus_confidence = kleborate.kleborate_olocus_confidence
   # Acinetobacter Typing
   File? kaptive_output_file_k = kaptive.kaptive_output_file_k
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
