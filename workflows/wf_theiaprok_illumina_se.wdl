@@ -249,9 +249,24 @@ workflow theiaprok_illumina_se {
             genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence,
             kleborate_output_file = merlin_magic.kleborate_output_file,
             kleborate_version = merlin_magic.kleborate_version,
+            kleborate_docker = merlin_magic.kleborate_docker,
             kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
             kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
             kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
+            kleborate_klocus = merlin_magic.kleborate_klocus,
+            kleborate_ktype = merlin_magic.kleborate_ktype,
+            kleborate_olocus = merlin_magic.kleborate_olocus,
+            kleborate_otype = merlin_magic.kleborate_otype,
+            kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence,
+            kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence,
+            kaptive_output_file_k = merlin_magic.kaptive_output_file_k,
+            kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc,
+            kaptive_version = merlin_magic.kaptive_version,
+            kaptive_k_locus = merlin_magic.kaptive_k_match,
+            kaptive_k_type = merlin_magic.kaptive_k_type,
+            kaptive_kl_confidence = merlin_magic.kaptive_k_confidence,
+            kaptive_oc_locus = merlin_magic.kaptive_oc_match,
+            kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence,
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
             tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -398,9 +413,25 @@ workflow theiaprok_illumina_se {
     # Klebsiella Typing
     File? kleborate_output_file = merlin_magic.kleborate_output_file
     String? kleborate_version = merlin_magic.kleborate_version
+    String? kleborate_docker = merlin_magic.kleborate_docker
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
     String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type
+    String? kleborate_klocus = merlin_magic.kleborate_klocus
+    String? kleborate_ktype = merlin_magic.kleborate_ktype
+    String? kleborate_olocus = merlin_magic.kleborate_olocus
+    String? kleborate_otype = merlin_magic.kleborate_otype
+    String? kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence
+    String? kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence
+    # Acinetobacter Typing
+    File? kaptive_output_file_k = merlin_magic.kaptive_output_file_k
+    File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
+    String? kaptive_version = merlin_magic.kaptive_version
+    String? kaptive_k_locus = merlin_magic.kaptive_k_match
+    String? kaptive_k_type = merlin_magic.kaptive_k_type
+    String? kaptive_kl_confidence = merlin_magic.kaptive_k_confidence
+    String? kaptive_oc_locus = merlin_magic.kaptive_oc_match
+    String? kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam

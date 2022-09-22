@@ -136,6 +136,8 @@ task gambit {
       merlin_tag="Haemophilus"
     elif [[ ${predicted_taxon} == *"Klebsiella"* ]]; then 
       merlin_tag="Klebsiella"
+    elif [[ ${predicted_taxon} == *"Acinetobacter baumannii"* ]]; then 
+      merlin_tag="Acinetobacter baumannii"
     elif [[ ${predicted_taxon} == *"Legionella pneumophila"* ]]; then 
       merlin_tag="Legionella pneumophila"
     elif [[ ${predicted_taxon} == *"Listeria"* ]]; then 
