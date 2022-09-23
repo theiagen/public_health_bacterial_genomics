@@ -10,6 +10,7 @@ task amrfinderplus_nuc {
     String? organism # make optional?
     Float? minid
     Float? mincov
+    Boolean detailed_drug_class = false
     Int cpu = 4
     String docker = "staphb/ncbi-amrfinderplus:3.10.36"
   }
@@ -103,10 +104,16 @@ task amrfinderplus_nuc {
     amr_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
     stress_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_stress.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
     virulence_genes=$(awk -F '\t' '{ print $7 }' ~{samplename}_amrfinder_virulence.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
+    
+    if [ detailed_drug_class ]; then
+      amr_classes=$(awk -F '\t' '{ print $12 }' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | sort | uniq | tr '\n' ', ' | sed 's/.$//')
+      amr_subclasses=$(awk -F '\t' '{ print $13 }' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | sort | uniq | tr '\n' ', ' | sed 's/.$//')
+    else
     # create string outputs for AMR drug classes
     amr_classes=$(awk -F '\t' 'BEGIN{OFS=":"} {print $7,$12}' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
     # create string outputs for AMR drug subclasses
     amr_subclasses=$(awk -F '\t' 'BEGIN{OFS=":"} {print $7,$13}' ~{samplename}_amrfinder_amr.tsv | tail -n+2 | tr '\n' ', ' | sed 's/.$//')
+    fi
 
     # if variable for list of genes is EMPTY, write string saying it is empty to float to Terra table
     if [ -z "${amr_genes}" ]; then
