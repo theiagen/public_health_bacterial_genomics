@@ -90,7 +90,7 @@
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-gambit/command
-      md5sum: f5e4433d1b994998f68fc8568166fcde
+      md5sum: 78c3082bc3d478f3d88e72c9ece17199
     - path: miniwdl_run/call-gambit/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-gambit/outputs.json
@@ -320,7 +320,6 @@
     - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-shovill_pe/work/out/shovill.corrections
-      contains: ["Contig"]
     - path: miniwdl_run/call-shovill_pe/work/out/shovill.log
       contains: ["shovill", "size", "total", "Done"]
     - path: miniwdl_run/call-shovill_pe/work/out/skesa.fasta
