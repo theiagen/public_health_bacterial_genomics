@@ -4,7 +4,7 @@ task gambit {
   input {
     File assembly
     String samplename
-    String docker = "quay.io/staphb/gambit:0.4.0"
+    String docker = "quay.io/staphb/gambit:0.5.0"
     File? gambit_db_genomes
     File? gambit_db_signatures
   }

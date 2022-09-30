@@ -18,7 +18,7 @@
     - wf_theiaprok_illumina_pe_miniwdl
   files:
     - path: miniwdl_run/call-amrfinderplus_task/command
-      md5sum: fe664da0e4d1746919e25ddcf76cc20d
+      md5sum: e2ef1278531c6e19ae4adcd6bd83ca07
     - path: miniwdl_run/call-amrfinderplus_task/inputs.json
       contains: ["assembly", "fasta", "organism", "test"]
     - path: miniwdl_run/call-amrfinderplus_task/outputs.json
@@ -90,7 +90,7 @@
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-gambit/command
-      md5sum: 78c3082bc3d478f3d88e72c9ece17199
+      md5sum: 8408c43cf723efaf1a7d28332a5a2024
     - path: miniwdl_run/call-gambit/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-gambit/outputs.json
@@ -104,9 +104,9 @@
     - path: miniwdl_run/call-gambit/work/CLOSEST_DISTANCE
     - path: miniwdl_run/call-gambit/work/DATE
     - path: miniwdl_run/call-gambit/work/GAMBIT_DB_VERSION
-      md5sum: 665bf196d268251de28d9e3de0a449f7
+      md5sum: 2276ab90b62c0219da0fac43d28b0512
     - path: miniwdl_run/call-gambit/work/GAMBIT_VERSION
-      md5sum: 6f7e3a39515a2c5db8a447b6dc4c88f2
+      md5sum: f04975119234de325222289d81748e6d
     - path: miniwdl_run/call-gambit/work/MERLIN_TAG
       md5sum: 08e9de24ab150d083240557cec091d53
     - path: miniwdl_run/call-gambit/work/NEXT_TAXON
