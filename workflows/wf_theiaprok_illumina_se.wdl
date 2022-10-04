@@ -12,6 +12,7 @@ import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/gene_typing/task_resfinder.wdl" as resfinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
+import "../tasks/gene_typing/task_bakta.wdl" as bakta
 import "../tasks/gene_typing/task_prokka.wdl" as prokka
 import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
 import "../tasks/task_versioning.wdl" as versioning
@@ -44,6 +45,7 @@ workflow theiaprok_illumina_se {
     Int min_coverage = 10
     Boolean call_resfinder = false
     Boolean skip_screen = false 
+    Boolean use_prokka = false 
   }
   call versioning.version_capture{
     input:
@@ -129,10 +131,19 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
-      call prokka.prokka {
-        input:
-          assembly = shovill_se.assembly_fasta,
-          samplename = samplename
+      if (use_prokka) {
+        call prokka.prokka {
+          input:
+            assembly = shovill_pe.assembly_fasta,
+            samplename = samplename
+        }
+      }
+      if (! use_prokka) {
+        call bakta.bakta {
+          input:
+            assembly = shovill_pe.assembly_fasta,
+            samplename = samplename
+        }
       }
       call plasmidfinder.plasmidfinder {
         input:
@@ -372,6 +383,17 @@ workflow theiaprok_illumina_se {
     File? prokka_gff = prokka.prokka_gff
     File? prokka_gbk = prokka.prokka_gbk
     File? prokka_sqn = prokka.prokka_sqn
+    # Bakta Results
+    File? bakta_embl = bakta.bakta_embl
+    File? bakta_faa = bakta.bakta_faa
+    File? bakta_ffn = bakta.bakta_ffn
+    File? bakta_fna = bakta.bakta_fna
+    File? bakta_gbff = bakta.bakta_gbff
+    File? bakta_gff3 = bakta.bakta_gff3
+    File? bakta_hypotheticals_faa = bakta.bakta_hypotheticals_faa
+    File? bakta_hypotheticals_tsv = bakta.bakta_hypotheticals_tsv
+    File? bakta_tsv = bakta.bakta_tsv
+    File? bakta_txt = bakta.bakta_txt
     # Plasmidfinder Results
     String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
