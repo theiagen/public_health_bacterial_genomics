@@ -32,7 +32,7 @@ workflow ksnp3_workflow {
   output {
     # Version Capture
     String ksnp3_wf_version = version_capture.phbg_version
-    String knsp3_wf_analysis_date = version_capture.date
+    String ksnp3_wf_analysis_date = version_capture.date
     # ksnp3_outputs
     String ksnp3_snp_dists_version = pan_snp_dists.version
     File ksnp3_core_snp_matrix = core_snp_dists.snp_matrix
