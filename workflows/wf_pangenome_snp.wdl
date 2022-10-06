@@ -7,14 +7,14 @@ import "../tasks/task_versioning.wdl" as versioning
 
 workflow pangenome_snp_workflow {
   input {
-    Array[File] prokka_gff
+    Array[File] gff3
     String cluster_name
     Boolean align = true
     Boolean core = true
   }
   call pirate.pirate as pirate {
     input:
-      prokka_gff = prokka_gff,
+      gff3 = gff3,
       cluster_name = cluster_name,
       align = align
   }
