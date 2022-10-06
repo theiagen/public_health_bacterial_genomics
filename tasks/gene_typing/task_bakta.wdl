@@ -3,7 +3,7 @@ version 1.0
 task bakta {
   input {
     File assembly
-    File bakta_db
+    File bakta_db = "gs://theiagen-public-files-rp/terra/theiaprok-files/bakta_db_2022-08-29.tar.gz"
     String samplename
     Int cpu = 8
     Int memory = 16
