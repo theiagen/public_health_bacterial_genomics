@@ -3,6 +3,7 @@ version 1.0
 import "../tasks/quality_control/task_trimmomatic.wdl" as trimmomatic
 import "../tasks/quality_control/task_bbduk.wdl" as bbduk
 import "../tasks/quality_control/task_fastq_scan.wdl" as fastq_scan
+import "../tasks/taxon_id/task_midas.wdl" as midas
 
 workflow read_QC_trim {
   meta {
@@ -17,6 +18,7 @@ workflow read_QC_trim {
     Int?    trimmomatic_quality_trim_score = 20
     Int?    trimmomatic_window_size = 10
     Int     bbduk_mem = 8
+    File    midas_db
   }
   call trimmomatic.trimmomatic_pe {
     input:
@@ -44,6 +46,13 @@ workflow read_QC_trim {
       read1 = bbduk_pe.read1_clean,
       read2 = bbduk_pe.read2_clean
   }
+  call midas.midas as midas {
+    input:
+      samplename = samplename,
+      read1 = read1_raw,
+      read2 = read2_raw,
+      midas_db = midas_db
+  }
 
   output {
     File	read1_clean	=	bbduk_pe.read1_clean
@@ -57,5 +66,11 @@ workflow read_QC_trim {
     String	fastq_scan_version	=	fastq_scan_raw.version
     String	bbduk_docker	=	bbduk_pe.bbduk_docker
     String	trimmomatic_version	=	trimmomatic_pe.version
+    String midas_docker = midas.midas_docker
+    File midas_report = midas.midas_report
+    String midas_primary_species = midas.midas_primary_species
+    String midas_primary_species_abundance = midas.midas_primary_species_abundance
+    String midas_secondary_species = midas.midas_secondary_species
+    String midas_secondary_species_abundance = midas.midas_secondary_species_abundance
   }
 }

@@ -313,7 +313,13 @@ workflow theiaprok_illumina_pe {
             seroba_serotype = merlin_magic.seroba_serotype,
             seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype,
             seroba_ariba_identity = merlin_magic.seroba_ariba_identity,
-            seroba_details = merlin_magic.seroba_details
+            seroba_details = merlin_magic.seroba_details,
+            midas_docker = read_QC_trim.midas_docker,
+            midas_report = read_QC_trim.midas_report,
+            midas_primary_species = read_QC_trim.midas_primary_species,
+            midas_primary_species_abundance = read_QC_trim.midas_primary_species_abundance,
+            midas_secondary_species = read_QC_trim.midas_secondary_species,
+            midas_secondary_species_abundance = read_QC_trim.midas_secondary_species_abundance
         }
       }
     }
@@ -341,6 +347,12 @@ workflow theiaprok_illumina_pe {
     Float? r2_mean_q = cg_pipeline.r2_mean_q
     File? read1_clean = read_QC_trim.read1_clean
     File? read2_clean = read_QC_trim.read2_clean
+    String? midas_docker = read_QC_trim.midas_docker
+    File? midas_report = read_QC_trim.midas_report
+    String? midas_primary_species = read_QC_trim.midas_primary_species
+    String? midas_primary_species_abundance = read_QC_trim.midas_primary_species_abundance
+    String? midas_secondary_species = read_QC_trim.midas_secondary_species
+    String? midas_secondary_species_abundance = read_QC_trim.midas_secondary_species_abundance
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_pe.assembly_fasta
     File? contigs_gfa = shovill_pe.contigs_gfa
