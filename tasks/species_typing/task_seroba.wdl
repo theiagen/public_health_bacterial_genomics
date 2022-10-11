@@ -5,6 +5,7 @@ task seroba {
     File read1
     File? read2
     String samplename
+    String docker = "staphb/seroba:1.0.2"
   }
   command <<<
     # grab version
@@ -28,13 +29,14 @@ task seroba {
   >>>
   output {
     String seroba_version = read_string("VERSION")
+    String seroba_docker = docker
     String seroba_serotype = read_string("SEROTYPE")
     String seroba_ariba_serotype = read_string("ARIBA_SEROTYPE")
     String seroba_ariba_identity = read_string("ARIBA_IDENTITY")
     File? seroba_details = "~{samplename}/detailed_serogroup_info.txt"
   }
   runtime {
-    docker: "staphb/seroba:1.0.2"
+    docker: "~{docker}"
     memory: "16 GB"
     cpu: 8
     disks: "local-disk 100 SSD"

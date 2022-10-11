@@ -291,10 +291,12 @@ workflow theiaprok_illumina_se {
             pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X,
             pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv,
             pbptyper_version = merlin_magic.pbptyper_version,
+            pbptyper_docker = merlin_magic.pbptyper_docker,
             poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster,
             poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv,
-            poppunk_version = merlin_magic.poppunk_version            
-            
+            poppunk_GPS_db_version = merlin_magic.poppunk_gps_external_cluster_csv,
+            poppunk_version = merlin_magic.poppunk_version,
+            poppunk_docker = merlin_magic.poppunk_docker,
         }
       }
     }
@@ -452,8 +454,11 @@ workflow theiaprok_illumina_se {
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv
     String? pbptyper_version = merlin_magic.pbptyper_version
+    String? pbptyper_docker = merlin_magic.pbptyper_docker
     String? poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster
     File? poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv
+    String? poppunk_GPS_db_version = merlin_magic.poppunk_GPS_db_version
     String? poppunk_version = merlin_magic.poppunk_version
+    String? poppunk_docker = merlin_magic.poppunk_docker
   }
 }
