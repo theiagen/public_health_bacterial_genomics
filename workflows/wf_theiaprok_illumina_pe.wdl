@@ -314,12 +314,12 @@ workflow theiaprok_illumina_pe {
             seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype,
             seroba_ariba_identity = merlin_magic.seroba_ariba_identity,
             seroba_details = merlin_magic.seroba_details,
-            midas_docker = read_QC_trim.midas_docker,
-            midas_report = read_QC_trim.midas_report,
-            midas_primary_species = read_QC_trim.midas_primary_species,
-            midas_primary_species_abundance = read_QC_trim.midas_primary_species_abundance,
-            midas_secondary_species = read_QC_trim.midas_secondary_species,
-            midas_secondary_species_abundance = read_QC_trim.midas_secondary_species_abundance
+            #midas_docker = read_QC_trim.midas_docker,
+            #midas_report = read_QC_trim.midas_report,
+            #midas_primary_species = read_QC_trim.midas_primary_species,
+            #midas_primary_species_abundance = read_QC_trim.midas_primary_species_abundance,
+            #midas_secondary_species = read_QC_trim.midas_secondary_species,
+            #midas_secondary_species_abundance = read_QC_trim.midas_secondary_species_abundance
         }
       }
     }
