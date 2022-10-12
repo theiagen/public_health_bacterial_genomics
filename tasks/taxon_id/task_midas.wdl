@@ -54,8 +54,8 @@ task midas {
   output {
     String midas_docker = docker
     String midas_analysis_date = read_string("DATE")
-    File midas_report = "~{samplename}/taxon/~{samplename}_taxon_profile.txt"
-    File midas_log = "~{samplename}/taxon/~{samplename}_log.txt"
+    File midas_report = "~{samplename}/species/~{samplename}_species_profile.txt"
+    File midas_log = "~{samplename}/species/~{samplename}_log.txt"
     String midas_primary_species = read_string("PRIMARY_SPECIES")
     String midas_secondary_species = read_string("SECONDARY_SPECIES")
     String midas_secondary_species_coverage = read_string("SECONDARY_SPECIES_COVERAGE")
