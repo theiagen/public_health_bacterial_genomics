@@ -24,28 +24,41 @@ task midas {
     mv ~{samplename}/species/species_profile.txt ~{samplename}/species/~{samplename}_species_profile.txt
     mv ~{samplename}/species/log.txt ~{samplename}/species/~{samplename}_log.txt
 
-    # parse output files to primary and secondary species abundance strings
-    primary_species=$(awk -F '\t' '{ print $1 }' species_profile.txt | head -2 | tail -1 )
-    primary_species_abundance=$(awk -F '\t' '{ print $4 }' species_profile.txt | head -2 | tail -1 )
-    secondary_species=$(awk -F '\t' '{ print $1 }' species_profile.txt | head -3 | tail -1 )
-    secondary_species_abundance=$(awk -F '\t' '{ print $4 }' species_profile.txt | head -3 | tail -1 )
+    # determine if secondary species
+    # filter rows where coverage is less than 1.0
+    awk -F "\t" '{ if(($3 >1.0)) { print } }' ~{samplename}/species/~{samplename}_species_profile.txt > output.tsv
 
+    # get primary species: sort by coverage (descending), get top non-header row, cut for species_ID column, parse column to get only species name
+    primary_species=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1-2 -d"_")
+
+    # filter to remove lines with primary species
+    grep -v -F "$primary_species" output.tsv > output1.tsv
+
+    # get secondary species: sort by coverage again to be safe, get top non-header row, cut for species_ID column, parse column to get only species name
+    secondary_species=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1-2 -d"_")
+    # get coverage of secondary species
+    secondary_species_coverage=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 )
+
+    # indicate if no secondary species was detected
+    if [ -z "${secondary_species}" ]; then
+       secondary_species="No secondary species detected (>1.0X coverage)"
+       secondary_species_coverage="No secondary species detected (>1.0X coverage)"
+    fi
+    
     # create final output strings
     echo "${primary_species}" > PRIMARY_SPECIES
-    echo "${primary_species_abundance}" > PRIMARY_SPECIES_ABUNDANCE
     echo "${secondary_species}" > SECONDARY_SPECIES
-    echo "${secondary_species_abundance}" > SECONDARY_SPECIES_ABUNDANCE
+    echo "${secondary_species_coverage}" > SECONDARY_SPECIES_COVERAGE
 
   >>>
   output {
     String midas_docker = docker
     String midas_analysis_date = read_string("DATE")
-    File midas_report = "~{samplename}/species/~{samplename}_species_profile.txt"
-    File midas_log = "~{samplename}/species/~{samplename}_log.txt"
+    File midas_report = "~{samplename}/taxon/~{samplename}_taxon_profile.txt"
+    File midas_log = "~{samplename}/taxon/~{samplename}_log.txt"
     String midas_primary_species = read_string("PRIMARY_SPECIES")
-    String midas_primary_species_abundance = read_string("PRIMARY_SPECIES_ABUNDANCE")
     String midas_secondary_species = read_string("SECONDARY_SPECIES")
-    String midas_secondary_species_abundance = read_string("SECONDARY_SPECIES_ABUNDANCE")
+    String midas_secondary_species_coverage = read_string("SECONDARY_SPECIES_COVERAGE")
   }
   runtime {
       docker: "~{docker}"

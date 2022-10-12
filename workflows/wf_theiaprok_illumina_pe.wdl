@@ -317,9 +317,8 @@ workflow theiaprok_illumina_pe {
             #midas_docker = read_QC_trim.midas_docker,
             #midas_report = read_QC_trim.midas_report,
             #midas_primary_species = read_QC_trim.midas_primary_species,
-            #midas_primary_species_abundance = read_QC_trim.midas_primary_species_abundance,
             #midas_secondary_species = read_QC_trim.midas_secondary_species,
-            #midas_secondary_species_abundance = read_QC_trim.midas_secondary_species_abundance
+            #midas_secondary_species_coverage = read_QC_trim.midas_secondary_species_coverage
         }
       }
     }
@@ -350,9 +349,8 @@ workflow theiaprok_illumina_pe {
     String? midas_docker = read_QC_trim.midas_docker
     File? midas_report = read_QC_trim.midas_report
     String? midas_primary_species = read_QC_trim.midas_primary_species
-    String? midas_primary_species_abundance = read_QC_trim.midas_primary_species_abundance
     String? midas_secondary_species = read_QC_trim.midas_secondary_species
-    String? midas_secondary_species_abundance = read_QC_trim.midas_secondary_species_abundance
+    String? midas_secondary_species_coverage = read_QC_trim.midas_secondary_species_coverage
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_pe.assembly_fasta
     File? contigs_gfa = shovill_pe.contigs_gfa

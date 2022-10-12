@@ -69,8 +69,7 @@ workflow read_QC_trim {
     String midas_docker = midas.midas_docker
     File midas_report = midas.midas_report
     String midas_primary_species = midas.midas_primary_species
-    String midas_primary_species_abundance = midas.midas_primary_species_abundance
     String midas_secondary_species = midas.midas_secondary_species
-    String midas_secondary_species_abundance = midas.midas_secondary_species_abundance
+    String midas_secondary_species_coverage = midas.midas_secondary_species_coverage
   }
 }
