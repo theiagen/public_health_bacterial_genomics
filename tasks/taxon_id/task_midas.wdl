@@ -25,19 +25,16 @@ task midas {
     mv ~{samplename}/species/log.txt ~{samplename}/species/~{samplename}_log.txt
 
     # determine if secondary species
-    # filter rows where coverage is less than 1.0
-    # awk -F "\t" '{ if(($3 >1.0)) { print } }' ~{samplename}/species/~{samplename}_species_profile.tsv > output.tsv
-
     # get primary genus: sort by coverage (descending), get top non-header row, cut for species_ID column, parse column to get only genus name
-    primary_genus=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
+    primary_genus=$(cat ~{samplename}/species/~{samplename}_species_profile.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
 
     # filter to remove lines with primary genus
-    grep -v -F "$primary_genus" output.tsv > output1.tsv
+    grep -v -F "$primary_genus" ~{samplename}/species/~{samplename}_species_profile.tsv > output.tsv
 
     # get secondary species: sort by coverage again to be safe, get top non-header row, cut for species_ID column, parse column to get only genus name
-    secondary_genus=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
+    secondary_genus=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
     # get coverage of secondary genus
-    secondary_genus_coverage=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 |  )
+    secondary_genus_coverage=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 |  )
     # round coverage of secondary genus to three decimal places
     secondary_genus_coverage=$(printf %.3f $secondary_genus_coverage)
 
