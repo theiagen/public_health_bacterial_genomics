@@ -18,7 +18,8 @@ workflow read_QC_trim {
     Int?    trimmomatic_quality_trim_score = 20
     Int?    trimmomatic_window_size = 10
     Int     bbduk_mem = 8
-    File    midas_db
+    Boolean? call_midas = false
+    File?    midas_db
   }
   call trimmomatic.trimmomatic_pe {
     input:
@@ -46,12 +47,14 @@ workflow read_QC_trim {
       read1 = bbduk_pe.read1_clean,
       read2 = bbduk_pe.read2_clean
   }
+  if (call_midas) {
   call midas.midas as midas {
     input:
       samplename = samplename,
       read1 = read1_raw,
       read2 = read2_raw,
       midas_db = midas_db
+    }
   }
 
   output {
@@ -66,10 +69,10 @@ workflow read_QC_trim {
     String	fastq_scan_version	=	fastq_scan_raw.version
     String	bbduk_docker	=	bbduk_pe.bbduk_docker
     String	trimmomatic_version	=	trimmomatic_pe.version
-    String midas_docker = midas.midas_docker
-    File midas_report = midas.midas_report
-    String midas_primary_genus = midas.midas_primary_genus
-    String midas_secondary_genus = midas.midas_secondary_genus
-    String midas_secondary_genus_coverage = midas.midas_secondary_genus_coverage
+    String? midas_docker = midas.midas_docker
+    File? midas_report = midas.midas_report
+    String? midas_primary_genus = midas.midas_primary_genus
+    String? midas_secondary_genus = midas.midas_secondary_genus
+    String? midas_secondary_genus_coverage = midas.midas_secondary_genus_coverage
   }
 }
