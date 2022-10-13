@@ -34,7 +34,7 @@ task midas {
     # get secondary species: sort by coverage again to be safe, get top non-header row, cut for species_ID column, parse column to get only genus name
     secondary_genus=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
     # get coverage of secondary genus
-    secondary_genus_coverage=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 |  )
+    secondary_genus_coverage=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 )
     # round coverage of secondary genus to three decimal places
     secondary_genus_coverage=$(printf %.3f $secondary_genus_coverage)
 
