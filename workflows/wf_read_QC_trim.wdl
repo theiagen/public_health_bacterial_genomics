@@ -18,7 +18,7 @@ workflow read_QC_trim {
     Int?    trimmomatic_quality_trim_score = 20
     Int?    trimmomatic_window_size = 10
     Int     bbduk_mem = 8
-    Boolean? call_midas = false
+    Boolean call_midas = false
     File?    midas_db
   }
   call trimmomatic.trimmomatic_pe {
