@@ -18,7 +18,7 @@
     - wf_theiaprok_illumina_pe_miniwdl
   files:
     - path: miniwdl_run/call-amrfinderplus_task/command
-      md5sum: e2ef1278531c6e19ae4adcd6bd83ca07
+      md5sum: 4a9639d03cb645e573de2be85be52396
     - path: miniwdl_run/call-amrfinderplus_task/inputs.json
       contains: ["assembly", "fasta", "organism", "test"]
     - path: miniwdl_run/call-amrfinderplus_task/outputs.json
