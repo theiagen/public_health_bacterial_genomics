@@ -48,12 +48,12 @@ workflow read_QC_trim {
       read2 = bbduk_pe.read2_clean
   }
   if (call_midas) {
-  call midas.midas as midas {
-    input:
-      samplename = samplename,
-      read1 = read1_raw,
-      read2 = read2_raw,
-      midas_db = midas_db
+    call midas.midas as midas {
+      input:
+        samplename = samplename,
+        read1 = read1_raw,
+        read2 = read2_raw,
+        midas_db = midas_db
     }
   }
 
