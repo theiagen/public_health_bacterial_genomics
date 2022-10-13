@@ -21,12 +21,12 @@ task midas {
     run_midas.py species ~{samplename} -1 ~{read1} -2 ~{read2} -d db/midas_db_v1.2/ -t ~{cpu} 
 
     # rename output files
-    mv ~{samplename}/species/species_profile.txt ~{samplename}/species/~{samplename}_species_profile.txt
+    mv ~{samplename}/species/species_profile.txt ~{samplename}/species/~{samplename}_species_profile.tsv
     mv ~{samplename}/species/log.txt ~{samplename}/species/~{samplename}_log.txt
 
     # determine if secondary species
     # filter rows where coverage is less than 1.0
-    awk -F "\t" '{ if(($3 >1.0)) { print } }' ~{samplename}/species/~{samplename}_species_profile.txt > output.tsv
+    # awk -F "\t" '{ if(($3 >1.0)) { print } }' ~{samplename}/species/~{samplename}_species_profile.tsv > output.tsv
 
     # get primary genus: sort by coverage (descending), get top non-header row, cut for species_ID column, parse column to get only genus name
     primary_genus=$(cat output.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
@@ -37,12 +37,14 @@ task midas {
     # get secondary species: sort by coverage again to be safe, get top non-header row, cut for species_ID column, parse column to get only genus name
     secondary_genus=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f1 | cut -f1 -d"_")
     # get coverage of secondary genus
-    secondary_genus_coverage=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 )
+    secondary_genus_coverage=$(cat output1.tsv | sort -k 3 -r | awk 'NR==2' | cut -f3 |  )
+    # round coverage of secondary genus to three decimal places
+    secondary_genus_coverage=$(printf %.3f $secondary_genus_coverage)
 
     # indicate if no secondary genus was detected
-    if [ -z "${secondary_genus}" ]; then
+    cov_less_than_one=$(echo ${secondary_genus_coverage} 1.0 | awk '{if ($1 < $2) print "true"; else print "false"}')
+    if [[ "${cov_less_than_one}" == "true" ]] ; then
        secondary_genus="No secondary genus detected (>1.0X coverage)"
-       secondary_genus_coverage="No secondary genus detected (>1.0X coverage)"
     fi
     
     # create final output strings
@@ -54,7 +56,7 @@ task midas {
   output {
     String midas_docker = docker
     String midas_analysis_date = read_string("DATE")
-    File midas_report = "~{samplename}/species/~{samplename}_species_profile.txt"
+    File midas_report = "~{samplename}/species/~{samplename}_species_profile.tsv"
     File midas_log = "~{samplename}/species/~{samplename}_log.txt"
     String midas_primary_genus = read_string("PRIMARY_GENUS")
     String midas_secondary_genus = read_string("SECONDARY_GENUS")
