@@ -30,6 +30,11 @@ task abricate {
     # parse out gene names into list of strings, comma-separated, final comma at end removed by sed
     abricate_genes=$(awk -F '\t' '{ print $6 }' ~{samplename}_abricate_hits.tsv | tail -n+2 | tr '\n' ',' | sed 's/.$//')
 
+    # if variable for list of genes is EMPTY, write string saying it is empty to float to Terra table
+    if [ -z "${abricate_genes}" ]; then
+       abricate_genes="No genes detected by ABRicate"
+    fi
+
     # create final output strings
     echo "${abricate_genes}" > ABRICATE_GENES
   >>>
