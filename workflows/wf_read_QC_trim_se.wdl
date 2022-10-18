@@ -83,5 +83,10 @@ workflow read_QC_trim {
     String fastq_scan_version = fastq_scan_raw.version
     String bbduk_docker = bbduk_se.bbduk_docker
     String trimmomatic_version = trimmomatic_se.version
+    String? midas_docker = midas.midas_docker
+    File? midas_report = midas.midas_report
+    String? midas_primary_genus = midas.midas_primary_genus
+    String? midas_secondary_genus = midas.midas_secondary_genus
+    String? midas_secondary_genus_coverage = midas.midas_secondary_genus_coverage
   }
 }
