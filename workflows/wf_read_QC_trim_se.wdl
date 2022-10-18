@@ -16,6 +16,8 @@ workflow read_QC_trim {
     Int? trimmomatic_quality_trim_score = 30
     Int? trimmomatic_window_size = 4
     Int  bbduk_mem = 8
+    Boolean call_midas = false
+    File?    midas_db
   }
 #  call read_clean.ncbi_scrub_se {
 #    input:
@@ -43,6 +45,14 @@ workflow read_QC_trim {
   call fastq_scan.fastq_scan_se as fastq_scan_clean {
     input:
       read1 = bbduk_se.read1_clean
+  }
+  if (call_midas) {
+    call midas.midas as midas {
+      input:
+        samplename = samplename,
+        read1 = read1_raw,
+        midas_db = midas_db
+    }
   }
 #  call taxonID.kraken2 as kraken2_raw {
 #    input:
