@@ -3,7 +3,7 @@ version 1.0
 task midas {
   input {
     File read1
-    File read2
+    File? read2
     File midas_db = "gs://theiagen-public-files-rp/terra/theiaprok-files/midas/midas_db_v1.2.tar.gz"
     String samplename
     String docker = "quay.io/fhcrc-microbiome/midas:v1.3.2--6"
@@ -18,7 +18,7 @@ task midas {
     tar -C ./db/ -xzvf ~{midas_db}  
 
     # Run Midas
-    run_midas.py species ~{samplename} -1 ~{read1} -2 ~{read2} -d db/midas_db_v1.2/ -t ~{cpu} 
+    run_midas.py species ~{samplename} -1 ~{read1} ~{'-2 ' + read2} -d db/midas_db_v1.2/ -t ~{cpu} 
 
     # rename output files
     mv ~{samplename}/species/species_profile.txt ~{samplename}/species/~{samplename}_species_profile.tsv
