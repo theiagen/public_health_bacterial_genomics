@@ -12,7 +12,7 @@ task amrfinderplus_nuc {
     Float? mincov
     Boolean detailed_drug_class = false
     Int cpu = 4
-    String docker = "staphb/ncbi-amrfinderplus:3.10.36"
+    String docker = "staphb/ncbi-amrfinderplus:3.10.42"
     Boolean hide_point_mutations = false
   }
   command <<<
