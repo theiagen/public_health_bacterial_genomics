@@ -243,6 +243,13 @@ workflow theiaprok_illumina_pe {
             ectyper_results = merlin_magic.ectyper_results,
             ectyper_version = merlin_magic.ectyper_version,
             ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
+            shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype,
+            shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence,
+            shigatyper_notes = merlin_magic.shigatyper_notes,
+            shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv,
+            shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv,
+            shigatyper_version = merlin_magic.shigatyper_version,
+            shigatyper_docker = merlin_magic.shigatyper_docker,
             lissero_results = merlin_magic.lissero_results,
             lissero_version = merlin_magic.lissero_version,
             lissero_serotype = merlin_magic.lissero_serotype,
@@ -430,6 +437,13 @@ workflow theiaprok_illumina_pe {
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
     String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
+    String? shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype
+    String? shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence
+    String? shigatyper_notes = merlin_magic.shigatyper_notes
+    File? shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv
+    File? shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv
+    String? shigatyper_version = merlin_magic.shigatyper_version
+    String? shigatyper_docker = merlin_magic.shigatyper_docker
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version

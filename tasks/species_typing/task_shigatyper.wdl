@@ -41,17 +41,19 @@ task shigatyper {
 
     # take read1, use it's name to predict output of shigatyper, similar to how shigatyper.py does it:
     # see code here: https://github.com/CFSAN-Biostatistics/shigatyper/blob/conda-package-2.0.1/shigatyper/shigatyper.py#L476
+    # I raised an issue describing this: https://github.com/CFSAN-Biostatistics/shigatyper/issues/12
     SHIGATYPER_OUT_SAMPLENAME_PREFIX=$(basename ~{read1} | cut -d '_' -f1 |cut -d '.' -f 1)
+    echo "SHIGATYPER_OUT_SAMPLENAME_PREFIX set to: ${SHIGATYPER_OUT_SAMPLENAME_PREFIX}"
 
     # rename summary TSV 
-    mv -v ./${SHIGATYPER_OUT_SAMPLENAME_PREFIX}*.tsv ~{samplename}_summary.tsv
+    mv -v ${SHIGATYPER_OUT_SAMPLENAME_PREFIX}.tsv ~{samplename}_summary.tsv
 
     # parse summary tsv for prediction, ipaB absence/presence, and notes
     cut -f 2 ~{samplename}_summary.tsv | tail -n 1 > shigatyper_prediction.txt
     cut -f 3 ~{samplename}_summary.tsv | tail -n 1 > shigatyper_ipaB_presence_absence.txt
     cut -f 4 ~{samplename}_summary.tsv | tail -n 1 > shigatyper_notes.txt
 
-    # if variable for shigatyper notes is EMPTY, write string saying it is empty to float to Terra table
+    # if shigatyper notes field (really the txt file) is EMPTY, write string saying it is empty to float to Terra table
     if [ "$(cat shigatyper_notes.txt)" == "" ]; then
        echo "ShigaTyper notes field was empty" > shigatyper_notes.txt
     fi
