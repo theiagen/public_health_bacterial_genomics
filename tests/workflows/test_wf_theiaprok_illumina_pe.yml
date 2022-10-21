@@ -18,7 +18,7 @@
     - wf_theiaprok_illumina_pe_miniwdl
   files:
     - path: miniwdl_run/call-amrfinderplus_task/command
-      md5sum: e2ef1278531c6e19ae4adcd6bd83ca07
+      md5sum: 4a9639d03cb645e573de2be85be52396
     - path: miniwdl_run/call-amrfinderplus_task/inputs.json
       contains: ["assembly", "fasta", "organism", "test"]
     - path: miniwdl_run/call-amrfinderplus_task/outputs.json
@@ -30,9 +30,9 @@
     - path: miniwdl_run/call-amrfinderplus_task/task.log
       contains: ["wdl", "theiaprok_illumina_pe", "amrfinderplus", "done"]
     - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_DB_VERSION
-      md5sum: f2805db31ce8498ca8cb9ba16d12548e
+      md5sum: 6d6543d3aacc310fe866c5e90d1dff77
     - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_VERSION
-      md5sum: 8f87daf07709865a95a12013aa2cbe08
+      md5sum: 6206889552f40d7ea91f1d9ae025f23d
     - path: miniwdl_run/call-amrfinderplus_task/work/AMR_GENES
       md5sum: b6017eebef847ac2471107ca6197b5c5
     - path: miniwdl_run/call-amrfinderplus_task/work/DATE
