@@ -76,16 +76,16 @@ task gambit {
     # Next taxon
     with open('NEXT_TAXON', 'w') as f:
       if next_taxon is None:
-        f.write(predicted['name'])
+        f.write('NA')
       elif next_taxon['name'] is None:
-        f.write(predicted['name'])
+        f.write('NA')
       else:
         f.write(next_taxon['name'])
     with open('NEXT_TAXON_RANK', 'w') as f:
       if next_taxon is None:
-        f.write(predicted['rank'])
+        f.write('NA')
       elif next_taxon['rank'] is None:
-        f.write(predicted['rank'])
+        f.write('NA')
       else:
         f.write(next_taxon['rank'])
     with open('NEXT_TAXON_THRESHOLD', 'w') as f:
