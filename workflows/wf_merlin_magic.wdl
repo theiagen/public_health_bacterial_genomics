@@ -2,6 +2,7 @@ version 1.0
 
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ectyper.wdl" as ectyper
+import "../tasks/species_typing/task_shigatyper.wdl" as shigatyper
 import "../tasks/species_typing/task_lissero.wdl" as lissero
 import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
@@ -26,6 +27,7 @@ workflow merlin_magic {
     File? read2
     Boolean paired_end = true
     Boolean call_poppunk = true
+    Boolean read1_is_ont = false
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -44,6 +46,13 @@ workflow merlin_magic {
       input:
         assembly = assembly,
         samplename = samplename
+    }
+    call shigatyper.shigatyper {
+      input:
+        read1 = read1,
+        read2 = read2,
+        samplename = samplename,
+        read1_is_ont = read1_is_ont
     }
   }
   if (merlin_tag == "Listeria") {
@@ -128,6 +137,13 @@ workflow merlin_magic {
   File? ectyper_results = ectyper.ectyper_results
   String? ectyper_version = ectyper.ectyper_version
   String? ectyper_predicted_serotype = ectyper.ectyper_predicted_serotype
+  String? shigatyper_predicted_serotype = shigatyper.shigatyper_predicted_serotype
+  String? shigatyper_ipaB_presence_absence = shigatyper.shigatyper_ipaB_presence_absence
+  String? shigatyper_notes = shigatyper.shigatyper_notes
+  File? shigatyper_hits_tsv = shigatyper.shigatyper_hits_tsv
+  File? shigatyper_summary_tsv = shigatyper.shigatyper_summary_tsv
+  String? shigatyper_version = shigatyper.shigatyper_version
+  String? shigatyper_docker = shigatyper.shigatyper_docker
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
