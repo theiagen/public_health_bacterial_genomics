@@ -302,6 +302,11 @@ workflow theiaprok_illumina_se {
             poppunk_GPS_db_version = merlin_magic.poppunk_gps_external_cluster_csv,
             poppunk_version = merlin_magic.poppunk_version,
             poppunk_docker = merlin_magic.poppunk_docker,
+            midas_docker = read_QC_trim.midas_docker,
+            midas_report = read_QC_trim.midas_report,
+            midas_primary_genus = read_QC_trim.midas_primary_genus,
+            midas_secondary_genus = read_QC_trim.midas_secondary_genus,
+            midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
         }
       }
     }
@@ -323,6 +328,11 @@ workflow theiaprok_illumina_se {
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
     File? read1_clean = read_QC_trim.read1_clean
+    String? midas_docker = read_QC_trim.midas_docker
+    File? midas_report = read_QC_trim.midas_report
+    String? midas_primary_genus = read_QC_trim.midas_primary_genus
+    String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
+    String? midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_se.assembly_fasta
     File? contigs_gfa = shovill_se.contigs_gfa
