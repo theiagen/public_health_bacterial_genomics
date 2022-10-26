@@ -60,6 +60,7 @@ task mycosnp {
     awk '{if ($3 < ~{min_depth}) {print $0}}' ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt | wc -l | tee NUMBER_NS
     wc -l ~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.coverage.txt | cut -f 1 -d " " | tee ASSEMBLY_SIZE
     echo "($(cat ASSEMBLY_SIZE) - $(cat NUMBER_NS)) / $(cat ASSEMBLY_SIZE) * 100" | xargs -I {} awk 'BEGIN {printf("%.2f\n", {})}' | tee PERCENT_REFERENCE_COVERAGE
+    gzip -d "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
   >>>
   output {
     String mycosnp_version = read_string("MYCOSNP_VERSION")
@@ -83,7 +84,8 @@ task mycosnp {
     Float percent_reference_coverage = read_float("PERCENT_REFERENCE_COVERAGE")
     Int assembly_size = read_int("ASSEMBLY_SIZE")
     Int consensus_n_variant_min_depth = min_depth
-    File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
+    File vcf_gz = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz"
+    File vcf = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf"
     File vcf_index = "~{samplename}/results/samples/~{samplename}/variant_calling/haplotypecaller/~{samplename}.g.vcf.gz.tbi"
     File multiqc = "~{samplename}/results/multiqc/multiqc_report.html"
     File bam_file = "~{samplename}/results/samples/~{samplename}/finalbam/~{samplename}.bam"
