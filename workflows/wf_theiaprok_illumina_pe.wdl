@@ -444,6 +444,16 @@ workflow theiaprok_illumina_pe {
     File? shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv
     String? shigatyper_version = merlin_magic.shigatyper_version
     String? shigatyper_docker = merlin_magic.shigatyper_docker
+    File? shigeifinder_report = merlin_magic.shigeifinder_report
+    String? shigeifinder_docker = merlin_magic.shigeifinder_docker
+    String? shigeifinder_version = merlin_magic.shigeifinder_version
+    String? shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence
+    String? shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes
+    String? shigeifinder_cluster = merlin_magic.shigeifinder_cluster
+    String? shigeifinder_serotype = merlin_magic.shigeifinder_serotype
+    String? shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen
+    String? shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen
+    String? shigeifinder_notes = merlin_magic.shigeifinder_notes
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version

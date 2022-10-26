@@ -3,6 +3,7 @@ version 1.0
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ectyper.wdl" as ectyper
 import "../tasks/species_typing/task_shigatyper.wdl" as shigatyper
+import "../tasks/species_typing/task_shigeifinder.wdl" as shigeifinder
 import "../tasks/species_typing/task_lissero.wdl" as lissero
 import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
@@ -53,6 +54,11 @@ workflow merlin_magic {
         read2 = read2,
         samplename = samplename,
         read1_is_ont = read1_is_ont
+    }
+    call shigeifinder.shigeifinder {
+      input:
+        assembly = assembly,
+        samplename = samplename
     }
   }
   if (merlin_tag == "Listeria") {
@@ -144,6 +150,16 @@ workflow merlin_magic {
   File? shigatyper_summary_tsv = shigatyper.shigatyper_summary_tsv
   String? shigatyper_version = shigatyper.shigatyper_version
   String? shigatyper_docker = shigatyper.shigatyper_docker
+  File? shigeifinder_report = shigeifinder.shigeifinder_report
+  String? shigeifinder_docker = shigeifinder.shigeifinder_docker
+  String? shigeifinder_version = shigeifinder.shigeifinder_version
+  String? shigeifinder_ipaH_presence_absence = shigeifinder.shigeifinder_ipaH_presence_absence
+  String? shigeifinder_num_virulence_plasmid_genes = shigeifinder.shigeifinder_num_virulence_plasmid_genes
+  String? shigeifinder_cluster = shigeifinder.shigeifinder_cluster
+  String? shigeifinder_serotype = shigeifinder.shigeifinder_serotype
+  String? shigeifinder_O_antigen = shigeifinder.shigeifinder_O_antigen
+  String? shigeifinder_H_antigen = shigeifinder.shigeifinder_H_antigen
+  String? shigeifinder_notes = shigeifinder.shigeifinder_notes
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
