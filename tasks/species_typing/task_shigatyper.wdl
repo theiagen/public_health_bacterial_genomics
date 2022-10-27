@@ -8,7 +8,7 @@ task shigatyper {
     File read1 
     File? read2
     String samplename
-    String docker = "staphb/shigatyper:2.0.1"
+    String docker = "staphb/shigatyper:2.0.2"
     Int cpus = 4
     Boolean read1_is_ont = false
   }
