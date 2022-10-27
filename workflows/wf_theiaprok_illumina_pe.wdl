@@ -424,7 +424,7 @@ workflow theiaprok_illumina_pe {
     File? bakta_gff3 = bakta.bakta_gff3
     File? bakta_tsv = bakta.bakta_tsv
     File? bakta_summary = bakta.bakta_txt
-    String? bakta_verison = bakta.bakta_verison
+    String? bakta_version = bakta.bakta_version
     # Plasmidfinder Results
     String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
