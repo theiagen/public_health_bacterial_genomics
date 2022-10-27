@@ -23,7 +23,7 @@ task bakta {
   
   # Extract Bakta DB
   mkdir db
-  tar xzvf ~{bakta_db} --strip-components=1 -C ./db
+  time tar xzvf ~{bakta_db} --strip-components=1 -C ./db
 
   # Install amrfinderplus db
   amrfinder_update --database db/amrfinderplus-db
@@ -60,6 +60,6 @@ task bakta {
     memory: "~{memory} GB"
     cpu: cpu
     docker: docker
-    disks: "local-disk 100 HDD"
+    disks: "local-disk 100 SSD"
   }
 }
