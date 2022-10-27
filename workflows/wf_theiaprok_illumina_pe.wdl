@@ -309,16 +309,10 @@ workflow theiaprok_illumina_pe {
             prokka_gff = prokka.prokka_gff,
             prokka_gbk = prokka.prokka_gbk,
             prokka_sqn = prokka.prokka_sqn,
-            bakta_embl = bakta.bakta_embl,
-            bakta_faa = bakta.bakta_faa,
-            bakta_ffn = bakta.bakta_ffn,
-            bakta_fna = bakta.bakta_fna,
             bakta_gbff = bakta.bakta_gbff,
             bakta_gff3 = bakta.bakta_gff3,
-            bakta_hypotheticals_faa = bakta.bakta_hypotheticals_faa,
-            bakta_hypotheticals_tsv = bakta.bakta_hypotheticals_tsv,
             bakta_tsv = bakta.bakta_tsv,
-            bakta_txt = bakta.bakta_txt,
+            bakta_summary = bakta.bakta_txt,
             bakta_version = bakta.bakta_version,
             plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids,
             plasmidfinder_results = plasmidfinder.plasmidfinder_results,
@@ -426,16 +420,11 @@ workflow theiaprok_illumina_pe {
     File? prokka_gbk = prokka.prokka_gbk
     File? prokka_sqn = prokka.prokka_sqn
     # Bakta Results
-    File? bakta_embl = bakta.bakta_embl
-    File? bakta_faa = bakta.bakta_faa
-    File? bakta_ffn = bakta.bakta_ffn
-    File? bakta_fna = bakta.bakta_fna
     File? bakta_gbff = bakta.bakta_gbff
     File? bakta_gff3 = bakta.bakta_gff3
-    File? bakta_hypotheticals_faa = bakta.bakta_hypotheticals_faa
-    File? bakta_hypotheticals_tsv = bakta.bakta_hypotheticals_tsv
     File? bakta_tsv = bakta.bakta_tsv
-    File? bakta_txt = bakta.bakta_txt
+    File? bakta_summary = bakta.bakta_txt
+    String? bakta_verison = bakta.bakta_verison
     # Plasmidfinder Results
     String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
