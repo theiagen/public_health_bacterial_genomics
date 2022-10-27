@@ -322,14 +322,23 @@ workflow theiaprok_illumina_pe {
             pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X,
             pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv,
             pbptyper_version = merlin_magic.pbptyper_version,
+            pbptyper_docker = merlin_magic.pbptyper_docker,
             poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster,
             poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv,
+            poppunk_GPS_db_version = merlin_magic.poppunk_gps_external_cluster_csv,
             poppunk_version = merlin_magic.poppunk_version,
+            poppunk_docker = merlin_magic.poppunk_docker,
             seroba_version = merlin_magic.seroba_version,
+            seroba_docker = merlin_magic.seroba_docker,
             seroba_serotype = merlin_magic.seroba_serotype,
             seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype,
             seroba_ariba_identity = merlin_magic.seroba_ariba_identity,
-            seroba_details = merlin_magic.seroba_details
+            seroba_details = merlin_magic.seroba_details,
+            midas_docker = read_QC_trim.midas_docker,
+            midas_report = read_QC_trim.midas_report,
+            midas_primary_genus = read_QC_trim.midas_primary_genus,
+            midas_secondary_genus = read_QC_trim.midas_secondary_genus,
+            midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
         }
       }
     }
@@ -357,6 +366,11 @@ workflow theiaprok_illumina_pe {
     Float? r2_mean_q = cg_pipeline.r2_mean_q
     File? read1_clean = read_QC_trim.read1_clean
     File? read2_clean = read_QC_trim.read2_clean
+    String? midas_docker = read_QC_trim.midas_docker
+    File? midas_report = read_QC_trim.midas_report
+    String? midas_primary_genus = read_QC_trim.midas_primary_genus
+    String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
+    String? midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_pe.assembly_fasta
     File? contigs_gfa = shovill_pe.contigs_gfa
@@ -501,10 +515,14 @@ workflow theiaprok_illumina_pe {
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv
     String? pbptyper_version = merlin_magic.pbptyper_version
+    String? pbptyper_docker = merlin_magic.pbptyper_docker
     String? poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster
     File? poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv
+    String? poppunk_GPS_db_version = merlin_magic.poppunk_GPS_db_version
     String? poppunk_version = merlin_magic.poppunk_version
+    String? poppunk_docker = merlin_magic.poppunk_docker
     String? seroba_version = merlin_magic.seroba_version
+    String? seroba_docker = merlin_magic.seroba_docker
     String? seroba_serotype = merlin_magic.seroba_serotype
     String? seroba_ariba_serotype = merlin_magic.seroba_ariba_serotype
     String? seroba_ariba_identity = merlin_magic.seroba_ariba_identity

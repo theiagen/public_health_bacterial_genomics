@@ -12,7 +12,8 @@ task amrfinderplus_nuc {
     Float? mincov
     Boolean detailed_drug_class = false
     Int cpu = 4
-    String docker = "staphb/ncbi-amrfinderplus:3.10.36"
+    String docker = "staphb/ncbi-amrfinderplus:3.10.42"
+    Boolean hide_point_mutations = false
   }
   command <<<
     # logging info
@@ -89,6 +90,12 @@ task amrfinderplus_nuc {
         ~{'--threads ' + cpu} \
         ~{'--coverage_min ' + mincov} \
         ~{'--ident_min ' + minid}
+    fi
+
+    # remove mutations where Element subtype is "POINT"
+    if [[ "~{hide_point_mutations}" == "true" ]]; then
+      awk -F "\t" '$11 != "POINT"' ~{samplename}_amrfinder_all.tsv >> temp.tsv
+      mv temp.tsv ~{samplename}_amrfinder_all.tsv
     fi
 
     # Element Type possibilities: AMR, STRESS, and VIRULENCE 

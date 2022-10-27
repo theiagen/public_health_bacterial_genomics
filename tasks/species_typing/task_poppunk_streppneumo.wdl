@@ -39,6 +39,8 @@ task poppunk {
     # doing this for future proofing
     # get file name of primary h5 file, strip off suffix
     GPS_DB_NAME=$(basename ~{GPS_h5} | sed 's|.h5||')
+    # sending GPS_DB_NAME into text file for logging/output purposes
+    echo "${GPS_DB_NAME}" > GPS_DB_NAME
 
     # move all database/reference files into single directory to feed into poppunk
     mkdir -v "${GPS_DB_NAME}"
@@ -78,6 +80,8 @@ task poppunk {
     String poppunk_gps_cluster = read_string("GPSC.txt")
     File? poppunk_gps_external_cluster_csv = "~{samplename}_poppunk/~{samplename}_poppunk_external_clusters.csv"
     String poppunk_version = read_string("VERSION")
+    String poppunk_docker = docker
+    String poppunk_GPS_db_version = read_string("GPS_DB_NAME")
   }
   runtime {
     docker: "~{docker}"
