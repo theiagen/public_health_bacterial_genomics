@@ -72,6 +72,7 @@ task shigeifinder {
     memory: "8 GB"
     cpu: cpu
     disks: "local-disk 100 SSD"
-    preemptible:  0
+    preemptible: 0
+    maxRetries: 3
   }
 }

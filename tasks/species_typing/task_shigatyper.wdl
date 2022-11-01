@@ -74,6 +74,6 @@ task shigatyper {
     cpu: cpus
     disks: "local-disk 100 SSD"
     preemptible: 0
-    maxRetries: 0
+    maxRetries: 3
   }
 }
