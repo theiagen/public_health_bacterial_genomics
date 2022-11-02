@@ -13,7 +13,7 @@ task bakta {
     #  prodigal_tf: Prodigal training file to use for CDS prediction
     # bakta_opts: any additional bakta arguments
     Boolean proteins = false
-    Boolean compliant = true
+    Boolean compliant = false
     File? prodigal_tf
     String? bakta_opts
   }
@@ -28,7 +28,6 @@ task bakta {
   # Install amrfinderplus db
   amrfinder_update --database db/amrfinderplus-db
   amrfinder --database_version | tee AMRFINDER_DATABASE_VERSION
-  amrfinder --version | tee AMRFINDER_VERSION
 
   bakta \
     ~{bakta_opts} \
@@ -41,7 +40,6 @@ task bakta {
     ~{'--prodigal-tf ' + prodigal_tf} \
     ~{assembly}
   
-    
   >>>
   output {
     File bakta_embl = "~{samplename}/~{samplename}.embl"
