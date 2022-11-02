@@ -284,6 +284,11 @@ workflow theiaprok_illumina_pe {
             kaptive_kl_confidence = merlin_magic.kaptive_k_confidence,
             kaptive_oc_locus = merlin_magic.kaptive_oc_match,
             kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence,
+            abricate_abaum_plasmid_tsv = merlin_magic.abricate_results,
+            abricate_abaum_plasmid_type_genes = merlin_magic.abricate_genes,
+            abricate_database = merlin_magic.abricate_database,
+            abricate_version = merlin_magic.abricate_version,
+            abricate_docker = merlin_magic.abricate_docker,
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
             tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -476,6 +481,11 @@ workflow theiaprok_illumina_pe {
     String? kaptive_kl_confidence = merlin_magic.kaptive_k_confidence
     String? kaptive_oc_locus = merlin_magic.kaptive_oc_match
     String? kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence
+    File? abricate_abaum_plasmid_tsv = merlin_magic.abricate_results
+    String? abricate_abaum_plasmid_type_genes = merlin_magic.abricate_genes
+    String? abricate_database = merlin_magic.abricate_database
+    String? abricate_version = merlin_magic.abricate_version
+    String? abricate_docker = merlin_magic.abricate_docker
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam
