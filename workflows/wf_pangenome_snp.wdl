@@ -56,10 +56,10 @@ workflow pangenome_snp_workflow {
     #File pirate_binary_fasta = pirate.pirate_binary_fasta
     #File pirate_binary_tree = pirate.pirate_binary_tree
     #File pirate_pangenome_gfa = pirate.pirate_pangenome_gfa
-    #File? pirate_pangenome_alignment_fasta = pirate.pirate_pangenome_alignment_fasta
-    #File? pirate_pangenome_alignment_gff = pirate.pirate_pangenome_alignment_gff
-    #File? pirate_core_alignment_fasta = pirate.pirate_core_alignment_fasta
-    #File? pirate_core_alignment_gff = pirate.pirate_core_alignment_gff
+    File? pirate_pangenome_alignment_fasta = pirate.pirate_pangenome_alignment_fasta
+    File? pirate_pangenome_alignment_gff = pirate.pirate_pangenome_alignment_gff
+    File? pirate_core_alignment_fasta = pirate.pirate_core_alignment_fasta
+    File? pirate_core_alignment_gff = pirate.pirate_core_alignment_gff
     String pirate_docker_image = pirate.pirate_docker_image
     # snp_dists outputs
     String? pirate_snps_dists_version = pan_snp_dists.version
