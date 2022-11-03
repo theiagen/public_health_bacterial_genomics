@@ -5,7 +5,7 @@ task sonneityping {
   input {
     File read1
     File? read2
-    Boolean ont_data=false
+    Boolean ont_data = false
     String samplename
     String docker = "staphb/mykrobe:0.12.1"
     String? myrkobe_opts
