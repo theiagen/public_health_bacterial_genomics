@@ -260,6 +260,15 @@ workflow theiaprok_illumina_pe {
             shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen,
             shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen,
             shigeifinder_notes = merlin_magic.shigeifinder_notes,
+            sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv,
+            sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json,
+            sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv,
+            sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version,
+            sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker,
+            sonneityping_species = merlin_magic.sonneityping_species,
+            sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype,
+            sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence,
+            sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name,
             lissero_results = merlin_magic.lissero_results,
             lissero_version = merlin_magic.lissero_version,
             lissero_serotype = merlin_magic.lissero_serotype,
@@ -464,6 +473,16 @@ workflow theiaprok_illumina_pe {
     String? shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen
     String? shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen
     String? shigeifinder_notes = merlin_magic.shigeifinder_notes
+    # Shigella sonnei Typing
+    File? sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv
+    File? sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json
+    File? sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv
+    String? sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version
+    String? sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker
+    String? sonneityping_species = merlin_magic.sonneityping_species
+    String? sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype
+    String? sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence
+    String? sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
