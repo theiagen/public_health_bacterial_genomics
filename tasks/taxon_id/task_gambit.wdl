@@ -132,6 +132,8 @@ task gambit {
     predicted_taxon=$(cat PREDICTED_TAXON)
     if [[ ${predicted_taxon} == *"Escherichia"* ]] || [[ ${predicted_taxon} == *"Shigella"* ]] ; then 
       merlin_tag="Escherichia"
+    elif [[ ${predicted_taxon} == *"Shigella sonnei"* ]]; then 
+      merlin_tag="Shigella_sonnei"
     elif [[ ${predicted_taxon} == *"Haemophilus"* ]]; then 
       merlin_tag="Haemophilus"
     elif [[ ${predicted_taxon} == *"Klebsiella"* ]]; then 
@@ -159,6 +161,7 @@ task gambit {
     else 
       merlin_tag="None"
     fi
+    echo "merlin_tag variable is set to: ${merlin_tag}"
     echo ${merlin_tag} | tee MERLIN_TAG
   >>>
   output {
