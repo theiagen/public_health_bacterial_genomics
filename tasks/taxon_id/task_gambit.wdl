@@ -130,10 +130,13 @@ task gambit {
     EOF
     # set merlin tags
     predicted_taxon=$(cat PREDICTED_TAXON)
+    # if predicted taxon contains either Escherichia or Shigella, set merlin_tag to Escherichia
     if [[ ${predicted_taxon} == *"Escherichia"* ]] || [[ ${predicted_taxon} == *"Shigella"* ]] ; then 
       merlin_tag="Escherichia"
-    elif [[ ${predicted_taxon} == *"Shigella sonnei"* ]]; then 
-      merlin_tag="Shigella_sonnei"
+      # if predicted taxon is Shigella sonnei, reset merlin_tag to Shigella_sonnei
+      if [[ ${predicted_taxon} == *"Shigella sonnei"* ]]; then 
+        merlin_tag="Shigella_sonnei"
+      fi
     elif [[ ${predicted_taxon} == *"Haemophilus"* ]]; then 
       merlin_tag="Haemophilus"
     elif [[ ${predicted_taxon} == *"Klebsiella"* ]]; then 
