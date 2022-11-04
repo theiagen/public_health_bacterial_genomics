@@ -89,7 +89,7 @@ workflow theiaprok_illumina_se {
       }
       call cg_pipeline.cg_pipeline {
         input:
-          read1 = read1_raw,
+          read1 = read_QC_trim.read1_clean,
           samplename = samplename,
           genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
       }
