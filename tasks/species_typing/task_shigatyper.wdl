@@ -14,7 +14,7 @@ task shigatyper {
   }
   command <<<
     # get version information
-    shigatyper --version | sed 's/ShigaTyper //' | tee VERSION
+    shigatyper --version | sed 's/ShigaTyper //' | tee VERSION.txt
 
     # if read2 DOES NOT EXIST, ASSUME SINGLE END OR ONT
     if [ -z "~{read2}" ] ; then
@@ -30,28 +30,20 @@ task shigatyper {
     echo "INPUT_READS set to: ${INPUT_READS}"
     echo 
 
-    # run shigatyper
+    # run shigatyper. 2 output files will be ~{samplename}.tsv and ~{samplename}-hits.tsv
     echo "Running ShigaTyper..."
     shigatyper \
       ${INPUT_READS} \
       -n ~{samplename}
 
-    # rename *-hits.tsv to differentiate from summary .tsv AND deal with not being able to name output files
-    mv -v ./*-hits.tsv ~{samplename}_hits.tsv
-
-    # take read1, use it's name to predict output of shigatyper, similar to how shigatyper.py does it:
-    # see code here: https://github.com/CFSAN-Biostatistics/shigatyper/blob/conda-package-2.0.1/shigatyper/shigatyper.py#L476
-    # I raised an issue describing this: https://github.com/CFSAN-Biostatistics/shigatyper/issues/12
-    SHIGATYPER_OUT_SAMPLENAME_PREFIX=$(basename ~{read1} | cut -d '_' -f1 |cut -d '.' -f 1)
-    echo "SHIGATYPER_OUT_SAMPLENAME_PREFIX set to: ${SHIGATYPER_OUT_SAMPLENAME_PREFIX}"
-
-    # rename summary TSV 
-    mv -v ${SHIGATYPER_OUT_SAMPLENAME_PREFIX}.tsv ~{samplename}_summary.tsv
+    # rename output TSVs to be more descriptive
+    mv -v ~{samplename}.tsv ~{samplename}_shigatyper_summary.tsv
+    mv -v ~{samplename}-hits.tsv ~{samplename}_shigatyper_hits.tsv
 
     # parse summary tsv for prediction, ipaB absence/presence, and notes
-    cut -f 2 ~{samplename}_summary.tsv | tail -n 1 > shigatyper_prediction.txt
-    cut -f 3 ~{samplename}_summary.tsv | tail -n 1 > shigatyper_ipaB_presence_absence.txt
-    cut -f 4 ~{samplename}_summary.tsv | tail -n 1 > shigatyper_notes.txt
+    cut -f 2 ~{samplename}_shigatyper_summary.tsv | tail -n 1 > shigatyper_prediction.txt
+    cut -f 3 ~{samplename}_shigatyper_summary.tsv | tail -n 1 > shigatyper_ipaB_presence_absence.txt
+    cut -f 4 ~{samplename}_shigatyper_summary.tsv | tail -n 1 > shigatyper_notes.txt
 
     # if shigatyper notes field (really the txt file) is EMPTY, write string saying it is empty to float to Terra table
     if [ "$(cat shigatyper_notes.txt)" == "" ]; then
@@ -63,9 +55,9 @@ task shigatyper {
     String shigatyper_predicted_serotype = read_string("shigatyper_prediction.txt")
     String shigatyper_ipaB_presence_absence = read_string("shigatyper_ipaB_presence_absence.txt")
     String shigatyper_notes = read_string("shigatyper_notes.txt")
-    File shigatyper_hits_tsv = "~{samplename}_hits.tsv" # A tab-delimited detailed report file
-    File shigatyper_summary_tsv = "~{samplename}_summary.tsv" # A tab-delimited summary report file
-    String shigatyper_version = read_string("VERSION")
+    File shigatyper_hits_tsv = "~{samplename}_shigatyper_hits.tsv" # A tab-delimited detailed report file
+    File shigatyper_summary_tsv = "~{samplename}_shigatyper_summary.tsv" # A tab-delimited summary report file
+    String shigatyper_version = read_string("VERSION.txt")
     String shigatyper_docker = docker
   }
   runtime {
