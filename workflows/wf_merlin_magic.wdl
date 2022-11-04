@@ -16,6 +16,7 @@ import "../tasks/species_typing/task_kaptive.wdl" as kaptive
 import "../tasks/species_typing/task_seroba.wdl" as seroba
 import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
+import "../tasks/gene_typing/task_abricate.wdl" as abricate_task
 
 workflow merlin_magic {
   meta {
@@ -36,6 +37,13 @@ workflow merlin_magic {
       input:
         assembly = assembly,
         samplename = samplename
+    }
+    call abricate_task.abricate {
+      input:
+        assembly = assembly,
+        samplename = samplename,
+        database = "AcinetobacterPlasmidTyping",
+        minid = 95 # strict threshold of 95% identity for typing purposes
     }
   }
   if (merlin_tag == "Escherichia" || merlin_tag == "Shigella_sonnei" ) {
@@ -229,6 +237,11 @@ workflow merlin_magic {
   String? kaptive_oc_match = kaptive.kaptive_oc_match
   String? kaptive_oc_type = kaptive.kaptive_oc_type
   String? kaptive_oc_confidence = kaptive.kaptive_oc_confidence
+  File? abricate_results = abricate.abricate_results
+  String? abricate_genes = abricate.abricate_genes
+  String? abricate_database = abricate.abricate_database
+  String? abricate_version = abricate.abricate_version
+  String? abricate_docker = abricate.abricate_docker
   # Mycobacterium Typing
   File? tbprofiler_output_file = tbprofiler.tbprofiler_output_csv
   File? tbprofiler_output_bam = tbprofiler.tbprofiler_output_bam
