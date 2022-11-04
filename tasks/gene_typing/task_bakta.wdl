@@ -40,6 +40,9 @@ task bakta {
     ~{'--prodigal-tf ' + prodigal_tf} \
     ~{assembly}
   
+  # rename gff3 to gff for compatibility with downstream analysis (pirate)
+  mv "~{samplename}/~{samplename}.gff3" "~{samplename}/~{samplename}.gff"
+  
   >>>
   output {
     File bakta_embl = "~{samplename}/~{samplename}.embl"
@@ -47,7 +50,7 @@ task bakta {
     File bakta_ffn = "~{samplename}/~{samplename}.ffn"
     File bakta_fna = "~{samplename}/~{samplename}.fna"
     File bakta_gbff = "~{samplename}/~{samplename}.gbff"
-    File bakta_gff3 = "~{samplename}/~{samplename}.gff3"
+    File bakta_gff3 = "~{samplename}/~{samplename}.gff"
     File bakta_hypotheticals_faa = "~{samplename}/~{samplename}.hypotheticals.faa"
     File bakta_hypotheticals_tsv = "~{samplename}/~{samplename}.hypotheticals.tsv"
     File bakta_tsv = "~{samplename}/~{samplename}.tsv"
