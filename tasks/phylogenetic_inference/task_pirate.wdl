@@ -7,7 +7,7 @@ task pirate {
     Boolean align = false # align all genes and produce core/pangenome alignments
     String? steps = "50,60,70,80,90,95,98" # % identity thresholds to use for pangenome construction [default: 50,60,70,80,90,95,98]
     String? features = "CDS" # features to use for pangenome construction [default: CDS]
-    Boolean? nucl = false # CDS are not translated to AA sequence [default: off]
+    Boolean? nucl = false # create a pangenome on CDS features using nucleotide identity rather than amino acid identity
     String? panopt # additional arguments to pass to pangenome_contruction
     Int memory = 32
     Int cpu = 4
@@ -58,10 +58,10 @@ task pirate {
     File pirate_binary_fasta = "PIRATE/~{cluster_name}_binary_presence_absence.fasta"
     File pirate_binary_tree = "PIRATE/~{cluster_name}_binary_presence_absence.nwk"
     File pirate_pangenome_gfa = "PIRATE/~{cluster_name}_pangenome.gfa" 
-    File? pirate_pangenome_alignment_fasta = "PIRATE/~{cluster_name}_pangenome_alignment.fasta" 
-    File? pirate_pangenome_alignment_gff = "PIRATE/~{cluster_name}_pangenome_alignment.gff" 
-    File? pirate_core_alignment_fasta = "PIRATE/~{cluster_name}_core_alignment.fasta" 
-    File? pirate_core_alignment_gff = "PIRATE/~{cluster_name}_core_alignment.gff" 
+    File? pirate_pangenome_alignment_fasta = "PIRATE/~{cluster_name}_pangenome_alignment.fasta"
+    File? pirate_pangenome_alignment_gff = "PIRATE/~{cluster_name}_pangenome_alignment.gff"
+    File? pirate_core_alignment_fasta = "PIRATE/~{cluster_name}_core_alignment.fasta"
+    File? pirate_core_alignment_gff = "PIRATE/~{cluster_name}_core_alignment.gff"
     String pirate_docker_image = docker_image
   } 
   runtime {

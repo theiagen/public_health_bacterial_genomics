@@ -9,8 +9,9 @@ workflow pangenome_snp_workflow {
   input {
     Array[File] gff3
     String cluster_name
-    Boolean align = true
-    Boolean core = true
+    Boolean align = false
+    Boolean core_tree = false
+    Boolean pan_tree = false
   }
   call pirate.pirate as pirate {
     input:
@@ -19,25 +20,27 @@ workflow pangenome_snp_workflow {
       align = align
   }
   if (align == true) {
-    call iqtree.iqtree as pan_iqtree {
-      input:
-        alignment = pirate.pirate_pangenome_alignment_fasta,
-        cluster_name = cluster_name
+    if (pan_tree == true) {
+      call iqtree.iqtree as pan_iqtree {
+        input:
+          alignment = select_first([pirate.pirate_pangenome_alignment_fasta]),
+          cluster_name = cluster_name
+      }
+      call snp_dists.snp_dists as pan_snp_dists {
+        input:
+          alignment = select_first([pirate.pirate_pangenome_alignment_fasta]),
+          cluster_name = cluster_name
+      }
     }
-    call snp_dists.snp_dists as pan_snp_dists {
-      input:
-        alignment = pirate.pirate_pangenome_alignment_fasta,
-        cluster_name = cluster_name
-    }
-    if (core == true) {
+    if (core_tree == true) {
       call iqtree.iqtree as core_iqtree {
         input:
-          alignment = pirate.pirate_core_alignment_fasta,
+          alignment = select_first([pirate.pirate_core_alignment_fasta]),
           cluster_name = cluster_name
       }
       call snp_dists.snp_dists as core_snp_dists {
         input:
-          alignment = pirate.pirate_core_alignment_fasta,
+          alignment = select_first([pirate.pirate_core_alignment_fasta]),
           cluster_name = cluster_name
       }
     }
@@ -52,10 +55,6 @@ workflow pangenome_snp_workflow {
     # pirate_outputs
     File pirate_pangenome_summary = pirate.pirate_pangenome_summary
     File pirate_gene_families_ordered = pirate.pirate_gene_families_ordered
-    #File pirate_unique_alleles = pirate.pirate_unique_alleles
-    #File pirate_binary_fasta = pirate.pirate_binary_fasta
-    #File pirate_binary_tree = pirate.pirate_binary_tree
-    #File pirate_pangenome_gfa = pirate.pirate_pangenome_gfa
     File? pirate_pangenome_alignment_fasta = pirate.pirate_pangenome_alignment_fasta
     File? pirate_pangenome_alignment_gff = pirate.pirate_pangenome_alignment_gff
     File? pirate_core_alignment_fasta = pirate.pirate_core_alignment_fasta
