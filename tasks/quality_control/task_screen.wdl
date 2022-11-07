@@ -57,9 +57,9 @@ task check_reads {
         percent_read2=$(python3 -c "print(round(($read2_bp / $read1_bp)*100))")
 
         if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total sequence is found in R2 (BP: $read2_bp; PERCENT: $percent_read2) compared to R1 (BP: $read1_bp; PERCENT: $percent_read1)"
+          flag="FAIL; more than ~{min_proportion} percent of the total sequence is found in R2 (BP: $read2_bp; PERCENT: $percent_read2) compared to R1 (BP: $read1_bp; PERCENT: $percent_read1)"
         elif [ "$percent_read2" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total sequence is found in R1 (BP: $read1_bp; PERCENT: $percent_read1) compared to R2 (BP: $read2_bp; PERCENT: $percent_read2)"
+          flag="FAIL; more than ~{min_proportion} percent of the total sequence is found in R1 (BP: $read1_bp; PERCENT: $percent_read1) compared to R2 (BP: $read2_bp; PERCENT: $percent_read2)"
         else
           flag="PASS"
         fi
