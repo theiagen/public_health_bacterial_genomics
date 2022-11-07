@@ -64,7 +64,7 @@ task check_reads {
         fi
 
         if [ "$flag" = "PASS" ] ; then
-          if [ "${read1_bp}" -le "~{min_basepairs}" ] || [ "${read2_bp}" -le "~{min_basepairs}" ] ; then
+          if [ "${reads_total}" -le "~{min_basepairs}" ]; then
             flag="FAIL; the number of basepairs is below the minimum of ~{min_basepairs}"
           else
             flag="PASS"
