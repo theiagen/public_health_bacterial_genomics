@@ -31,10 +31,9 @@ task check_reads {
       # key assumption: in fastq there will be four lines per read
       # sometimes fastqs do not have 4 lines per read, so this might fail one day
       
-#This requires at least 7472 reads in read1 by default, and if not 7472 reads in read2 to pass? The default min reads is the same for PE and SE wf's.
-#I think the default of 7472 was based on 20x coverage of Nasuia deltocephalinicola (smallest genome) split into 300 bp reads (max Illumina read length), 
-#but this should be split between forward and reverse read files? Default min reads per file should be halved for paired end reads?
-      if [ "${read1_num}" -le "~{min_reads}" ] || [ "${read2_num}" -le "~{min_reads}" ]; then
+      reads_total=$(expr $read1_num + $read2_num)
+      
+      if [ "${reads_total}" -le "~{min_reads}" ]; then
         flag="FAIL; the number of reads is below the minimum of ~{min_reads}"
       else
         flag="PASS"
