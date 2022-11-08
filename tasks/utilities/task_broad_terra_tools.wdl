@@ -31,7 +31,7 @@ task export_taxon_tables {
     Int num_reads_clean1
     Int? num_reads_clean2
     String? num_reads_clean_pairs
-    String trimmomatic_version
+    String? trimmomatic_version
     String bbduk_docker
     Float r1_mean_q
     Float? r2_mean_q
