@@ -94,14 +94,14 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-      call cg_pipeline.cg_pipeline_raw {
+      call cg_pipeline.cg_pipeline as cg_pipeline_raw {
         input:
           read1 = read1_raw,
           read2 = read2_raw,
           samplename = samplename,
           genome_length = select_first([genome_size, quast.genome_length])
       }
-      call cg_pipeline.cg_pipeline_clean {
+      call cg_pipeline.cg_pipeline as cg_pipeline_clean {
         input:
           read1 = read_QC_trim.read1_clean,
           read2 = read_QC_trim.read2_clean,
