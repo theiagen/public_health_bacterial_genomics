@@ -205,7 +205,7 @@ workflow theiaprok_illumina_pe {
             number_contigs = quast.number_contigs,
             n50_value = quast.n50_value,
             cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report,
-            cg_pipeline_docker_raw = cg_pipeline_raw.cg_pipeline_docker,
+            cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker,
             est_coverage_raw = cg_pipeline_raw.est_coverage,
             cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report,
             est_coverage_clean = cg_pipeline_clean.est_coverage,
