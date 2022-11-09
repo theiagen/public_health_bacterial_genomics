@@ -201,7 +201,7 @@ workflow theiaprok_illumina_pe {
             shovill_pe_version = shovill_pe.shovill_version,
             quast_report = quast.quast_report,
             quast_version = quast.version,
-            genome_length = quast.genome_length,
+            assembly_length = quast.genome_length,
             number_contigs = quast.number_contigs,
             n50_value = quast.n50_value,
             cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report,
@@ -381,7 +381,7 @@ workflow theiaprok_illumina_pe {
     String? shovill_pe_version = shovill_pe.shovill_version
     File? quast_report = quast.quast_report
     String? quast_version = quast.version
-    Int? genome_length = quast.genome_length
+    Int? assembly_length = quast.genome_length
     Int? number_contigs = quast.number_contigs
     Int? n50_value = quast.n50_value
     File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
