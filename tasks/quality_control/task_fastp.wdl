@@ -21,7 +21,7 @@ task fastp {
     --in1 ~{read1} --in2 ~{read2} \
     --out1 ~{samplename}_1P.fastq.gz --out2 ~{samplename}_2P.fastq.gz \
     --unpaired1 ~{samplename}_1.fail.fastq.gz --unpaired2 ~{samplename}_2.fail.fastq.gz \
-    --cut_right --cut_window_size ~{fastp_window_size} --cut_mean_quality ~{fastp_quality_trim_score} \
+    --cut_right --cut_right_window_size ~{fastp_window_size} --cut_right_mean_quality ~{fastp_quality_trim_score} \
     --length_required ~{fastp_minlen} \
     --thread ~{threads} \
     ~{fastp_args} \
@@ -30,6 +30,8 @@ task fastp {
   output {
     File read1_trimmed = "~{samplename}_1P.fastq.gz"
     File read2_trimmed = "~{samplename}_2P.fastq.gz"
+    File read1_trimmed_unpaired = "~{samplename}_1U.fastq.gz"
+    File read2_trimmed_unpaired = "~{samplename}_2U.fastq.gz"
     File fastp_stats = "~{samplename}_fastp.html"
     String version = "~{docker}"
     String pipeline_date = read_string("DATE")
