@@ -22,6 +22,7 @@ workflow read_QC_trim {
     Boolean call_midas = false
     File?    midas_db
     Boolean call_fastp = true
+    String? fastp_args = "--detect_adapter_for_pe -g -5 20 -3 20"
   }
   if (!call_fastp){
     call trimmomatic.trimmomatic_pe {
@@ -42,7 +43,8 @@ workflow read_QC_trim {
         read2 = read2_raw,
         fastp_minlen = trim_minlen,
         fastp_quality_trim_score = trim_quality_trim_score,
-        fastp_window_size = trim_window_size
+        fastp_window_size = trim_window_size,
+        fastp_args = fastp_args
     }
   }
   call bbduk.bbduk_pe {
