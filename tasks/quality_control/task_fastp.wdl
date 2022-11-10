@@ -20,7 +20,7 @@ task fastp {
     fastp \
     --in1 ~{read1} --in2 ~{read2} \
     --out1 ~{samplename}_1P.fastq.gz --out2 ~{samplename}_2P.fastq.gz \
-    --unpaired1 ~{samplename}_1.fail.fastq.gz --unpaired2 ~{samplename}_2.fail.fastq.gz \
+    --unpaired1 ~{samplename}_1U.fastq.gz --unpaired2 ~{samplename}_2U.fastq.gz \
     --cut_right --cut_right_window_size ~{fastp_window_size} --cut_right_mean_quality ~{fastp_quality_trim_score} \
     --length_required ~{fastp_minlen} \
     --thread ~{threads} \
