@@ -191,6 +191,7 @@ workflow theiaprok_illumina_pe {
             num_reads_clean2 = read_QC_trim.fastq_scan_clean2,
             num_reads_clean_pairs = read_QC_trim.fastq_scan_clean_pairs,
             trimmomatic_version = read_QC_trim.trimmomatic_version,
+            fastp_version = read_QC_trim.fastp_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
             r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
             r2_mean_q_raw = cg_pipeline_raw.r2_mean_q,
@@ -361,6 +362,7 @@ workflow theiaprok_illumina_pe {
     Int? num_reads_clean2 = read_QC_trim.fastq_scan_clean2
     String? num_reads_clean_pairs = read_QC_trim.fastq_scan_clean_pairs
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
+    String? fastp_version = read_QC_trim.fastp_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
     Float? r2_mean_q_raw = cg_pipeline_raw.r2_mean_q

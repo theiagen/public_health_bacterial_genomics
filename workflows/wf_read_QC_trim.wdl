@@ -21,7 +21,7 @@ workflow read_QC_trim {
     Int     bbduk_mem = 8
     Boolean call_midas = false
     File?    midas_db
-    Boolean call_fastp = true
+    Boolean call_fastp = false
     String? fastp_args = "--detect_adapter_for_pe -g -5 20 -3 20"
   }
   if (!call_fastp){
