@@ -49,7 +49,6 @@ task fastp {
 task fastp_se {
   input {
     File read1
-    File read2
     String samplename
     String docker = "quay.io/staphb/fastp:0.23.2"
     Int fastp_minlen =50
