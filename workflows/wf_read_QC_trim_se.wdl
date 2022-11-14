@@ -1,6 +1,7 @@
 version 1.0
 
 import "../tasks/quality_control/task_trimmomatic.wdl" as trimmomatic
+import "../tasks/quality_control/task_fastp.wdl" as fastp
 import "../tasks/quality_control/task_bbduk.wdl" as bbduk
 import "../tasks/quality_control/task_fastq_scan.wdl" as fastq_scan
 import "../tasks/taxon_id/task_midas.wdl" as midas
@@ -11,32 +12,47 @@ workflow read_QC_trim {
   }
 
   input {
-    String samplename
-    File read1_raw
-    Int? trimmomatic_minlen = 25
-    Int? trimmomatic_quality_trim_score = 30
-    Int? trimmomatic_window_size = 4
-    Int  bbduk_mem = 8
+    String  samplename
+    File  read1_raw
+    Int?  trim_minlen =50
+    Int?  trim_quality_trim_score =30
+    Int?  trim_window_size =20
+    Int bbduk_mem = 8
     Boolean call_midas = false
-    File?    midas_db
+    File? midas_db
+    Boolean call_fastp = false
+    String? fastp_args = "-g -5 20 -3 20"
   }
 #  call read_clean.ncbi_scrub_se {
 #    input:
 #      samplename = samplename,
 #      read1 = read1_raw
 #  }
-  call trimmomatic.trimmomatic_se {
-    input:
-      samplename = samplename,
-      read1 = read1_raw,
-      trimmomatic_minlen = trimmomatic_minlen,
-      trimmomatic_quality_trim_score = trimmomatic_quality_trim_score,
-      trimmomatic_window_size = trimmomatic_window_size
+  if (!call_fastp){
+    call trimmomatic.trimmomatic_se {
+      input:
+        samplename = samplename,
+        read1 = read1_raw,
+        trimmomatic_minlen = trim_minlen,
+        trimmomatic_quality_trim_score = trim_quality_trim_score,
+        trimmomatic_window_size = trim_window_size
+    }
+  }
+  if (call_fastp){
+    call fastp.fastp_se {
+      input:
+        samplename = samplename,
+        read1 = read1_raw,
+        fastp_minlen = trim_minlen,
+        fastp_quality_trim_score = trim_quality_trim_score,
+        fastp_window_size = trim_window_size,
+        fastp_args = fastp_args
+    }
   }
   call bbduk.bbduk_se {
     input:
       samplename = samplename,
-      read1_trimmed = trimmomatic_se.read1_trimmed,
+      read1_trimmed = select_first([trimmomatic_se.read1_trimmed,fastp_se.read1_trimmed]),
       mem_size_gb = bbduk_mem
   }
   call fastq_scan.fastq_scan_se as fastq_scan_raw {
@@ -82,7 +98,8 @@ workflow read_QC_trim {
 
     String fastq_scan_version = fastq_scan_raw.version
     String bbduk_docker = bbduk_se.bbduk_docker
-    String trimmomatic_version = trimmomatic_se.version
+    String? trimmomatic_version = trimmomatic_se.version
+    String? fastp_version = fastp_se.version
     String? midas_docker = midas.midas_docker
     File? midas_report = midas.midas_report
     String? midas_primary_genus = midas.midas_primary_genus
