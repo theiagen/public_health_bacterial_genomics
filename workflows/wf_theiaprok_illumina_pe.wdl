@@ -47,7 +47,7 @@ workflow theiaprok_illumina_pe {
     Int min_proportion = 50
     Boolean call_resfinder = false
     Boolean skip_screen = false 
-    Boolean use_prokka = false
+    Boolean use_prokka = true
   }
   call versioning.version_capture{
     input:
