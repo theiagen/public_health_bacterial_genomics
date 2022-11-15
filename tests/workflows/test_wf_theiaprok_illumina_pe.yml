@@ -51,7 +51,7 @@
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_virulence.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
     - path: miniwdl_run/call-cg_pipeline_raw/command
-      md5sum: 21d0f9cc8d024c64f152f557c3fb1ea0
+      md5sum: cd5412ea80f3a4e3db809798683858e0
     - path: miniwdl_run/call-cg_pipeline_raw/inputs.json
       contains: ["genome_length", "fastq", "samplename", "test"]
     - path: miniwdl_run/call-cg_pipeline_raw/outputs.json
@@ -63,14 +63,14 @@
       contains: ["wdl", "theiaprok_illumina_pe", "cg_pipeline_raw", "done"]
     - path: miniwdl_run/call-cg_pipeline_raw/work/DATE
     - path: miniwdl_run/call-cg_pipeline_raw/work/EST_COVERAGE
-      md5sum: 30565a8911a6bb487e3745c0ea3c8224
+      md5sum: a7e9105a8cb11adc9f201d83b65259ea
     - path: miniwdl_run/call-cg_pipeline_raw/work/R1_MEAN_Q
     - path: miniwdl_run/call-cg_pipeline_raw/work/R2_MEAN_Q
     - path: miniwdl_run/call-cg_pipeline_raw/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
     - path: miniwdl_run/call-cg_pipeline_raw/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
     - path: miniwdl_run/call-cg_pipeline_raw/work/test_readMetrics.tsv
     - path: miniwdl_run/call-cg_pipeline_clean/command
-      md5sum: 21d0f9cc8d024c64f152f557c3fb1ea0
+      md5sum: 816180501c18aac4f721a569797e26e4
     - path: miniwdl_run/call-cg_pipeline_clean/inputs.json
       contains: ["genome_length", "fastq", "samplename", "test"]
     - path: miniwdl_run/call-cg_pipeline_clean/outputs.json
@@ -82,11 +82,9 @@
       contains: ["wdl", "theiaprok_illumina_pe", "cg_pipeline_clean", "done"]
     - path: miniwdl_run/call-cg_pipeline_clean/work/DATE
     - path: miniwdl_run/call-cg_pipeline_clean/work/EST_COVERAGE
-      md5sum: 30565a8911a6bb487e3745c0ea3c8224
+      md5sum: 4923ea2cedc2ce90da8d30cd4fd9c567
     - path: miniwdl_run/call-cg_pipeline_clean/work/R1_MEAN_Q
     - path: miniwdl_run/call-cg_pipeline_clean/work/R2_MEAN_Q
-    - path: miniwdl_run/call-cg_pipeline_clean/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
-    - path: miniwdl_run/call-cg_pipeline_clean/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
     - path: miniwdl_run/call-cg_pipeline_clean/work/test_readMetrics.tsv
       contains: ["File", "fastq", "coverage"]
     - path: miniwdl_run/call-clean_check_reads/command
