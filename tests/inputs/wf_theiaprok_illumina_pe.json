@@ -20,5 +20,6 @@
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_qcreport_txt" : "./tests/inputs/empty-for-test.txt",
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_unword_clusters_csv" : "./tests/inputs/empty-for-test.txt",
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_refs_graph_gt" : "./tests/inputs/empty-for-test.txt",
-    "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_external_clusters_csv" : "./tests/inputs/empty-for-test.txt"
+    "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_external_clusters_csv" : "./tests/inputs/empty-for-test.txt",
+    "theiaprok_illumina_pe.bakta.bakta_db" : "./tests/inputs/empty-for-test.txt"
 }
