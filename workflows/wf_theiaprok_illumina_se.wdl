@@ -134,14 +134,14 @@ workflow theiaprok_illumina_se {
       if (use_prokka) {
         call prokka.prokka {
           input:
-            assembly = shovill_pe.assembly_fasta,
+            assembly = shovill_se.assembly_fasta,
             samplename = samplename
         }
       }
       if (! use_prokka) {
         call bakta.bakta {
           input:
-            assembly = shovill_pe.assembly_fasta,
+            assembly = shovill_se.assembly_fasta,
             samplename = samplename
         }
       }
