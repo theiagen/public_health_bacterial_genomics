@@ -85,6 +85,8 @@
       md5sum: 818e3c61a312dca01a1d887554c95904
     - path: miniwdl_run/call-cg_pipeline_clean/work/R1_MEAN_Q
     - path: miniwdl_run/call-cg_pipeline_clean/work/R2_MEAN_Q
+    - path: miniwdl_run/call-cg_pipeline_clean/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
+    - path: miniwdl_run/call-cg_pipeline_clean/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-cg_pipeline_clean/work/test_readMetrics.tsv
       contains: ["File", "fastq", "coverage"]
     - path: miniwdl_run/call-clean_check_reads/command
