@@ -65,11 +65,11 @@ workflow coregenome_snp_workflow {
     File? pirate_pan_alignment_gff = pirate.pirate_pangenome_alignment_gff
     String pirate_docker_image = pirate.pirate_docker_image
     # snp_dists outputs
-    String? pirate_snps_dists_version = pan_snp_dists.version
+    String? pirate_snps_dists_version = select_first([core_snp_dists.version,pan_snp_dists.version])
     File? pirate_core_snp_matrix = core_snp_dists.snp_matrix
     File? pirate_pan_snp_matrix = pan_snp_dists.snp_matrix
     # iqtree outputs
-    String? pirate_iqtree_version = pan_iqtree.version
+    String? pirate_iqtree_version = select_first([core_iqtree.version,pan_iqtree.version])
     File? pirate_iqtree_core_tree = core_iqtree.ml_tree
     File? pirate_iqtree_pan_tree = pan_iqtree.ml_tree
   }
