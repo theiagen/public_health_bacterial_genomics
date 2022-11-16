@@ -51,7 +51,7 @@
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_virulence.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
     - path: miniwdl_run/call-cg_pipeline_raw/command
-      md5sum: 2acd17a6d2c7df4ace106a63a30ad82a
+      contains: ["assembly","readMetrics"]
     - path: miniwdl_run/call-cg_pipeline_raw/inputs.json
       contains: ["genome_length", "fastq", "samplename", "test"]
     - path: miniwdl_run/call-cg_pipeline_raw/outputs.json
@@ -70,7 +70,7 @@
     - path: miniwdl_run/call-cg_pipeline_raw/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
     - path: miniwdl_run/call-cg_pipeline_raw/work/test_readMetrics.tsv
     - path: miniwdl_run/call-cg_pipeline_clean/command
-      md5sum: 445773018263fc9bd60fa6d4ba36cce0
+      contains: ["assembly","readMetrics"]
     - path: miniwdl_run/call-cg_pipeline_clean/inputs.json
       contains: ["genome_length", "fastq", "samplename", "test"]
     - path: miniwdl_run/call-cg_pipeline_clean/outputs.json
