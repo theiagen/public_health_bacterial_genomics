@@ -301,7 +301,7 @@ workflow theiaprok_illumina_se {
             midas_report = read_QC_trim.midas_report,
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
-            midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
         }
       }
     }
@@ -327,7 +327,7 @@ workflow theiaprok_illumina_se {
     File? midas_report = read_QC_trim.midas_report
     String? midas_primary_genus = read_QC_trim.midas_primary_genus
     String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
-    String? midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
+    String? midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_se.assembly_fasta
     File? contigs_gfa = shovill_se.contigs_gfa

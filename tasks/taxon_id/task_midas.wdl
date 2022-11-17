@@ -30,6 +30,8 @@ task midas {
     import pandas as pd
 
     df = pd.read_csv('~{samplename}/species/~{samplename}_species_profile.tsv',sep="\t", header=0)
+    # round relative abundance to 4 decimal places
+    df = df.round(4)
     # sort by relative abundance
     sorted_df = df.sort_values(by=['relative_abundance'], ascending=False)
     # split species_id column 
@@ -65,7 +67,7 @@ task midas {
     File midas_log = "~{samplename}/species/~{samplename}_log.txt"
     String midas_primary_genus = read_string("PRIMARY_GENUS")
     String midas_secondary_genus = read_string("SECONDARY_GENUS")
-    String midas_secondary_genus_coverage = read_string("SECONDARY_GENUS_ABUNDANCE")
+    String midas_secondary_genus_abundance = read_string("SECONDARY_GENUS_ABUNDANCE")
   }
   runtime {
       docker: "~{docker}"
