@@ -65,8 +65,8 @@ workflows:
    primaryDescriptorPath: /workflows/wf_rasusa.wdl
    testParameterFiles:
     - empty.json
- - name: CoreGenome_SNP
+ - name: Core_Gene_SNP
    subclass: WDL
-   primaryDescriptorPath: /workflows/wf_coregenome_snp.wdl
+   primaryDescriptorPath: /workflows/wf_core_gene_snp.wdl
    testParameterFiles:
     - empty.json

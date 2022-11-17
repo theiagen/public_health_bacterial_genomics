@@ -5,7 +5,7 @@ import "../tasks/phylogenetic_inference/task_iqtree.wdl" as iqtree
 import "../tasks/phylogenetic_inference/task_snp_dists.wdl" as snp_dists
 import "../tasks/task_versioning.wdl" as versioning
 
-workflow coregenome_snp_workflow {
+workflow core_gene_snp_workflow {
   input {
     Array[File] gff3
     String cluster_name
@@ -54,8 +54,8 @@ workflow coregenome_snp_workflow {
   }
   output {
     # Version Capture
-    String coregenome_snp_wf_version = version_capture.phbg_version
-    String coregenome_snp_wf_analysis_date = version_capture.date
+    String core_gene_snp_wf_version = version_capture.phbg_version
+    String core_gene_snp_wf_analysis_date = version_capture.date
     # pirate_outputs
     File pirate_pangenome_summary = pirate.pirate_pangenome_summary
     File pirate_gene_families_ordered = pirate.pirate_gene_families_ordered
