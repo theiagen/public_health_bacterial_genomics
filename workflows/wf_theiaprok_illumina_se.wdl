@@ -239,6 +239,32 @@ workflow theiaprok_illumina_se {
             ectyper_results = merlin_magic.ectyper_results,
             ectyper_version = merlin_magic.ectyper_version,
             ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
+            shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype,
+            shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence,
+            shigatyper_notes = merlin_magic.shigatyper_notes,
+            shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv,
+            shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv,
+            shigatyper_version = merlin_magic.shigatyper_version,
+            shigatyper_docker = merlin_magic.shigatyper_docker,
+            shigeifinder_report = merlin_magic.shigeifinder_report,
+            shigeifinder_docker = merlin_magic.shigeifinder_docker,
+            shigeifinder_version = merlin_magic.shigeifinder_version,
+            shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence,
+            shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes,
+            shigeifinder_cluster = merlin_magic.shigeifinder_cluster,
+            shigeifinder_serotype = merlin_magic.shigeifinder_serotype,
+            shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen,
+            shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen,
+            shigeifinder_notes = merlin_magic.shigeifinder_notes,
+            sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv,
+            sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json,
+            sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv,
+            sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version,
+            sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker,
+            sonneityping_species = merlin_magic.sonneityping_species,
+            sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype,
+            sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence,
+            sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name,
             lissero_results = merlin_magic.lissero_results,
             lissero_version = merlin_magic.lissero_version,
             lissero_serotype = merlin_magic.lissero_serotype,
@@ -322,7 +348,7 @@ workflow theiaprok_illumina_se {
             midas_report = read_QC_trim.midas_report,
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
-            midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
         }
       }
     }
@@ -348,7 +374,7 @@ workflow theiaprok_illumina_se {
     File? midas_report = read_QC_trim.midas_report
     String? midas_primary_genus = read_QC_trim.midas_primary_genus
     String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
-    String? midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
+    String? midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_se.assembly_fasta
     File? contigs_gfa = shovill_se.contigs_gfa
@@ -428,6 +454,33 @@ workflow theiaprok_illumina_se {
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
     String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
+    String? shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype
+    String? shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence
+    String? shigatyper_notes = merlin_magic.shigatyper_notes
+    File? shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv
+    File? shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv
+    String? shigatyper_version = merlin_magic.shigatyper_version
+    String? shigatyper_docker = merlin_magic.shigatyper_docker
+    File? shigeifinder_report = merlin_magic.shigeifinder_report
+    String? shigeifinder_docker = merlin_magic.shigeifinder_docker
+    String? shigeifinder_version = merlin_magic.shigeifinder_version
+    String? shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence
+    String? shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes
+    String? shigeifinder_cluster = merlin_magic.shigeifinder_cluster
+    String? shigeifinder_serotype = merlin_magic.shigeifinder_serotype
+    String? shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen
+    String? shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen
+    String? shigeifinder_notes = merlin_magic.shigeifinder_notes
+    # Shigella sonnei Typing
+    File? sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv
+    File? sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json
+    File? sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv
+    String? sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version
+    String? sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker
+    String? sonneityping_species = merlin_magic.sonneityping_species
+    String? sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype
+    String? sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence
+    String? sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
