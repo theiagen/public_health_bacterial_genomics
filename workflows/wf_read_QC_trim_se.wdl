@@ -13,22 +13,22 @@ workflow read_QC_trim {
 
   input {
     String  samplename
-    File  read1_raw
-    Int?  trim_minlen =50
-    Int?  trim_quality_trim_score =30
-    Int?  trim_window_size =20
-    Int bbduk_mem = 8
+    File    read1_raw
+    Int     trim_minlen = 50
+    Int     trim_quality_trim_score = 30
+    Int     trim_window_size = 20
+    Int     bbduk_mem = 8
     Boolean call_midas = false
-    File? midas_db
-    Boolean call_fastp = false
-    String? fastp_args = "-g -5 20 -3 20"
+    File?   midas_db
+    String  read_processing = "trimmomatic"
+    String  fastp_args = "-g -5 20 -3 20"
   }
 #  call read_clean.ncbi_scrub_se {
 #    input:
 #      samplename = samplename,
 #      read1 = read1_raw
 #  }
-  if (!call_fastp){
+  if (read_processing == "trimmomatic"){
     call trimmomatic.trimmomatic_se {
       input:
         samplename = samplename,
@@ -38,7 +38,7 @@ workflow read_QC_trim {
         trimmomatic_window_size = trim_window_size
     }
   }
-  if (call_fastp){
+  if (read_processing == "fastp"){
     call fastp.fastp_se {
       input:
         samplename = samplename,

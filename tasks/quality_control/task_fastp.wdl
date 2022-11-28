@@ -6,12 +6,12 @@ task fastp {
     File read2
     String samplename
     String docker = "quay.io/staphb/fastp:0.23.2"
-    Int fastp_minlen =50
-    Int fastp_window_size=20
-    Int fastp_quality_trim_score=30
+    Int fastp_minlen = 50
+    Int fastp_window_size = 20
+    Int fastp_quality_trim_score = 30
     # -g enables polyg trimming with default value of 10
-    String? fastp_args = "--detect_adapter_for_pe -g -5 20 -3 20"
-    Int? threads = 4
+    String fastp_args = "--detect_adapter_for_pe -g -5 20 -3 20"
+    Int threads = 4
   }
   command <<<
     # date 
@@ -51,13 +51,13 @@ task fastp_se {
     File read1
     String samplename
     String docker = "quay.io/staphb/fastp:0.23.2"
-    Int fastp_minlen =50
-    Int fastp_window_size=20
-    Int fastp_quality_trim_score=30
+    Int fastp_minlen = 50
+    Int fastp_window_size = 20
+    Int fastp_quality_trim_score = 30
     # -g enables polyg trimming with default value of 10
     # --detect_adapter_for_pe argument was removed 
-    String? fastp_args = "-g -5 20 -3 20"
-    Int? threads = 4
+    String fastp_args = "-g -5 20 -3 20"
+    Int threads = 4
   }
   command <<<
     # date 
