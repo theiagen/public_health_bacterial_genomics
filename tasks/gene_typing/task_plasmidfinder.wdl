@@ -16,7 +16,7 @@ task plasmidfinder {
     Float? threshold
 
   }
-  command <<<
+  command <<<  
   date | tee DATE
 
   if [[ ! -z "~{database}" ]]; then 

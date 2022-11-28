@@ -12,6 +12,7 @@ import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/gene_typing/task_resfinder.wdl" as resfinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
+import "../tasks/gene_typing/task_bakta.wdl" as bakta
 import "../tasks/gene_typing/task_prokka.wdl" as prokka
 import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
 import "../tasks/task_versioning.wdl" as versioning
@@ -44,6 +45,7 @@ workflow theiaprok_illumina_se {
     Int min_coverage = 10
     Boolean call_resfinder = false
     Boolean skip_screen = false 
+    Boolean use_prokka = true
   }
   call versioning.version_capture{
     input:
@@ -129,10 +131,19 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
-      call prokka.prokka {
-        input:
-          assembly = shovill_se.assembly_fasta,
-          samplename = samplename
+      if (use_prokka) {
+        call prokka.prokka {
+          input:
+            assembly = shovill_se.assembly_fasta,
+            samplename = samplename
+        }
+      }
+      if (! use_prokka) {
+        call bakta.bakta {
+          input:
+            assembly = shovill_se.assembly_fasta,
+            samplename = samplename
+        }
       }
       call plasmidfinder.plasmidfinder {
         input:
@@ -206,6 +217,8 @@ workflow theiaprok_illumina_se {
             amrfinderplus_amr_genes = amrfinderplus_task.amrfinderplus_amr_genes,
             amrfinderplus_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes,
             amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes,
+            amrfinderplus_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes,
+            amrfinderplus_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses,
             amrfinderplus_version = amrfinderplus_task.amrfinderplus_version,
             amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version,
             resfinder_pheno_table = resfinder_task.resfinder_pheno_table,
@@ -226,8 +239,35 @@ workflow theiaprok_illumina_se {
             ectyper_results = merlin_magic.ectyper_results,
             ectyper_version = merlin_magic.ectyper_version,
             ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
+            shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype,
+            shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence,
+            shigatyper_notes = merlin_magic.shigatyper_notes,
+            shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv,
+            shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv,
+            shigatyper_version = merlin_magic.shigatyper_version,
+            shigatyper_docker = merlin_magic.shigatyper_docker,
+            shigeifinder_report = merlin_magic.shigeifinder_report,
+            shigeifinder_docker = merlin_magic.shigeifinder_docker,
+            shigeifinder_version = merlin_magic.shigeifinder_version,
+            shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence,
+            shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes,
+            shigeifinder_cluster = merlin_magic.shigeifinder_cluster,
+            shigeifinder_serotype = merlin_magic.shigeifinder_serotype,
+            shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen,
+            shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen,
+            shigeifinder_notes = merlin_magic.shigeifinder_notes,
+            sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv,
+            sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json,
+            sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv,
+            sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version,
+            sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker,
+            sonneityping_species = merlin_magic.sonneityping_species,
+            sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype,
+            sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence,
+            sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name,
             lissero_results = merlin_magic.lissero_results,
             lissero_version = merlin_magic.lissero_version,
+            lissero_serotype = merlin_magic.lissero_serotype,
             sistr_results = merlin_magic.sistr_results,
             sistr_allele_json = merlin_magic.sistr_allele_json,
             sister_allele_fasta = merlin_magic.sistr_allele_fasta,
@@ -248,9 +288,29 @@ workflow theiaprok_illumina_se {
             genotyphi_genotype_confidence = merlin_magic.genotyphi_genotype_confidence,
             kleborate_output_file = merlin_magic.kleborate_output_file,
             kleborate_version = merlin_magic.kleborate_version,
+            kleborate_docker = merlin_magic.kleborate_docker,
             kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes,
             kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations,
             kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type,
+            kleborate_klocus = merlin_magic.kleborate_klocus,
+            kleborate_ktype = merlin_magic.kleborate_ktype,
+            kleborate_olocus = merlin_magic.kleborate_olocus,
+            kleborate_otype = merlin_magic.kleborate_otype,
+            kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence,
+            kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence,
+            kaptive_output_file_k = merlin_magic.kaptive_output_file_k,
+            kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc,
+            kaptive_version = merlin_magic.kaptive_version,
+            kaptive_k_locus = merlin_magic.kaptive_k_match,
+            kaptive_k_type = merlin_magic.kaptive_k_type,
+            kaptive_kl_confidence = merlin_magic.kaptive_k_confidence,
+            kaptive_oc_locus = merlin_magic.kaptive_oc_match,
+            kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence,
+            abricate_abaum_plasmid_tsv = merlin_magic.abricate_results,
+            abricate_abaum_plasmid_type_genes = merlin_magic.abricate_genes,
+            abricate_database = merlin_magic.abricate_database,
+            abricate_version = merlin_magic.abricate_version,
+            abricate_docker = merlin_magic.abricate_docker,
             tbprofiler_output_file = merlin_magic.tbprofiler_output_file,
             tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam,
             tbprofiler_output_bai = merlin_magic.tbprofiler_output_bai,
@@ -265,12 +325,30 @@ workflow theiaprok_illumina_se {
             prokka_gff = prokka.prokka_gff,
             prokka_gbk = prokka.prokka_gbk,
             prokka_sqn = prokka.prokka_sqn,
+            bakta_gbff = bakta.bakta_gbff,
+            bakta_gff3 = bakta.bakta_gff3,
+            bakta_tsv = bakta.bakta_tsv,
+            bakta_summary = bakta.bakta_txt,
+            bakta_version = bakta.bakta_version,
             plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids,
             plasmidfinder_results = plasmidfinder.plasmidfinder_results,
             plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
             plasmidfinder_docker = plasmidfinder.plasmidfinder_docker,
-            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version            
-            
+            plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version,
+            pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X,
+            pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv,
+            pbptyper_version = merlin_magic.pbptyper_version,
+            pbptyper_docker = merlin_magic.pbptyper_docker,
+            poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster,
+            poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv,
+            poppunk_GPS_db_version = merlin_magic.poppunk_gps_external_cluster_csv,
+            poppunk_version = merlin_magic.poppunk_version,
+            poppunk_docker = merlin_magic.poppunk_docker,
+            midas_docker = read_QC_trim.midas_docker,
+            midas_report = read_QC_trim.midas_report,
+            midas_primary_genus = read_QC_trim.midas_primary_genus,
+            midas_secondary_genus = read_QC_trim.midas_secondary_genus,
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
         }
       }
     }
@@ -292,6 +370,11 @@ workflow theiaprok_illumina_se {
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q = cg_pipeline.r1_mean_q
     File? read1_clean = read_QC_trim.read1_clean
+    String? midas_docker = read_QC_trim.midas_docker
+    File? midas_report = read_QC_trim.midas_report
+    String? midas_primary_genus = read_QC_trim.midas_primary_genus
+    String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
+    String? midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_se.assembly_fasta
     File? contigs_gfa = shovill_se.contigs_gfa
@@ -330,6 +413,8 @@ workflow theiaprok_illumina_se {
     String? amrfinderplus_amr_genes = amrfinderplus_task.amrfinderplus_amr_genes
     String? amrfinderplus_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes
     String? amrfinderplus_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
+    String? amrfinderplus_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
+    String? amrfinderplus_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses
     String? amrfinderplus_version = amrfinderplus_task.amrfinderplus_version
     String? amrfinderplus_db_version = amrfinderplus_task.amrfinderplus_db_version
     # Resfinder Outputs
@@ -350,6 +435,12 @@ workflow theiaprok_illumina_se {
     File? prokka_gff = prokka.prokka_gff
     File? prokka_gbk = prokka.prokka_gbk
     File? prokka_sqn = prokka.prokka_sqn
+    # Bakta Results
+    File? bakta_gbff = bakta.bakta_gbff
+    File? bakta_gff3 = bakta.bakta_gff3
+    File? bakta_tsv = bakta.bakta_tsv
+    File? bakta_summary = bakta.bakta_txt
+    String? bakta_version = bakta.bakta_version
     # Plasmidfinder Results
     String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
@@ -363,9 +454,37 @@ workflow theiaprok_illumina_se {
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
     String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
+    String? shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype
+    String? shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence
+    String? shigatyper_notes = merlin_magic.shigatyper_notes
+    File? shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv
+    File? shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv
+    String? shigatyper_version = merlin_magic.shigatyper_version
+    String? shigatyper_docker = merlin_magic.shigatyper_docker
+    File? shigeifinder_report = merlin_magic.shigeifinder_report
+    String? shigeifinder_docker = merlin_magic.shigeifinder_docker
+    String? shigeifinder_version = merlin_magic.shigeifinder_version
+    String? shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence
+    String? shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes
+    String? shigeifinder_cluster = merlin_magic.shigeifinder_cluster
+    String? shigeifinder_serotype = merlin_magic.shigeifinder_serotype
+    String? shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen
+    String? shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen
+    String? shigeifinder_notes = merlin_magic.shigeifinder_notes
+    # Shigella sonnei Typing
+    File? sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv
+    File? sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json
+    File? sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv
+    String? sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version
+    String? sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker
+    String? sonneityping_species = merlin_magic.sonneityping_species
+    String? sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype
+    String? sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence
+    String? sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
+    String? lissero_serotype = merlin_magic.lissero_serotype
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json
@@ -389,9 +508,30 @@ workflow theiaprok_illumina_se {
     # Klebsiella Typing
     File? kleborate_output_file = merlin_magic.kleborate_output_file
     String? kleborate_version = merlin_magic.kleborate_version
+    String? kleborate_docker = merlin_magic.kleborate_docker
     String? kleborate_key_resistance_genes = merlin_magic.kleborate_key_resistance_genes
     String? kleborate_genomic_resistance_mutations = merlin_magic.kleborate_genomic_resistance_mutations
     String? kleborate_mlst_sequence_type = merlin_magic.kleborate_mlst_sequence_type
+    String? kleborate_klocus = merlin_magic.kleborate_klocus
+    String? kleborate_ktype = merlin_magic.kleborate_ktype
+    String? kleborate_olocus = merlin_magic.kleborate_olocus
+    String? kleborate_otype = merlin_magic.kleborate_otype
+    String? kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence
+    String? kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence
+    # Acinetobacter Typing
+    File? kaptive_output_file_k = merlin_magic.kaptive_output_file_k
+    File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
+    String? kaptive_version = merlin_magic.kaptive_version
+    String? kaptive_k_locus = merlin_magic.kaptive_k_match
+    String? kaptive_k_type = merlin_magic.kaptive_k_type
+    String? kaptive_kl_confidence = merlin_magic.kaptive_k_confidence
+    String? kaptive_oc_locus = merlin_magic.kaptive_oc_match
+    String? kaptive_ocl_confidence = merlin_magic.kaptive_oc_confidence
+    File? abricate_abaum_plasmid_tsv = merlin_magic.abricate_results
+    String? abricate_abaum_plasmid_type_genes = merlin_magic.abricate_genes
+    String? abricate_database = merlin_magic.abricate_database
+    String? abricate_version = merlin_magic.abricate_version
+    String? abricate_docker = merlin_magic.abricate_docker
     # Mycobacterium Typing
     File? tbprofiler_output_file = merlin_magic.tbprofiler_output_file
     File? tbprofiler_output_bam = merlin_magic.tbprofiler_output_bam
@@ -405,5 +545,15 @@ workflow theiaprok_illumina_se {
     File? legsta_results = merlin_magic.legsta_results
     String? legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt
     String? legsta_version = merlin_magic.legsta_version
+    # Streptococcus pneumoniae Typing
+    String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
+    File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv
+    String? pbptyper_version = merlin_magic.pbptyper_version
+    String? pbptyper_docker = merlin_magic.pbptyper_docker
+    String? poppunk_gps_cluster = merlin_magic.poppunk_gps_cluster
+    File? poppunk_gps_external_cluster_csv = merlin_magic.poppunk_gps_external_cluster_csv
+    String? poppunk_GPS_db_version = merlin_magic.poppunk_GPS_db_version
+    String? poppunk_version = merlin_magic.poppunk_version
+    String? poppunk_docker = merlin_magic.poppunk_docker
   }
 }

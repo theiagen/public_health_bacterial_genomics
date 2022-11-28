@@ -32,7 +32,7 @@ workflow ksnp3_workflow {
   output {
     # Version Capture
     String ksnp3_wf_version = version_capture.phbg_version
-    String knsp3_wf_analysis_date = version_capture.date
+    String ksnp3_wf_analysis_date = version_capture.date
     # ksnp3_outputs
     String ksnp3_snp_dists_version = pan_snp_dists.version
     File ksnp3_core_snp_matrix = core_snp_dists.snp_matrix
@@ -40,6 +40,8 @@ workflow ksnp3_workflow {
     File ksnp3_core_vcf = ksnp3_task.ksnp3_core_vcf
     File ksnp3_pan_snp_matrix = pan_snp_dists.snp_matrix
     File ksnp3_pan_parsimony_tree = ksnp3_task.ksnp3_pan_parsimony_tree
+    File? ksnp3_ml_tree = ksnp3_task.ksnp3_ml_tree
+    File? ksnp3_nj_tree = ksnp3_task.ksnp3_nj_tree
     String ksnp3_docker = ksnp3_task.ksnp3_docker_image
   }
 }

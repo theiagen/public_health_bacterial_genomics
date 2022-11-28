@@ -1,5 +1,5 @@
 - name: theiaprok_illumina_pe_cromwell
-  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
+  command: cromwell run -i ./tests/inputs/wf_theiaprok_illumina_pe_cromwell.json -m metadata.json ./workflows/wf_theiaprok_illumina_pe.wdl
   tags:
     - wf_theiaprok_illumina_pe
     - wf_theiaprok_illumina_pe_cromwell
@@ -18,22 +18,21 @@
     - wf_theiaprok_illumina_pe_miniwdl
   files:
     - path: miniwdl_run/call-amrfinderplus_task/command
-      md5sum: cbcb16101728ff39abab80c88c21fb60
+      md5sum: 4a9639d03cb645e573de2be85be52396
     - path: miniwdl_run/call-amrfinderplus_task/inputs.json
       contains: ["assembly", "fasta", "organism", "test"]
     - path: miniwdl_run/call-amrfinderplus_task/outputs.json
       contains: ["amrfinderplus_all_report", "STRESS", "tsv", "NCBI"]
     - path: miniwdl_run/call-amrfinderplus_task/stderr.txt
-      md5sum: d41d8cd98f00b204e9800998ecf8427e
     - path: miniwdl_run/call-amrfinderplus_task/stderr.txt.offset
     - path: miniwdl_run/call-amrfinderplus_task/stdout.txt
-      contains: ["Gambit", "AMRFinder", "blast", "report"]
+      contains: ["Gambit", "AMRFinder"]
     - path: miniwdl_run/call-amrfinderplus_task/task.log
       contains: ["wdl", "theiaprok_illumina_pe", "amrfinderplus", "done"]
     - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_DB_VERSION
-      md5sum: c4396919ac552deedcb6a35fc4b65a79
+      md5sum: 6d6543d3aacc310fe866c5e90d1dff77
     - path: miniwdl_run/call-amrfinderplus_task/work/AMRFINDER_VERSION
-      md5sum: b54f25593aeab5346df95ad08bf41a61
+      md5sum: 6206889552f40d7ea91f1d9ae025f23d
     - path: miniwdl_run/call-amrfinderplus_task/work/AMR_GENES
       md5sum: b6017eebef847ac2471107ca6197b5c5
     - path: miniwdl_run/call-amrfinderplus_task/work/DATE
@@ -43,8 +42,6 @@
       md5sum: 9c9c511ab5bfade46f0db1b2ee5b4666
     - path: miniwdl_run/call-amrfinderplus_task/work/_miniwdl_inputs/0/test_contigs.fasta
       md5sum: d41d8cd98f00b204e9800998ecf8427e
-    - path: miniwdl_run/call-amrfinderplus_task/work/amrfinder.STDOUT-and-STDERR.log
-      contains: ["AMRFinder", "blast", "report"]
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_all.tsv
       md5sum: a5cc7b0baa9e11c9a31540800d0a740c
     - path: miniwdl_run/call-amrfinderplus_task/work/test_amrfinder_amr.tsv
@@ -60,7 +57,6 @@
     - path: miniwdl_run/call-cg_pipeline/outputs.json
       contains: ["lyveset", "cg_pipeline", "est_coverage", "r2_mean_q"]
     - path: miniwdl_run/call-cg_pipeline/stderr.txt
-      md5sum: ce20ed8880cbf02437861ed9d858680f
     - path: miniwdl_run/call-cg_pipeline/stderr.txt.offset
     - path: miniwdl_run/call-cg_pipeline/stdout.txt
     - path: miniwdl_run/call-cg_pipeline/task.log
@@ -94,13 +90,12 @@
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-gambit/command
-      md5sum: 7a0a0eac64d0d0667876512bb265a13a
+      md5sum: ed76fdc009c0298d75663f24bbcfa696
     - path: miniwdl_run/call-gambit/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-gambit/outputs.json
       contains: ["gambit", "csv", "json", "Candidatus"]
     - path: miniwdl_run/call-gambit/stderr.txt
-      md5sum: 6309bdacabb0b2ff1b12ba8382dbb5ad
     - path: miniwdl_run/call-gambit/stderr.txt.offset
     - path: miniwdl_run/call-gambit/stdout.txt
       contains: ["gambit"]
@@ -109,9 +104,9 @@
     - path: miniwdl_run/call-gambit/work/CLOSEST_DISTANCE
     - path: miniwdl_run/call-gambit/work/DATE
     - path: miniwdl_run/call-gambit/work/GAMBIT_DB_VERSION
-      md5sum: 665bf196d268251de28d9e3de0a449f7
+      md5sum: 2276ab90b62c0219da0fac43d28b0512
     - path: miniwdl_run/call-gambit/work/GAMBIT_VERSION
-      md5sum: 6f7e3a39515a2c5db8a447b6dc4c88f2
+      md5sum: f04975119234de325222289d81748e6d
     - path: miniwdl_run/call-gambit/work/MERLIN_TAG
       md5sum: 08e9de24ab150d083240557cec091d53
     - path: miniwdl_run/call-gambit/work/NEXT_TAXON
@@ -135,7 +130,6 @@
     - path: miniwdl_run/call-merlin_magic/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-merlin_magic/outputs.json
-      md5sum: a5cac6164d4efaf16cb30472595c6f21
     - path: miniwdl_run/call-merlin_magic/workflow.log
       contains: ["wdl", "theiaprok_illumina_pe", "merlin", "done"]
     - path: miniwdl_run/call-quast/command
@@ -287,7 +281,6 @@
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/outputs.json
       contains: ["read", "fastq", "test", "trimmomatic"]
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stderr.txt
-      md5sum: ce20ed8880cbf02437861ed9d858680f
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stderr.txt.offset
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/stdout.txt
     - path: miniwdl_run/call-read_QC_trim/call-trimmomatic_pe/task.log
@@ -327,7 +320,6 @@
     - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-shovill_pe/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-shovill_pe/work/out/shovill.corrections
-      contains: ["Contig"]
     - path: miniwdl_run/call-shovill_pe/work/out/shovill.log
       contains: ["shovill", "size", "total", "Done"]
     - path: miniwdl_run/call-shovill_pe/work/out/skesa.fasta
@@ -342,7 +334,7 @@
       contains: ["mlst", "depend", "Done"]
     - path: miniwdl_run/call-ts_mlst/stderr.txt.offset
     - path: miniwdl_run/call-ts_mlst/stdout.txt
-      md5sum: 4999136655ea4799df028af149742d87
+      md5sum: 98423ec82f0beb4852c1cbfddda79fff
     - path: miniwdl_run/call-ts_mlst/task.log
       contains: ["wdl", "theiaprok_illumina_pe", "ts_mlst", "done"]
     - path: miniwdl_run/call-ts_mlst/work/PREDICTED_MLST
@@ -350,7 +342,7 @@
     - path: miniwdl_run/call-ts_mlst/work/PUBMLST_SCHEME
       md5sum: e321471812e5c4b54c9c58319aec9f2b
     - path: miniwdl_run/call-ts_mlst/work/VERSION
-      md5sum: 27ff9dc14d779bc4bea1df4d0b1f8f9c
+      md5sum: 04955c2e9f7487411717e7bf9afafb59
     - path: miniwdl_run/call-ts_mlst/work/_miniwdl_inputs/0/test_contigs.fasta
     - path: miniwdl_run/call-ts_mlst/work/test_ts_mlst.tsv
       md5sum: cb4c953253bd9fe6ea9ceda9e57ac172
