@@ -3,8 +3,10 @@
     "theiaprok_illumina_pe.read1_raw": "bactopia-tests/data/species/portiera/illumina/SRR2838702_R1.fastq.gz",
     "theiaprok_illumina_pe.read2_raw": "bactopia-tests/data/species/portiera/illumina/SRR2838702_R2.fastq.gz",
     "theiaprok_illumina_pe.skip_screen": true,
-    "theiaprok_illumina_pe.read_QC_trim.call_midas": false,
     "theiaprok_illumina_pe.read_QC_trim.read_processing": "trimmomatic",
+    "theiaprok_illumina_pe.read_QC_trim.call_midas": false,
+    "theiaprok_illumina_pe.read_QC_trim.midas.midas_db" : "./tests/inputs/empty-for-test.txt",
+    "theiaprok_illumina_pe.use_prokka": true,
     "theiaprok_illumina_pe.shovill_pe.assembler": "skesa",
     "theiaprok_illumina_pe.merlin_magic.call_poppunk": false,
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_dists_npy" : "./tests/inputs/empty-for-test.txt",
@@ -21,5 +23,6 @@
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_qcreport_txt" : "./tests/inputs/empty-for-test.txt",
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_unword_clusters_csv" : "./tests/inputs/empty-for-test.txt",
     "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_refs_graph_gt" : "./tests/inputs/empty-for-test.txt",
-    "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_external_clusters_csv" : "./tests/inputs/empty-for-test.txt"
+    "theiaprok_illumina_pe.merlin_magic.poppunk_task.GPS_external_clusters_csv" : "./tests/inputs/empty-for-test.txt",
+    "theiaprok_illumina_pe.bakta.bakta_db" : "./tests/inputs/empty-for-test.txt"
 }
