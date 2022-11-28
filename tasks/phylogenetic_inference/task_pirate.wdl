@@ -4,10 +4,10 @@ task pirate {
   input {
     Array[File] gff3
     String cluster_name
-    Boolean align = false # align all genes and produce core/pangenome alignments
-    String? steps = "50,60,70,80,90,95,98" # % identity thresholds to use for pangenome construction [default: 50,60,70,80,90,95,98]
-    String? features = "CDS" # features to use for pangenome construction [default: CDS]
-    Boolean? nucl = false # create a pangenome on CDS features using nucleotide identity rather than amino acid identity
+    Boolean align = true # align all genes and produce core/pangenome alignments
+    String steps = "50,60,70,80,90,95,98" # % identity thresholds to use for pangenome construction [default: 50,60,70,80,90,95,98]
+    String features = "CDS" # features to use for pangenome construction [default: CDS]
+    Boolean nucl = false # create a pangenome on CDS features using nucleotide identity, default: amino acid identity
     String? panopt # additional arguments to pass to pangenome_contruction
     Int memory = 32
     Int cpu = 4
