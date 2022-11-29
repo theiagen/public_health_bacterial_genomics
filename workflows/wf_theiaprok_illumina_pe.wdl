@@ -48,6 +48,8 @@ workflow theiaprok_illumina_pe {
     Boolean call_resfinder = false
     Boolean skip_screen = false 
     Boolean use_prokka = true
+    Int? pasty_min_pident
+    Int? pasty_min_coverage
   }
   call versioning.version_capture{
     input:
@@ -171,7 +173,9 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename,
           read1 = read_QC_trim.read1_clean,
-          read2 = read_QC_trim.read2_clean
+          read2 = read_QC_trim.read2_clean,
+          pasty_min_pident = pasty_min_pident,
+          pasty_min_coverage = pasty_min_coverage
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {
@@ -531,6 +535,14 @@ workflow theiaprok_illumina_pe {
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
     String? lissero_serotype = merlin_magic.lissero_serotype
+    # Pseudomonas Aeruginosa Typing
+    String? pasty_serogroup = merlin_magic.pasty_serogroup
+    Float? pasty_serogroup_coverage = merlin_magic.pasty_serogroup_coverage
+    Int? pasty_serogroup_fragments = merlin_magic.pasty_serogroup_fragments
+    File? pasty_summary_tsv = merlin_magic.pasty_summary_tsv
+    File? pasty_blast_hits = merlin_magic.pasty_blast_hits
+    File? pasty_all_serogroups = merlin_magic.pasty_all_serogroups
+    String? pasty_version = merlin_magic.pasty_version
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json
