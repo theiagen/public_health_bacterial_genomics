@@ -385,7 +385,14 @@ workflow theiaprok_illumina_pe {
             midas_report = read_QC_trim.midas_report,
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
-            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
+            pasty_serogroup = merlin_magic.pasty_serogroup,
+            pasty_serogroup_coverage = merlin_magic.pasty_serogroup_coverage,
+            pasty_serogroup_fragments = merlin_magic.pasty_serogroup_fragments,
+            pasty_summary_tsv = merlin_magic.pasty_summary_tsv,
+            pasty_blast_hits = merlin_magic.pasty_blast_hits,
+            pasty_all_serogroups = merlin_magic.pasty_all_serogroups,
+            pasty_version = merlin_magic.pasty_version
         }
       }
     }
