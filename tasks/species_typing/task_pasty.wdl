@@ -4,6 +4,8 @@ task pasty {
     input {
         File  assembly
         String  samplename
+        Int min_pident = 95
+        Int min_coverage = 95
         String docker = "quay.io/biocontainers/pasty:1.0.0--hdfd78af_0"
     }
     command <<<
@@ -12,7 +14,11 @@ task pasty {
         pasty --version > VERSION && sed -i -e 's/pasty\, version //' VERSION
 
         pasty \
-        --assembly ~{assembly}
+        --assembly ~{assembly} \
+        --min_pident ~{min_pident} \
+        --min_coverage ~{min_coverage} \
+        --prefix ~{samplename} \
+        --outdir .
 
         awk 'FNR==2' "~{samplename}.tsv" | cut -d$'\t' -f2 > SEROGROUP
         awk 'FNR==2' "~{samplename}.tsv" | cut -d$'\t' -f3 > COVERAGE
@@ -20,8 +26,9 @@ task pasty {
     >>>
     output {
         String pasty_serogroup = read_string("SEROGROUP")
-        String pasty_serogroup_coverage = read_string("COVERAGE")
-        String pasty_serogroup_fragments = read_string("FRAGMENTS")
+        Float pasty_serogroup_coverage = read_float("COVERAGE")
+        Int pasty_serogroup_fragments = read_int("FRAGMENTS")
+        File pasty_summary_tsv = "~{samplename}.tsv"
         File pasty_blast_hits = "~{samplename}.blastn.tsv"
         File pasty_all_serogroups = "~{samplename}.details.tsv"
         String pasty_version = read_string("VERSION")
@@ -29,8 +36,8 @@ task pasty {
     }
     runtime {
         docker: "~{docker}"
-        memory: "8 GB"
-        cpu: 4
+        memory: "4 GB"
+        cpu: 2
         disks: "local-disk 100 SSD"
         preemptible:  0
     }
