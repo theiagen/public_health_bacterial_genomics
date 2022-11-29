@@ -2,6 +2,9 @@ version 1.0
 
 import "../tasks/species_typing/task_serotypefinder.wdl" as serotypefinder
 import "../tasks/species_typing/task_ectyper.wdl" as ectyper
+import "../tasks/species_typing/task_shigatyper.wdl" as shigatyper
+import "../tasks/species_typing/task_shigeifinder.wdl" as shigeifinder
+import "../tasks/species_typing/task_sonneityping.wdl" as sonneityping
 import "../tasks/species_typing/task_lissero.wdl" as lissero
 import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
@@ -27,6 +30,7 @@ workflow merlin_magic {
     File? read2
     Boolean paired_end = true
     Boolean call_poppunk = true
+    Boolean read1_is_ont = false
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -42,7 +46,8 @@ workflow merlin_magic {
         minid = 95 # strict threshold of 95% identity for typing purposes
     }
   }
-  if (merlin_tag == "Escherichia") {
+  if (merlin_tag == "Escherichia" || merlin_tag == "Shigella_sonnei" ) {
+    # tools specific to all Escherichia and Shigella species
     call serotypefinder.serotypefinder {
       input:
         assembly = assembly,
@@ -52,6 +57,28 @@ workflow merlin_magic {
       input:
         assembly = assembly,
         samplename = samplename
+    }
+    call shigatyper.shigatyper {
+      input:
+        read1 = read1,
+        read2 = read2,
+        samplename = samplename,
+        read1_is_ont = read1_is_ont
+    }
+    call shigeifinder.shigeifinder {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Shigella_sonnei") {
+    # Shigella sonnei specific tasks
+    call sonneityping.sonneityping {
+      input:
+        read1 = read1,
+        read2 = read2,
+        samplename = samplename,
+        ont_data = read1_is_ont
     }
   }
   if (merlin_tag == "Listeria") {
@@ -136,6 +163,33 @@ workflow merlin_magic {
   File? ectyper_results = ectyper.ectyper_results
   String? ectyper_version = ectyper.ectyper_version
   String? ectyper_predicted_serotype = ectyper.ectyper_predicted_serotype
+  String? shigatyper_predicted_serotype = shigatyper.shigatyper_predicted_serotype
+  String? shigatyper_ipaB_presence_absence = shigatyper.shigatyper_ipaB_presence_absence
+  String? shigatyper_notes = shigatyper.shigatyper_notes
+  File? shigatyper_hits_tsv = shigatyper.shigatyper_hits_tsv
+  File? shigatyper_summary_tsv = shigatyper.shigatyper_summary_tsv
+  String? shigatyper_version = shigatyper.shigatyper_version
+  String? shigatyper_docker = shigatyper.shigatyper_docker
+  File? shigeifinder_report = shigeifinder.shigeifinder_report
+  String? shigeifinder_docker = shigeifinder.shigeifinder_docker
+  String? shigeifinder_version = shigeifinder.shigeifinder_version
+  String? shigeifinder_ipaH_presence_absence = shigeifinder.shigeifinder_ipaH_presence_absence
+  String? shigeifinder_num_virulence_plasmid_genes = shigeifinder.shigeifinder_num_virulence_plasmid_genes
+  String? shigeifinder_cluster = shigeifinder.shigeifinder_cluster
+  String? shigeifinder_serotype = shigeifinder.shigeifinder_serotype
+  String? shigeifinder_O_antigen = shigeifinder.shigeifinder_O_antigen
+  String? shigeifinder_H_antigen = shigeifinder.shigeifinder_H_antigen
+  String? shigeifinder_notes = shigeifinder.shigeifinder_notes
+  # Shigella sonnei Typing
+  File? sonneityping_mykrobe_report_csv = sonneityping.sonneityping_mykrobe_report_csv
+  File? sonneityping_mykrobe_report_json = sonneityping.sonneityping_mykrobe_report_json
+  File? sonneityping_final_report_tsv = sonneityping.sonneityping_final_report_tsv
+  String? sonneityping_mykrobe_version = sonneityping.sonneityping_mykrobe_version
+  String? sonneityping_mykrobe_docker = sonneityping.sonneityping_mykrobe_docker
+  String? sonneityping_species = sonneityping.sonneityping_species
+  String? sonneityping_final_genotype = sonneityping.sonneityping_final_genotype
+  String? sonneityping_genotype_confidence = sonneityping.sonneityping_genotype_confidence
+  String? sonneityping_genotype_name = sonneityping.sonneityping_genotype_name
   # Listeria Typing
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version

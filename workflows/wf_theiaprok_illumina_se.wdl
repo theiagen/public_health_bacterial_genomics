@@ -12,6 +12,7 @@ import "../tasks/quality_control/task_mummer_ani.wdl" as ani
 import "../tasks/gene_typing/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/gene_typing/task_resfinder.wdl" as resfinder
 import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
+import "../tasks/gene_typing/task_bakta.wdl" as bakta
 import "../tasks/gene_typing/task_prokka.wdl" as prokka
 import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
 import "../tasks/task_versioning.wdl" as versioning
@@ -44,6 +45,7 @@ workflow theiaprok_illumina_se {
     Int min_coverage = 10
     Boolean call_resfinder = false
     Boolean skip_screen = false 
+    Boolean use_prokka = true
   }
   call versioning.version_capture{
     input:
@@ -87,11 +89,17 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
-      call cg_pipeline.cg_pipeline {
+      call cg_pipeline.cg_pipeline as cg_pipeline_raw {
         input:
           read1 = read1_raw,
           samplename = samplename,
-          genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
+          genome_length = select_first([genome_size, quast.genome_length])
+      }
+      call cg_pipeline.cg_pipeline as cg_pipeline_clean {
+        input:
+          read1 = read_QC_trim.read1_clean,
+          samplename = samplename,
+          genome_length = select_first([genome_size, quast.genome_length])
       }
       call gambit.gambit {
         input:
@@ -129,10 +137,19 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
-      call prokka.prokka {
-        input:
-          assembly = shovill_se.assembly_fasta,
-          samplename = samplename
+      if (use_prokka) {
+        call prokka.prokka {
+          input:
+            assembly = shovill_se.assembly_fasta,
+            samplename = samplename
+        }
+      }
+      if (! use_prokka) {
+        call bakta.bakta {
+          input:
+            assembly = shovill_se.assembly_fasta,
+            samplename = samplename
+        }
       }
       call plasmidfinder.plasmidfinder {
         input:
@@ -170,19 +187,23 @@ workflow theiaprok_illumina_se {
             fastq_scan_version = read_QC_trim.fastq_scan_version,
             num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads,
             trimmomatic_version = read_QC_trim.trimmomatic_version,
+            fastp_version = read_QC_trim.fastp_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
-            r1_mean_q = cg_pipeline.r1_mean_q,
+            r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
+            r1_mean_q_clean = cg_pipeline_clean.r1_mean_q,
             assembly_fasta = shovill_se.assembly_fasta,
             contigs_gfa = shovill_se.contigs_gfa,
             shovill_se_version = shovill_se.shovill_version,
             quast_report = quast.quast_report,
             quast_version = quast.version,
-            genome_length = quast.genome_length,
+            assembly_length = quast.genome_length,
             number_contigs = quast.number_contigs,
             n50_value = quast.n50_value,
-            cg_pipeline_report = cg_pipeline.cg_pipeline_report,
-            cg_pipeline_docker = cg_pipeline.cg_pipeline_docker,
-            est_coverage = cg_pipeline.est_coverage,
+            cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report,
+            cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker,
+            est_coverage_raw = cg_pipeline_raw.est_coverage,
+            cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report,
+            est_coverage_clean = cg_pipeline_clean.est_coverage,
             gambit_report = gambit.gambit_report_file,
             gambit_predicted_taxon = gambit.gambit_predicted_taxon,
             gambit_predicted_taxon_rank = gambit.gambit_predicted_taxon_rank,
@@ -228,6 +249,32 @@ workflow theiaprok_illumina_se {
             ectyper_results = merlin_magic.ectyper_results,
             ectyper_version = merlin_magic.ectyper_version,
             ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype,
+            shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype,
+            shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence,
+            shigatyper_notes = merlin_magic.shigatyper_notes,
+            shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv,
+            shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv,
+            shigatyper_version = merlin_magic.shigatyper_version,
+            shigatyper_docker = merlin_magic.shigatyper_docker,
+            shigeifinder_report = merlin_magic.shigeifinder_report,
+            shigeifinder_docker = merlin_magic.shigeifinder_docker,
+            shigeifinder_version = merlin_magic.shigeifinder_version,
+            shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence,
+            shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes,
+            shigeifinder_cluster = merlin_magic.shigeifinder_cluster,
+            shigeifinder_serotype = merlin_magic.shigeifinder_serotype,
+            shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen,
+            shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen,
+            shigeifinder_notes = merlin_magic.shigeifinder_notes,
+            sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv,
+            sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json,
+            sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv,
+            sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version,
+            sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker,
+            sonneityping_species = merlin_magic.sonneityping_species,
+            sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype,
+            sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence,
+            sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name,
             lissero_results = merlin_magic.lissero_results,
             lissero_version = merlin_magic.lissero_version,
             lissero_serotype = merlin_magic.lissero_serotype,
@@ -288,6 +335,11 @@ workflow theiaprok_illumina_se {
             prokka_gff = prokka.prokka_gff,
             prokka_gbk = prokka.prokka_gbk,
             prokka_sqn = prokka.prokka_sqn,
+            bakta_gbff = bakta.bakta_gbff,
+            bakta_gff3 = bakta.bakta_gff3,
+            bakta_tsv = bakta.bakta_tsv,
+            bakta_summary = bakta.bakta_txt,
+            bakta_version = bakta.bakta_version,
             plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids,
             plasmidfinder_results = plasmidfinder.plasmidfinder_results,
             plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs,
@@ -306,7 +358,7 @@ workflow theiaprok_illumina_se {
             midas_report = read_QC_trim.midas_report,
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
-            midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
         }
       }
     }
@@ -325,26 +377,30 @@ workflow theiaprok_illumina_se {
     String? fastq_scan_version = read_QC_trim.fastq_scan_version
     Int? num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
+    String? fastp_version = read_QC_trim.fastp_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
-    Float? r1_mean_q = cg_pipeline.r1_mean_q
+    Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
+    Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
     File? read1_clean = read_QC_trim.read1_clean
     String? midas_docker = read_QC_trim.midas_docker
     File? midas_report = read_QC_trim.midas_report
     String? midas_primary_genus = read_QC_trim.midas_primary_genus
     String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
-    String? midas_secondary_genus_coverage = read_QC_trim.midas_secondary_genus_coverage
+    String? midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_se.assembly_fasta
     File? contigs_gfa = shovill_se.contigs_gfa
     String? shovill_se_version = shovill_se.shovill_version
     File? quast_report = quast.quast_report
     String? quast_version = quast.version
-    Int? genome_length = quast.genome_length
+    Int? assembly_length = quast.genome_length
     Int? number_contigs = quast.number_contigs
     Int? n50_value = quast.n50_value
-    File? cg_pipeline_report = cg_pipeline.cg_pipeline_report
-    String? cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
-    Float? est_coverage = cg_pipeline.est_coverage
+    File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
+    String? cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker
+    Float? est_coverage_raw = cg_pipeline_raw.est_coverage
+    File? cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report
+    Float? est_coverage_clean = cg_pipeline_clean.est_coverage
     String? busco_version = busco.busco_version
     String? busco_database = busco.busco_database
     String? busco_results = busco.busco_results
@@ -393,6 +449,12 @@ workflow theiaprok_illumina_se {
     File? prokka_gff = prokka.prokka_gff
     File? prokka_gbk = prokka.prokka_gbk
     File? prokka_sqn = prokka.prokka_sqn
+    # Bakta Results
+    File? bakta_gbff = bakta.bakta_gbff
+    File? bakta_gff3 = bakta.bakta_gff3
+    File? bakta_tsv = bakta.bakta_tsv
+    File? bakta_summary = bakta.bakta_txt
+    String? bakta_version = bakta.bakta_version
     # Plasmidfinder Results
     String? plasmidfinder_plasmids = plasmidfinder.plasmidfinder_plasmids
     File? plasmidfinder_results = plasmidfinder.plasmidfinder_results
@@ -406,6 +468,33 @@ workflow theiaprok_illumina_se {
     File? ectyper_results = merlin_magic.ectyper_results
     String? ectyper_version = merlin_magic.ectyper_version
     String? ectyper_predicted_serotype = merlin_magic.ectyper_predicted_serotype
+    String? shigatyper_predicted_serotype = merlin_magic.shigatyper_predicted_serotype
+    String? shigatyper_ipaB_presence_absence = merlin_magic.shigatyper_ipaB_presence_absence
+    String? shigatyper_notes = merlin_magic.shigatyper_notes
+    File? shigatyper_hits_tsv = merlin_magic.shigatyper_hits_tsv
+    File? shigatyper_summary_tsv = merlin_magic.shigatyper_summary_tsv
+    String? shigatyper_version = merlin_magic.shigatyper_version
+    String? shigatyper_docker = merlin_magic.shigatyper_docker
+    File? shigeifinder_report = merlin_magic.shigeifinder_report
+    String? shigeifinder_docker = merlin_magic.shigeifinder_docker
+    String? shigeifinder_version = merlin_magic.shigeifinder_version
+    String? shigeifinder_ipaH_presence_absence = merlin_magic.shigeifinder_ipaH_presence_absence
+    String? shigeifinder_num_virulence_plasmid_genes = merlin_magic.shigeifinder_num_virulence_plasmid_genes
+    String? shigeifinder_cluster = merlin_magic.shigeifinder_cluster
+    String? shigeifinder_serotype = merlin_magic.shigeifinder_serotype
+    String? shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen
+    String? shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen
+    String? shigeifinder_notes = merlin_magic.shigeifinder_notes
+    # Shigella sonnei Typing
+    File? sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv
+    File? sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json
+    File? sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv
+    String? sonneityping_mykrobe_version = merlin_magic.sonneityping_mykrobe_version
+    String? sonneityping_mykrobe_docker = merlin_magic.sonneityping_mykrobe_docker
+    String? sonneityping_species = merlin_magic.sonneityping_species
+    String? sonneityping_final_genotype = merlin_magic.sonneityping_final_genotype
+    String? sonneityping_genotype_confidence = merlin_magic.sonneityping_genotype_confidence
+    String? sonneityping_genotype_name = merlin_magic.sonneityping_genotype_name
     # Listeria Typing
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
