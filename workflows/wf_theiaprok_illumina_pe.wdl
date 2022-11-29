@@ -96,12 +96,19 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-      call cg_pipeline.cg_pipeline {
+      call cg_pipeline.cg_pipeline as cg_pipeline_raw {
         input:
           read1 = read1_raw,
           read2 = read2_raw,
           samplename = samplename,
-          genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
+          genome_length = select_first([genome_size, quast.genome_length])
+      }
+      call cg_pipeline.cg_pipeline as cg_pipeline_clean {
+        input:
+          read1 = read_QC_trim.read1_clean,
+          read2 = read_QC_trim.read2_clean,
+          samplename = samplename,
+          genome_length = select_first([genome_size, quast.genome_length])
       }
       call gambit.gambit {
         input:
@@ -195,20 +202,25 @@ workflow theiaprok_illumina_pe {
             num_reads_clean2 = read_QC_trim.fastq_scan_clean2,
             num_reads_clean_pairs = read_QC_trim.fastq_scan_clean_pairs,
             trimmomatic_version = read_QC_trim.trimmomatic_version,
+            fastp_version = read_QC_trim.fastp_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
-            r1_mean_q = cg_pipeline.r1_mean_q,
-            r2_mean_q = cg_pipeline.r2_mean_q,
+            r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
+            r2_mean_q_raw = cg_pipeline_raw.r2_mean_q,
+            r1_mean_q_clean = cg_pipeline_clean.r1_mean_q,
+            r2_mean_q_clean = cg_pipeline_clean.r2_mean_q,
             assembly_fasta = shovill_pe.assembly_fasta,
             contigs_gfa = shovill_pe.contigs_gfa,
             shovill_pe_version = shovill_pe.shovill_version,
             quast_report = quast.quast_report,
             quast_version = quast.version,
-            genome_length = quast.genome_length,
+            assembly_length = quast.genome_length,
             number_contigs = quast.number_contigs,
             n50_value = quast.n50_value,
-            cg_pipeline_report = cg_pipeline.cg_pipeline_report,
-            cg_pipeline_docker = cg_pipeline.cg_pipeline_docker,
-            est_coverage = cg_pipeline.est_coverage,
+            cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report,
+            cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker,
+            est_coverage_raw = cg_pipeline_raw.est_coverage,
+            cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report,
+            est_coverage_clean = cg_pipeline_clean.est_coverage,
             gambit_report = gambit.gambit_report_file,
             gambit_predicted_taxon = gambit.gambit_predicted_taxon,
             gambit_predicted_taxon_rank = gambit.gambit_predicted_taxon_rank,
@@ -392,9 +404,12 @@ workflow theiaprok_illumina_pe {
     Int? num_reads_clean2 = read_QC_trim.fastq_scan_clean2
     String? num_reads_clean_pairs = read_QC_trim.fastq_scan_clean_pairs
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
+    String? fastp_version = read_QC_trim.fastp_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
-    Float? r1_mean_q = cg_pipeline.r1_mean_q
-    Float? r2_mean_q = cg_pipeline.r2_mean_q
+    Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
+    Float? r2_mean_q_raw = cg_pipeline_raw.r2_mean_q
+    Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
+    Float? r2_mean_q_clean = cg_pipeline_clean.r2_mean_q
     File? read1_clean = read_QC_trim.read1_clean
     File? read2_clean = read_QC_trim.read2_clean
     String? midas_docker = read_QC_trim.midas_docker
@@ -410,12 +425,14 @@ workflow theiaprok_illumina_pe {
     String? shovill_pe_version = shovill_pe.shovill_version
     File? quast_report = quast.quast_report
     String? quast_version = quast.version
-    Int? genome_length = quast.genome_length
+    Int? assembly_length = quast.genome_length
     Int? number_contigs = quast.number_contigs
     Int? n50_value = quast.n50_value
-    File? cg_pipeline_report = cg_pipeline.cg_pipeline_report
-    String? cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
-    Float? est_coverage = cg_pipeline.est_coverage
+    File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
+    String? cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker
+    Float? est_coverage_raw = cg_pipeline_raw.est_coverage
+    File? cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report
+    Float? est_coverage_clean = cg_pipeline_clean.est_coverage
     String? busco_version = busco.busco_version
     String? busco_database = busco.busco_database
     String? busco_results = busco.busco_results
