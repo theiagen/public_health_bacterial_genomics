@@ -33,6 +33,7 @@ task pasty {
         File pasty_all_serogroups = "~{samplename}.details.tsv"
         String pasty_version = read_string("VERSION")
         String pasty_pipeline_date = read_string("DATE")
+        String pasty_docker = docker
     }
     runtime {
         docker: "~{docker}"

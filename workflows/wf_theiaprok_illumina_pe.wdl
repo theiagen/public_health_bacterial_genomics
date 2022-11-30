@@ -392,7 +392,8 @@ workflow theiaprok_illumina_pe {
             pasty_summary_tsv = merlin_magic.pasty_summary_tsv,
             pasty_blast_hits = merlin_magic.pasty_blast_hits,
             pasty_all_serogroups = merlin_magic.pasty_all_serogroups,
-            pasty_version = merlin_magic.pasty_version
+            pasty_version = merlin_magic.pasty_version,
+            pasty_docker = merlin_magic.pasty_docker
         }
       }
     }
@@ -550,6 +551,7 @@ workflow theiaprok_illumina_pe {
     File? pasty_blast_hits = merlin_magic.pasty_blast_hits
     File? pasty_all_serogroups = merlin_magic.pasty_all_serogroups
     String? pasty_version = merlin_magic.pasty_version
+    String? pasty_docker = merlin_magic.pasty_docker
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json

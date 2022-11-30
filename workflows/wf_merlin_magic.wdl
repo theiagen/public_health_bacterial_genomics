@@ -214,6 +214,7 @@ workflow merlin_magic {
   File? pasty_blast_hits = pasty.pasty_blast_hits
   File? pasty_all_serogroups = pasty.pasty_all_serogroups
   String? pasty_version = pasty.pasty_version
+  String? pasty_docker = pasty.pasty_docker
   # Salmonella Typing
   File? sistr_results = sistr.sistr_results
   File? sistr_allele_json = sistr.sistr_allele_json
