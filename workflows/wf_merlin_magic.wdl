@@ -16,6 +16,7 @@ import "../tasks/species_typing/task_kaptive.wdl" as kaptive
 import "../tasks/species_typing/task_seroba.wdl" as seroba
 import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
+import "../tasks/species_typing/task_pasty.wdl" as pasty
 import "../tasks/gene_typing/task_abricate.wdl" as abricate_task
 
 workflow merlin_magic {
@@ -28,6 +29,8 @@ workflow merlin_magic {
     File assembly
     File read1
     File? read2
+    Int? pasty_min_pident
+    Int? pasty_min_coverage
     Boolean paired_end = true
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
@@ -117,6 +120,15 @@ workflow merlin_magic {
         samplename = samplename
     }
   }
+  if (merlin_tag == "Pseudomonas aeruginosa") {
+    call pasty.pasty {
+      input:
+        assembly = assembly,
+        samplename = samplename,
+        min_pident = pasty_min_pident,
+        min_coverage = pasty_min_coverage
+    }
+  }
   if (merlin_tag == "Mycobacterium tuberculosis") {
     call tbprofiler.tbprofiler {
       input:
@@ -194,6 +206,15 @@ workflow merlin_magic {
   File? lissero_results = lissero.lissero_results
   String? lissero_version = lissero.lissero_version
   String? lissero_serotype = lissero.lissero_serotype
+  # Pseudomonas Aeruginosa Typing
+  String? pasty_serogroup = pasty.pasty_serogroup
+  Float? pasty_serogroup_coverage = pasty.pasty_serogroup_coverage
+  Int? pasty_serogroup_fragments = pasty.pasty_serogroup_fragments
+  File? pasty_summary_tsv = pasty.pasty_summary_tsv
+  File? pasty_blast_hits = pasty.pasty_blast_hits
+  File? pasty_all_serogroups = pasty.pasty_all_serogroups
+  String? pasty_version = pasty.pasty_version
+  String? pasty_docker = pasty.pasty_docker
   # Salmonella Typing
   File? sistr_results = sistr.sistr_results
   File? sistr_allele_json = sistr.sistr_allele_json
