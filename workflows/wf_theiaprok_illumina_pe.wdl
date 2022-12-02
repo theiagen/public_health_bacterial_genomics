@@ -15,6 +15,7 @@ import "../tasks/species_typing/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/gene_typing/task_bakta.wdl" as bakta
 import "../tasks/gene_typing/task_prokka.wdl" as prokka
 import "../tasks/gene_typing/task_plasmidfinder.wdl" as plasmidfinder
+import "../tasks/quality_control/task_qc_check.wdl" as qc_check
 import "../tasks/task_versioning.wdl" as versioning
 import "../tasks/utilities/task_broad_terra_tools.wdl" as terra_tools
 
@@ -48,6 +49,8 @@ workflow theiaprok_illumina_pe {
     Boolean call_resfinder = false
     Boolean skip_screen = false 
     Boolean use_prokka = true
+    File? qc_check_table
+    String? expected_taxon
   }
   call versioning.version_capture{
     input:
@@ -164,6 +167,28 @@ workflow theiaprok_illumina_pe {
         input:
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
+      }
+      if(defined(qc_check_table)) {
+        call qc_check.qc_check {
+          input:
+            qc_check_table = qc_check_table,
+            expected_taxon = expected_taxon,
+            gambit_predicted_taxon = gambit.gambit_predicted_taxon,
+            r1_mean_q = cg_pipeline_raw.r1_mean_q,
+            r2_mean_q = cg_pipeline_raw.r2_mean_q,
+            r1_mean_readlength = cg_pipeline_raw.r1_mean_readlength,
+            r2_mean_readlength = cg_pipeline_raw.r2_mean_readlength,          
+            est_coverage_raw = cg_pipeline_raw.est_coverage,
+            est_coverage_clean = cg_pipeline_clean.est_coverage,
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
+            assembly_length = quast.genome_length,
+            number_contigs = quast.number_contigs,
+            n50_value = quast.n50_value,
+            busco_results = busco.busco_results,
+            ani_highest_percent = ani.ani_highest_percent,
+            ani_highest_percent_bases_aligned = ani.ani_highest_percent_bases_aligned,
+            ani_top_species_match = ani.ani_top_species_match
+        }
       }
       call merlin_magic.merlin_magic {
         input:
@@ -381,7 +406,9 @@ workflow theiaprok_illumina_pe {
             midas_report = read_QC_trim.midas_report,
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
-            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
+            qc_check = qc_check.qc_check,
+            qc_standard = qc_check_table
         }
       }
     }
@@ -416,7 +443,7 @@ workflow theiaprok_illumina_pe {
     File? midas_report = read_QC_trim.midas_report
     String? midas_primary_genus = read_QC_trim.midas_primary_genus
     String? midas_secondary_genus = read_QC_trim.midas_secondary_genus
-    String? midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
+    Float? midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
     #Assembly and Assembly QC
     File? assembly_fasta = shovill_pe.assembly_fasta
     File? contigs_gfa = shovill_pe.contigs_gfa
@@ -493,6 +520,9 @@ workflow theiaprok_illumina_pe {
     File? plasmidfinder_seqs = plasmidfinder.plasmidfinder_seqs
     String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
     String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
+    # QC_Check Results
+    String? qc_check = qc_check.qc_check
+    File? qc_standard = qc_check_table
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
