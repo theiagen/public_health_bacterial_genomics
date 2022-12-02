@@ -36,6 +36,7 @@ task qc_check {
 
     # read qc_check_table
     qc_check_df = pd.read_csv('~{qc_check_table}', sep='\t', index_col = 'taxon')
+    qc_check_taxa = qc_check_df.index.values.tolist()
 
     # check that either expected_taxon or gambit_predicted_taxon is provided
     # use expected_taxon for qc_check, else use gambit_predicted_taxon
@@ -49,23 +50,27 @@ task qc_check {
       print("No user-provided expected_taxon was found, gambit_predicted_taxon will be used for qc_check")
     else:
       qc_status = str("QC_NA")
-      qc_note = str("No expected_taxon or gambit_predicted_taxon found, qc_check task could not proceed")
+      qc_note = str(" No expected_taxon or gambit_predicted_taxon found, qc_check task could not proceed")
 
     # if qc_taxon variable was provided, check if qc_taxon is in qc_check_table
     if (qc_status != "QC_NA"):
-      taxon_df = qc_check_df.loc[[qc_taxon]]
-      if taxon_df.shape[0] < 1: 
+      match = []
+      for taxa in qc_check_taxa:
+        if taxa in qc_taxon:
+          match.append(taxa)
+      if len(match) < 1: 
         qc_status = str("QC_NA")
-        qc_note = str("No matching taxon detected in qc_check_table")
-      elif taxon_df.shape[0] > 1:
+        qc_note = str(" No matching taxon detected in qc_check_table")
+      elif len(match) > 1:
         qc_status = str("QC_NA")
-        qc_note = str("Multiple matching taxa detected in qc_check_table")
+        qc_note = str(" Multiple matching taxa detected in qc_check_table")
       else: 
-        print("Exactly one matching taxon in qc_check table, proceeding with qc_check")
+        taxon_df = qc_check_df.loc[[match[0]]]
+        print(f"Exactly one matching taxon in qc_check table: {match}, proceeding with qc_check")
 
-      # remove columns where all values are null
-      taxon_df = taxon_df.replace(r'^\s*$', np.nan, regex=True)
-      taxon_df = taxon_df.dropna(how='all', axis=1)
+        # remove columns where all values are null
+        taxon_df = taxon_df.replace(r'^\s*$', np.nan, regex=True)
+        taxon_df = taxon_df.dropna(how='all', axis=1)
   
     ### perform QC checks for any metrics listed in qc_check_table
     if (qc_status != "QC_NA"):
