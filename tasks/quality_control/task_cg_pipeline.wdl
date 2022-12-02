@@ -25,6 +25,8 @@ task cg_pipeline {
         if "~{read1}" in line["File"]:
           with open("R1_MEAN_Q", 'wt') as r1_mean_q:
             r1_mean_q.write(line["avgQuality"])
+          with open("R1_MEAN_LENGTH", 'wt') as r1_mean_length:
+            r1_mean_length.write(line["avgReadLength"])            
           
           # run_assembly_readMetrics can report coverage as '.'
           try:
@@ -36,6 +38,8 @@ task cg_pipeline {
         else:
           with open("R2_MEAN_Q", 'wt') as r2_mean_q:
             r2_mean_q.write(line["avgQuality"])
+          with open("R2_MEAN_LENGTH", 'wt') as r2_mean_length:
+            r2_mean_length.write(line["avgReadLength"]) 
           # run_assembly_readMetrics can report coverage as '.'
           try:
             coverage += float(line["coverage"])
@@ -50,6 +54,10 @@ task cg_pipeline {
     if [[ ! -f R2_MEAN_Q ]] ; then
       echo "0.0" > R2_MEAN_Q
     fi
+    # same for R2_MEAN_LENGTH
+    if [[ ! -f R2_MEAN_LENGTH ]] ; then
+      echo "0.0" > R2_MEAN_LENGTH
+    fi    
 
   >>>
   output {
@@ -58,6 +66,8 @@ task cg_pipeline {
     String pipeline_date = read_string("DATE")
     Float r1_mean_q = read_float("R1_MEAN_Q")
     Float r2_mean_q = read_float("R2_MEAN_Q")
+    Float r1_mean_readlength = read_float("R1_MEAN_LENGTH")
+    Float r2_mean_readlength = read_float("R2_MEAN_LENGTH")
     Float est_coverage = read_float("EST_COVERAGE")
   }
   runtime {
