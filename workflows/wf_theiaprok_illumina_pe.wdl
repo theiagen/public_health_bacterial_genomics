@@ -408,7 +408,7 @@ workflow theiaprok_illumina_pe {
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
             midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
             qc_check = qc_check_task.qc_check,
-            qc_standard = qc_check_table
+            qc_standard = qc_check_task.qc_standard
         }
       }
     }
@@ -522,7 +522,7 @@ workflow theiaprok_illumina_pe {
     String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
     # QC_Check Results
     String? qc_check = qc_check_task.qc_check
-    File? qc_standard = qc_check_table
+    File? qc_standard = qc_check_task.qc_standard
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
     String? serotypefinder_docker = merlin_magic.serotypefinder_docker
