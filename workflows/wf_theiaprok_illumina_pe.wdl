@@ -169,7 +169,7 @@ workflow theiaprok_illumina_pe {
           samplename = samplename
       }
       if(defined(qc_check_table)) {
-        call qc_check.qc_check {
+        call qc_check.qc_check as qc_check_task {
           input:
             qc_check_table = qc_check_table,
             expected_taxon = expected_taxon,
@@ -407,7 +407,7 @@ workflow theiaprok_illumina_pe {
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
             midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
-            qc_check = qc_check.qc_check,
+            qc_check = qc_check_task.qc_check,
             qc_standard = qc_check_table
         }
       }
@@ -521,7 +521,7 @@ workflow theiaprok_illumina_pe {
     String? plasmidfinder_docker = plasmidfinder.plasmidfinder_docker
     String? plasmidfinder_db_version = plasmidfinder.plasmidfinder_db_version
     # QC_Check Results
-    String? qc_check = qc_check.qc_check
+    String? qc_check = qc_check_task.qc_check
     File? qc_standard = qc_check_table
     # Ecoli Typing
     File? serotypefinder_report = merlin_magic.serotypefinder_report
