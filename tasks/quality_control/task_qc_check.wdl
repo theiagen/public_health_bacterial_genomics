@@ -5,10 +5,10 @@ task qc_check {
     File? qc_check_table
     String? expected_taxon
     String? gambit_predicted_taxon
-    Float? r1_mean_q
-    Float? r2_mean_q
-    Float? r1_mean_readlength 
-    Float? r2_mean_readlength       
+    Float? r1_mean_q_raw
+    Float? r2_mean_q_raw
+    Float? r1_mean_readlength_raw
+    Float? r2_mean_readlength_raw     
     Float? est_coverage_raw 
     Float? est_coverage_clean 
     String? midas_secondary_genus_abundance 
@@ -19,7 +19,6 @@ task qc_check {
     Float? ani_highest_percent_bases_aligned
     String? ani_top_species_match
     String? busco_results
-    String docker="broadinstitute/terra-tools:tqdm"
   }
   command <<<
     # date 
@@ -75,7 +74,21 @@ task qc_check {
     ### perform QC checks for any metrics listed in qc_check_table
     if (qc_status != "QC_NA"):
       qc_check_metrics = taxon_df.columns.values.tolist()
- 
+
+      # check that est_coverage_raw is greater than metric
+      est_coverage_raw = "~{est_coverage_raw}"
+      if ("est_coverage_raw" in qc_check_metrics):
+        if (est_coverage_raw):
+          est_coverage_raw_metric = taxon_df['est_coverage_raw'][0]
+          if (float(est_coverage_raw) >= est_coverage_raw_metric):
+            print("est_coverage_raw passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f" est_coverage_raw was less than {est_coverage_raw_metric};"
+          qc_check_metrics.remove("est_coverage_raw")
+      else:
+        print("est_coverage_raw not detected in qc_check_table")
+
       # check that est_coverage_clean is greater than metric
       est_coverage_clean = "~{est_coverage_clean}"
       if ("est_coverage_clean" in qc_check_metrics):
@@ -90,33 +103,33 @@ task qc_check {
       else:
         print("est_coverage_clean not detected in qc_check_table")
 
-      # check that r1_mean_q is greater than metric
-      r1_mean_q = "~{r1_mean_q}"
-      if ("r1_mean_q" in qc_check_metrics):
-        if (r1_mean_q):
-          r1_mean_q_metric = taxon_df['r1_mean_q'][0]
-          if (float(r1_mean_q) >= r1_mean_q_metric):
-            print("r1_mean_q passed qc_check")
+      # check that r1_mean_q_raw is greater than metric
+      r1_mean_q_raw = "~{r1_mean_q_raw}"
+      if ("r1_mean_q_raw" in qc_check_metrics):
+        if (r1_mean_q_raw):
+          r1_mean_q_raw_metric = taxon_df['r1_mean_q_raw'][0]
+          if (float(r1_mean_q_raw) >= r1_mean_q_raw_metric):
+            print("r1_mean_q_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r1_mean_q was less than {r1_mean_q_metric};"
-          qc_check_metrics.remove("r1_mean_q")
+            qc_note = f"{qc_note} r1_mean_q_raw was less than {r1_mean_q_raw_metric};"
+          qc_check_metrics.remove("r1_mean_q_raw")
       else:
-        print("r1_mean_q not detected in qc_check_table")
+        print("r1_mean_q_raw not detected in qc_check_table")
 
-      # check that r2_mean_q is greater than metric
-      r2_mean_q = "~{r2_mean_q}"
-      if ("r2_mean_q" in qc_check_metrics):
-        if (r2_mean_q):
-          r2_mean_q_metric = taxon_df['r2_mean_q'][0]
-          if (float(r2_mean_q) >= r2_mean_q_metric):
-            print("r2_mean_q passed qc_check")
+      # check that r2_mean_q_raw is greater than metric
+      r2_mean_q_raw = "~{r2_mean_q_raw}"
+      if ("r2_mean_q_raw" in qc_check_metrics):
+        if (r2_mean_q_raw):
+          r2_mean_q_raw_metric = taxon_df['r2_mean_q_raw'][0]
+          if (float(r2_mean_q_raw) >= r2_mean_q_raw_metric):
+            print("r2_mean_q_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r2_mean_q was less than {r2_mean_q_metric};"
-          qc_check_metrics.remove("r2_mean_q")
+            qc_note = f"{qc_note} r2_mean_q_raw was less than {r2_mean_q_raw_metric};"
+          qc_check_metrics.remove("r2_mean_q_raw")
       else:
-        print("r2_mean_q not detected in qc_check_table")
+        print("r2_mean_q_raw not detected in qc_check_table")
 
       # check that assembly length is within acceptable range
       assembly_length = "~{assembly_length}"
@@ -148,33 +161,33 @@ task qc_check {
       else:
         print("midas_secondary_genus_abundance not detected in qc_check_table")
 
-      # check that r1_mean_readlength is greater than metric
-      r1_mean_readlength = "~{r1_mean_readlength}"
-      if ("r1_mean_readlength" in qc_check_metrics):
-        if (r1_mean_readlength):
-          r1_mean_readlength_metric = taxon_df['r1_mean_readlength'][0]
-          if (float(r1_mean_readlength) >= r1_mean_readlength_metric):
-            print("r1_mean_readlength passed qc_check")
+      # check that r1_mean_readlength_raw is greater than metric
+      r1_mean_readlength_raw = "~{r1_mean_readlength_raw}"
+      if ("r1_mean_readlength_raw" in qc_check_metrics):
+        if (r1_mean_readlength_raw):
+          r1_mean_readlength_raw_metric = taxon_df['r1_mean_readlength_raw'][0]
+          if (float(r1_mean_readlength_raw) >= r1_mean_readlength_raw_metric):
+            print("r1_mean_readlength_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r1_mean_readlength was less than {r1_mean_readlength_metric};"
-          qc_check_metrics.remove("r1_mean_readlength")
+            qc_note = f"{qc_note} r1_mean_readlength_raw was less than {r1_mean_readlength_raw_metric};"
+          qc_check_metrics.remove("r1_mean_readlength_raw")
       else:
-        print("r1_mean_readlength not detected in qc_check_table")
+        print("r1_mean_readlength_raw not detected in qc_check_table")
 
-      # check that r2_mean_readlength is greater than metric
-      r2_mean_readlength = "~{r2_mean_readlength}"
-      if ("r2_mean_readlength" in qc_check_metrics):
-        if (r2_mean_readlength):
-          r2_mean_readlength_metric = taxon_df['r2_mean_readlength'][0]
-          if (float(r2_mean_readlength) >= r2_mean_readlength_metric):
-            print("r2_mean_readlength passed qc_check")
+      # check that r2_mean_readlength_raw is greater than metric
+      r2_mean_readlength_raw = "~{r2_mean_readlength_raw}"
+      if ("r2_mean_readlength_raw" in qc_check_metrics):
+        if (r2_mean_readlength_raw):
+          r2_mean_readlength_raw_metric = taxon_df['r2_mean_readlength_raw'][0]
+          if (float(r2_mean_readlength_raw) >= r2_mean_readlength_raw_metric):
+            print("r2_mean_readlength_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r2_mean_readlength was less than {r2_mean_readlength_metric};"
-          qc_check_metrics.remove("r2_mean_readlength")
+            qc_note = f"{qc_note} r2_mean_readlength_raw was less than {r2_mean_readlength_raw_metric};"
+          qc_check_metrics.remove("r2_mean_readlength_raw")
       else:
-        print("r2_mean_readlength not detected in qc_check_table")
+        print("r2_mean_readlength_raw not detected in qc_check_table")
 
       # check that number_contigs is less than metric
       number_contigs = "~{number_contigs}"
@@ -271,7 +284,7 @@ task qc_check {
     String date = read_string("DATE")
   }
   runtime {
-    docker: "~{docker}"
+    docker: "broadinstitute/terra-tools:tqdm"
     memory: "8 GB"
     cpu: 4
     disks: "local-disk 100 SSD"
