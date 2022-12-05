@@ -2,7 +2,7 @@ version 1.0
 
 task qc_check {
   input {
-    File qc_check_table
+    File? qc_check_table
     String? expected_taxon
     String? gambit_predicted_taxon
     Float? r1_mean_q
@@ -267,7 +267,7 @@ task qc_check {
   >>>
   output {
     String qc_check = read_string("QC_CHECK")
-    File qc_standard = qc_check_table
+    File? qc_standard = qc_check_table
     String date = read_string("DATE")
   }
   runtime {
