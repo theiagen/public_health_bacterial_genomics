@@ -31,6 +31,7 @@ workflow merlin_magic {
     File? read2
     Int? pasty_min_pident
     Int? pasty_min_coverage
+    String? pasty_docker_image
     Boolean paired_end = true
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
@@ -126,7 +127,8 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename,
         min_pident = pasty_min_pident,
-        min_coverage = pasty_min_coverage
+        min_coverage = pasty_min_coverage,
+        docker = pasty_docker_image
     }
   }
   if (merlin_tag == "Mycobacterium tuberculosis") {
@@ -215,6 +217,7 @@ workflow merlin_magic {
   File? pasty_all_serogroups = pasty.pasty_all_serogroups
   String? pasty_version = pasty.pasty_version
   String? pasty_docker = pasty.pasty_docker
+  String? pasty_comment = pasty.pasty_comment
   # Salmonella Typing
   File? sistr_results = sistr.sistr_results
   File? sistr_allele_json = sistr.sistr_allele_json

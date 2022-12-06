@@ -6,7 +6,7 @@ task pasty {
         String  samplename
         Int min_pident = 95
         Int min_coverage = 95
-        String docker = "quay.io/biocontainers/pasty:1.0.0--hdfd78af_0"
+        String docker = "staphb/pasty:1.0.2"
     }
     command <<<
         # date and version control
@@ -23,6 +23,7 @@ task pasty {
         awk 'FNR==2' "~{samplename}.tsv" | cut -d$'\t' -f2 > SEROGROUP
         awk 'FNR==2' "~{samplename}.tsv" | cut -d$'\t' -f3 > COVERAGE
         awk 'FNR==2' "~{samplename}.tsv" | cut -d$'\t' -f4 > FRAGMENTS
+        awk 'FNR==2' "~{samplename}.tsv" | cut -d$'\t' -f5 > COMMENT
     >>>
     output {
         String pasty_serogroup = read_string("SEROGROUP")
@@ -34,6 +35,7 @@ task pasty {
         String pasty_version = read_string("VERSION")
         String pasty_pipeline_date = read_string("DATE")
         String pasty_docker = docker
+        String pasty_comment = read_string("COMMENT")
     }
     runtime {
         docker: "~{docker}"
