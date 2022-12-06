@@ -48,8 +48,6 @@ workflow theiaprok_illumina_pe {
     Boolean call_resfinder = false
     Boolean skip_screen = false 
     Boolean use_prokka = true
-    Int? pasty_min_pident
-    Int? pasty_min_coverage
   }
   call versioning.version_capture{
     input:
@@ -173,9 +171,7 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename,
           read1 = read_QC_trim.read1_clean,
-          read2 = read_QC_trim.read2_clean,
-          pasty_min_pident = pasty_min_pident,
-          pasty_min_coverage = pasty_min_coverage
+          read2 = read_QC_trim.read2_clean
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {
