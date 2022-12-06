@@ -176,8 +176,7 @@ workflow theiaprok_illumina_pe {
           read1 = read_QC_trim.read1_clean,
           read2 = read_QC_trim.read2_clean,
           pasty_min_pident = pasty_min_pident,
-          pasty_min_coverage = pasty_min_coverage,
-          pasty_docker_image = pasty_docker_image
+          pasty_min_coverage = pasty_min_coverage
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {
