@@ -50,7 +50,6 @@ workflow theiaprok_illumina_pe {
     Boolean use_prokka = true
     Int? pasty_min_pident
     Int? pasty_min_coverage
-    String? pasty_docker_image
   }
   call versioning.version_capture{
     input:
