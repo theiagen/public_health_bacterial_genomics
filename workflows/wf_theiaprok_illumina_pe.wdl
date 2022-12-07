@@ -48,8 +48,6 @@ workflow theiaprok_illumina_pe {
     Boolean call_resfinder = false
     Boolean skip_screen = false 
     Boolean use_prokka = true
-    Int? pasty_min_pident
-    Int? pasty_min_coverage
   }
   call versioning.version_capture{
     input:
@@ -173,9 +171,7 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename,
           read1 = read_QC_trim.read1_clean,
-          read2 = read_QC_trim.read2_clean,
-          pasty_min_pident = pasty_min_pident,
-          pasty_min_coverage = pasty_min_coverage
+          read2 = read_QC_trim.read2_clean
       }
       if(defined(taxon_tables)) {
         call terra_tools.export_taxon_tables {
@@ -393,7 +389,8 @@ workflow theiaprok_illumina_pe {
             pasty_blast_hits = merlin_magic.pasty_blast_hits,
             pasty_all_serogroups = merlin_magic.pasty_all_serogroups,
             pasty_version = merlin_magic.pasty_version,
-            pasty_docker = merlin_magic.pasty_docker
+            pasty_docker = merlin_magic.pasty_docker,
+            pasty_comment = merlin_magic.pasty_comment
         }
       }
     }
@@ -552,6 +549,7 @@ workflow theiaprok_illumina_pe {
     File? pasty_all_serogroups = merlin_magic.pasty_all_serogroups
     String? pasty_version = merlin_magic.pasty_version
     String? pasty_docker = merlin_magic.pasty_docker
+    String? pasty_comment = merlin_magic.pasty_comment
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json
