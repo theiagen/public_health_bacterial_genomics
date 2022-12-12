@@ -36,6 +36,7 @@ workflow merlin_magic {
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
     Boolean skip_serotypefinder = false
+    String? serotypefinder_docker_image
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -57,7 +58,8 @@ workflow merlin_magic {
     call serotypefinder.serotypefinder {
       input:
         assembly = assembly,
-        samplename = samplename
+        samplename = samplename,
+        docker = serotypefinder_docker_image
     }
     }
     call ectyper.ectyper {
