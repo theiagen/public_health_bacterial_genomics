@@ -35,6 +35,7 @@ workflow merlin_magic {
     Boolean paired_end = true
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
+    Boolean skip_serotypefinder = false
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -52,10 +53,12 @@ workflow merlin_magic {
   }
   if (merlin_tag == "Escherichia" || merlin_tag == "Shigella_sonnei" ) {
     # tools specific to all Escherichia and Shigella species
+    if (! skip_serotypefinder) {
     call serotypefinder.serotypefinder {
       input:
         assembly = assembly,
         samplename = samplename
+    }
     }
     call ectyper.ectyper {
       input:
