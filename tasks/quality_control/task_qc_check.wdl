@@ -7,8 +7,10 @@ task qc_check {
     String? gambit_predicted_taxon
     Float? r1_mean_q_raw
     Float? r2_mean_q_raw
+    Float? combined_mean_q_raw
     Float? r1_mean_readlength_raw
-    Float? r2_mean_readlength_raw     
+    Float? r2_mean_readlength_raw    
+    Float? combined_mean_readlength_raw 
     Float? est_coverage_raw 
     Float? est_coverage_clean 
     String? midas_secondary_genus_abundance 
@@ -131,35 +133,19 @@ task qc_check {
       else:
         print("r2_mean_q_raw not detected in qc_check_table")
 
-      # check that assembly length is within acceptable range
-      assembly_length = "~{assembly_length}"
-      if ("assembly_length_min" in qc_check_metrics) and ("assembly_length_max" in qc_check_metrics):
-        if (assembly_length):
-          qc_check_metrics.remove("assembly_length_min")
-          qc_check_metrics.remove("assembly_length_max")
-          assembly_length_min_metric = taxon_df['assembly_length_min'][0]
-          assembly_length_max_metric = taxon_df['assembly_length_max'][0]
-          if (int(assembly_length) >= assembly_length_min_metric) and (int(assembly_length) <= assembly_length_max_metric):
-            print("assembly_length passed qc_check")
+      # check that combined_mean_q_raw is greater than metric
+      combined_mean_q_raw = "~{combined_mean_q_raw}"
+      if ("combined_mean_q_raw" in qc_check_metrics):
+        if (combined_mean_q_raw):
+          combined_mean_q_raw_metric = taxon_df['combined_mean_q_raw'][0]
+          if (float(combined_mean_q_raw) >= combined_mean_q_raw_metric):
+            print("combined_mean_q_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} assembly_length was outside of acceptable range ({assembly_length_min_metric} to {assembly_length_max_metric});"
+            qc_note = f"{qc_note} combined_mean_q_raw was less than {combined_mean_q_raw_metric};"
+          qc_check_metrics.remove("combined_mean_q_raw")
       else:
-        print("Either assembly_length_min or assembly_length_max was not detected in qc_check_table")
-
-      # check that midas_secondary_genus_abundance is lower than metric
-      midas_secondary_genus_abundance = "~{midas_secondary_genus_abundance}"
-      if ("midas_secondary_genus_abundance" in qc_check_metrics):
-        if (midas_secondary_genus_abundance):
-          midas_secondary_genus_abundance_metric = taxon_df['midas_secondary_genus_abundance'][0]
-          if (float(midas_secondary_genus_abundance) < midas_secondary_genus_abundance_metric):
-            print("midas_secondary_genus_abundance passed qc_check")
-          else:
-            qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} midas_secondary_genus_abundance was greater than {midas_secondary_genus_abundance_metric};"
-          qc_check_metrics.remove("midas_secondary_genus_abundance")
-      else:
-        print("midas_secondary_genus_abundance not detected in qc_check_table")
+        print("combined_mean_q_raw not detected in qc_check_table")        
 
       # check that r1_mean_readlength_raw is greater than metric
       r1_mean_readlength_raw = "~{r1_mean_readlength_raw}"
@@ -188,6 +174,50 @@ task qc_check {
           qc_check_metrics.remove("r2_mean_readlength_raw")
       else:
         print("r2_mean_readlength_raw not detected in qc_check_table")
+
+      # check that combined_mean_readlength_raw is greater than metric
+      combined_mean_readlength_raw = "~{combined_mean_readlength_raw}"
+      if ("combined_mean_readlength_raw" in qc_check_metrics):
+        if (combined_mean_readlength_raw):
+          combined_mean_readlength_raw_metric = taxon_df['combined_mean_readlength_raw'][0]
+          if (float(combined_mean_readlength_raw) >= combined_mean_readlength_raw_metric):
+            print("combined_mean_readlength_raw passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} combined_mean_readlength_raw was less than {combined_mean_readlength_raw_metric};"
+          qc_check_metrics.remove("combined_mean_readlength_raw")
+      else:
+        print("combined_mean_readlength_raw not detected in qc_check_table")  
+
+      # check that midas_secondary_genus_abundance is lower than metric
+      midas_secondary_genus_abundance = "~{midas_secondary_genus_abundance}"
+      if ("midas_secondary_genus_abundance" in qc_check_metrics):
+        if (midas_secondary_genus_abundance):
+          midas_secondary_genus_abundance_metric = taxon_df['midas_secondary_genus_abundance'][0]
+          if (float(midas_secondary_genus_abundance) < midas_secondary_genus_abundance_metric):
+            print("midas_secondary_genus_abundance passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} midas_secondary_genus_abundance was greater than {midas_secondary_genus_abundance_metric};"
+          qc_check_metrics.remove("midas_secondary_genus_abundance")
+      else:
+        print("midas_secondary_genus_abundance not detected in qc_check_table")
+
+      # check that assembly length is within acceptable range
+      assembly_length = "~{assembly_length}"
+      if ("assembly_length_min" in qc_check_metrics) and ("assembly_length_max" in qc_check_metrics):
+        if (assembly_length):
+          qc_check_metrics.remove("assembly_length_min")
+          qc_check_metrics.remove("assembly_length_max")
+          assembly_length_min_metric = taxon_df['assembly_length_min'][0]
+          assembly_length_max_metric = taxon_df['assembly_length_max'][0]
+          if (int(assembly_length) >= assembly_length_min_metric) and (int(assembly_length) <= assembly_length_max_metric):
+            print("assembly_length passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} assembly_length was outside of acceptable range ({assembly_length_min_metric} to {assembly_length_max_metric});"
+      else:
+        print("Either assembly_length_min or assembly_length_max was not detected in qc_check_table")
 
       # check that number_contigs is less than metric
       number_contigs = "~{number_contigs}"
