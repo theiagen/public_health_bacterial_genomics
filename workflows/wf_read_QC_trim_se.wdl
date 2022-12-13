@@ -14,9 +14,9 @@ workflow read_QC_trim {
   input {
     String  samplename
     File    read1_raw
-    Int     trim_minlen = 50
+    Int     trim_window_size = 4
     Int     trim_quality_trim_score = 30
-    Int     trim_window_size = 20
+    Int     trim_minlen = 25
     Int     bbduk_mem = 8
     Boolean call_midas = false
     File?   midas_db
@@ -33,9 +33,9 @@ workflow read_QC_trim {
       input:
         samplename = samplename,
         read1 = read1_raw,
-        trimmomatic_minlen = trim_minlen,
+        trimmomatic_window_size = trim_window_size,
         trimmomatic_quality_trim_score = trim_quality_trim_score,
-        trimmomatic_window_size = trim_window_size
+        trimmomatic_minlen = trim_minlen
     }
   }
   if (read_processing == "fastp"){
@@ -43,9 +43,9 @@ workflow read_QC_trim {
       input:
         samplename = samplename,
         read1 = read1_raw,
-        fastp_minlen = trim_minlen,
-        fastp_quality_trim_score = trim_quality_trim_score,
         fastp_window_size = trim_window_size,
+        fastp_quality_trim_score = trim_quality_trim_score,
+        fastp_minlen = trim_minlen,
         fastp_args = fastp_args
     }
   }
