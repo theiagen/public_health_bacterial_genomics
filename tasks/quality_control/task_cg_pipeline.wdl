@@ -14,6 +14,10 @@ task cg_pipeline {
     date | tee DATE
 
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
+
+    # repeat for concatenated read file
+    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq.gz
+    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq.gz -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
     
     python3 <<CODE
     import csv
@@ -48,6 +52,19 @@ task cg_pipeline {
 
       with open("EST_COVERAGE", 'wt') as est_coverage:
         est_coverage.write(str(coverage))
+
+    # # parse concatenated read metrics
+    #grab output average quality and coverage scores by column header
+    coverage_concat = 0.0
+    with open("~{samplename}_concat_readMetrics.tsv",'r') as tsv_file_concat:
+      tsv_reader_concat = list(csv.DictReader(tsv_file_concat, delimiter="\t"))
+      for line in tsv_reader_concat:
+        if "~{samplename}_concat.fastq.gz" in line["File"]:
+          with open("COMBINED_MEAN_Q", 'wt') as combined_mean_q:
+            combined_mean_q.write(line["avgQuality"])
+          with open("COMBINED_MEAN_LENGTH", 'wt') as combined_mean_length:
+            combined_mean_length.write(line["avgReadLength"])            
+
     CODE
 
     # R2_MEAN_Q to make SE workflow work otherwise read_float fails
@@ -66,8 +83,10 @@ task cg_pipeline {
     String pipeline_date = read_string("DATE")
     Float r1_mean_q = read_float("R1_MEAN_Q")
     Float r2_mean_q = read_float("R2_MEAN_Q")
+    Float combined_mean_q = read_float("COMBINED_MEAN_Q")
     Float r1_mean_readlength = read_float("R1_MEAN_LENGTH")
     Float r2_mean_readlength = read_float("R2_MEAN_LENGTH")
+    Float combined_mean_readlength = read_float("COMBINED_MEAN_LENGTH")
     Float est_coverage = read_float("EST_COVERAGE")
   }
   runtime {
