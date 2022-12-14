@@ -199,6 +199,7 @@ workflow theiaprok_illumina_se {
             assembly_length = quast.genome_length,
             number_contigs = quast.number_contigs,
             n50_value = quast.n50_value,
+            quast_gc_percent = quast.gc_percent,
             cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report,
             cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker,
             est_coverage_raw = cg_pipeline_raw.est_coverage,
@@ -396,6 +397,7 @@ workflow theiaprok_illumina_se {
     Int? assembly_length = quast.genome_length
     Int? number_contigs = quast.number_contigs
     Int? n50_value = quast.n50_value
+    Float? quast_gc_percent = quast.gc_percent
     File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
     String? cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker
     Float? est_coverage_raw = cg_pipeline_raw.est_coverage
