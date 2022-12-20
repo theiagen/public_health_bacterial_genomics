@@ -6,7 +6,7 @@ task tbprofiler {
     File read1
     File? read2
     String samplename
-    String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
+    String tbprofiler_docker_image = "staphb/tbprofiler:4.3.0"
     String? mapper = "bwa"
     String? caller = "bcftools"
     Int? min_depth = 10
@@ -20,7 +20,8 @@ task tbprofiler {
     # Print and save date
     date | tee DATE
     # Print and save version
-    tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
+    # "tail -n 1" because 'tb-profiler version' produces a blank line before printing name and version
+    tb-profiler version | tail -n 1 | tee VERSION
     
     if [ -z "~{read2}" ] ; then
       INPUT_READS="-1 ~{read1}"
@@ -101,7 +102,7 @@ task tbprofiler_ont {
   input {
     File reads
     String samplename
-    String tbprofiler_docker_image = "quay.io/biocontainers/tb-profiler:3.0.8--pypyh5e36f6f_0"
+    String tbprofiler_docker_image = "staphb/tbprofiler:4.3.0"
     String? mapper = "bwa"
     String? caller = "bcftools"
     Int? min_depth = 10
@@ -115,7 +116,9 @@ task tbprofiler_ont {
     # Print and save date
     date | tee DATE
     # Print and save version
-    tb-profiler --version > VERSION && sed -i -e 's/^/TBProfiler version /' VERSION
+    # "tail -n 1" because 'tb-profiler version' produces a blank line before printing name and version
+    tb-profiler version | tail -n 1 | tee VERSION
+
     # Run TBProfiler on the input sample
     tb-profiler profile --platform nanopore -1 ~{reads} --prefix ~{samplename} --mapper ~{mapper} --caller ~{caller} --min_depth ~{min_depth} --af ~{min_af} --reporting_af ~{min_af_pred} --coverage_fraction_threshold ~{cov_frac_threshold} --csv --txt
 

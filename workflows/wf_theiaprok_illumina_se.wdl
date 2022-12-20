@@ -89,11 +89,17 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
-      call cg_pipeline.cg_pipeline {
+      call cg_pipeline.cg_pipeline as cg_pipeline_raw {
         input:
           read1 = read1_raw,
           samplename = samplename,
-          genome_length = select_first([genome_size, clean_check_reads.est_genome_length])
+          genome_length = select_first([genome_size, quast.genome_length])
+      }
+      call cg_pipeline.cg_pipeline as cg_pipeline_clean {
+        input:
+          read1 = read_QC_trim.read1_clean,
+          samplename = samplename,
+          genome_length = select_first([genome_size, quast.genome_length])
       }
       call gambit.gambit {
         input:
@@ -181,19 +187,23 @@ workflow theiaprok_illumina_se {
             fastq_scan_version = read_QC_trim.fastq_scan_version,
             num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads,
             trimmomatic_version = read_QC_trim.trimmomatic_version,
+            fastp_version = read_QC_trim.fastp_version,
             bbduk_docker = read_QC_trim.bbduk_docker,
-            r1_mean_q = cg_pipeline.r1_mean_q,
+            r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
+            r1_mean_q_clean = cg_pipeline_clean.r1_mean_q,
             assembly_fasta = shovill_se.assembly_fasta,
             contigs_gfa = shovill_se.contigs_gfa,
             shovill_se_version = shovill_se.shovill_version,
             quast_report = quast.quast_report,
             quast_version = quast.version,
-            genome_length = quast.genome_length,
+            assembly_length = quast.genome_length,
             number_contigs = quast.number_contigs,
             n50_value = quast.n50_value,
-            cg_pipeline_report = cg_pipeline.cg_pipeline_report,
-            cg_pipeline_docker = cg_pipeline.cg_pipeline_docker,
-            est_coverage = cg_pipeline.est_coverage,
+            cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report,
+            cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker,
+            est_coverage_raw = cg_pipeline_raw.est_coverage,
+            cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report,
+            est_coverage_clean = cg_pipeline_clean.est_coverage,
             gambit_report = gambit.gambit_report_file,
             gambit_predicted_taxon = gambit.gambit_predicted_taxon,
             gambit_predicted_taxon_rank = gambit.gambit_predicted_taxon_rank,
@@ -348,7 +358,16 @@ workflow theiaprok_illumina_se {
             midas_report = read_QC_trim.midas_report,
             midas_primary_genus = read_QC_trim.midas_primary_genus,
             midas_secondary_genus = read_QC_trim.midas_secondary_genus,
-            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance
+            midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
+            pasty_serogroup = merlin_magic.pasty_serogroup,
+            pasty_serogroup_coverage = merlin_magic.pasty_serogroup_coverage,
+            pasty_serogroup_fragments = merlin_magic.pasty_serogroup_fragments,
+            pasty_summary_tsv = merlin_magic.pasty_summary_tsv,
+            pasty_blast_hits = merlin_magic.pasty_blast_hits,
+            pasty_all_serogroups = merlin_magic.pasty_all_serogroups,
+            pasty_version = merlin_magic.pasty_version,
+            pasty_docker = merlin_magic.pasty_docker,
+            pasty_comment = merlin_magic.pasty_comment
         }
       }
     }
@@ -367,8 +386,10 @@ workflow theiaprok_illumina_se {
     String? fastq_scan_version = read_QC_trim.fastq_scan_version
     Int? num_reads_clean1 = read_QC_trim.fastq_scan_clean_number_reads
     String? trimmomatic_version = read_QC_trim.trimmomatic_version
+    String? fastp_version = read_QC_trim.fastp_version
     String? bbduk_docker = read_QC_trim.bbduk_docker
-    Float? r1_mean_q = cg_pipeline.r1_mean_q
+    Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
+    Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
     File? read1_clean = read_QC_trim.read1_clean
     String? midas_docker = read_QC_trim.midas_docker
     File? midas_report = read_QC_trim.midas_report
@@ -381,12 +402,14 @@ workflow theiaprok_illumina_se {
     String? shovill_se_version = shovill_se.shovill_version
     File? quast_report = quast.quast_report
     String? quast_version = quast.version
-    Int? genome_length = quast.genome_length
+    Int? assembly_length = quast.genome_length
     Int? number_contigs = quast.number_contigs
     Int? n50_value = quast.n50_value
-    File? cg_pipeline_report = cg_pipeline.cg_pipeline_report
-    String? cg_pipeline_docker = cg_pipeline.cg_pipeline_docker
-    Float? est_coverage = cg_pipeline.est_coverage
+    File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
+    String? cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker
+    Float? est_coverage_raw = cg_pipeline_raw.est_coverage
+    File? cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report
+    Float? est_coverage_clean = cg_pipeline_clean.est_coverage
     String? busco_version = busco.busco_version
     String? busco_database = busco.busco_database
     String? busco_results = busco.busco_results
@@ -485,6 +508,16 @@ workflow theiaprok_illumina_se {
     File? lissero_results = merlin_magic.lissero_results
     String? lissero_version = merlin_magic.lissero_version
     String? lissero_serotype = merlin_magic.lissero_serotype
+    # Pseudomonas Aeruginosa Typing
+    String? pasty_serogroup = merlin_magic.pasty_serogroup
+    Float? pasty_serogroup_coverage = merlin_magic.pasty_serogroup_coverage
+    Int? pasty_serogroup_fragments = merlin_magic.pasty_serogroup_fragments
+    File? pasty_summary_tsv = merlin_magic.pasty_summary_tsv
+    File? pasty_blast_hits = merlin_magic.pasty_blast_hits
+    File? pasty_all_serogroups = merlin_magic.pasty_all_serogroups
+    String? pasty_version = merlin_magic.pasty_version
+    String? pasty_docker = merlin_magic.pasty_docker
+    String? pasty_comment = merlin_magic.pasty_comment
     # Salmonella Typing
     File? sistr_results = merlin_magic.sistr_results
     File? sistr_allele_json = merlin_magic.sistr_allele_json
