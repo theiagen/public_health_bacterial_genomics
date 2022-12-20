@@ -71,7 +71,7 @@
     - path: miniwdl_run/call-cg_pipeline/work/test_readMetrics.tsv
       contains: ["File", "fastq", "coverage"]
     - path: miniwdl_run/call-clean_check_reads/command
-      md5sum: 71c87eedcf3bb6b237e817f640b0c85b
+      md5sum: 55f726674409440de3c092b7cffbcf36
     - path: miniwdl_run/call-clean_check_reads/inputs.json
       contains: ["read1", "fastq", "skip_screen", "true"]
     - path: miniwdl_run/call-clean_check_reads/outputs.json
@@ -175,7 +175,7 @@
     - path: miniwdl_run/call-quast/work/transposed_report.txt
       contains: ["Assembly", "length", "contigs", "test"]
     - path: miniwdl_run/call-raw_check_reads/command
-      md5sum: 09f3e4ef7fb0e71591b819895345b811
+      md5sum: 874594a611137cd177598623f9bf6f3f
     - path: miniwdl_run/call-raw_check_reads/inputs.json
       contains: ["read1", "fastq", "skip_screen", "true"]
     - path: miniwdl_run/call-raw_check_reads/outputs.json
