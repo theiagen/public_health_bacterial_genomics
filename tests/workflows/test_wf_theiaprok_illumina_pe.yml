@@ -88,7 +88,7 @@
     - path: miniwdl_run/call-cg_pipeline_clean/work/test_readMetrics.tsv
       contains: ["File", "fastq", "coverage"]
     - path: miniwdl_run/call-clean_check_reads/command
-      md5sum: 55f726674409440de3c092b7cffbcf36
+      md5sum: df015a5464e4e927d82fc24c868c43af
     - path: miniwdl_run/call-clean_check_reads/inputs.json
       contains: ["read1", "fastq", "skip_screen", "true"]
     - path: miniwdl_run/call-clean_check_reads/outputs.json
@@ -282,7 +282,7 @@
     - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/READ2_SEQS
       md5sum: 75fa2f47fecb5dec8d244366881e76ec
     - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/READ_PAIRS
-      md5sum: 4b8fa7ff077b6251607d3e28d9efe1a9
+      md5sum: 75fa2f47fecb5dec8d244366881e76ec
     - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/SRR2838702_R1_fastq-scan.json
       md5sum: c4a64c8fd27fa357206e0d41b74866e2
     - path: miniwdl_run/call-read_QC_trim/call-fastq_scan_raw/work/SRR2838702_R2_fastq-scan.json
