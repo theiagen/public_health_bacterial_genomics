@@ -44,7 +44,7 @@ workflow theiaprok_illumina_pe {
     Int min_genome_size = 100000
     Int max_genome_size = 18040666
     Int min_coverage = 10
-    Int min_proportion = 50
+    Int min_proportion = 40
     Boolean call_resfinder = false
     Boolean skip_screen = false 
     Boolean use_prokka = true

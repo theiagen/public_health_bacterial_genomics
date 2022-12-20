@@ -30,8 +30,10 @@ task check_reads {
       # awk '{s++}END{print s/4' counts the number of lines and divides them by 4
       # key assumption: in fastq there will be four lines per read
       # sometimes fastqs do not have 4 lines per read, so this might fail one day
-
-      if [ "${read1_num}" -le "~{min_reads}" ] || [ "${read2_num}" -le "~{min_reads}" ]; then
+      
+      reads_total=$(expr $read1_num + $read2_num)
+      
+      if [ "${reads_total}" -le "~{min_reads}" ]; then
         flag="FAIL; the number of reads is below the minimum of ~{min_reads}"
       else
         flag="PASS"
@@ -50,19 +52,20 @@ task check_reads {
 
         # set proportion variables for easy comparison
         # removing the , 2) to make these integers instead of floats
-        percent_read1=$(python3 -c "print(round(($read1_bp / $read2_bp)*100))")
-        percent_read2=$(python3 -c "print(round(($read2_bp / $read1_bp)*100))")
+        percent_read1=$(python3 -c "print(round(($read1_bp / ($read1_bp + $read2_bp))*100))")
+        percent_read2=$(python3 -c "print(round(($read2_bp / ($read1_bp + $read2_bp))*100))")
 
         if [ "$percent_read1" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total sequence is found in R2 (BP: $read2_bp; PERCENT: $percent_read2) compared to R1 (BP: $read1_bp; PERCENT: $percent_read1)"
+          flag="FAIL; more than ~{min_proportion} percent of the total sequence is found in R2 (BP: $read2_bp; PERCENT: $percent_read2) compared to R1 (BP: $read1_bp; PERCENT: $percent_read1)"
         elif [ "$percent_read2" -lt "~{min_proportion}" ] ; then
-          flag="FAIL; more than 50 percent of the total sequence is found in R1 (BP: $read1_bp; PERCENT: $percent_read1) compared to R2 (BP: $read2_bp; PERCENT: $percent_read2)"
+          flag="FAIL; more than ~{min_proportion} percent of the total sequence is found in R1 (BP: $read1_bp; PERCENT: $percent_read1) compared to R2 (BP: $read2_bp; PERCENT: $percent_read2)"
         else
           flag="PASS"
         fi
 
         if [ "$flag" = "PASS" ] ; then
-          if [ "${read1_bp}" -le "~{min_basepairs}" ] || [ "${read2_bp}" -le "~{min_basepairs}" ] ; then
+        bp_total=$(expr $read1_bp + $read2_bp)
+          if [ "${bp_total}" -le "~{min_basepairs}" ]; then
             flag="FAIL; the number of basepairs is below the minimum of ~{min_basepairs}"
           else
             flag="PASS"
