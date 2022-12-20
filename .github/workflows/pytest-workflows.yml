@@ -64,7 +64,7 @@ jobs:
       # Depends and env info (mostly for debug)
       - name: Install Dependencies
         run: |
-          conda install -y -c conda-forge -c bioconda cromwell miniwdl=1.5.2 'python>=3.7' pytest pytest-workflow
+          conda install -y -c conda-forge -c bioconda cromwell miniwdl=1.5.2 'python>=3.7' pytest pytest-workflow 'importlib-metadata<=4.13.0'
           uname -a && env
 
       - name: Test ${{ matrix.tag }}

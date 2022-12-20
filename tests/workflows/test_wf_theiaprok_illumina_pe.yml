@@ -90,7 +90,7 @@
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-gambit/command
-      md5sum: ff882c65730f22c4d1f8ec80fc52dd5a
+      md5sum: ed76fdc009c0298d75663f24bbcfa696
     - path: miniwdl_run/call-gambit/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-gambit/outputs.json
@@ -334,7 +334,7 @@
       contains: ["mlst", "depend", "Done"]
     - path: miniwdl_run/call-ts_mlst/stderr.txt.offset
     - path: miniwdl_run/call-ts_mlst/stdout.txt
-      md5sum: 4999136655ea4799df028af149742d87
+      md5sum: 98423ec82f0beb4852c1cbfddda79fff
     - path: miniwdl_run/call-ts_mlst/task.log
       contains: ["wdl", "theiaprok_illumina_pe", "ts_mlst", "done"]
     - path: miniwdl_run/call-ts_mlst/work/PREDICTED_MLST
@@ -342,7 +342,7 @@
     - path: miniwdl_run/call-ts_mlst/work/PUBMLST_SCHEME
       md5sum: e321471812e5c4b54c9c58319aec9f2b
     - path: miniwdl_run/call-ts_mlst/work/VERSION
-      md5sum: 27ff9dc14d779bc4bea1df4d0b1f8f9c
+      md5sum: 04955c2e9f7487411717e7bf9afafb59
     - path: miniwdl_run/call-ts_mlst/work/_miniwdl_inputs/0/test_contigs.fasta
     - path: miniwdl_run/call-ts_mlst/work/test_ts_mlst.tsv
       md5sum: cb4c953253bd9fe6ea9ceda9e57ac172
