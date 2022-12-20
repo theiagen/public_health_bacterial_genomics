@@ -6,9 +6,9 @@ task trimmomatic_pe {
     File read2
     String samplename
     String docker = "quay.io/staphb/trimmomatic:0.39"
-    Int? trimmomatic_minlen = 50
-    Int? trimmomatic_window_size = 20
-    Int? trimmomatic_quality_trim_score = 30
+    Int? trimmomatic_minlen = 75
+    Int? trimmomatic_window_size = 10
+    Int? trimmomatic_quality_trim_score = 20
     Int? threads = 4
   }
   command <<<
