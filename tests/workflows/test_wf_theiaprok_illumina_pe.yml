@@ -342,7 +342,7 @@
     - path: miniwdl_run/call-shovill_pe/work/out/skesa.fasta
     - path: miniwdl_run/call-shovill_pe/work/out/test_contigs.fasta
     - path: miniwdl_run/call-ts_mlst/command
-      md5sum: 63112aec6576f773f638e96b3d52bf7c
+      md5sum: 004ab8636cedb1b8c67c7c786f374fe1
     - path: miniwdl_run/call-ts_mlst/inputs.json
       contains: ["assembly", "fasta", "sample", "test"]
     - path: miniwdl_run/call-ts_mlst/outputs.json
