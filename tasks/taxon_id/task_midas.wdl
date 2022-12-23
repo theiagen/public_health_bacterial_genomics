@@ -67,7 +67,7 @@ task midas {
     File midas_log = "~{samplename}/species/~{samplename}_log.txt"
     String midas_primary_genus = read_string("PRIMARY_GENUS")
     String midas_secondary_genus = read_string("SECONDARY_GENUS")
-    String midas_secondary_genus_abundance = read_string("SECONDARY_GENUS_ABUNDANCE")
+    Float midas_secondary_genus_abundance = read_string("SECONDARY_GENUS_ABUNDANCE")
   }
   runtime {
       docker: "~{docker}"

@@ -150,7 +150,7 @@
     - path: miniwdl_run/call-merlin_magic/workflow.log
       contains: ["wdl", "theiaprok_illumina_pe", "merlin", "done"]
     - path: miniwdl_run/call-quast/command
-      md5sum: bcc316b346ea2b1781564e0024966643
+      md5sum: 41752bb66429ac6556d48a0a229cd4e9
     - path: miniwdl_run/call-quast/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-quast/outputs.json

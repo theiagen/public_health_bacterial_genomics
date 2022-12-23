@@ -29,6 +29,9 @@ task quast {
           if "N50" in line[0]:
             with open("N50_VALUE", 'wt') as n50_value:
               n50_value.write(line[1])
+          if "GC" in line[0]:
+            with open("GC_PERCENT", 'wt') as gc_percent:
+              gc_percent.write(line[1])              
 
     CODE
 
@@ -40,6 +43,7 @@ task quast {
     Int genome_length = read_int("GENOME_LENGTH")
     Int number_contigs = read_int("NUMBER_CONTIGS")
     Int n50_value = read_int("N50_VALUE")
+    Float gc_percent = read_float("GC_PERCENT")    
   }
   runtime {
     docker:  "~{docker}"
