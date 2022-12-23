@@ -65,7 +65,7 @@ task pirate {
     File? pirate_pangenome_alignment_gff = "PIRATE/~{cluster_name}_pangenome_alignment.gff"
     File? pirate_core_alignment_fasta = "PIRATE/~{cluster_name}_core_alignment.fasta"
     File? pirate_core_alignment_gff = "PIRATE/~{cluster_name}_core_alignment.gff"
-    File pirate_presence_absence_csv = "~{cluster_name}_gene_presence_absence.csv"
+    File? pirate_presence_absence_csv = "~{cluster_name}_gene_presence_absence.csv"
     String pirate_docker_image = docker_image
   } 
   runtime {
