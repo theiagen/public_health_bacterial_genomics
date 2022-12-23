@@ -90,7 +90,7 @@ task export_taxon_tables {
     String ts_mlst_results
     String ts_mlst_predicted_st
     String ts_mlst_pubmlst_scheme
-    String ts_mlst_novel_alleles
+    String? ts_mlst_novel_alleles
     String ts_mlst_version
     File? serotypefinder_report
     String? serotypefinder_docker
