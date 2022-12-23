@@ -63,6 +63,7 @@ workflow core_gene_snp_workflow {
     File? pirate_core_alignment_gff = pirate.pirate_core_alignment_gff
     File? pirate_pan_alignment_fasta = pirate.pirate_pangenome_alignment_fasta
     File? pirate_pan_alignment_gff = pirate.pirate_pangenome_alignment_gff
+    File? pirate_presence_absence_csv = pirate.pirate_presence_absence_csv
     String pirate_docker_image = pirate.pirate_docker_image
     # snp_dists outputs
     String? pirate_snps_dists_version = select_first([core_snp_dists.version,pan_snp_dists.version,""])
