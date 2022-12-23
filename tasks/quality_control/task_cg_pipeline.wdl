@@ -16,8 +16,8 @@ task cg_pipeline {
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
 
     # repeat for concatenated read file
-    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq.gz
-    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq.gz -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
+    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq
+    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
     
     python3 <<CODE
     import csv
