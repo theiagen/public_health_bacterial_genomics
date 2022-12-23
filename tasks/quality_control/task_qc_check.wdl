@@ -86,7 +86,7 @@ task qc_check {
             print("est_coverage_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f" est_coverage_raw was less than {est_coverage_raw_metric};"
+            qc_note = f" est_coverage_raw ({est_coverage_raw}) was less than minimum threshold of {est_coverage_raw_metric};"
           qc_check_metrics.remove("est_coverage_raw")
       else:
         print("est_coverage_raw not detected in qc_check_table")
@@ -100,7 +100,7 @@ task qc_check {
             print("est_coverage_clean passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f" est_coverage_clean was less than {est_coverage_clean_metric};"
+            qc_note = f" est_coverage_clean ({est_coverage_clean}) was less than minimum threshold of {est_coverage_clean_metric};"
           qc_check_metrics.remove("est_coverage_clean")
       else:
         print("est_coverage_clean not detected in qc_check_table")
@@ -114,7 +114,7 @@ task qc_check {
             print("r1_mean_q_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r1_mean_q_raw was less than {r1_mean_q_raw_metric};"
+            qc_note = f"{qc_note} r1_mean_q_raw ({r1_mean_q_raw}) was less than minimum threshold of {r1_mean_q_raw_metric};"
           qc_check_metrics.remove("r1_mean_q_raw")
       else:
         print("r1_mean_q_raw not detected in qc_check_table")
@@ -128,7 +128,7 @@ task qc_check {
             print("r2_mean_q_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r2_mean_q_raw was less than {r2_mean_q_raw_metric};"
+            qc_note = f"{qc_note} r2_mean_q_raw ({r2_mean_q_raw}) was less than minimum threshold of {r2_mean_q_raw_metric};"
           qc_check_metrics.remove("r2_mean_q_raw")
       else:
         print("r2_mean_q_raw not detected in qc_check_table")
@@ -142,7 +142,7 @@ task qc_check {
             print("combined_mean_q_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} combined_mean_q_raw was less than {combined_mean_q_raw_metric};"
+            qc_note = f"{qc_note} combined_mean_q_raw ({combined_mean_q_raw}) was less than minimum threshold of {combined_mean_q_raw_metric};"
           qc_check_metrics.remove("combined_mean_q_raw")
       else:
         print("combined_mean_q_raw not detected in qc_check_table")        
@@ -156,7 +156,7 @@ task qc_check {
             print("r1_mean_readlength_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r1_mean_readlength_raw was less than {r1_mean_readlength_raw_metric};"
+            qc_note = f"{qc_note} r1_mean_readlength_raw ({r1_mean_readlength_raw}) was less than minimum threshold of {r1_mean_readlength_raw_metric};"
           qc_check_metrics.remove("r1_mean_readlength_raw")
       else:
         print("r1_mean_readlength_raw not detected in qc_check_table")
@@ -170,7 +170,7 @@ task qc_check {
             print("r2_mean_readlength_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} r2_mean_readlength_raw was less than {r2_mean_readlength_raw_metric};"
+            qc_note = f"{qc_note} r2_mean_readlength_raw ({r2_mean_readlength_raw}) was less than minimum threshold of {r2_mean_readlength_raw_metric};"
           qc_check_metrics.remove("r2_mean_readlength_raw")
       else:
         print("r2_mean_readlength_raw not detected in qc_check_table")
@@ -184,7 +184,7 @@ task qc_check {
             print("combined_mean_readlength_raw passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} combined_mean_readlength_raw was less than {combined_mean_readlength_raw_metric};"
+            qc_note = f"{qc_note} combined_mean_readlength_raw ({combined_mean_readlength_raw}) was less than minimum threshold of {combined_mean_readlength_raw_metric};"
           qc_check_metrics.remove("combined_mean_readlength_raw")
       else:
         print("combined_mean_readlength_raw not detected in qc_check_table")  
@@ -198,7 +198,7 @@ task qc_check {
             print("midas_secondary_genus_abundance passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} midas_secondary_genus_abundance was greater than {midas_secondary_genus_abundance_metric};"
+            qc_note = f"{qc_note} midas_secondary_genus_abundance ({midas_secondary_genus_abundance}) was greater than maximum threshold of {midas_secondary_genus_abundance_metric};"
           qc_check_metrics.remove("midas_secondary_genus_abundance")
       else:
         print("midas_secondary_genus_abundance not detected in qc_check_table")
@@ -215,7 +215,7 @@ task qc_check {
             print("assembly_length passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} assembly_length was outside of acceptable range ({assembly_length_min_metric} to {assembly_length_max_metric});"
+            qc_note = f"{qc_note} assembly_length ({assembly_length}) was outside of acceptable range ({assembly_length_min_metric} to {assembly_length_max_metric});"
       else:
         print("Either assembly_length_min or assembly_length_max was not detected in qc_check_table")
 
@@ -228,7 +228,7 @@ task qc_check {
             print("number_contigs passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} number_contigs was greater than {number_contigs_metric};"
+            qc_note = f"{qc_note} number_contigs ({mumber_contigs}) was greater than maximum threshold of {number_contigs_metric};"
           qc_check_metrics.remove("number_contigs")
       else:
         print("number_contigs not detected in qc_check_table")
@@ -242,7 +242,7 @@ task qc_check {
             print("n50_value passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} n50_value was less than {n50_value_metric};"
+            qc_note = f"{qc_note} n50_value ({n50_value}) was less than minimum threshold of {n50_value_metric};"
           qc_check_metrics.remove("n50_value")
       else:
         print("n50_value not detected in qc_check_table")
@@ -256,7 +256,7 @@ task qc_check {
             print("ani_highest_percent passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} ani_highest_percent was less than {ani_highest_percent_metric};"
+            qc_note = f"{qc_note} ani_highest_percent ({ani_highest_percent}) was less than minimum threshold of {ani_highest_percent_metric};"
           qc_check_metrics.remove("ani_highest_percent")
       else:
         print("ani_highest_percent not detected in qc_check_table")
@@ -270,7 +270,7 @@ task qc_check {
             print("ani_highest_percent_bases_aligned passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} ani_highest_percent_bases_aligned was less than {ani_highest_percent_bases_aligned_metric};"
+            qc_note = f"{qc_note} ani_highest_percent_bases_aligned ({ani_highest_percent_bases_aligned}) was less than minimum threshold of {ani_highest_percent_bases_aligned_metric};"
           qc_check_metrics.remove("ani_highest_percent_bases_aligned")
       else:
         print("ani_highest_percent_bases_aligned not detected in qc_check_table")
@@ -286,7 +286,7 @@ task qc_check {
             print("busco_completeness passed qc_check")
           else:
             qc_status = "QC_ALERT"
-            qc_note = f"{qc_note} busco_completeness was less than {busco_completeness_metric};" 
+            qc_note = f"{qc_note} busco_completeness ({busco_completeness}) was less than minimum threshold of {busco_completeness_metric};" 
       else:
         print("busco_completeness not detected in qc_check_table")
 
