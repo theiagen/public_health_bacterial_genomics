@@ -34,6 +34,7 @@ task ts_mlst {
       ~{'--minid ' + minid} \
       ~{'--mincov ' + mincov} \
       ~{'--minscore ' + minscore} \
+      --novel ~{samplename}_novel_mlst_alleles.fasta \
       ~{assembly} \
       >> ~{samplename}_ts_mlst.tsv
       
@@ -61,6 +62,7 @@ task ts_mlst {
     File ts_mlst_results = "~{samplename}_ts_mlst.tsv"
     String ts_mlst_predicted_st = read_string("PREDICTED_MLST")
     String ts_mlst_pubmlst_scheme = read_string("PUBMLST_SCHEME")
+    File? ts_mlst_novel_alleles = "~{samplename}_novel_mlst_alleles.fasta"
     String ts_mlst_version = read_string("VERSION")
   }
   runtime {

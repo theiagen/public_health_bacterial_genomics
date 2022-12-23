@@ -16,8 +16,13 @@ task cg_pipeline {
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
 
     # repeat for concatenated read file
-    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq.gz
-    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq.gz -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
+    if [[ "~{read1}" == *".gz" ]] ; then
+      extension=".gz"
+    else
+      extension=""
+    fi
+    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq"${extension}"
+    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq"${extension}" -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
     
     python3 <<CODE
     import csv
