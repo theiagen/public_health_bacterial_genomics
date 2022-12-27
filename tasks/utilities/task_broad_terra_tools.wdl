@@ -255,9 +255,6 @@ task export_taxon_tables {
     if [ ! -z ${sample_table} ]; then
        # create single-entity sample data table
 
-
-      # this is ridiculous and must be changed
-      # python might be easiest for this
       python3 <<CODE
       import csv
 
@@ -488,7 +485,7 @@ task export_taxon_tables {
         writer.writeheader()
         writer.writerow(new_table)
       
-      CODE
+    CODE
       
       # modify file paths to GCP URIs
       sed -i 's/\/cromwell_root\//gs:\/\//g' ~{samplename}_terra_table.tsv
