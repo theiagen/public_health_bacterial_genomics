@@ -486,7 +486,7 @@ task export_taxon_tables {
       with open("~{samplename}_terra_table.tsv", "w") as outfile:
         writer = csv.DictWriter(outfile, new_table.keys(), delimter='\t')
         writer.writeheader()
-        write.writerow(new_table)
+        writer.writerow(new_table)
       
       CODE
       
