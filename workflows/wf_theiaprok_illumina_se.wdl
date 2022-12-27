@@ -45,7 +45,7 @@ workflow theiaprok_illumina_se {
     Int min_coverage = 10
     Boolean call_resfinder = false
     Boolean skip_screen = false 
-    Boolean use_prokka = true
+    String genome_annotation = "prokka"
   }
   call versioning.version_capture{
     input:
@@ -137,14 +137,14 @@ workflow theiaprok_illumina_se {
           assembly = shovill_se.assembly_fasta,
           samplename = samplename
       }
-      if (use_prokka) {
+      if (genome_annotation == "prokka") {
         call prokka.prokka {
           input:
             assembly = shovill_se.assembly_fasta,
             samplename = samplename
         }
       }
-      if (! use_prokka) {
+      if (genome_annotation == "bakta") {
         call bakta.bakta {
           input:
             assembly = shovill_se.assembly_fasta,
