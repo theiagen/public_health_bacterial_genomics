@@ -490,7 +490,7 @@ task export_taxon_tables {
       # modify file paths to GCP URIs
       sed -i 's/\/cromwell_root\//gs:\/\//g' ~{samplename}_terra_table.tsv
       # export table 
-      #python3 /scripts/import_large_tsv/import_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --tsv ~{samplename}_terra_table.tsv
+      python3 /scripts/import_large_tsv/import_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --tsv ~{samplename}_terra_table.tsv
     else
       echo "Table not defined for ~{sample_taxon}"
     fi
