@@ -16,8 +16,19 @@ task cg_pipeline {
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
 
     # repeat for concatenated read file
+<<<<<<< Updated upstream
     cat ~{read1} ~{read2} > ~{samplename}_concat.fastq.gz
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq.gz -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
+=======
+    # run_assembly_readMetrics.pl extension awareness
+    if [[ "~{read1}" == *".gz" ]] ; then
+      extension=".gz"
+    else
+      extension=""
+    fi
+    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq"${extension}"
+    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq"${extension}" -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
+>>>>>>> Stashed changes
     
     python3 <<CODE
     import csv
@@ -55,11 +66,10 @@ task cg_pipeline {
 
     # # parse concatenated read metrics
     #grab output average quality and coverage scores by column header
-    coverage_concat = 0.0
     with open("~{samplename}_concat_readMetrics.tsv",'r') as tsv_file_concat:
       tsv_reader_concat = list(csv.DictReader(tsv_file_concat, delimiter="\t"))
       for line in tsv_reader_concat:
-        if "~{samplename}_concat.fastq.gz" in line["File"]:
+        if "~{samplename}_concat" in line["File"]:
           with open("COMBINED_MEAN_Q", 'wt') as combined_mean_q:
             combined_mean_q.write(line["avgQuality"])
           with open("COMBINED_MEAN_LENGTH", 'wt') as combined_mean_length:
