@@ -48,7 +48,7 @@ workflow theiaprok_illumina_pe {
     Int min_proportion = 40
     Boolean call_resfinder = false
     Boolean skip_screen = false 
-    Boolean use_prokka = true
+    String genome_annotation = "prokka"
     File? qc_check_table
     String? expected_taxon
   }
@@ -149,14 +149,14 @@ workflow theiaprok_illumina_pe {
           assembly = shovill_pe.assembly_fasta,
           samplename = samplename
       }
-      if (use_prokka) {
+      if (genome_annotation == "prokka") {
         call prokka.prokka {
           input:
             assembly = shovill_pe.assembly_fasta,
             samplename = samplename
         }
       }
-      if (! use_prokka) {
+      if (genome_annotation == "bakta") {
         call bakta.bakta {
           input:
             assembly = shovill_pe.assembly_fasta,
@@ -288,6 +288,7 @@ workflow theiaprok_illumina_pe {
             ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st,
             ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme,
             ts_mlst_version = ts_mlst.ts_mlst_version,
+            ts_mlst_novel_alleles = ts_mlst.ts_mlst_novel_alleles,
             serotypefinder_report = merlin_magic.serotypefinder_report,
             serotypefinder_docker = merlin_magic.serotypefinder_docker,
             serotypefinder_serotype = merlin_magic.serotypefinder_serotype,
@@ -515,8 +516,9 @@ workflow theiaprok_illumina_pe {
     # MLST Typing
     File? ts_mlst_results = ts_mlst.ts_mlst_results
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
-    String? ts_mlst_version = ts_mlst.ts_mlst_version
     String? ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme
+    String? ts_mlst_version = ts_mlst.ts_mlst_version
+    File? ts_mlst_novel_alleles = ts_mlst.ts_mlst_novel_alleles
     # Prokka Results
     File? prokka_gff = prokka.prokka_gff
     File? prokka_gbk = prokka.prokka_gbk

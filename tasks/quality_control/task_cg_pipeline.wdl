@@ -16,10 +16,6 @@ task cg_pipeline {
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
 
     # repeat for concatenated read file
-<<<<<<< Updated upstream
-    cat ~{read1} ~{read2} > ~{samplename}_concat.fastq.gz
-    run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq.gz -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
-=======
     # run_assembly_readMetrics.pl extension awareness
     if [[ "~{read1}" == *".gz" ]] ; then
       extension=".gz"
@@ -28,7 +24,6 @@ task cg_pipeline {
     fi
     cat ~{read1} ~{read2} > ~{samplename}_concat.fastq"${extension}"
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{samplename}_concat.fastq"${extension}" -e ~{genome_length} > ~{samplename}_concat_readMetrics.tsv
->>>>>>> Stashed changes
     
     python3 <<CODE
     import csv
