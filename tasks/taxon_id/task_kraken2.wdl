@@ -7,6 +7,7 @@ task kraken2_pe {
     File kraken2_db
     String samplename
     String docker = "quay.io/staphb/kraken2:2.1.2-no-db"
+    Int disk_size = 100
 
     String? kraken2_args = ""
     String? classified_out = "classified#.fastq"
@@ -38,7 +39,6 @@ task kraken2_pe {
     # Compress and cleanup
     gzip *.fastq
     gzip ~{samplename}.classifiedreads.txt
-
   >>>
   output {
     String kraken2_version = read_string("VERSION")
@@ -52,11 +52,13 @@ task kraken2_pe {
     File kraken2_classified_read2 = "~{samplename}.classified_2.fastq.gz"
   }
   runtime {
-      docker: "~{docker}"
-      memory: "~{memory} GB"
-      cpu: cpu
-      disks: "local-disk 100 SSD"
-      preemptible: 0
+    docker: "~{docker}"
+    memory: "~{memory} GB"
+    cpu: cpu
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
+    preemptible: 0
   }
 }
 
@@ -66,6 +68,7 @@ task kraken2_se {
     File kraken2_db
     String samplename
     String docker = "quay.io/staphb/kraken2:2.1.2-no-db"
+    Int disk_size = 100
 
     String? kraken2_args = ""
     String? classified_out = "classified.fastq"
@@ -107,10 +110,12 @@ task kraken2_se {
     File kraken2_classified_read1 = "~{samplename}.classified.fastq.gz"
   }
   runtime {
-      docker: "~{docker}"
-      memory: "~{memory} GB"
-      cpu: cpu
-      disks: "local-disk 100 SSD"
-      preemptible: 0
+    docker: "~{docker}"
+    memory: "~{memory} GB"
+    cpu: cpu
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
+    preemptible: 0
   }
 }

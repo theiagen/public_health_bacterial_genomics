@@ -6,7 +6,8 @@ task export_taxon_tables {
     String terra_workspace
     String sample_taxon
     File? taxon_tables
-    String samplename 
+    String samplename
+    Int disk_size = 100
     # TheiaProk Outputs
     File? reads
     File? read1
@@ -499,7 +500,8 @@ task export_taxon_tables {
     docker: "broadinstitute/terra-tools:tqdm"
     memory: "8 GB"
     cpu: 1
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     dx_instance_type: "mem1_ssd1_v2_x2"
     maxRetries: 3
   }

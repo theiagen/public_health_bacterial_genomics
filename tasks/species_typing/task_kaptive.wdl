@@ -6,6 +6,7 @@ task kaptive {
     File assembly
     String samplename
     String kaptive_docker_image = "quay.io/staphb/kaptive:2.0.3"
+    Int disk_size = 100
     Int cpu = 4
     # Parameters
     Int start_end_margin = 10 # determines flexibility in identifying the start and end of a locus - if this value is 10, a locus match that is missing the first 8 base pairs will still count as capturing the start of the locus (default: 10) 
@@ -162,6 +163,8 @@ task kaptive {
     docker: "~{kaptive_docker_image}"
     memory: "8 GB"
     cpu: cpu
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }

@@ -7,6 +7,7 @@ task bbduk_pe {
     String samplename
     Int mem_size_gb=8
     String docker = "quay.io/staphb/bbtools:38.76"
+    Int disk_size = 100
   }
   command <<<
     # date and version control
@@ -31,7 +32,8 @@ task bbduk_pe {
     docker: "~{docker}"
     memory: "~{mem_size_gb} GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     preemptible: 0
     maxRetries: 3
   }
@@ -43,6 +45,7 @@ task bbduk_se {
     String samplename
     Int mem_size_gb=8
     String docker="quay.io/staphb/bbtools:38.76"
+    Int disk_size = 100
   }
   command <<<
     # date and version control
@@ -63,7 +66,8 @@ task bbduk_se {
     docker: "~{docker}"
     memory: "~{mem_size_gb} GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     preemptible: 0
     maxRetries: 3
   }

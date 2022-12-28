@@ -7,6 +7,7 @@ task tbprofiler {
     File? read2
     String samplename
     String tbprofiler_docker_image = "staphb/tbprofiler:4.3.0"
+    Int disk_size = 100
     String? mapper = "bwa"
     String? caller = "bcftools"
     Int? min_depth = 10
@@ -93,7 +94,9 @@ task tbprofiler {
     docker: "~{tbprofiler_docker_image}"
     memory: "16 GB"
     cpu: 8
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }
 
@@ -103,6 +106,7 @@ task tbprofiler_ont {
     File reads
     String samplename
     String tbprofiler_docker_image = "staphb/tbprofiler:4.3.0"
+    Int disk_size = 100
     String? mapper = "bwa"
     String? caller = "bcftools"
     Int? min_depth = 10
@@ -173,7 +177,8 @@ task tbprofiler_ont {
     docker: "~{tbprofiler_docker_image}"
     memory: "16 GB"
     cpu: 8
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     maxRetries: 3
   }
 }

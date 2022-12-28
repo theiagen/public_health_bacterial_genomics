@@ -12,6 +12,7 @@ task abricate {
     Int? mincov
     Int cpu = 2
     String docker = "staphb/abricate:1.0.1-abaum-plasmid"
+    Int disk_size = 100
   }
   command <<<
     date | tee DATE
@@ -49,6 +50,8 @@ task abricate {
     memory: "8 GB"
     cpu: cpu
     docker: docker
-    disks: "local-disk 100 HDD"
+    disks:  "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }

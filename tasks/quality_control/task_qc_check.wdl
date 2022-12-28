@@ -21,6 +21,7 @@ task qc_check {
     Float? ani_highest_percent_bases_aligned
     String? ani_top_species_match
     String? busco_results
+    Int disk_size = 100
   }
   command <<<
     # date 
@@ -317,7 +318,9 @@ task qc_check {
     docker: "broadinstitute/terra-tools:tqdm"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

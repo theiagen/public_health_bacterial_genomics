@@ -11,6 +11,7 @@ task pbptyper {
     Int min_pident = 95 # Minimum percent identity to count a hit [default: 95]
     Int min_coverage = 95 # Minimum percent coverage to count a hit [default: 95]  
     String docker = "staphb/pbptyper:1.0.4"
+    Int disk_size = 100
     Int cpus = 4
 
   }
@@ -44,7 +45,9 @@ task pbptyper {
     docker: "~{docker}"
     memory: "16 GB"
     cpu: cpus
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

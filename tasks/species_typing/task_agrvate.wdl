@@ -8,6 +8,7 @@ task agrvate {
     File assembly
     String samplename
     String docker = "quay.io/biocontainers/agrvate:1.0.2--hdfd78af_0"
+    Int disk_size = 100
     Int? cpu = 1
 
     # Parameters
@@ -31,7 +32,9 @@ task agrvate {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 50 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

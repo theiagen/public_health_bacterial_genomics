@@ -9,6 +9,7 @@ task shigatyper {
     File? read2
     String samplename
     String docker = "staphb/shigatyper:2.0.2"
+    Int disk_size = 100
     Int cpus = 4
     Boolean read1_is_ont = false
   }
@@ -64,8 +65,9 @@ task shigatyper {
     docker: "~{docker}"
     memory: "16 GB"
     cpu: cpus
-    disks: "local-disk 100 SSD"
-    preemptible: 0
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     maxRetries: 3
+    preemptible: 0
   }
 }

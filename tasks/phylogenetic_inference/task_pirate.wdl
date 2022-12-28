@@ -12,6 +12,7 @@ task pirate {
     Int memory = 32
     Int cpu = 4
     String docker_image = "quay.io/biocontainers/pirate:1.0.5--hdfd78af_0"
+    Int disk_size = 100
   }
   command <<<
   
@@ -72,7 +73,9 @@ task pirate {
     docker: "~{docker_image}"
     memory: "~{memory} GB"
     cpu: cpu
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

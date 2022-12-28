@@ -4,6 +4,7 @@ task snp_dists {
   input {
     File alignment
     String cluster_name
+    Int disk_size = 100
   }
   command <<<
     # date and version control
@@ -106,7 +107,9 @@ task snp_dists {
     docker: "quay.io/staphb/snp-dists:0.8.2"
     memory: "2 GB"
     cpu: 2
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

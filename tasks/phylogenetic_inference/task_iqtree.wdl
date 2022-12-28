@@ -9,6 +9,7 @@ task iqtree {
     String alrt = 1000 # SH-like approximate likelihood ratio test (SH-aLRT) replicates
     String? iqtree_opts = ""
     String docker = "staphb/iqtree:1.6.7"
+    Int disk_size = 100
   }
   command <<<
     # date and version control
@@ -39,7 +40,8 @@ task iqtree {
     docker: "~{docker}"
     memory: "32 GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     preemptible: 0
     maxRetries: 3
   }
