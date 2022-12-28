@@ -5,6 +5,7 @@ task mycosnptree {
     Array[File] assembly_fasta
     Array[String] samplename
     String docker="quay.io/theiagen/mycosnp:dev"
+    Int disk_size = 100
     String strain="B11205"
     String accession="GCA_016772135"
   }
@@ -59,7 +60,8 @@ task mycosnptree {
     docker: "~{docker}"
     memory: "32 GB"
     cpu: 4
-    disks:  "local-disk 50 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     maxRetries: 3
     preemptible: 0
   }

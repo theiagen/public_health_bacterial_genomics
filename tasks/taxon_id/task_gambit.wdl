@@ -5,6 +5,7 @@ task gambit {
     File assembly
     String samplename
     String docker = "quay.io/staphb/gambit:0.5.0"
+    Int disk_size = 100
     File? gambit_db_genomes
     File? gambit_db_signatures
   }
@@ -185,7 +186,9 @@ task gambit {
     docker:  "~{docker}"
     memory:  "16 GB"
     cpu:   8
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible:  0
   }
 }

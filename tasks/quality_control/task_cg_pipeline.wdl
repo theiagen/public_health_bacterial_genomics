@@ -6,6 +6,7 @@ task cg_pipeline {
     File? read2
     String samplename
     String docker="quay.io/staphb/lyveset:1.1.4f"
+    Int disk_size = 100
     String cg_pipe_opts="--fast"
     Int genome_length
   }
@@ -16,6 +17,7 @@ task cg_pipeline {
     run_assembly_readMetrics.pl ~{cg_pipe_opts} ~{read1} ~{read2} -e ~{genome_length} > ~{samplename}_readMetrics.tsv
 
     # repeat for concatenated read file
+    # run_assembly_readMetrics.pl extension awareness
     if [[ "~{read1}" == *".gz" ]] ; then
       extension=".gz"
     else
@@ -60,11 +62,10 @@ task cg_pipeline {
 
     # # parse concatenated read metrics
     #grab output average quality and coverage scores by column header
-    coverage_concat = 0.0
     with open("~{samplename}_concat_readMetrics.tsv",'r') as tsv_file_concat:
       tsv_reader_concat = list(csv.DictReader(tsv_file_concat, delimiter="\t"))
       for line in tsv_reader_concat:
-        if "~{samplename}_concat.fastq.gz" in line["File"]:
+        if "~{samplename}_concat" in line["File"]:
           with open("COMBINED_MEAN_Q", 'wt') as combined_mean_q:
             combined_mean_q.write(line["avgQuality"])
           with open("COMBINED_MEAN_LENGTH", 'wt') as combined_mean_length:
@@ -98,7 +99,9 @@ task cg_pipeline {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

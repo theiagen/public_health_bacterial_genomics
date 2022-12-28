@@ -8,6 +8,7 @@ task staphopiasccmec {
     File assembly
     String samplename
     String docker = "quay.io/biocontainers/staphopia-sccmec:1.0.0--hdfd78af_0"
+    Int disk_size = 100
     Int? cpu = 2
 
     # Parameters
@@ -28,7 +29,9 @@ task staphopiasccmec {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 2
-    disks: "local-disk 50 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

@@ -6,6 +6,7 @@ task kleborate {
     File assembly
     String samplename
     String kleborate_docker_image = "quay.io/staphb/kleborate:2.2.0"
+    Int disk_size = 100
     
     # Parameters
     # --resistance                      Turn on resistance genes screening (default: no resistance gene screening)
@@ -135,9 +136,11 @@ task kleborate {
     String kleborate_olocus_confidence = read_string("O_LOCUS_CONFIDENCE")
   }
   runtime {
-    docker:       "~{kleborate_docker_image}"
-    memory:       "16 GB"
-    cpu:          8
-    disks:        "local-disk 100 SSD"
+    docker: "~{kleborate_docker_image}"
+    memory: "16 GB"
+    cpu: 8
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }

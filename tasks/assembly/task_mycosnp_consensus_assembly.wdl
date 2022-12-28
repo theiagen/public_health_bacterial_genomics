@@ -10,6 +10,7 @@ task mycosnp {
     String accession = "GCA_016772135"
     Int memory = 16
     Int cpu = 4
+    Int disk_size = 100
   }
   command <<<
     date | tee DATE
@@ -45,7 +46,8 @@ task mycosnp {
     docker: "~{docker}"
     memory: "~{memory} GB"
     cpu: cpu
-    disks:  "local-disk 50 SSD"
+    disks:  "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     maxRetries: 3
     preemptible: 0
   }

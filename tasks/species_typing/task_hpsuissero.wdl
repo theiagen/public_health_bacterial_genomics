@@ -8,6 +8,7 @@ task hpsuissero {
     File assembly
     String samplename
     String docker = "quay.io/biocontainers/hpsuissero:1.0.1--hdfd78af_0"
+    Int disk_size = 100
     Int? cpu = 4
     String version = "1.0.1"
   }
@@ -29,7 +30,9 @@ task hpsuissero {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 50 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

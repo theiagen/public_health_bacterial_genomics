@@ -5,6 +5,7 @@ task shigeifinder {
     File assembly
     String samplename
     String docker = "staphb/shigeifinder:1.3.2"
+    Int disk_size = 100
     Int cpu = 2
   }
   command <<<
@@ -71,7 +72,8 @@ task shigeifinder {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: cpu
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
     preemptible: 0
     maxRetries: 3
   }

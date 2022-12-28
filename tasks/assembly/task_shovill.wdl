@@ -6,6 +6,7 @@ task shovill_pe {
     File read2_cleaned
     String samplename
     String docker = "quay.io/staphb/shovill:1.1.0"
+    Int disk_size = 100
 
     ## SHOVILL optional parameters
     ##  --depth [INT]           Sub-sample --R1/--R2 to this depth. Disable with --depth 0 (default: 150)
@@ -70,11 +71,13 @@ task shovill_pe {
     String shovill_version = read_string("VERSION")
   }
   runtime {
-      docker: "~{docker}"
-      memory: "16 GB"
-      cpu: 4
-      disks: "local-disk 100 SSD"
-      preemptible: 0
+    docker: "~{docker}"
+    memory: "16 GB"
+    cpu: 4
+    disks:  "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
+    preemptible: 0
   }
 }
 
@@ -83,6 +86,7 @@ task shovill_se {
     File read1_cleaned
     String samplename
     String docker = "quay.io/staphb/shovill-se:1.1.0"
+    Int disk_size = 100
 
     ## SHOVILL optional parameters
     ##  --depth [INT]           Sub-sample --R1/--R2 to this depth. Disable with --depth 0 (default: 150)
@@ -141,10 +145,12 @@ task shovill_se {
     String shovill_version = read_string("VERSION")
   }
   runtime {
-      docker: "~{docker}"
-      memory: "16 GB"
-      cpu: 4
-      disks: "local-disk 100 SSD"
-      preemptible: 0
+    docker: "~{docker}"
+    memory: "16 GB"
+    cpu: 4
+    disks:  "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
+    preemptible: 0
   }
 }

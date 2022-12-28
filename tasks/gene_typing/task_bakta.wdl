@@ -8,6 +8,7 @@ task bakta {
     Int cpu = 8
     Int memory = 16
     String docker = "quay.io/biocontainers/bakta:1.5.1--pyhdfd78af_0"
+    Int disk_size = 100
     # Parameters 
     #  proteins: Fasta file of trusted protein sequences for CDS annotation
     #  prodigal_tf: Prodigal training file to use for CDS prediction
@@ -61,6 +62,8 @@ task bakta {
     memory: "~{memory} GB"
     cpu: cpu
     docker: docker
-    disks: "local-disk 100 SSD"
+    disks:  "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }

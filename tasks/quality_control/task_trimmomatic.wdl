@@ -10,6 +10,7 @@ task trimmomatic_pe {
     Int? trimmomatic_quality_trim_score = 20
     Int? trimmomatic_minlen = 75
     Int? threads = 4
+    Int disk_size = 100
   }
   command <<<
     # date and version control
@@ -34,7 +35,9 @@ task trimmomatic_pe {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible:  0
   }
 }
@@ -48,6 +51,7 @@ task trimmomatic_se {
     Int? trimmomatic_quality_trim_score = 30
     Int? trimmomatic_minlen = 25
     Int? threads = 4
+    Int disk_size = 100
   }
   command <<<
     # date and version control
@@ -71,7 +75,9 @@ task trimmomatic_se {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 100 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

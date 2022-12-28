@@ -10,7 +10,7 @@ task resfinder {
     Float? threshold = 0.9 # Threshold for identity of ResFinder
     Boolean point = false # Run pointfinder for chromosomal mutations
     String docker = "staphb/resfinder:4.1.11"
-
+    Int disk_size = 100
   }
   command <<<
     date | tee DATE
@@ -100,6 +100,8 @@ task resfinder {
     memory: "8 GB"
     cpu: 4
     docker: docker
-    disks: "local-disk 100 HDD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }

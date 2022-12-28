@@ -6,6 +6,7 @@ task gamma_one_sample {
     String samplename
     String docker = "quay.io/biocontainers/gamma:1.4--hdfd78af_0"
     File gamma_database
+    Int disk_size = 100
   }
   String database_name = basename(gamma_database)
   command <<<
@@ -23,6 +24,8 @@ task gamma_one_sample {
     memory: "8 GB"
     cpu: 4
     docker: "~{docker}"
-    disks: "local-disk 100 HDD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
   }
 }

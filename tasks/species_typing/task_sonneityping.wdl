@@ -8,6 +8,7 @@ task sonneityping {
     Boolean ont_data = false
     String samplename
     String docker = "staphb/mykrobe:0.12.1"
+    Int disk_size = 100
     String? myrkobe_opts
     Int cpu = 4
   }
@@ -68,11 +69,12 @@ task sonneityping {
     String sonneityping_genotype_name = read_string("GENOTYPE_NAME.txt")
   }
   runtime {
-    docker:       "~{docker}"
-    memory:       "8 GB"
-    cpu:          cpu
-    disks:        "local-disk 100 SSD"
-    preemptible:  0
-    maxRetries:   3
+    docker: "~{docker}"
+    memory: "8 GB"
+    cpu: cpu
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
+    preemptible: 0
   }
 }

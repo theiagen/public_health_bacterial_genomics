@@ -8,6 +8,7 @@ task ts_mlst {
     File assembly
     String samplename
     String docker = "staphb/mlst:2.23.0"
+    Int disk_size = 100
     Int cpu = 4
     # Parameters
     # --nopath          Strip filename paths from FILE column (default OFF)
@@ -69,7 +70,9 @@ task ts_mlst {
     docker: "~{docker}"
     memory: "8 GB"
     cpu: 4
-    disks: "local-disk 50 SSD"
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible: 0
   }
 }

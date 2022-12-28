@@ -7,6 +7,7 @@ task animummer {
     File? ref_genome
     Float mash_filter = 0.9
     String docker="staphb/mummer:4.0.0-rgdv2"
+    Int disk_size = 100
   }
   command <<<
     # capture and version
@@ -80,10 +81,12 @@ task animummer {
     String ani_mummer_version = read_string("MUMMER_VERSION")
   }
   runtime {
-    docker:  "~{docker}"
-    memory:  "8 GB"
-    cpu:   4
-    disks: "local-disk 100 SSD"
+    docker: "~{docker}"
+    memory: "8 GB"
+    cpu: 4
+    disks: "local-disk " + disk_size + " SSD"
+    disk: disk_size + " GB"
+    maxRetries: 3
     preemptible:  0
   }
 }
