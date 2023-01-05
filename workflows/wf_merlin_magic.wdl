@@ -32,9 +32,11 @@ workflow merlin_magic {
     Int? pasty_min_pident
     Int? pasty_min_coverage
     String? pasty_docker_image
+    String? shigeifinder_docker_image
     Boolean paired_end = true
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
+    Boolean call_shigeifinder_reads_input = false
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -72,7 +74,17 @@ workflow merlin_magic {
     call shigeifinder.shigeifinder {
       input:
         assembly = assembly,
-        samplename = samplename
+        samplename = samplename,
+        docker = shigeifinder_docker_image
+    }
+    if (call_shigeifinder_reads_input) {
+    call shigeifinder.shigeifinder_reads as shigeifinder_reads {
+      input:
+        read1 = read1,
+        read2 = read2,
+        samplename = samplename,
+        docker = shigeifinder_docker_image
+    }
     }
   }
   if (merlin_tag == "Shigella_sonnei") {
@@ -194,6 +206,17 @@ workflow merlin_magic {
   String? shigeifinder_O_antigen = shigeifinder.shigeifinder_O_antigen
   String? shigeifinder_H_antigen = shigeifinder.shigeifinder_H_antigen
   String? shigeifinder_notes = shigeifinder.shigeifinder_notes
+  # ShigeiFinder outputs but for task that uses reads instead of assembly as input
+  File? shigeifinder_report_reads = shigeifinder_reads.shigeifinder_report
+  String? shigeifinder_docker_reads = shigeifinder_reads.shigeifinder_docker
+  String? shigeifinder_version_reads = shigeifinder_reads.shigeifinder_version
+  String? shigeifinder_ipaH_presence_absence_reads = shigeifinder_reads.shigeifinder_ipaH_presence_absence
+  String? shigeifinder_num_virulence_plasmid_genes_reads = shigeifinder_reads.shigeifinder_num_virulence_plasmid_genes
+  String? shigeifinder_cluster_reads = shigeifinder_reads.shigeifinder_cluster
+  String? shigeifinder_serotype_reads = shigeifinder_reads.shigeifinder_serotype
+  String? shigeifinder_O_antigen_reads = shigeifinder_reads.shigeifinder_O_antigen
+  String? shigeifinder_H_antigen_reads = shigeifinder_reads.shigeifinder_H_antigen
+  String? shigeifinder_notes_reads = shigeifinder_reads.shigeifinder_notes
   # Shigella sonnei Typing
   File? sonneityping_mykrobe_report_csv = sonneityping.sonneityping_mykrobe_report_csv
   File? sonneityping_mykrobe_report_json = sonneityping.sonneityping_mykrobe_report_json
