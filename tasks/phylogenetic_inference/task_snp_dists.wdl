@@ -12,7 +12,7 @@ task snp_dists {
     snp-dists -v | tee VERSION
 
     # create snp-dists matrix file
-    snp-dists ~{alignment} > ${cluster_name}_snp_distance_matrix.tsv
+    snp-dists ~{alignment} > ~{cluster_name}_snp_distance_matrix.tsv
   >>>
   output {
     String date = read_string("DATE")
