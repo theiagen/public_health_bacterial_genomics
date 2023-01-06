@@ -26,6 +26,18 @@ workflow ksnp3_workflow {
       cluster_name = cluster_name,
       alignment = ksnp3_task.ksnp3_pan_matrix
   }
+  call snp_dists.reorder_matrix as core_reorder_matrix {
+    input:
+      tree = ksnp3_task.ksnp3_core_tree,
+      matrix = core_snp_dists.snp_matrix,
+      cluster_name = cluster_name + "_core"
+  }
+  call snp_dists.reorder_matrix as pan_reorder_matrix {
+    input:
+      tree = ksnp3_task.ksnp3_pan_parsimony_tree,
+      matrix = pan_snp_dists.snp_matrix,
+      cluster_name = cluster_name + "_pan"
+  }
   call versioning.version_capture{
     input:
   }
@@ -35,10 +47,10 @@ workflow ksnp3_workflow {
     String ksnp3_wf_analysis_date = version_capture.date
     # ksnp3_outputs
     String ksnp3_snp_dists_version = pan_snp_dists.version
-    File ksnp3_core_snp_matrix = core_snp_dists.snp_matrix
+    File ksnp3_core_snp_matrix = core_reorder_matrix.ordered_matrix
     File ksnp3_core_tree = ksnp3_task.ksnp3_core_tree
     File ksnp3_core_vcf = ksnp3_task.ksnp3_core_vcf
-    File ksnp3_pan_snp_matrix = pan_snp_dists.snp_matrix
+    File ksnp3_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
     File ksnp3_pan_parsimony_tree = ksnp3_task.ksnp3_pan_parsimony_tree
     File? ksnp3_ml_tree = ksnp3_task.ksnp3_ml_tree
     File? ksnp3_nj_tree = ksnp3_task.ksnp3_nj_tree
