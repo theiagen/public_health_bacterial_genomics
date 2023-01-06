@@ -17,7 +17,7 @@ task snp_dists {
   output {
     String date = read_string("DATE")
     String version = read_string("VERSION")
-    File snp_matrix = "${cluster_name}_snp_distance_matrix.tsv"
+    File snp_matrix = "~{cluster_name}_snp_distance_matrix.tsv"
   }
   runtime {
     docker: "quay.io/staphb/snp-dists:0.8.2"
@@ -59,7 +59,7 @@ task reorder_matrix {
     CODE
   >>>
   output{
-    File ordered_matrix = "${cluster_name}_ordered_snp_distance_matrix.tsv"
+    File ordered_matrix = "~{cluster_name}_ordered_snp_distance_matrix.tsv"
   }
   runtime {
     docker: "staphb/mykrobe:0.12.1" # used because it contains both biopython and pandas
