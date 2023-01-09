@@ -39,23 +39,23 @@ task reorder_matrix {
   }
   command <<<
     python3 <<CODE
-      from Bio import Phylo
-      import pandas as pandas
+    from Bio import Phylo
+    import pandas as pd
 
-      # read in newick tree
-      tree = Phylo.read("~{tree}", "newick")
-      
-      # extract ordered terminal ends
-      term_names = [term.name for term in tree.get_terminals()]
-      
-      # read in matrix into pandas data frame
-      snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
+    # read in newick tree
+    tree = Phylo.read("~{tree}", "newick")
+    
+    # extract ordered terminal ends
+    term_names = [term.name for term in tree.get_terminals()]
+    
+    # read in matrix into pandas data frame
+    snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
 
-      # reorder matrix according to terminal ends
-      snps = snps.reindex(index=term_names, columns=term_names)
+    # reorder matrix according to terminal ends
+    snps = snps.reindex(index=term_names, columns=term_names)
 
-      # write out reordered matrix to a file
-      snps.to_csv("~{cluster_name}_ordered_snp_distance_matrix.tsv", sep="\t")
+    # write out reordered matrix to a file
+    snps.to_csv("~{cluster_name}_ordered_snp_distance_matrix.tsv", sep="\t")
     CODE
   >>>
   output{
