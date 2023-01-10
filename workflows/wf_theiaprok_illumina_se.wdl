@@ -411,6 +411,7 @@ workflow theiaprok_illumina_se {
     File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
     String? cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker
     Float? est_coverage_raw = cg_pipeline_raw.est_coverage
+    Float? r1_mean_readlength = cg_pipeline_raw.r1_mean_readlength
     File? cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report
     Float? est_coverage_clean = cg_pipeline_clean.est_coverage
     String? busco_version = busco.busco_version
