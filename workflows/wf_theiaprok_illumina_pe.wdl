@@ -448,6 +448,9 @@ workflow theiaprok_illumina_pe {
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
     Float? r2_mean_q_raw = cg_pipeline_raw.r2_mean_q
+    Float? r1_mean_readlength = cg_pipeline_raw.r1_mean_readlength
+    Float? r2_mean_readlength = cg_pipeline_raw.r2_mean_readlength
+    Float? combined_mean_readlength = cg_pipeline_raw.combined_mean_readlength
     Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
     Float? r2_mean_q_clean = cg_pipeline_clean.r2_mean_q
     File? read1_clean = read_QC_trim.read1_clean
