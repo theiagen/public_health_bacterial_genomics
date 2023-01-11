@@ -46,7 +46,7 @@ task reorder_matrix {
     tree = Phylo.read("~{tree}", "newick")
     
     # extract ordered terminal ends
-    term_names = [term.name for term in tree.get_terminals(order="level")]
+    term_names = [term.name for term in tree.get_terminals()]
     
     # read in matrix into pandas data frame
     snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
