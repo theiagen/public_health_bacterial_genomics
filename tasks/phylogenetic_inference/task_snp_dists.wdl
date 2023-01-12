@@ -47,7 +47,6 @@ task reorder_matrix {
     
     # extract ordered terminal ends
     term_names = [term.name for term in tree.get_terminals()]
-    print(term_names)
 
     # read in matrix into pandas data frame
     snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
