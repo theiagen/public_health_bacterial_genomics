@@ -47,9 +47,17 @@ task reorder_matrix {
     
     # extract ordered terminal ends
     term_names = [term.name for term in tree.get_terminals()]
-    
+    print(term_names)
+
     # read in matrix into pandas data frame
     snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
+
+    # ensure all header and index values are strings for proper reindexing
+    # this is because if sample_name is entirely composed of integers, pandas 
+    # auto-casts them as integers; get_terminals() interprets those as strings. 
+    # this incompatibility leads to failure and an empty ordered SNP matrix
+    snps.columns = snps.columns.astype(str)
+    snps.index = snps.index.astype(str)
 
     # reorder matrix according to terminal ends
     snps = snps.reindex(index=term_names, columns=term_names)
