@@ -83,7 +83,8 @@ workflow merlin_magic {
         read1 = read1,
         read2 = read2,
         samplename = samplename,
-        docker = shigeifinder_docker_image
+        docker = shigeifinder_docker_image,
+        paired_end = paired_end
     }
     }
   }

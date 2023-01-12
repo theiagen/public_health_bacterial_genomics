@@ -86,7 +86,7 @@ task shigeifinder_reads {
     String docker = "staphb/shigeifinder:1.3.3"
     Int disk_size = 100
     Int cpu = 4
-    Boolean single_end = false
+    Boolean paired_end = true
   }
   command <<<
     # capture date
@@ -98,7 +98,7 @@ task shigeifinder_reads {
     echo "checking for shigeifinder dependencies and running ShigEiFinder..."
     # run shigeifinder on reads; default is 4cpus, so keeping at 4 since it's doing alignment
     shigeifinder -r -i ~{read1} ~{read2} \
-        ~{true='--single_end' false='' single_end} \
+        ~{true='' false='--single_end' paired_end} \
         -t ~{cpu} \
         --hits \
         --output ~{samplename}_shigeifinder.tsv
