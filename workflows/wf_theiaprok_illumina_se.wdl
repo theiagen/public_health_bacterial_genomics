@@ -191,6 +191,7 @@ workflow theiaprok_illumina_se {
             bbduk_docker = read_QC_trim.bbduk_docker,
             r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
             r1_mean_q_clean = cg_pipeline_clean.r1_mean_q,
+            r1_mean_readlength = cg_pipeline_raw.r1_mean_readlength,
             assembly_fasta = shovill_se.assembly_fasta,
             contigs_gfa = shovill_se.contigs_gfa,
             shovill_se_version = shovill_se.shovill_version,
@@ -392,6 +393,7 @@ workflow theiaprok_illumina_se {
     String? bbduk_docker = read_QC_trim.bbduk_docker
     Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
     Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
+    Float? r1_mean_readlength = cg_pipeline_raw.r1_mean_readlength
     File? read1_clean = read_QC_trim.read1_clean
     String? midas_docker = read_QC_trim.midas_docker
     File? midas_report = read_QC_trim.midas_report
@@ -411,7 +413,6 @@ workflow theiaprok_illumina_se {
     File? cg_pipeline_report_raw = cg_pipeline_raw.cg_pipeline_report
     String? cg_pipeline_docker = cg_pipeline_raw.cg_pipeline_docker
     Float? est_coverage_raw = cg_pipeline_raw.est_coverage
-    Float? r1_mean_readlength = cg_pipeline_raw.r1_mean_readlength
     File? cg_pipeline_report_clean = cg_pipeline_clean.cg_pipeline_report
     Float? est_coverage_clean = cg_pipeline_clean.est_coverage
     String? busco_version = busco.busco_version
