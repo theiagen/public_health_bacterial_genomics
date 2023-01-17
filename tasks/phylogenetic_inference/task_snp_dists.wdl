@@ -63,10 +63,28 @@ task reorder_matrix {
 
     # write out reordered matrix to a file
     snps.to_csv("~{cluster_name}_ordered_snp_distance_matrix.tsv", sep="\t")
+
+    # reroot tree with midpoint
+    tree.root_at_midpoint()
+
+    # re-extract ordered terminal ends of rerooted tree
+    term_names = [term.name for term in tree.get_terminals()]
+
+    # reorder matrix with re-ordered terminal ends
+    snps = snps.reindex(index=term_names, columns=term_names)
+
+    # write out reordered matrix of rerooted tree to a file
+    snps.to_csv("~{cluster_name}_midpoint_snp_distance_matrix.tsv", sep="\t")
+
+    # write rerooted tree to a file
+    Phylo.write(tree, "~{cluster_name}_midpoint_tree.nwk", "newick")
+
     CODE
   >>>
   output{
     File ordered_matrix = "~{cluster_name}_ordered_snp_distance_matrix.tsv"
+    File ordered_midpoint_matrix = "~{cluster_name}_midpoint_snp_distance_matrix.tsv"
+    File midpoint_rooted_tree = "~{cluster_name}_midpoint_tree.nwk"
   }
   runtime {
     docker: "staphb/mykrobe:0.12.1" # used because it contains both biopython and pandas
@@ -74,7 +92,7 @@ task reorder_matrix {
     cpu: 2
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
-    maxRetries: 3
+   # maxRetries: 3
     preemptible: 0
   }
 

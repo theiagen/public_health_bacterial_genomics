@@ -50,8 +50,12 @@ workflow ksnp3_workflow {
     File ksnp3_core_snp_matrix = core_reorder_matrix.ordered_matrix
     File ksnp3_core_tree = ksnp3_task.ksnp3_core_tree
     File ksnp3_core_vcf = ksnp3_task.ksnp3_core_vcf
+    File ksnp3_core_midpoint_snp_matrix = core_reorder_matrix.ordered_midpoint_matrix
+    File ksnp3_core_midpoint_tree = core_reorder_matrix.midpoint_rooted_tree
     File ksnp3_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
     File ksnp3_pan_parsimony_tree = ksnp3_task.ksnp3_pan_parsimony_tree
+    File ksnp3_pan_midpoint_snp_matrix = pan_reorder_matrix.ordered_midpoint_matrix
+    File ksnp3_pan_midpoint_tree = pan_reorder_matrix.midpoint_rooted_tree
     File? ksnp3_ml_tree = ksnp3_task.ksnp3_ml_tree
     File? ksnp3_nj_tree = ksnp3_task.ksnp3_nj_tree
     String ksnp3_docker = ksnp3_task.ksnp3_docker_image
