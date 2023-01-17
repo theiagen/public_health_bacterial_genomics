@@ -61,8 +61,11 @@ task reorder_matrix {
     # reorder matrix according to terminal ends
     snps = snps.reindex(index=term_names, columns=term_names)
 
+    # add phandango suffix to ensure continuous coloring
+    snps_out1 = snps.add_suffix(":c1")
+
     # write out reordered matrix to a file
-    snps.to_csv("~{cluster_name}_ordered_snp_distance_matrix.tsv", sep="\t")
+    snps_out1.to_csv("~{cluster_name}_ordered_snp_distance_matrix.csv", sep=",")
 
     # reroot tree with midpoint
     tree.root_at_midpoint()
@@ -73,8 +76,11 @@ task reorder_matrix {
     # reorder matrix with re-ordered terminal ends
     snps = snps.reindex(index=term_names, columns=term_names)
 
+    # add phandango suffix to ensure continuous coloring
+    snps_out2 = snps.add_suffix(":c1")
+
     # write out reordered matrix of rerooted tree to a file
-    snps.to_csv("~{cluster_name}_midpoint_snp_distance_matrix.tsv", sep="\t")
+    snps_out2.to_csv("~{cluster_name}_midpoint_snp_distance_matrix.csv", sep=",")
 
     # write rerooted tree to a file
     Phylo.write(tree, "~{cluster_name}_midpoint_tree.nwk", "newick")
@@ -82,8 +88,8 @@ task reorder_matrix {
     CODE
   >>>
   output{
-    File ordered_matrix = "~{cluster_name}_ordered_snp_distance_matrix.tsv"
-    File ordered_midpoint_matrix = "~{cluster_name}_midpoint_snp_distance_matrix.tsv"
+    File ordered_matrix = "~{cluster_name}_ordered_snp_distance_matrix.csv"
+    File ordered_midpoint_matrix = "~{cluster_name}_midpoint_snp_distance_matrix.csv"
     File midpoint_rooted_tree = "~{cluster_name}_midpoint_tree.nwk"
   }
   runtime {
