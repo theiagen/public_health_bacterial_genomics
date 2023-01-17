@@ -11,10 +11,10 @@ workflow ksnp3_workflow {
     Array[String] samplename
     String cluster_name
     Boolean perform_data_summary = false
-    String? terra_project
-    String? terra_workspace
-    String? terra_table
-    String? column_names # string of space delimited column names
+    String? data_summary_terra_project
+    String? data_summary_terra_workspace
+    String? data_summary_terra_table
+    String? data_summary_column_names # string of space delimited column names
 
 	}
 	call ksnp3.ksnp3 as ksnp3_task {
@@ -49,10 +49,10 @@ workflow ksnp3_workflow {
     call data_summary.summarize_data {
       input:
         sample_names = samplename,
-        terra_project = terra_project,
-        terra_workspace = terra_workspace,
-        terra_table = terra_table,
-        column_names = column_names
+        terra_project = data_summary_terra_project,
+        terra_workspace = data_summary_terra_workspace,
+        terra_table = data_summary_terra_table,
+        column_names = data_summary_column_names
     }
   }
   call versioning.version_capture{
