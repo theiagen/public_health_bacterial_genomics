@@ -3,12 +3,19 @@ version 1.0
 import "../tasks/phylogenetic_inference/task_ksnp3.wdl" as ksnp3
 import "../tasks/phylogenetic_inference/task_snp_dists.wdl" as snp_dists
 import "../tasks/task_versioning.wdl" as versioning
+import "../tasks/utilities/task_summarize_data.wdl" as data_summary
 
 workflow ksnp3_workflow {
   input {
     Array[File] assembly_fasta
     Array[String] samplename
     String cluster_name
+    Boolean perform_data_summary = false
+    String? terra_project
+    String? terra_workspace
+    String? terra_table
+    String? column_names # string of space delimited column names
+
 	}
 	call ksnp3.ksnp3 as ksnp3_task {
 		input:
@@ -38,6 +45,16 @@ workflow ksnp3_workflow {
       matrix = pan_snp_dists.snp_matrix,
       cluster_name = cluster_name + "_pan"
   }
+  if (perform_data_summary) {
+    call data_summary.summarize_data {
+      input:
+        sample_names = samplename,
+        terra_project = terra_project,
+        terra_workspace = terra_workspace,
+        terra_table = terra_table,
+        column_names = column_names
+    }
+  }
   call versioning.version_capture{
     input:
   }
@@ -59,5 +76,6 @@ workflow ksnp3_workflow {
     File? ksnp3_ml_tree = ksnp3_task.ksnp3_ml_tree
     File? ksnp3_nj_tree = ksnp3_task.ksnp3_nj_tree
     String ksnp3_docker = ksnp3_task.ksnp3_docker_image
+    File? ksnp3_summarized_data = summarize_data.summarized_data
   }
 }
