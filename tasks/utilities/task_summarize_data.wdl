@@ -91,10 +91,13 @@ task summarize_data {
   # flattening the list
   genes = list(itertools.chain.from_iterable(genes))
 
+  print("DEBUG: GENES AFTER FLATTENING")
+  print(genes)
+
   # removing duplicates
   genes = list(set(genes))
 
-  print("DEBUG: GENE LIST AFTER FLATTENING AND DUPLICATES REMOVED")
+  print("DEBUG: GENE LIST AFTER DUPLICATES REMOVED")
   print(genes)
 
   # add genes as true/false entries into table
