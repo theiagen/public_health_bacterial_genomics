@@ -37,12 +37,14 @@ task export_taxon_tables {
     String bbduk_docker
     Float r1_mean_q_raw
     Float? r2_mean_q_raw
+    Float? r1_mean_q_clean
     Float? combined_mean_q_raw
-    Float combined_mean_q_clean
+    Float? combined_mean_q_clean
     Float? r1_mean_readlength_raw 
     Float? r2_mean_readlength_raw
     Float? combined_mean_readlength_raw 
     Float? combined_mean_readlength_clean 
+    Float? r1_mean_readlength_clean
     File assembly_fasta
     File? contigs_gfa
     String? shovill_pe_version
@@ -296,10 +298,12 @@ task export_taxon_tables {
       "r2_mean_q_raw": "~{r2_mean_q_raw}",
       "combined_mean_q_raw": "~{combined_mean_q_raw}",
       "combined_mean_q_clean": "~{combined_mean_q_clean}",
+      "r1_mean_q_clean": "~{r1_mean_q_clean}",
       "r1_mean_readlength_raw": "~{r1_mean_readlength_raw}",
       "r2_mean_readlength_raw": "~{r2_mean_readlength_raw}",
       "combined_mean_readlength_raw": "~{combined_mean_readlength_raw}",
       "combined_mean_readlength_clean": "~{combined_mean_readlength_clean}",
+      "r1_mean_readlength_clean": "~{r1_mean_readlength_clean}",
       "assembly_fasta": "~{assembly_fasta}",
       "contigs_gfa": "~{contigs_gfa}",
       "shovill_pe_version": "~{shovill_pe_version}",
