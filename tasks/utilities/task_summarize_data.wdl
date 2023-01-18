@@ -14,7 +14,7 @@ task summarize_data {
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
-    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --attribute_list "~{column_names}" --tsv_filename ~{terra_table}-data.tsv 
+    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
     
     # when running locally, use the input_table in place of downloading from Terra
     #cp ~{input_table} ~{terra_table}-data.tsv
@@ -47,8 +47,16 @@ task summarize_data {
   print("DEBUG: COLUMNS")
   print(columns)
 
+  temporarylist = []
+  temporarylist.append("~{terra_table}_id")
+  temporarylist += columns
+
+  table = table[temporarylist].copy()
+  print("DEBUG: TABLE WITH ONLY DESIRED ENTRIES")
+  print(table)
+
   # create a table to search through containing only columns of interest
-  searchtable = table[columns].copy()
+  searchtable = table[[columns]].copy()
   print("DEBUG: SEARCHTABLE")
   print(searchtable)
 
