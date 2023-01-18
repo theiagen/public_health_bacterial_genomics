@@ -192,6 +192,7 @@ workflow theiaprok_illumina_se {
             r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
             r1_mean_q_clean = cg_pipeline_clean.r1_mean_q,
             r1_mean_readlength_raw = cg_pipeline_raw.r1_mean_readlength,
+            r1_mean_readlength_clean = cg_pipeline_clean.r1_mean_readlength,
             assembly_fasta = shovill_se.assembly_fasta,
             contigs_gfa = shovill_se.contigs_gfa,
             shovill_se_version = shovill_se.shovill_version,
