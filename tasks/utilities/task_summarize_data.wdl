@@ -56,7 +56,7 @@ task summarize_data {
   print(table)
 
   # create a table to search through containing only columns of interest
-  searchtable = table[[columns]].copy()
+  searchtable = table[columns].copy()
   print("DEBUG: SEARCHTABLE")
   print(searchtable)
 
