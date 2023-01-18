@@ -37,6 +37,9 @@ task summarize_data {
   # extract the samples for upload from the entire table
   table = table[table["~{terra_table}_id"].isin("~{sep='*' sample_names}".split("*"))]
 
+  print("DEBUG: ORIGINAL TABLE")
+  print(table)
+
   # split column list into an array
   columns = "~{column_names}".split(" ")
   print("DEBUG: COLUMNS")
@@ -51,6 +54,9 @@ task summarize_data {
   genes = []
   for item in columns:
     genes.append(table[item].str.split(",").explode().tolist())
+
+  print("DEBUG: GENES BEFORE COLORING TAGS")
+  print(genes)
 
   # add phandango coloring tags if indicated
   if (os.environ["phandango_coloring"] == "true"):
@@ -69,13 +75,16 @@ task summarize_data {
   else:
     print("NOTE: Phandango coloring was not applied")
 
+  print("DEBUG: GENES AFTER COLORING TAG")
+  print(genes)
+
   # flattening the list
   genes = list(itertools.chain.from_iterable(genes))
 
   # removing duplicates
   genes = list(set(genes))
 
-  print("DEBUG: GENE LIST")
+  print("DEBUG: GENE LIST AFTER FLATTENING AND DUPLICATES REMOVED")
   print(genes)
 
   # add genes as true/false entries into table
@@ -88,7 +97,7 @@ task summarize_data {
   # dropping columns of interest so only true/false ones remain
   table.drop(columns,axis=1,inplace=True)
 
-  print("DEBUG: TABLE")
+  print("DEBUG: TABLE AFTER NEW YES/NO COLUMNS MADE")
   print(table)
 
   table.to_csv("summarized_data.csv", sep=',', index=False)
