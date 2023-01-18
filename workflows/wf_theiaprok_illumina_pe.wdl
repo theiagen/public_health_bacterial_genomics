@@ -234,11 +234,11 @@ workflow theiaprok_illumina_pe {
             r1_mean_q_raw = cg_pipeline_raw.r1_mean_q,
             r2_mean_q_raw = cg_pipeline_raw.r2_mean_q,
             combined_mean_q_raw = cg_pipeline_raw.combined_mean_q,
-            r1_mean_q_clean = cg_pipeline_clean.r1_mean_q,
-            r2_mean_q_clean = cg_pipeline_clean.r2_mean_q,
+            combined_mean_q_clean = cg_pipeline_clean.combined_mean_q,
             r1_mean_readlength_raw = cg_pipeline_raw.r1_mean_readlength,
             r2_mean_readlength_raw = cg_pipeline_raw.r2_mean_readlength,
             combined_mean_readlength_raw = cg_pipeline_raw.combined_mean_readlength,
+            combined_mean_readlength_clean = cg_pipeline_clean.combined_mean_readlength,
             assembly_fasta = shovill_pe.assembly_fasta,
             contigs_gfa = shovill_pe.contigs_gfa,
             shovill_pe_version = shovill_pe.shovill_version,
@@ -453,11 +453,11 @@ workflow theiaprok_illumina_pe {
     Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
     Float? r2_mean_q_raw = cg_pipeline_raw.r2_mean_q
     Float? combined_mean_q_raw = cg_pipeline_raw.combined_mean_q
-    Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
-    Float? r2_mean_q_clean = cg_pipeline_clean.r2_mean_q
+    Float? combined_mean_q_clean = cg_pipeline_clean.combined_mean_q
     Float? r1_mean_readlength_raw = cg_pipeline_raw.r1_mean_readlength
     Float? r2_mean_readlength_raw = cg_pipeline_raw.r2_mean_readlength
     Float? combined_mean_readlength_raw = cg_pipeline_raw.combined_mean_readlength
+    Float? combined_mean_readlength_clean = cg_pipeline_clean.combined_mean_readlength
     File? read1_clean = read_QC_trim.read1_clean
     File? read2_clean = read_QC_trim.read2_clean
     String? midas_docker = read_QC_trim.midas_docker

@@ -394,6 +394,7 @@ workflow theiaprok_illumina_se {
     Float? r1_mean_q_raw = cg_pipeline_raw.r1_mean_q
     Float? r1_mean_q_clean = cg_pipeline_clean.r1_mean_q
     Float? r1_mean_readlength_raw = cg_pipeline_raw.r1_mean_readlength
+    Float? r1_mean_readlength_clean = cg_pipeline_clean.r1_mean_readlength
     File? read1_clean = read_QC_trim.read1_clean
     String? midas_docker = read_QC_trim.midas_docker
     File? midas_report = read_QC_trim.midas_report
