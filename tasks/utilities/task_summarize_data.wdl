@@ -14,7 +14,7 @@ task summarize_data {
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
-    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv --attribute_list "~{column_names}"
+    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --attribute_list "~{column_names}" --tsv_filename ~{terra_table}-data.tsv 
     
     # when running locally, use the input_table in place of downloading from Terra
     #cp ~{input_table} ~{terra_table}-data.tsv
@@ -33,11 +33,13 @@ task summarize_data {
   # read exported Terra table into pandas
   tablename = "~{terra_table}-data.tsv" 
   table = pd.read_csv(tablename, delimiter='\t', header=0)
+  print("DEBUG: WHOLE TABLE")
+  print(table)
 
   # extract the samples for upload from the entire table
   table = table[table["~{terra_table}_id"].isin("~{sep='*' sample_names}".split("*"))]
 
-  print("DEBUG: ORIGINAL TABLE")
+  print("DEBUG: ONLY DESIRED SAMPLES TABLE")
   print(table)
 
   # split column list into an array
