@@ -14,10 +14,10 @@ task summarize_data {
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
-    #python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
+    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
     
     # when running locally, use the input_table in place of downloading from Terra
-    cp ~{input_table} ~{terra_table}-data.tsv
+    #cp ~{input_table} ~{terra_table}-data.tsv
     
     if ~{phandango_coloring}; then
       export phandango_coloring="true"
@@ -34,44 +34,26 @@ task summarize_data {
   # read exported Terra table into pandas
   tablename = "~{terra_table}-data.tsv" 
   table = pd.read_csv(tablename, delimiter='\t', header=0)
-  print("DEBUG: WHOLE TABLE")
-  print(table)
 
   # extract the samples for upload from the entire table
   table = table[table["~{terra_table}_id"].isin("~{sep='*' sample_names}".split("*"))]
 
-  print("DEBUG: ONLY DESIRED SAMPLES TABLE")
-  print(table)
-
   # split column list into an array
   columns = "~{column_names}".split(" ")
-  print("DEBUG: COLUMNS")
-  print(columns)
-
-  # edit columns to replace all () with || ? maybe?
 
   temporarylist = []
   temporarylist.append("~{terra_table}_id")
   temporarylist += columns
 
   table = table[temporarylist].copy()
-  print("DEBUG: TABLE WITH ONLY DESIRED ENTRIES")
-  print(table)
 
   # create a table to search through containing only columns of interest
   searchtable = table[columns].copy()
-  print("DEBUG: SEARCHTABLE")
-  print(searchtable)
-
-  # edit searchtable to replace all () with || ? maybe?
 
   # iterate through the columns of interest and combine into a single list
   genes = []
   for item in columns:
     genes.append(table[item].str.split(",").explode().tolist())
-
-  print("DEBUG: GENES BEFORE COLORING TAGS")
-  print(genes)
 
   # add phandango coloring tags if indicated
   if (os.environ["phandango_coloring"] == "true"):
@@ -90,20 +72,11 @@ task summarize_data {
   else:
     print("NOTE: Phandango coloring was not applied")
 
-  print("DEBUG: GENES AFTER COLORING TAG")
-  print(genes)
-
   # flattening the list
   genes = list(itertools.chain.from_iterable(genes))
 
-  print("DEBUG: GENES AFTER FLATTENING")
-  print(genes)
-
   # removing duplicates
   genes = list(set(genes))
-
-  print("DEBUG: GENE LIST AFTER DUPLICATES REMOVED")
-  print(genes)
 
   # add genes as true/false entries into table
   # doesn't work as expected :/ 
@@ -115,9 +88,6 @@ task summarize_data {
 
   # dropping columns of interest so only true/false ones remain
   table.drop(columns,axis=1,inplace=True)
-
-  print("DEBUG: TABLE AFTER NEW YES/NO COLUMNS MADE")
-  print(table)
 
   table.to_csv("summarized_data.csv", sep=',', index=False)
 
