@@ -39,9 +39,13 @@ task summarize_data {
 
   # split column list into an array
   columns = "~{column_names}".split(" ")
+  print("DEBUG: COLUMNS")
+  print(columns)
 
   # create a table to search through containing only columns of interest
   searchtable = table[columns].copy()
+  print("DEBUG: SEARCHTABLE")
+  print(searchtable)
 
   # iterate through the columns of interest and combine into a single list
   genes = []
@@ -58,8 +62,8 @@ task summarize_data {
         newitem = item + ":o" + str(i) # add a unique :o coloring (as indicated by the str(i))
         newgroup.append(newitem) # add phandango-suffixed item to the new sublist
       newgenes.append(newgroup) # add the new sublist to the new list
-      i += 1 # increment the i value so each column gets its own coloring
-    
+      i += 1 # increment the i value so each column gets its own coloring     
+
     # overwrite genes with newgenes (which now has the phandango coloring suffix)
     genes = newgenes 
   else:
@@ -70,12 +74,22 @@ task summarize_data {
 
   # removing duplicates
   genes = list(set(genes))
+
+  print("DEBUG: GENE LIST")
+  print(genes)
+
   # add genes as true/false entries into table
   for item in genes:
-    table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(item[:len(item)-3]).any(), axis=1)
+    if (os.environ["phandango_coloring"] == "true"): # remove coloring suffix (CAUTION: ASSUMES LESS THAN 10 COLUMN NAMES PROVIDED)
+      table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(item[:len(item)-3]).any(), axis=1)
+    else:
+      table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(item).any(), axis=1)
 
   # dropping columns of interest so only true/false ones remain
   table.drop(columns,axis=1,inplace=True)
+
+  print("DEBUG: TABLE")
+  print(table)
 
   table.to_csv("summarized_data.csv", sep=',', index=False)
 

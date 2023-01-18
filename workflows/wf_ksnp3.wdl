@@ -15,7 +15,6 @@ workflow ksnp3_workflow {
     String? data_summary_terra_workspace
     String? data_summary_terra_table
     String? data_summary_column_names # string of space delimited column names
-
 	}
 	call ksnp3.ksnp3 as ksnp3_task {
 		input:
