@@ -14,10 +14,10 @@ task summarize_data {
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
-    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
+    #python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
     
     # when running locally, use the input_table in place of downloading from Terra
-    #cp ~{input_table} ~{terra_table}-data.tsv
+    cp ~{input_table} ~{terra_table}-data.tsv
     
     if ~{phandango_coloring}; then
       export phandango_coloring="true"
@@ -33,7 +33,7 @@ task summarize_data {
 
   # read exported Terra table into pandas
   tablename = "~{terra_table}-data.tsv" 
-  table = pd.read_csv(tablename, delimiter='\t', header=0)
+  table = pd.read_csv(tablename, delimiter='\t', header=0, dtype={"~{terra_table}_id": 'str'}) # ensure sample_id is always a string
 
   # extract the samples for upload from the entire table
   table = table[table["~{terra_table}_id"].isin("~{sep='*' sample_names}".split("*"))]
@@ -79,7 +79,6 @@ task summarize_data {
   genes = list(set(genes))
 
   # add genes as true/false entries into table
-  # doesn't work as expected :/ 
   for item in genes:
     if (os.environ["phandango_coloring"] == "true"): # remove coloring suffix (CAUTION: ASSUMES LESS THAN 10 COLUMN NAMES PROVIDED)
       table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(re.escape(item[:len(item)-3])).any(), axis=1)
