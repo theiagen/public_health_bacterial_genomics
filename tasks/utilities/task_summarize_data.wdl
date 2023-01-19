@@ -14,10 +14,10 @@ task summarize_data {
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
-    #python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
+    python3 /scripts/export_large_tsv/export_large_tsv.py --project "~{terra_project}" --workspace "~{terra_workspace}" --entity_type ~{terra_table} --tsv_filename ~{terra_table}-data.tsv 
     
     # when running locally, use the input_table in place of downloading from Terra
-    cp ~{input_table} ~{terra_table}-data.tsv
+    #cp ~{input_table} ~{terra_table}-data.tsv
     
     if ~{phandango_coloring}; then
       export phandango_coloring="true"
