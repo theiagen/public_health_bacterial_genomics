@@ -20,7 +20,7 @@ workflow core_gene_snp_workflow {
     Boolean pan_tree = false
     # data summary input variables
     Boolean perform_data_summary = false
-		Array[String]? data_summary_sample_names
+    Array[String]? data_summary_sample_names
     String? data_summary_terra_project
     String? data_summary_terra_workspace
     String? data_summary_terra_table
