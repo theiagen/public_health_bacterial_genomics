@@ -17,7 +17,7 @@ task qc_check {
     Float? r1_mean_readlength_clean
     Float? r2_mean_readlength_clean    
     Float? combined_mean_readlength_clean 
-    Float? est_coverage_clean 
+    Float? est_coverage_raw
     Float? est_coverage_clean 
     String? midas_secondary_genus_abundance 
     Int? assembly_length
