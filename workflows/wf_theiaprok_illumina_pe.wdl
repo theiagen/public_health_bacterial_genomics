@@ -186,7 +186,7 @@ workflow theiaprok_illumina_pe {
             r1_mean_readlength_clean = cg_pipeline_clean.r1_mean_readlength,
             r2_mean_readlength_clean = cg_pipeline_clean.r2_mean_readlength,  
             combined_mean_readlength_clean = cg_pipeline_clean.combined_mean_readlength,    
-            est_coverage_clean = cg_pipeline_clean.est_coverage,
+            est_coverage_raw = cg_pipeline_raw.est_coverage,
             est_coverage_clean = cg_pipeline_clean.est_coverage,
             midas_secondary_genus_abundance = read_QC_trim.midas_secondary_genus_abundance,
             assembly_length = quast.genome_length,
