@@ -11,7 +11,13 @@ task qc_check {
     Float? r1_mean_readlength_raw
     Float? r2_mean_readlength_raw    
     Float? combined_mean_readlength_raw 
-    Float? est_coverage_raw 
+    Float? r1_mean_q_clean
+    Float? r2_mean_q_clean
+    Float? combined_mean_q_clean
+    Float? r1_mean_readlength_clean
+    Float? r2_mean_readlength_clean    
+    Float? combined_mean_readlength_clean 
+    Float? est_coverage_clean 
     Float? est_coverage_clean 
     String? midas_secondary_genus_abundance 
     Int? assembly_length
@@ -189,6 +195,90 @@ task qc_check {
           qc_check_metrics.remove("combined_mean_readlength_raw")
       else:
         print("combined_mean_readlength_raw not detected in qc_check_table")  
+
+      # check that r1_mean_q_clean is greater than metric
+      r1_mean_q_clean = "~{r1_mean_q_clean}"
+      if ("r1_mean_q_clean" in qc_check_metrics):
+        if (r1_mean_q_clean):
+          r1_mean_q_clean_metric = taxon_df['r1_mean_q_clean'][0]
+          if (float(r1_mean_q_clean) >= r1_mean_q_clean_metric):
+            print("r1_mean_q_clean passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} r1_mean_q_clean ({r1_mean_q_clean}) was less than minimum threshold of {r1_mean_q_clean_metric};"
+          qc_check_metrics.remove("r1_mean_q_clean")
+      else:
+        print("r1_mean_q_clean not detected in qc_check_table")
+
+      # check that r2_mean_q_clean is greater than metric
+      r2_mean_q_clean = "~{r2_mean_q_clean}"
+      if ("r2_mean_q_clean" in qc_check_metrics):
+        if (r2_mean_q_clean):
+          r2_mean_q_clean_metric = taxon_df['r2_mean_q_clean'][0]
+          if (float(r2_mean_q_clean) >= r2_mean_q_clean_metric):
+            print("r2_mean_q_clean passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} r2_mean_q_clean ({r2_mean_q_clean}) was less than minimum threshold of {r2_mean_q_clean_metric};"
+          qc_check_metrics.remove("r2_mean_q_clean")
+      else:
+        print("r2_mean_q_clean not detected in qc_check_table")
+
+      # check that combined_mean_q_clean is greater than metric
+      combined_mean_q_clean = "~{combined_mean_q_clean}"
+      if ("combined_mean_q_clean" in qc_check_metrics):
+        if (combined_mean_q_clean):
+          combined_mean_q_clean_metric = taxon_df['combined_mean_q_clean'][0]
+          if (float(combined_mean_q_clean) >= combined_mean_q_clean_metric):
+            print("combined_mean_q_clean passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} combined_mean_q_clean ({combined_mean_q_clean}) was less than minimum threshold of {combined_mean_q_clean_metric};"
+          qc_check_metrics.remove("combined_mean_q_clean")
+      else:
+        print("combined_mean_q_clean not detected in qc_check_table")        
+
+      # check that r1_mean_readlength_clean is greater than metric
+      r1_mean_readlength_clean = "~{r1_mean_readlength_clean}"
+      if ("r1_mean_readlength_clean" in qc_check_metrics):
+        if (r1_mean_readlength_clean):
+          r1_mean_readlength_clean_metric = taxon_df['r1_mean_readlength_clean'][0]
+          if (float(r1_mean_readlength_clean) >= r1_mean_readlength_clean_metric):
+            print("r1_mean_readlength_clean passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} r1_mean_readlength_clean ({r1_mean_readlength_clean}) was less than minimum threshold of {r1_mean_readlength_clean_metric};"
+          qc_check_metrics.remove("r1_mean_readlength_clean")
+      else:
+        print("r1_mean_readlength_clean not detected in qc_check_table")
+
+      # check that r2_mean_readlength_clean is greater than metric
+      r2_mean_readlength_clean = "~{r2_mean_readlength_clean}"
+      if ("r2_mean_readlength_clean" in qc_check_metrics):
+        if (r2_mean_readlength_clean):
+          r2_mean_readlength_clean_metric = taxon_df['r2_mean_readlength_clean'][0]
+          if (float(r2_mean_readlength_clean) >= r2_mean_readlength_clean_metric):
+            print("r2_mean_readlength_clean passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} r2_mean_readlength_clean ({r2_mean_readlength_clean}) was less than minimum threshold of {r2_mean_readlength_clean_metric};"
+          qc_check_metrics.remove("r2_mean_readlength_clean")
+      else:
+        print("r2_mean_readlength_clean not detected in qc_check_table")
+
+      # check that combined_mean_readlength_clean is greater than metric
+      combined_mean_readlength_clean = "~{combined_mean_readlength_clean}"
+      if ("combined_mean_readlength_clean" in qc_check_metrics):
+        if (combined_mean_readlength_clean):
+          combined_mean_readlength_clean_metric = taxon_df['combined_mean_readlength_clean'][0]
+          if (float(combined_mean_readlength_clean) >= combined_mean_readlength_clean_metric):
+            print("combined_mean_readlength_clean passed qc_check")
+          else:
+            qc_status = "QC_ALERT"
+            qc_note = f"{qc_note} combined_mean_readlength_clean ({combined_mean_readlength_clean}) was less than minimum threshold of {combined_mean_readlength_clean_metric};"
+          qc_check_metrics.remove("combined_mean_readlength_clean")
+      else:
+        print("combined_mean_readlength_clean not detected in qc_check_table")  
 
       # check that midas_secondary_genus_abundance is lower than metric
       midas_secondary_genus_abundance = "~{midas_secondary_genus_abundance}"
