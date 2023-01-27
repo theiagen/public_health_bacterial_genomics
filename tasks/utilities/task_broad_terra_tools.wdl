@@ -310,6 +310,7 @@ task export_taxon_tables {
       "shovill_se_version": "~{shovill_se_version}",
       "quast_report": "~{quast_report}",
       "quast_version": "~{quast_version}",
+      "quast_gc_percent": "~{quast_gc_percent}",
       "assembly_length": "~{assembly_length}",
       "number_contigs": "~{number_contigs}",
       "n50_value": "~{n50_value}",
