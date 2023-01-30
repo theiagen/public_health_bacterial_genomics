@@ -19,7 +19,6 @@ workflow core_gene_snp_workflow {
     # use pan_tree = true to produce a phylogenetic tree and snp distance matrix from the pangenome alignment
     Boolean pan_tree = false
     # data summary input variables
-    Boolean perform_data_summary = false
 		Array[String]? data_summary_sample_names
     String? data_summary_terra_project
     String? data_summary_terra_workspace
@@ -70,7 +69,7 @@ workflow core_gene_snp_workflow {
       }
     }
   }
-  if (perform_data_summary) {
+  if (defined(data_summary_column_names)) {
     call data_summary.summarize_data {
       input:
         sample_names = data_summary_sample_names,
@@ -100,15 +99,11 @@ workflow core_gene_snp_workflow {
     String? pirate_snps_dists_version = select_first([core_snp_dists.version,pan_snp_dists.version,""])
     # iqtree outputs
     String? pirate_iqtree_version = select_first([core_iqtree.version,pan_iqtree.version,""])
-    File? pirate_iqtree_core_tree = core_iqtree.ml_tree
-    File? pirate_iqtree_pan_tree = pan_iqtree.ml_tree
     # reorder matrix outputs
-    File? pirate_core_midpoint_matrix = core_reorder_matrix.ordered_midpoint_matrix
-    File? pirate_core_midpoint_rooted_tree = core_reorder_matrix.midpoint_rooted_tree
-    File? pirate_core_snp_matrix = core_reorder_matrix.ordered_matrix
-    File? pirate_pan_midpoint_matrix = pan_reorder_matrix.ordered_midpoint_matrix
-    File? pirate_pan_midpoint_rooted_tree = pan_reorder_matrix.midpoint_rooted_tree
-    File? pirate_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
+    File? pirate_core_snp_matrix = core_reorder_matrix.ordered_midpoint_matrix
+    File? pirate_iqtree_core_tree = core_reorder_matrix.midpoint_rooted_tree
+    File? pirate_pan_snp_matrix = pan_reorder_matrix.ordered_midpoint_matrix
+    File? pirate_iqtree_pan_tree = pan_reorder_matrix.midpoint_rooted_tree
     # Data summary outputs
     File? pirate_summarized_data = summarize_data.summarized_data
   }

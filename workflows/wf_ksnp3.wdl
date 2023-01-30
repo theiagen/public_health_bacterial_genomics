@@ -10,7 +10,6 @@ workflow ksnp3_workflow {
     Array[File] assembly_fasta
     Array[String] samplename
     String cluster_name
-    Boolean perform_data_summary = false
     String? data_summary_terra_project
     String? data_summary_terra_workspace
     String? data_summary_terra_table
@@ -44,7 +43,7 @@ workflow ksnp3_workflow {
       matrix = pan_snp_dists.snp_matrix,
       cluster_name = cluster_name + "_pan"
   }
-  if (perform_data_summary) {
+  if (defined(data_summary_column_names)) {
     call data_summary.summarize_data {
       input:
         sample_names = samplename,
@@ -61,20 +60,19 @@ workflow ksnp3_workflow {
     # Version Capture
     String ksnp3_wf_version = version_capture.phbg_version
     String ksnp3_wf_analysis_date = version_capture.date
+    String ksnp3_docker = ksnp3_task.ksnp3_docker_image
     # ksnp3_outputs
     String ksnp3_snp_dists_version = pan_snp_dists.version
-    File ksnp3_core_snp_matrix = core_reorder_matrix.ordered_matrix
-    File ksnp3_core_tree = ksnp3_task.ksnp3_core_tree
     File ksnp3_core_vcf = ksnp3_task.ksnp3_core_vcf
-    File ksnp3_core_midpoint_snp_matrix = core_reorder_matrix.ordered_midpoint_matrix
-    File ksnp3_core_midpoint_tree = core_reorder_matrix.midpoint_rooted_tree
-    File ksnp3_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
-    File ksnp3_pan_parsimony_tree = ksnp3_task.ksnp3_pan_parsimony_tree
-    File ksnp3_pan_midpoint_snp_matrix = pan_reorder_matrix.ordered_midpoint_matrix
-    File ksnp3_pan_midpoint_tree = pan_reorder_matrix.midpoint_rooted_tree
+    # ordered matrixes and reordered trees
+    File ksnp3_core_snp_matrix = core_reorder_matrix.ordered_midpoint_matrix
+    File ksnp3_core_tree = core_reorder_matrix.midpoint_rooted_tree
+    File ksnp3_pan_snp_matrix = pan_reorder_matrix.ordered_midpoint_matrix
+    File ksnp3_pan_tree = pan_reorder_matrix.midpoint_rooted_tree
+    # optional tree outputs
     File? ksnp3_ml_tree = ksnp3_task.ksnp3_ml_tree
     File? ksnp3_nj_tree = ksnp3_task.ksnp3_nj_tree
-    String ksnp3_docker = ksnp3_task.ksnp3_docker_image
+    # data summary output 
     File? ksnp3_summarized_data = summarize_data.summarized_data
   }
 }

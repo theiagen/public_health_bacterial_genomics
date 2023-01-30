@@ -6,7 +6,7 @@ task summarize_data {
     String? terra_project
     String? terra_workspace
     String? terra_table
-    String? column_names # string of space delimited column names
+    String? column_names # string of comma-delimited column names
     
     Int disk_size = 100
     File? input_table
@@ -27,6 +27,7 @@ task summarize_data {
 
     python3 <<CODE 
   import pandas as pd
+  import numpy as np
   import itertools
   import os
   import re
@@ -39,7 +40,7 @@ task summarize_data {
   table = table[table["~{terra_table}_id"].isin("~{sep='*' sample_names}".split("*"))]
 
   # split column list into an array
-  columns = "~{column_names}".split(" ")
+  columns = "~{column_names}".split(",")
 
   temporarylist = []
   temporarylist.append("~{terra_table}_id")
@@ -59,13 +60,16 @@ task summarize_data {
   if (os.environ["phandango_coloring"] == "true"):
     i = 1 # initialize a starting group at 1
     newgenes = [] # create a new temporary list
-    for group in genes: # iterate through gene list by items found within a column
-      newgroup = [] # create a new temporary sublist
-      for item in group: # for every item in a column, 
-        newitem = item + ":o" + str(i) # add a unique :o coloring (as indicated by the str(i))
-        newgroup.append(newitem) # add phandango-suffixed item to the new sublist
-      newgenes.append(newgroup) # add the new sublist to the new list
-      i += 1 # increment the i value so each column gets its own coloring     
+    for group in genes: # iterate through gene list by items found within a columnkk
+      if (i < 10):
+        newgroup = [] # create a new temporary sublist
+        for item in group: # for every item in a column, 
+          newitem = item + ":o" + str(i) # add a unique :o coloring (as indicated by the str(i))
+          newgroup.append(newitem) # add phandango-suffixed item to the new sublist
+        newgenes.append(newgroup) # add the new sublist to the new list
+        i += 1 # increment the i value so each column gets its own coloring     
+      else:
+        print("DEBUG: Some items will be ignored because a maximum of ten columns can be presented at once with phandango coloring.")
 
     # overwrite genes with newgenes (which now has the phandango coloring suffix)
     genes = newgenes 
@@ -75,15 +79,21 @@ task summarize_data {
   # flattening the list
   genes = list(itertools.chain.from_iterable(genes))
 
-  # removing duplicates
-  genes = list(set(genes))
+  # removing duplicates but maintaining order
+  genes = sorted(set(genes), key=lambda x: genes.index(x))
 
   # add genes as true/false entries into table
   for item in genes:
-    if (os.environ["phandango_coloring"] == "true"): # remove coloring suffix (CAUTION: ASSUMES LESS THAN 10 COLUMN NAMES PROVIDED)
+    if (os.environ["phandango_coloring"] == "true"): # temporarily removes coloring suffix (CAUTION: ASSUMES LESS THAN 10 COLUMN NAMES PROVIDED)
       table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(re.escape(item[:len(item)-3])).any(), axis=1)
+
     else:
       table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(re.escape(item)).any(), axis=1)
+
+
+
+  # replace all "False" cells with empty strings
+  table[table.eq(False)] = np.nan
 
   # dropping columns of interest so only true/false ones remain
   table.drop(columns,axis=1,inplace=True)

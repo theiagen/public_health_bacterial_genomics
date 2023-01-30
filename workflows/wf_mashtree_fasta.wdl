@@ -9,7 +9,6 @@ workflow mashtree_fasta {
 	input {
 		Array[File] assembly_fasta
     String cluster_name
-		Boolean perform_data_summary = false
 		Array[String]? data_summary_sample_names
     String? data_summary_terra_project
     String? data_summary_terra_workspace
@@ -21,7 +20,7 @@ workflow mashtree_fasta {
 			assembly_fasta = assembly_fasta,
       cluster_name = cluster_name
 	}
-	if (perform_data_summary) {
+	if (defined(data_summary_column_names)) {
     call data_summary.summarize_data {
       input:
         sample_names = data_summary_sample_names,
