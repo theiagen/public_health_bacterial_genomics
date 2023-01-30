@@ -90,8 +90,6 @@ task summarize_data {
     else:
       table[item] = searchtable.apply(lambda row: row.astype(str).str.contains(re.escape(item)).any(), axis=1)
 
-
-
   # replace all "False" cells with empty strings
   table[table.eq(False)] = np.nan
 
