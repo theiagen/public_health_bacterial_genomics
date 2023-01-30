@@ -19,7 +19,6 @@ workflow core_gene_snp_workflow {
     # use pan_tree = true to produce a phylogenetic tree and snp distance matrix from the pangenome alignment
     Boolean pan_tree = false
     # data summary input variables
-    Boolean perform_data_summary = false
     Array[String]? data_summary_sample_names
     String? data_summary_terra_project
     String? data_summary_terra_workspace
