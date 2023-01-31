@@ -312,6 +312,16 @@ workflow theiaprok_illumina_pe {
             shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen,
             shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen,
             shigeifinder_notes = merlin_magic.shigeifinder_notes,
+            shigeifinder_report_reads = merlin_magic.shigeifinder_report_reads,
+            shigeifinder_docker_reads = merlin_magic.shigeifinder_docker_reads,
+            shigeifinder_version_reads = merlin_magic.shigeifinder_version_reads,
+            shigeifinder_ipaH_presence_absence_reads = merlin_magic.shigeifinder_ipaH_presence_absence_reads,
+            shigeifinder_num_virulence_plasmid_genes_reads = merlin_magic.shigeifinder_num_virulence_plasmid_genes_reads,
+            shigeifinder_cluster_reads = merlin_magic.shigeifinder_cluster_reads,
+            shigeifinder_serotype_reads = merlin_magic.shigeifinder_serotype_reads,
+            shigeifinder_O_antigen_reads = merlin_magic.shigeifinder_O_antigen_reads,
+            shigeifinder_H_antigen_reads = merlin_magic.shigeifinder_H_antigen_reads,
+            shigeifinder_notes_reads = merlin_magic.shigeifinder_notes_reads,
             sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv,
             sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json,
             sonneityping_final_report_tsv = merlin_magic.sonneityping_final_report_tsv,
@@ -562,6 +572,17 @@ workflow theiaprok_illumina_pe {
     String? shigeifinder_O_antigen = merlin_magic.shigeifinder_O_antigen
     String? shigeifinder_H_antigen = merlin_magic.shigeifinder_H_antigen
     String? shigeifinder_notes = merlin_magic.shigeifinder_notes
+    # ShigeiFinder outputs but for task that uses reads instead of assembly as input
+    File? shigeifinder_report_reads = merlin_magic.shigeifinder_report
+    String? shigeifinder_docker_reads = merlin_magic.shigeifinder_docker
+    String? shigeifinder_version_reads = merlin_magic.shigeifinder_version
+    String? shigeifinder_ipaH_presence_absence_reads = merlin_magic.shigeifinder_ipaH_presence_absence
+    String? shigeifinder_num_virulence_plasmid_genes_reads = merlin_magic.shigeifinder_num_virulence_plasmid_genes
+    String? shigeifinder_cluster_reads = merlin_magic.shigeifinder_cluster
+    String? shigeifinder_serotype_reads = merlin_magic.shigeifinder_serotype
+    String? shigeifinder_O_antigen_reads = merlin_magic.shigeifinder_O_antigen
+    String? shigeifinder_H_antigen_reads = merlin_magic.shigeifinder_H_antigen
+    String? shigeifinder_notes_reads = merlin_magic.shigeifinder_notes
     # Shigella sonnei Typing
     File? sonneityping_mykrobe_report_csv = merlin_magic.sonneityping_mykrobe_report_csv
     File? sonneityping_mykrobe_report_json = merlin_magic.sonneityping_mykrobe_report_json

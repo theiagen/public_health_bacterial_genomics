@@ -117,6 +117,16 @@ task export_taxon_tables {
     String? shigeifinder_O_antigen
     String? shigeifinder_H_antigen
     String? shigeifinder_notes
+    File? shigeifinder_report_reads
+    String? shigeifinder_docker_reads
+    String? shigeifinder_version_reads
+    String? shigeifinder_ipaH_presence_absence_reads
+    String? shigeifinder_num_virulence_plasmid_genes_reads
+    String? shigeifinder_cluster_reads
+    String? shigeifinder_serotype_reads
+    String? shigeifinder_O_antigen_reads
+    String? shigeifinder_H_antigen_reads
+    String? shigeifinder_notes_reads
     File? sonneityping_mykrobe_report_csv
     File? sonneityping_mykrobe_report_json
     File? sonneityping_final_report_tsv
@@ -345,6 +355,16 @@ task export_taxon_tables {
       "shigeifinder_O_antigen": "~{shigeifinder_O_antigen}",
       "shigeifinder_H_antigen": "~{shigeifinder_H_antigen}",
       "shigeifinder_notes": "~{shigeifinder_notes}",
+      "shigeifinder_report_reads": "~{shigeifinder_report_reads}",
+      "shigeifinder_docker_reads": "~{shigeifinder_docker_reads}",
+      "shigeifinder_version_reads": "~{shigeifinder_version_reads}",
+      "shigeifinder_ipaH_presence_absence_reads": "~{shigeifinder_ipaH_presence_absence_reads}",
+      "shigeifinder_num_virulence_plasmid_genes_reads": "~{shigeifinder_num_virulence_plasmid_genes_reads}",
+      "shigeifinder_cluster_reads": "~{shigeifinder_cluster_reads}",
+      "shigeifinder_serotype_reads": "~{shigeifinder_serotype_reads}",
+      "shigeifinder_O_antigen_reads": "~{shigeifinder_O_antigen_reads}",
+      "shigeifinder_H_antigen_reads": "~{shigeifinder_H_antigen_reads}",
+      "shigeifinder_notes_reads": "~{shigeifinder_notes_reads}",
       "sonneityping_mykrobe_report_csv": "~{sonneityping_mykrobe_report_csv}",
       "sonneityping_mykrobe_report_json": "~{sonneityping_mykrobe_report_json}",
       "sonneityping_final_report_tsv": "~{sonneityping_final_report_tsv}",
