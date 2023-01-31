@@ -51,8 +51,7 @@ workflow ksnp3_workflow {
         terra_workspace = data_summary_terra_workspace,
         terra_table = data_summary_terra_table,
         column_names = data_summary_column_names,
-        output_prefix = cluster_name,
-        using_mashtree = false
+        output_prefix = cluster_name
     }
   }
   call versioning.version_capture{
