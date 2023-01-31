@@ -102,7 +102,7 @@ workflow core_gene_snp_workflow {
     # iqtree outputs
     String? pirate_iqtree_version = select_first([core_iqtree.version,pan_iqtree.version,""])
     # reorder matrix outputs
-    File? pirate_core_snp_matrix = core_reorder_matrix.orderedmatrix
+    File? pirate_core_snp_matrix = core_reorder_matrix.ordered_matrix
     File? pirate_iqtree_core_tree = core_reorder_matrix.tree
     File? pirate_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
     File? pirate_iqtree_pan_tree = pan_reorder_matrix.tree
