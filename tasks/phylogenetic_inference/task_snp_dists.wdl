@@ -38,8 +38,9 @@ task reorder_matrix {
     Int disk_size = 100
   }
   command <<<
-    # removing any "_contigs" suffixes from the tree
+    # removing any "_contigs" suffixes from the tree and matrix
     sed 's/_contigs//g' ~{input_tree} > temporary_tree.nwk
+    sed 's/_contigs//g' ~{matrix} > temporary_matrix.tsv
 
     python3 <<CODE
     from Bio import Phylo
@@ -50,7 +51,7 @@ task reorder_matrix {
     tree = Phylo.read("temporary_tree.nwk", "newick")
     
     # read in matrix into pandas data frame
-    snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
+    snps = pd.read_csv("temporary_matrix.tsv", header=0, index_col=0, delimiter="\t")
 
     # ensure all header and index values are strings for proper reindexing
     # this is because if sample_name is entirely composed of integers, pandas 
