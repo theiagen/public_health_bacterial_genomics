@@ -12,7 +12,7 @@ task summarize_data {
     Int disk_size = 100
     File? input_table
     Boolean phandango_coloring = true
-    
+    Boolean using_mashtree = false
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
@@ -27,6 +27,12 @@ task summarize_data {
       export phandango_coloring="false"
     fi
 
+    if ~{using_mashtree}; then
+      export using_mashtree="true"
+    else 
+      export using_mashtree="false"
+    fi
+
     python3 <<CODE 
   import pandas as pd
   import numpy as np
@@ -36,8 +42,12 @@ task summarize_data {
 
   # read exported Terra table into pandas
   tablename = "~{terra_table}-data.tsv" 
-  table = pd.read_csv(tablename, delimiter='\t', header=0, dtype={"~{terra_table}_id": 'str'}) # ensure sample_id is always a string
+  table = pd.read_csv(tablename, delimiter='\t', header=0, index_col=False, dtype={"~{terra_table}_id": 'str'}) # ensure sample_id is always a string
 
+  # add _contigs suffix if this is from mashtree
+  if (os.environ["using_mashtree"] == "true"):
+    table["~{terra_table}_id"] = table["~{terra_table}_id"] + "_contigs"
+    
   # extract the samples for upload from the entire table
   table = table[table["~{terra_table}_id"].isin("~{sep='*' sample_names}".split("*"))]
 

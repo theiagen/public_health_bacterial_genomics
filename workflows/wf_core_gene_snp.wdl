@@ -45,7 +45,7 @@ workflow core_gene_snp_workflow {
       }
       call snp_dists.reorder_matrix as core_reorder_matrix {
         input:
-          tree = core_iqtree.ml_tree,
+          input_tree = core_iqtree.ml_tree,
           matrix = core_snp_dists.snp_matrix,
           cluster_name = cluster_name + "_core"
       }
@@ -63,7 +63,7 @@ workflow core_gene_snp_workflow {
       }
       call snp_dists.reorder_matrix as pan_reorder_matrix {
         input:
-          tree = pan_iqtree.ml_tree,
+          input_tree = pan_iqtree.ml_tree,
           matrix = pan_snp_dists.snp_matrix,
           cluster_name = cluster_name + "_pan"
       }
@@ -77,7 +77,8 @@ workflow core_gene_snp_workflow {
         terra_workspace = data_summary_terra_workspace,
         terra_table = data_summary_terra_table,
         column_names = data_summary_column_names,
-        output_prefix = cluster_name
+        output_prefix = cluster_name,
+        using_mashtree = false
     }
   }
   call versioning.version_capture{
@@ -101,10 +102,10 @@ workflow core_gene_snp_workflow {
     # iqtree outputs
     String? pirate_iqtree_version = select_first([core_iqtree.version,pan_iqtree.version,""])
     # reorder matrix outputs
-    File? pirate_core_snp_matrix = core_reorder_matrix.ordered_midpoint_matrix
-    File? pirate_iqtree_core_tree = core_reorder_matrix.midpoint_rooted_tree
-    File? pirate_pan_snp_matrix = pan_reorder_matrix.ordered_midpoint_matrix
-    File? pirate_iqtree_pan_tree = pan_reorder_matrix.midpoint_rooted_tree
+    File? pirate_core_snp_matrix = core_reorder_matrix.orderedmatrix
+    File? pirate_iqtree_core_tree = core_reorder_matrix.tree
+    File? pirate_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
+    File? pirate_iqtree_pan_tree = pan_reorder_matrix.tree
     # Data summary outputs
     File? pirate_summarized_data = summarize_data.summarized_data
   }

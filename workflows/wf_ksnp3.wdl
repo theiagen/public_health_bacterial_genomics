@@ -39,7 +39,7 @@ workflow ksnp3_workflow {
   }
   call snp_dists.reorder_matrix as pan_reorder_matrix {
     input:
-      tree = ksnp3_task.ksnp3_pan_parsimony_tree,
+      input_tree = ksnp3_task.ksnp3_pan_parsimony_tree,
       matrix = pan_snp_dists.snp_matrix,
       cluster_name = cluster_name + "_pan"
   }
@@ -51,7 +51,8 @@ workflow ksnp3_workflow {
         terra_workspace = data_summary_terra_workspace,
         terra_table = data_summary_terra_table,
         column_names = data_summary_column_names,
-        output_prefix = cluster_name
+        output_prefix = cluster_name,
+        using_mashtree = false
     }
   }
   call versioning.version_capture{
@@ -66,10 +67,10 @@ workflow ksnp3_workflow {
     String ksnp3_snp_dists_version = pan_snp_dists.version
     File ksnp3_core_vcf = ksnp3_task.ksnp3_core_vcf
     # ordered matrixes and reordered trees
-    File ksnp3_core_snp_matrix = core_reorder_matrix.ordered_midpoint_matrix
-    File ksnp3_core_tree = core_reorder_matrix.midpoint_rooted_tree
-    File ksnp3_pan_snp_matrix = pan_reorder_matrix.ordered_midpoint_matrix
-    File ksnp3_pan_tree = pan_reorder_matrix.midpoint_rooted_tree
+    File ksnp3_core_snp_matrix = core_reorder_matrix.ordered_matrix
+    File ksnp3_core_tree = core_reorder_matrix.tree
+    File ksnp3_pan_snp_matrix = pan_reorder_matrix.ordered_matrix
+    File ksnp3_pan_tree = pan_reorder_matrix.tree
     # optional tree outputs
     File? ksnp3_ml_tree = ksnp3_task.ksnp3_ml_tree
     File? ksnp3_nj_tree = ksnp3_task.ksnp3_nj_tree
