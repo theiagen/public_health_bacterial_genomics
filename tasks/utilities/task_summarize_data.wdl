@@ -12,7 +12,6 @@ task summarize_data {
     Int disk_size = 100
     File? input_table
     Boolean phandango_coloring = true
-    Boolean using_mashtree = false
   }
   command <<<   
     # when running on terra, comment out all input_table mentions
