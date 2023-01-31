@@ -7,27 +7,27 @@ import "../tasks/phylogenetic_inference/task_snp_dists.wdl" as snp_dists
 
 
 workflow mashtree_fasta {
-	input {
-		Array[File] assembly_fasta
+  input {
+    Array[File] assembly_fasta
     String cluster_name
-		Array[String]? sample_names
+    Array[String]? sample_names
     String? data_summary_terra_project
     String? data_summary_terra_workspace
     String? data_summary_terra_table
     String? data_summary_column_names
-	}
-	call mashtree.mashtree_fasta as mashtree_task {
-		input:
-			assembly_fasta = assembly_fasta,
+  }
+  call mashtree.mashtree_fasta as mashtree_task {
+    input:
+      assembly_fasta = assembly_fasta,
       cluster_name = cluster_name
-	}
+    }
   call snp_dists.reorder_matrix {
     input:
       input_tree = mashtree_task.mashtree_tree,
       matrix = mashtree_task.mashtree_matrix,
       cluster_name = cluster_name
   }
-	if (defined(data_summary_column_names)) {
+  if (defined(data_summary_column_names)) {
     call data_summary.summarize_data {
       input:
         sample_names = sample_names,
@@ -38,18 +38,18 @@ workflow mashtree_fasta {
         output_prefix = cluster_name
     }
   } 
-	call versioning.version_capture{
+  call versioning.version_capture{
     input:
   }
   output {
-		# Versioning
+    # Versioning
     String mashtree_wf_version = version_capture.phbg_version
     String mashtree_wf_analysis_date = version_capture.date
-		# Masthree Out
+    # Masthree Out
     File mashtree_matrix = reorder_matrix.ordered_matrix
-		File mashtree_tree = reorder_matrix.tree
-		String mashtree_version = mashtree_task.version
-		# Data Summary Out
-		File? mashtree_summarized_data = summarize_data.summarized_data
-    }
+    File mashtree_tree = reorder_matrix.tree
+    String mashtree_version = mashtree_task.version
+    # Data Summary Out
+    File? mashtree_summarized_data = summarize_data.summarized_data
+  }
 }
