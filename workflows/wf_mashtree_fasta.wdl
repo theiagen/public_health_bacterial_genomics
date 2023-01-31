@@ -9,7 +9,7 @@ workflow mashtree_fasta {
 	input {
 		Array[File] assembly_fasta
     String cluster_name
-		Array[String]? data_summary_sample_names
+		Array[String]? sample_names
     String? data_summary_terra_project
     String? data_summary_terra_workspace
     String? data_summary_terra_table
@@ -23,11 +23,12 @@ workflow mashtree_fasta {
 	if (defined(data_summary_column_names)) {
     call data_summary.summarize_data {
       input:
-        sample_names = data_summary_sample_names,
+        sample_names = sample_names,
         terra_project = data_summary_terra_project,
         terra_workspace = data_summary_terra_workspace,
         terra_table = data_summary_terra_table,
-        column_names = data_summary_column_names
+        column_names = data_summary_column_names,
+        output_prefix = cluster_name
     }
   } 
 	call versioning.version_capture{
