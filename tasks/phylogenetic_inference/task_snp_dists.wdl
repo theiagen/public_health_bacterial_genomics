@@ -38,13 +38,16 @@ task reorder_matrix {
     Int disk_size = 100
   }
   command <<<
+    # removing any "_contigs" suffixes from the tree
+    sed '/_contigs//g' ~{input_tree} > temporary_tree.nwk
+
     python3 <<CODE
     from Bio import Phylo
     import pandas as pd
     import os
 
     # read in newick tree
-    tree = Phylo.read("~{input_tree}", "newick")
+    tree = Phylo.read("temporary_tree.nwk", "newick")
     
     # read in matrix into pandas data frame
     snps = pd.read_csv("~{matrix}", header=0, index_col=0, delimiter="\t")
@@ -61,10 +64,6 @@ task reorder_matrix {
 
     # extract ordered terminal ends of rerooted tree
     term_names = [term.name for term in tree.get_terminals()]
-
-    renamed_term_names = []
-    for label in term_names:
-      renamed_term_names.append(label.removesuffix("_contigs"))
 
     # reorder matrix with re-ordered terminal ends
     snps = snps.reindex(index=renamed_term_names, columns=renamed_term_names)
@@ -93,5 +92,4 @@ task reorder_matrix {
    # maxRetries: 3
     preemptible: 0
   }
-
 }
