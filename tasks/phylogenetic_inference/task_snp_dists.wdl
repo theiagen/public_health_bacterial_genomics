@@ -62,8 +62,12 @@ task reorder_matrix {
     # extract ordered terminal ends of rerooted tree
     term_names = [term.name for term in tree.get_terminals()]
 
+    renamed_term_names = []
+    for label in term_names:
+      renamed_term_names.append(label.removesuffix("_contigs"))
+
     # reorder matrix with re-ordered terminal ends
-    snps = snps.reindex(index=term_names, columns=term_names)
+    snps = snps.reindex(index=renamed_term_names, columns=renamed_term_names)
 
     # add phandango suffix to ensure continuous coloring
     snps_out2 = snps.add_suffix(":c1")
