@@ -39,7 +39,7 @@ task reorder_matrix {
   }
   command <<<
     # removing any "_contigs" suffixes from the tree
-    sed '/_contigs//g' ~{input_tree} > temporary_tree.nwk
+    sed 's/_contigs//g' ~{input_tree} > temporary_tree.nwk
 
     python3 <<CODE
     from Bio import Phylo
