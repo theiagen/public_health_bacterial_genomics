@@ -13,7 +13,7 @@ workflow ksnp3_workflow {
     String? data_summary_terra_project
     String? data_summary_terra_workspace
     String? data_summary_terra_table
-    String? data_summary_column_names # string of space delimited column names
+    String? data_summary_column_names # string of comma delimited column names
 	}
 	call ksnp3.ksnp3 as ksnp3_task {
 		input:
@@ -33,7 +33,7 @@ workflow ksnp3_workflow {
   }
   call snp_dists.reorder_matrix as core_reorder_matrix {
     input:
-      tree = ksnp3_task.ksnp3_core_tree,
+      input_tree = ksnp3_task.ksnp3_core_tree,
       matrix = core_snp_dists.snp_matrix,
       cluster_name = cluster_name + "_core"
   }
