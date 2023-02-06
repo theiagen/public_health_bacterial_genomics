@@ -654,6 +654,9 @@ workflow theiaprok_illumina_pe {
     String? kleborate_otype = merlin_magic.kleborate_otype
     String? kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence
     String? kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence
+    # Neisseria gonorrhoeae Typing
+    File? ngmaster_tsv = merlin_magic.ngmaster_tsv
+    String? ngmaster_version = merlin_magic.ngmaster_version
     # Acinetobacter Typing
     File? kaptive_output_file_k = merlin_magic.kaptive_output_file_k
     File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc
