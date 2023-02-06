@@ -416,7 +416,7 @@ task export_taxon_tables {
       "kleborate_klocus_confidence": "~{kleborate_klocus_confidence}",
       "kleborate_olocus_confidence": "~{kleborate_olocus_confidence}",
       "ngmaster_tsv": "~{ngmaster_tsv}",
-      "ngmaster_version": "!{ngmaster_version}",
+      "ngmaster_version": "~{ngmaster_version}",
       "kaptive_version": "~{kaptive_version}",
       "kaptive_output_file_k": "~{kaptive_output_file_k}",
       "kaptive_output_file_oc": "~{kaptive_output_file_oc}",
