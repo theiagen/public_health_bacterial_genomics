@@ -14,6 +14,7 @@ import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 import "../tasks/species_typing/task_kaptive.wdl" as kaptive
 import "../tasks/species_typing/task_ngmaster.wdl" as ngmaster_task
+import "../tasks/species_typing/task_meningotype.wdl" as meningotype_task
 import "../tasks/species_typing/task_seroba.wdl" as seroba
 import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
@@ -137,6 +138,13 @@ workflow merlin_magic {
   }
   if (merlin_tag == "Neisseria gonorrhoeae") {
     call ngmaster_task.ngmaster {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Neisseria meningitidis") {
+    call meningotype_task.meningotype {
       input:
         assembly = assembly,
         samplename = samplename
@@ -286,6 +294,9 @@ workflow merlin_magic {
   # Neisseria gonorrhoeae Typing
   File? ngmaster_tsv = ngmaster.ngmaster_tsv
   String? ngmaster_version = ngmaster.ngmaster_version
+  # Neisseria meningitidis Typing
+  File? meningotype_tsv = meningotype.meningotype_tsv
+  String? meningotype_version = meningotype.meningotype_version
   # Acinetobacter Typing
   File? kaptive_output_file_k = kaptive.kaptive_output_file_k
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc

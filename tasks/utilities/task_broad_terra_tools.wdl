@@ -185,6 +185,8 @@ task export_taxon_tables {
     String? kaptive_ocl_confidence
     File? ngmaster_tsv
     String? ngmaster_version
+    File? meningotype_tsv
+    String? meningotype_version
     File? abricate_abaum_plasmid_tsv
     String? abricate_abaum_plasmid_type_genes
     String? abricate_database
@@ -417,6 +419,8 @@ task export_taxon_tables {
       "kleborate_olocus_confidence": "~{kleborate_olocus_confidence}",
       "ngmaster_tsv": "~{ngmaster_tsv}",
       "ngmaster_version": "~{ngmaster_version}",
+      "meningotype_tsv": "~{meningotype_tsv}",
+      "meningotype_version": "~{meningotype_version}",
       "kaptive_version": "~{kaptive_version}",
       "kaptive_output_file_k": "~{kaptive_output_file_k}",
       "kaptive_output_file_oc": "~{kaptive_output_file_oc}",

@@ -9,7 +9,7 @@ task meningotype {
     String samplename
     String docker = "quay.io/biocontainers/meningotype:0.8.5--pyhdfd78af_0"
     Int disk_size = 100
-    Int? cpu = 2
+    Int cpu = 2
 
     # Parameters
     # --finetype      perform porA and fetA fine typing (default=off)
@@ -36,13 +36,13 @@ task meningotype {
       > ~{samplename}.tsv
   >>>
   output {
-    File meningotype_results = "~{samplename}.tsv"
+    File meningotype_tsv = "~{samplename}.tsv"
     String meningotype_version = read_string("VERSION")
   }
   runtime {
     docker: "~{docker}"
     memory: "8 GB"
-    cpu: 2
+    cpu: cpu
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
     maxRetries: 3
