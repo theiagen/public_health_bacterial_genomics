@@ -98,6 +98,7 @@ task export_taxon_tables {
     String ts_mlst_results
     String ts_mlst_predicted_st
     String ts_mlst_pubmlst_scheme
+    String ts_mlst_allelic_profile
     String? ts_mlst_novel_alleles
     String ts_mlst_version
     File? serotypefinder_report
@@ -343,6 +344,7 @@ task export_taxon_tables {
       "ts_mlst_results": "~{ts_mlst_results}",
       "ts_mlst_predicted_st": "~{ts_mlst_predicted_st}",
       "ts_mlst_pubmlst_scheme": "~{ts_mlst_pubmlst_scheme}",
+      "ts_mlst_allelic_profile": "~{ts_mlst_allelic_profile}",
       "ts_mlst_novel_alleles": "~{ts_mlst_novel_alleles}",
       "ts_mlst_version": "~{ts_mlst_version}",
       "serotypefinder_report": "~{serotypefinder_report}",

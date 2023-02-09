@@ -245,6 +245,7 @@ workflow theiaprok_illumina_se {
             ts_mlst_results = ts_mlst.ts_mlst_results,
             ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st,
             ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme,
+            ts_mlst_allelic_profile = ts_mlst.ts_mlst_allelic_profile,
             ts_mlst_version = ts_mlst.ts_mlst_version,
             ts_mlst_novel_alleles = ts_mlst.ts_mlst_novel_alleles,
             serotypefinder_report = merlin_magic.serotypefinder_report,
@@ -471,6 +472,7 @@ workflow theiaprok_illumina_se {
     String? ts_mlst_predicted_st = ts_mlst.ts_mlst_predicted_st
     String? ts_mlst_version = ts_mlst.ts_mlst_version
     String? ts_mlst_pubmlst_scheme = ts_mlst.ts_mlst_pubmlst_scheme
+    String? ts_mlst_allelic_profile = ts_mlst.ts_mlst_allelic_profile
     File? ts_mlst_novel_alleles = ts_mlst.ts_mlst_novel_alleles
     # Prokka Results
     File? prokka_gff = prokka.prokka_gff
