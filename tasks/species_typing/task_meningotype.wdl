@@ -34,10 +34,13 @@ task meningotype {
       --cpus ~{cpu} \
       ~{assembly} \
       > ~{samplename}.tsv
+    
+    tail -1 ~{samplename}.tsv | awk '{print $2}' | tee MENINGOTYPE_SEROTYPE
   >>>
   output {
     File meningotype_tsv = "~{samplename}.tsv"
     String meningotype_version = read_string("VERSION")
+    String meningotype_serogroup = read_string("MENINGOTYPE_SEROTYPE")
   }
   runtime {
     docker: "~{docker}"

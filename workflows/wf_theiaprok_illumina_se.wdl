@@ -586,6 +586,7 @@ workflow theiaprok_illumina_se {
     # Neisseria meningitidis Typing
     File? meningotype_tsv = merlin_magic.meningotype_tsv
     String? meningotype_version = merlin_magic.meningotype_version
+    String? meningotype_serogroup = merlin_magic.meningotype_serogroup
     # Acinetobacter Typing
     File? kaptive_output_file_k = merlin_magic.kaptive_output_file_k
     File? kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc

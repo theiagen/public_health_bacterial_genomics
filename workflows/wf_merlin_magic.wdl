@@ -297,6 +297,7 @@ workflow merlin_magic {
   # Neisseria meningitidis Typing
   File? meningotype_tsv = meningotype.meningotype_tsv
   String? meningotype_version = meningotype.meningotype_version
+  String? meningotype_serogroup = meningotype.meningotype_serogroup
   # Acinetobacter Typing
   File? kaptive_output_file_k = kaptive.kaptive_output_file_k
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
