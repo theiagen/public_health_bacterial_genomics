@@ -294,6 +294,17 @@ workflow merlin_magic {
   # Neisseria gonorrhoeae Typing
   File? ngmaster_tsv = ngmaster.ngmaster_tsv
   String? ngmaster_version = ngmaster.ngmaster_version
+  String? ngmaster_ngmast_sequence_type = ngmaster.ngmaster_ngmast_sequence_type
+  String? ngmaster_ngmast_porB_allele = ngmaster.ngmaster_ngmast_porB_allele
+  String? ngmaster_ngmast_tbpB_allele = ngmaster.ngmaster_ngmast_tbpB_allele
+  String? ngmaster_ngstar_sequence_type = ngmaster.ngmaster_ngstar_sequence_type
+  String? ngmaster_ngstar_penA_allele = ngmaster.ngmaster_ngstar_penA_allele
+  String? ngmaster_ngstar_mtrR_allele = ngmaster.ngmaster_ngstar_mtrR_allele
+  String? ngmaster_ngstar_porB_allele = ngmaster.ngmaster_ngstar_porB_allele
+  String? ngmaster_ngstar_ponA_allele = ngmaster.ngmaster_ngstar_ponA_allele
+  String? ngmaster_ngstar_gyrA_allele = ngmaster.ngmaster_ngstar_gyrA_allele
+  String? ngmaster_ngstar_parC_allele = ngmaster.ngmaster_ngstar_parC_allele
+  String? ngmaster_ngstar_23S_allele = ngmaster.ngmaster_ngstar_23S_allele
   # Neisseria meningitidis Typing
   File? meningotype_tsv = meningotype.meningotype_tsv
   String? meningotype_version = meningotype.meningotype_version
