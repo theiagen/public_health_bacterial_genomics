@@ -187,6 +187,7 @@ task export_taxon_tables {
     String? ngmaster_version
     File? meningotype_tsv
     String? meningotype_version
+    String? meningotype_serogroup
     File? abricate_abaum_plasmid_tsv
     String? abricate_abaum_plasmid_type_genes
     String? abricate_database
@@ -421,6 +422,7 @@ task export_taxon_tables {
       "ngmaster_version": "~{ngmaster_version}",
       "meningotype_tsv": "~{meningotype_tsv}",
       "meningotype_version": "~{meningotype_version}",
+      "meningotype_serogroup": "~{meningotype_serogroup}",
       "kaptive_version": "~{kaptive_version}",
       "kaptive_output_file_k": "~{kaptive_output_file_k}",
       "kaptive_output_file_oc": "~{kaptive_output_file_oc}",
