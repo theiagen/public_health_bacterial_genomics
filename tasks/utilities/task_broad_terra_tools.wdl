@@ -185,6 +185,17 @@ task export_taxon_tables {
     String? kaptive_ocl_confidence
     File? ngmaster_tsv
     String? ngmaster_version
+    String? ngmaster_ngmast_sequence_type
+    String? ngmaster_ngmast_porB_allele
+    String? ngmaster_ngmast_tbpB_allele
+    String? ngmaster_ngstar_sequence_type
+    String? ngmaster_ngstar_penA_allele
+    String? ngmaster_ngstar_mtrR_allele
+    String? ngmaster_ngstar_porB_allele
+    String? ngmaster_ngstar_ponA_allele
+    String? ngmaster_ngstar_gyrA_allele
+    String? ngmaster_ngstar_parC_allele
+    String? ngmaster_ngstar_23S_allele
     File? meningotype_tsv
     String? meningotype_version
     String? meningotype_serogroup
@@ -427,6 +438,17 @@ task export_taxon_tables {
       "kleborate_olocus_confidence": "~{kleborate_olocus_confidence}",
       "ngmaster_tsv": "~{ngmaster_tsv}",
       "ngmaster_version": "~{ngmaster_version}",
+      "ngmaster_ngmast_sequence_type": "~{ngmaster_ngmast_sequence_type}",
+      "ngmaster_ngmast_porB_allele": "~{ngmaster_ngmast_porB_allele}",
+      "ngmaster_ngmast_tbpB_allele": "~{ngmaster_ngmast_tbpB_allele}",
+      "ngmaster_ngstar_sequence_type": "~{ngmaster_ngstar_sequence_type}",
+      "ngmaster_ngstar_penA_allele": "~{ngmaster_ngstar_penA_allele}",
+      "ngmaster_ngstar_mtrR_allele": "~{ngmaster_ngstar_mtrR_allele}",
+      "ngmaster_ngstar_porB_allele": "~{ngmaster_ngstar_porB_allele}",
+      "ngmaster_ngstar_ponA_allele": "~{ngmaster_ngstar_ponA_allele}",
+      "ngmaster_ngstar_gyrA_allele": "~{ngmaster_ngstar_gyrA_allele}",
+      "ngmaster_ngstar_parC_allele": "~{ngmaster_ngstar_parC_allele}",
+      "ngmaster_ngstar_23S_allele": "~{ngmaster_ngstar_23S_allele}",
       "meningotype_tsv": "~{meningotype_tsv}",
       "meningotype_version": "~{meningotype_version}",
       "meningotype_serogroup": "~{meningotype_serogroup}",
