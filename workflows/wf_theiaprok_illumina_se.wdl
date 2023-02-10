@@ -322,6 +322,29 @@ workflow theiaprok_illumina_se {
             kleborate_otype = merlin_magic.kleborate_otype,
             kleborate_klocus_confidence = merlin_magic.kleborate_klocus_confidence,
             kleborate_olocus_confidence = merlin_magic.kleborate_olocus_confidence,
+            ngmaster_tsv = merlin_magic.ngmaster_tsv,
+            ngmaster_version = merlin_magic.ngmaster_version,
+            ngmaster_ngmast_sequence_type = merlin_magic.ngmaster_ngmast_sequence_type,
+            ngmaster_ngmast_porB_allele = merlin_magic.ngmaster_ngmast_porB_allele,
+            ngmaster_ngmast_tbpB_allele = merlin_magic.ngmaster_ngmast_tbpB_allele,
+            ngmaster_ngstar_sequence_type = merlin_magic.ngmaster_ngstar_sequence_type,
+            ngmaster_ngstar_penA_allele = merlin_magic.ngmaster_ngstar_penA_allele,
+            ngmaster_ngstar_mtrR_allele = merlin_magic.ngmaster_ngstar_mtrR_allele,
+            ngmaster_ngstar_porB_allele = merlin_magic.ngmaster_ngstar_porB_allele,
+            ngmaster_ngstar_ponA_allele = merlin_magic.ngmaster_ngstar_ponA_allele,
+            ngmaster_ngstar_gyrA_allele = merlin_magic.ngmaster_ngstar_gyrA_allele,
+            ngmaster_ngstar_parC_allele = merlin_magic.ngmaster_ngstar_parC_allele,
+            ngmaster_ngstar_23S_allele = merlin_magic.ngmaster_ngstar_23S_allele,
+            meningotype_tsv = merlin_magic.meningotype_tsv,
+            meningotype_version = merlin_magic.meningotype_version,
+            meningotype_serogroup = merlin_magic.meningotype_serogroup,
+            meningotype_PorA = merlin_magic.meningotype_PorA,
+            meningotype_FetA = merlin_magic.meningotype_FetA,
+            meningotype_PorB = merlin_magic.meningotype_PorB,
+            meningotype_fHbp = merlin_magic.meningotype_fHbp,
+            meningotype_NHBA = merlin_magic.meningotype_NHBA,
+            meningotype_NadA = merlin_magic.meningotype_NadA,
+            meningotype_BAST = merlin_magic.meningotype_BAST,
             kaptive_output_file_k = merlin_magic.kaptive_output_file_k,
             kaptive_output_file_oc = merlin_magic.kaptive_output_file_oc,
             kaptive_version = merlin_magic.kaptive_version,
@@ -583,6 +606,17 @@ workflow theiaprok_illumina_se {
     # Neisseria gonorrhoeae Typing
     File? ngmaster_tsv = merlin_magic.ngmaster_tsv
     String? ngmaster_version = merlin_magic.ngmaster_version
+    String? ngmaster_ngmast_sequence_type = merlin_magic.ngmaster_ngmast_sequence_type
+    String? ngmaster_ngmast_porB_allele = merlin_magic.ngmaster_ngmast_porB_allele
+    String? ngmaster_ngmast_tbpB_allele = merlin_magic.ngmaster_ngmast_tbpB_allele
+    String? ngmaster_ngstar_sequence_type = merlin_magic.ngmaster_ngstar_sequence_type
+    String? ngmaster_ngstar_penA_allele = merlin_magic.ngmaster_ngstar_penA_allele
+    String? ngmaster_ngstar_mtrR_allele = merlin_magic.ngmaster_ngstar_mtrR_allele
+    String? ngmaster_ngstar_porB_allele = merlin_magic.ngmaster_ngstar_porB_allele
+    String? ngmaster_ngstar_ponA_allele = merlin_magic.ngmaster_ngstar_ponA_allele
+    String? ngmaster_ngstar_gyrA_allele = merlin_magic.ngmaster_ngstar_gyrA_allele
+    String? ngmaster_ngstar_parC_allele = merlin_magic.ngmaster_ngstar_parC_allele
+    String? ngmaster_ngstar_23S_allele = merlin_magic.ngmaster_ngstar_23S_allele
     # Neisseria meningitidis Typing
     File? meningotype_tsv = merlin_magic.meningotype_tsv
     String? meningotype_version = merlin_magic.meningotype_version
