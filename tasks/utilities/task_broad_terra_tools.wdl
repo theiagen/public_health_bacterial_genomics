@@ -188,6 +188,13 @@ task export_taxon_tables {
     File? meningotype_tsv
     String? meningotype_version
     String? meningotype_serogroup
+    String? meningotype_PorA
+    String? meningotype_FetA
+    String? meningotype_PorB
+    String? meningotype_fHbp
+    String? meningotype_NHBA
+    String? meningotype_NadA
+    String? meningotype_BAST
     File? abricate_abaum_plasmid_tsv
     String? abricate_abaum_plasmid_type_genes
     String? abricate_database
@@ -423,6 +430,13 @@ task export_taxon_tables {
       "meningotype_tsv": "~{meningotype_tsv}",
       "meningotype_version": "~{meningotype_version}",
       "meningotype_serogroup": "~{meningotype_serogroup}",
+      "meningotype_PorA": "~{meningotype_PorA}",
+      "meningotype_FetA": "~{meningotype_FetA}",
+      "meningotype_PorB": "~{meningotype_PorB}",
+      "meningotype_fHbp": "~{meningotype_fHbp}",
+      "meningotype_NHBA": "~{meningotype_NHBA}",
+      "meningotype_NadA": "~{meningotype_NadA}",
+      "meningotype_BAST": "~{meningotype_BAST}",
       "kaptive_version": "~{kaptive_version}",
       "kaptive_output_file_k": "~{kaptive_output_file_k}",
       "kaptive_output_file_oc": "~{kaptive_output_file_oc}",

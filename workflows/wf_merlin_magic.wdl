@@ -298,6 +298,13 @@ workflow merlin_magic {
   File? meningotype_tsv = meningotype.meningotype_tsv
   String? meningotype_version = meningotype.meningotype_version
   String? meningotype_serogroup = meningotype.meningotype_serogroup
+  String? meningotype_PorA = meningotype.meningotype_PorA
+  String? meningotype_FetA = meningotype.meningotype_FetA
+  String? meningotype_PorB = meningotype.meningotype_PorB
+  String? meningotype_fHbp = meningotype.meningotype_fHbp
+  String? meningotype_NHBA = meningotype.meningotype_NHBA
+  String? meningotype_NadA = meningotype.meningotype_NadA
+  String? meningotype_BAST = meningotype.meningotype_BAST
   # Acinetobacter Typing
   File? kaptive_output_file_k = kaptive.kaptive_output_file_k
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
