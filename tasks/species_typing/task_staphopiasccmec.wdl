@@ -31,8 +31,9 @@ task staphopiasccmec {
      awk '{ for (i=1; i<=NF; ++i) { if ($i ~ "True") print i } }' ~{samplename}.staphopia-sccmec.summary.tsv | tee col_headers.txt
 
      # use column number list to print column headers (example: IV, mecA, etc.) to a file type.txt
-     cat col_headers.txt | while read COL_NUMBER; do \
-        cut -f $COL_NUMBER ~{samplename}.staphopia-sccmec.summary.tsv | head -n 1 >>type.txt;  echo "," >>type.txt;
+     cat col_headers.txt | while read -r COL_NUMBER; do \
+        cut -f "$COL_NUMBER" ~{samplename}.staphopia-sccmec.summary.tsv | head -n 1 >>type.txt
+        echo "," >>type.txt
      done
 
     # remove newlines, remove trailing comma; generate output string of comma separated values
