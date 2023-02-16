@@ -382,7 +382,12 @@ workflow theiaprok_illumina_se {
             pasty_all_serogroups = merlin_magic.pasty_all_serogroups,
             pasty_version = merlin_magic.pasty_version,
             pasty_docker = merlin_magic.pasty_docker,
-            pasty_comment = merlin_magic.pasty_comment
+            pasty_comment = merlin_magic.pasty_comment,
+            spatyper_tsv = merlin_magic.spatyper_tsv,
+            spatyper_docker = merlin_magic.spatyper_docker,
+            spatyper_repeats = merlin_magic.spatyper_repeats,
+            spatyper_type = merlin_magic.spatyper_type,
+            spatyper_version = merlin_magic.spatyper_version
         }
       }
     }
@@ -609,6 +614,12 @@ workflow theiaprok_illumina_se {
     File? legsta_results = merlin_magic.legsta_results
     String? legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt
     String? legsta_version = merlin_magic.legsta_version
+    # Staphylococcus aureus
+    File? spatyper_tsv = merlin_magic.spatyper_tsv
+    String? spatyper_docker = merlin_magic.spatyper_docker
+    String? spatyper_repeats = merlin_magic.spatyper_repeats
+    String? spatyper_type = merlin_magic.spatyper_type
+    String? spatyper_version = merlin_magic.spatyper_version
     # Streptococcus pneumoniae Typing
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv

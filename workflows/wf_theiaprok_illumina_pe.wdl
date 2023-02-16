@@ -421,6 +421,11 @@ workflow theiaprok_illumina_pe {
             poppunk_GPS_db_version = merlin_magic.poppunk_gps_external_cluster_csv,
             poppunk_version = merlin_magic.poppunk_version,
             poppunk_docker = merlin_magic.poppunk_docker,
+            spatyper_tsv = merlin_magic.spatyper_tsv,
+            spatyper_docker = merlin_magic.spatyper_docker,
+            spatyper_repeats = merlin_magic.spatyper_repeats,
+            spatyper_type = merlin_magic.spatyper_type,
+            spatyper_version = merlin_magic.spatyper_version,
             seroba_version = merlin_magic.seroba_version,
             seroba_docker = merlin_magic.seroba_docker,
             seroba_serotype = merlin_magic.seroba_serotype,
@@ -683,6 +688,12 @@ workflow theiaprok_illumina_pe {
     File? legsta_results = merlin_magic.legsta_results
     String? legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt
     String? legsta_version = merlin_magic.legsta_version
+    # Staphylococcus aureus
+    File? spatyper_tsv = merlin_magic.spatyper_tsv
+    String? spatyper_docker = merlin_magic.spatyper_docker
+    String? spatyper_repeats = merlin_magic.spatyper_repeats
+    String? spatyper_type = merlin_magic.spatyper_type
+    String? spatyper_version = merlin_magic.spatyper_version
     # Streptococcus pneumoniae Typing
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv

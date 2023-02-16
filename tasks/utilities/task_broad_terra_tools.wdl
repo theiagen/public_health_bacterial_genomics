@@ -244,6 +244,11 @@ task export_taxon_tables {
     String? pasty_comment
     String? qc_check
     File? qc_standard
+    File? spatyper_tsv
+    String? spatyper_docker
+    String? spatyper_repeats
+    String? spatyper_type
+    String? spatyper_version
   }
   command <<<
   
@@ -513,7 +518,12 @@ task export_taxon_tables {
       "pasty_docker": "~{pasty_docker}",
       "pasty_comment": "~{pasty_comment}",
       "qc_check": "~{qc_check}",
-      "qc_standard": "~{qc_standard}"
+      "qc_standard": "~{qc_standard}",
+      "spatyper_tsv": "~{spatyper_tsv}",
+      "spatyper_docker": "~{spatyper_docker}",
+      "spatyper_repeats": "~{spatyper_repeats}",
+      "spatyper_type": "~{spatyper_type}",
+      "spatyper_version": "~{spatyper_version}" 
     }
 
     with open("~{samplename}_terra_table.tsv", "w") as outfile:
