@@ -8,7 +8,7 @@ task srst2_vibrio {
     File reads1
     File reads2
     String samplename
-    String docker = "srst2-vibrio:latest" # TODO: Update with container including vibrio db
+    String docker = "quay.io/kapsakcj/srst2:0.2.0-vcholerae" # TODO: Update with container including vibrio db
     Int disk_size = 100
     Int cpu = 4
   }
