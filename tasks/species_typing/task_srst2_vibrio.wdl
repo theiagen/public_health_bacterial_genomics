@@ -21,11 +21,11 @@ task srst2_vibrio {
     
     mv ~{samplename}__genes__*__results.txt ~{samplename}.tsv
 
-    tail -n1 ~{samplename}.tsv | cut -f2 > ctxA
-    tail -n1 ~{samplename}.tsv | cut -f3 > ompW
-    tail -n1 ~{samplename}.tsv | cut -f4 > tcpA_ElTor
-    tail -n1 ~{samplename}.tsv | cut -f5 > toxR
-    tail -n1 ~{samplename}.tsv | cut -f5 > wbeN_O1
+    tail -n1 ~{samplename}.tsv | cut -f2 | cut -d_ -f2 > ctxA
+    tail -n1 ~{samplename}.tsv | cut -f3 | cut -d_ -f2 > ompW
+    tail -n1 ~{samplename}.tsv | cut -f4 | cut -d_ -f3 > tcpA_ElTor
+    tail -n1 ~{samplename}.tsv | cut -f5 | cut -d_ -f2 > toxR
+    tail -n1 ~{samplename}.tsv | cut -f6 | cut -d_ -f3 > wbeN_O1
 
   >>>
   output {
