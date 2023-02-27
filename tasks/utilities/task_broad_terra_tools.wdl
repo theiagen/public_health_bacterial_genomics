@@ -244,6 +244,13 @@ task export_taxon_tables {
     String? pasty_comment
     String? qc_check
     File? qc_standard
+    File? srst2_vibrio_tsv
+    String? srst2_vibrio_version
+    String? srst2_vibrio_ctxA
+    String? srst2_vibrio_ompW
+    String? srst2_vibrio_tcpA_ElTor
+    String? srst2_vibrio_toxR
+    String? srst2_vibrio_wbeN_O1
   }
   command <<<
   
@@ -513,7 +520,14 @@ task export_taxon_tables {
       "pasty_docker": "~{pasty_docker}",
       "pasty_comment": "~{pasty_comment}",
       "qc_check": "~{qc_check}",
-      "qc_standard": "~{qc_standard}"
+      "qc_standard": "~{qc_standard}",
+      "srst2_vibrio_tsv" = "~{srst2_vibrio_tsv}",
+      "srst2_vibrio_version" = "~{srst2_vibrio_version}",
+      "srst2_vibrio_ctxA" = "~{srst2_vibrio_ctxA}",
+      "srst2_vibrio_ompW" = "~{srst2_vibrio_ompW}",
+      "srst2_vibrio_tcpA_ElTor" = "~{srst2_vibrio_tcpA_ElTor}",
+      "srst2_vibrio_toxR" = "~{srst2_vibrio_toxR}",
+      "srst2_vibrio_wbeN_O1" = "~{srst2_vibrio_wbeN_O1}"
     }
 
     with open("~{samplename}_terra_table.tsv", "w") as outfile:
