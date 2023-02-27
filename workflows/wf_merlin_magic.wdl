@@ -18,6 +18,7 @@ import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
 import "../tasks/species_typing/task_pasty.wdl" as pasty
 import "../tasks/gene_typing/task_abricate.wdl" as abricate_task
+import "../tasks/species_typing/task_srst2_vibrio.wdl" as srst2_vibrio_task
 
 workflow merlin_magic {
   meta {
@@ -181,6 +182,14 @@ workflow merlin_magic {
       }  
     }
   }
+  if (merlin_tag == "Vibrio") {
+    call srst2_vibrio_task.srst2_vibrio {
+      input:
+        reads1 = read1,
+        reads2 = read2,
+        samplename = samplename
+    }
+  }
 
   output {
   # Ecoli Typing
@@ -322,5 +331,13 @@ workflow merlin_magic {
   String? seroba_ariba_serotype = seroba_task.seroba_ariba_serotype
   String? seroba_ariba_identity = seroba_task.seroba_ariba_identity
   File? seroba_details = seroba_task.seroba_details
+  # Vibrio
+  File? srst2_vibrio_tsv = srst2_vibrio.srst2_tsv
+  String? srst2_vibrio_version = srst2_vibrio.srst2_version
+  String? srst2_vibrio_ctxA = srst2_vibrio.srst2_vibrio_ctxA
+  String? srst2_vibrio_ompW = srst2_vibrio.srst2_vibrio_ompW
+  String? srst2_vibrio_tcpA_ElTor = srst2_vibrio.srst2_vibrio_tcpA_ElTor
+  String? srst2_vibrio_toxR = srst2_vibrio.srst2_vibrio_toxR
+  String? srst2_vibrio_wbeN_O1 = srst2_vibrio.srst2_vibrio_wbeN_O1
+  }
  }
-}
