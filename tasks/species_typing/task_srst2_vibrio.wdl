@@ -6,16 +6,22 @@ task srst2_vibrio {
   }
   input {
     File reads1
-    File reads2
+    File? reads2
     String samplename
     String docker = "quay.io/kapsakcj/srst2:0.2.0-vcholerae" # TODO: Update with container including vibrio db
     Int disk_size = 100
     Int cpu = 4
   }
   command <<<
+    if [ -z "~{reads2}" ] ; then
+      INPUT_READS="--input_se ~{reads1}"
+    else
+      INPUT_READS="--input_pe ~{reads1} ~{reads2}"
+    fi
+
     srst2 --version 2>&1 | tee VERSION
     srst2 \
-      --input_pe ~{reads1} ~{reads2} \
+      ${INPUT_READS} \
       --gene_db /vibrio-cholerae-db/vibrio_230224.fasta \
       --output ~{samplename}
     
