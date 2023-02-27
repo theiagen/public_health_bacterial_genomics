@@ -16,7 +16,7 @@ task srst2_vibrio {
     srst2 --version 2>&1 | tee VERSION
     srst2 \
       --input_pe ~{reads1} ~{reads2} \
-      --gene_db /data/vibrio_230224.fasta \
+      --gene_db /vibrio-cholerae-db/vibrio_230224.fasta \
       --output ~{samplename}
     
     mv ~{samplename}__genes__*__results.txt ~{samplename}.tsv
