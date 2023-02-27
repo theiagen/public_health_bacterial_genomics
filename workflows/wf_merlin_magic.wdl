@@ -13,6 +13,8 @@ import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 import "../tasks/species_typing/task_kaptive.wdl" as kaptive
+import "../tasks/species_typing/task_ngmaster.wdl" as ngmaster_task
+import "../tasks/species_typing/task_meningotype.wdl" as meningotype_task
 import "../tasks/species_typing/task_seroba.wdl" as seroba
 import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
@@ -129,6 +131,20 @@ workflow merlin_magic {
   }
   if (merlin_tag == "Klebsiella") {
     call kleborate.kleborate {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Neisseria gonorrhoeae") {
+    call ngmaster_task.ngmaster {
+      input:
+        assembly = assembly,
+        samplename = samplename
+    }
+  }
+  if (merlin_tag == "Neisseria meningitidis") {
+    call meningotype_task.meningotype {
       input:
         assembly = assembly,
         samplename = samplename
@@ -275,6 +291,31 @@ workflow merlin_magic {
   String? kleborate_otype = kleborate.kleborate_otype
   String? kleborate_klocus_confidence = kleborate.kleborate_klocus_confidence
   String? kleborate_olocus_confidence = kleborate.kleborate_olocus_confidence
+  # Neisseria gonorrhoeae Typing
+  File? ngmaster_tsv = ngmaster.ngmaster_tsv
+  String? ngmaster_version = ngmaster.ngmaster_version
+  String? ngmaster_ngmast_sequence_type = ngmaster.ngmaster_ngmast_sequence_type
+  String? ngmaster_ngmast_porB_allele = ngmaster.ngmaster_ngmast_porB_allele
+  String? ngmaster_ngmast_tbpB_allele = ngmaster.ngmaster_ngmast_tbpB_allele
+  String? ngmaster_ngstar_sequence_type = ngmaster.ngmaster_ngstar_sequence_type
+  String? ngmaster_ngstar_penA_allele = ngmaster.ngmaster_ngstar_penA_allele
+  String? ngmaster_ngstar_mtrR_allele = ngmaster.ngmaster_ngstar_mtrR_allele
+  String? ngmaster_ngstar_porB_allele = ngmaster.ngmaster_ngstar_porB_allele
+  String? ngmaster_ngstar_ponA_allele = ngmaster.ngmaster_ngstar_ponA_allele
+  String? ngmaster_ngstar_gyrA_allele = ngmaster.ngmaster_ngstar_gyrA_allele
+  String? ngmaster_ngstar_parC_allele = ngmaster.ngmaster_ngstar_parC_allele
+  String? ngmaster_ngstar_23S_allele = ngmaster.ngmaster_ngstar_23S_allele
+  # Neisseria meningitidis Typing
+  File? meningotype_tsv = meningotype.meningotype_tsv
+  String? meningotype_version = meningotype.meningotype_version
+  String? meningotype_serogroup = meningotype.meningotype_serogroup
+  String? meningotype_PorA = meningotype.meningotype_PorA
+  String? meningotype_FetA = meningotype.meningotype_FetA
+  String? meningotype_PorB = meningotype.meningotype_PorB
+  String? meningotype_fHbp = meningotype.meningotype_fHbp
+  String? meningotype_NHBA = meningotype.meningotype_NHBA
+  String? meningotype_NadA = meningotype.meningotype_NadA
+  String? meningotype_BAST = meningotype.meningotype_BAST
   # Acinetobacter Typing
   File? kaptive_output_file_k = kaptive.kaptive_output_file_k
   File? kaptive_output_file_oc = kaptive.kaptive_output_file_oc
