@@ -16,7 +16,7 @@ task srst2_vibrio {
     if [ -z "~{reads2}" ] ; then
       INPUT_READS="--input_se ~{reads1}"
     else
-      INPUT_READS="--input_pe ~{reads1} ~{reads2}"
+      INPUT_READS="--input_pe ~{reads1} ~{reads2} --forward _1.clean --reverse _2.clean"
     fi
 
     srst2 --version 2>&1 | tee VERSION
