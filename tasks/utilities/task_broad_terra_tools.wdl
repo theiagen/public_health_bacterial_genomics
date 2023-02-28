@@ -184,6 +184,29 @@ task export_taxon_tables {
     String? kaptive_kl_confidence
     String? kaptive_oc_locus
     String? kaptive_ocl_confidence
+    File? ngmaster_tsv
+    String? ngmaster_version
+    String? ngmaster_ngmast_sequence_type
+    String? ngmaster_ngmast_porB_allele
+    String? ngmaster_ngmast_tbpB_allele
+    String? ngmaster_ngstar_sequence_type
+    String? ngmaster_ngstar_penA_allele
+    String? ngmaster_ngstar_mtrR_allele
+    String? ngmaster_ngstar_porB_allele
+    String? ngmaster_ngstar_ponA_allele
+    String? ngmaster_ngstar_gyrA_allele
+    String? ngmaster_ngstar_parC_allele
+    String? ngmaster_ngstar_23S_allele
+    File? meningotype_tsv
+    String? meningotype_version
+    String? meningotype_serogroup
+    String? meningotype_PorA
+    String? meningotype_FetA
+    String? meningotype_PorB
+    String? meningotype_fHbp
+    String? meningotype_NHBA
+    String? meningotype_NadA
+    String? meningotype_BAST
     File? abricate_abaum_plasmid_tsv
     String? abricate_abaum_plasmid_type_genes
     String? abricate_database
@@ -422,6 +445,29 @@ task export_taxon_tables {
       "kleborate_otype": "~{kleborate_otype}",
       "kleborate_klocus_confidence": "~{kleborate_klocus_confidence}",
       "kleborate_olocus_confidence": "~{kleborate_olocus_confidence}",
+      "ngmaster_tsv": "~{ngmaster_tsv}",
+      "ngmaster_version": "~{ngmaster_version}",
+      "ngmaster_ngmast_sequence_type": "~{ngmaster_ngmast_sequence_type}",
+      "ngmaster_ngmast_porB_allele": "~{ngmaster_ngmast_porB_allele}",
+      "ngmaster_ngmast_tbpB_allele": "~{ngmaster_ngmast_tbpB_allele}",
+      "ngmaster_ngstar_sequence_type": "~{ngmaster_ngstar_sequence_type}",
+      "ngmaster_ngstar_penA_allele": "~{ngmaster_ngstar_penA_allele}",
+      "ngmaster_ngstar_mtrR_allele": "~{ngmaster_ngstar_mtrR_allele}",
+      "ngmaster_ngstar_porB_allele": "~{ngmaster_ngstar_porB_allele}",
+      "ngmaster_ngstar_ponA_allele": "~{ngmaster_ngstar_ponA_allele}",
+      "ngmaster_ngstar_gyrA_allele": "~{ngmaster_ngstar_gyrA_allele}",
+      "ngmaster_ngstar_parC_allele": "~{ngmaster_ngstar_parC_allele}",
+      "ngmaster_ngstar_23S_allele": "~{ngmaster_ngstar_23S_allele}",
+      "meningotype_tsv": "~{meningotype_tsv}",
+      "meningotype_version": "~{meningotype_version}",
+      "meningotype_serogroup": "~{meningotype_serogroup}",
+      "meningotype_PorA": "~{meningotype_PorA}",
+      "meningotype_FetA": "~{meningotype_FetA}",
+      "meningotype_PorB": "~{meningotype_PorB}",
+      "meningotype_fHbp": "~{meningotype_fHbp}",
+      "meningotype_NHBA": "~{meningotype_NHBA}",
+      "meningotype_NadA": "~{meningotype_NadA}",
+      "meningotype_BAST": "~{meningotype_BAST}",
       "kaptive_version": "~{kaptive_version}",
       "kaptive_output_file_k": "~{kaptive_output_file_k}",
       "kaptive_output_file_oc": "~{kaptive_output_file_oc}",
