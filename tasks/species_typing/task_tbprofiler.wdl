@@ -48,6 +48,9 @@ task tbprofiler {
     #Collate results
     tb-profiler collate --prefix ~{samplename}
 
+    # touch optional output files because wdl
+    touch GENE_NAME LOCUS_TAG VARIANT_SUBSTITUTIONS OUTPUT_SEQ_METHOD_TYPE
+
     # transform boolean tbprofiler_additional_outputs into string for python comparison
     if ~{tbprofiler_additional_outputs}; then
       export tbprofiler_additional_outputs="true"
@@ -145,10 +148,10 @@ task tbprofiler {
     String tbprofiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
     String tbprofiler_resistance_genes = read_string("RESISTANCE_GENES")
     File? tbprofiler_additional_outputs_csv = "tbprofiler_additional_outputs.csv"
-    String? tbprofiler_gene_name = read_string("GENE_NAME")
-    String? tbprofiler_locus_tag = read_string("LOCUS_TAG")
-    String? tbprofiler_variant_substitutions = read_string("VARIANT_SUBSTITUTIONS")
-    String? tbprofiler_output_seq_method_type = read_string("OUTPUT_SEQ_METHOD_TYPE")
+    String tbprofiler_gene_name = read_string("GENE_NAME")
+    String tbprofiler_locus_tag = read_string("LOCUS_TAG")
+    String tbprofiler_variant_substitutions = read_string("VARIANT_SUBSTITUTIONS")
+    String tbprofiler_output_seq_method_type = read_string("OUTPUT_SEQ_METHOD_TYPE")
   }
   runtime {
     docker: "~{tbprofiler_docker_image}"
@@ -191,6 +194,9 @@ task tbprofiler_ont {
     #Collate results
     tb-profiler collate --prefix ~{samplename}
 
+    # touch optional output files because wdl
+    touch GENE_NAME LOCUS_TAG VARIANT_SUBSTITUTIONS OUTPUT_SEQ_METHOD_TYPE
+
     # transform boolean tbprofiler_additional_outputs into string for python comparison
     if ~{tbprofiler_additional_outputs}; then
       export tbprofiler_additional_outputs="true"
@@ -288,10 +294,10 @@ task tbprofiler_ont {
     String tbprofiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
     String tbprofiler_resistance_genes = read_string("RESISTANCE_GENES")
     File? tbprofiler_additional_outputs_csv = "tbprofiler_additional_outputs.csv"
-    String? tbprofiler_gene_name = read_string("GENE_NAME")
-    String? tbprofiler_locus_tag = read_string("LOCUS_TAG")
-    String? tbprofiler_variant_substitutions = read_string("VARIANT_SUBSTITUTIONS")
-    String? tbprofiler_output_seq_method_type = read_string("OUTPUT_SEQ_METHOD_TYPE")
+    String tbprofiler_gene_name = read_string("GENE_NAME")
+    String tbprofiler_locus_tag = read_string("LOCUS_TAG")
+    String tbprofiler_variant_substitutions = read_string("VARIANT_SUBSTITUTIONS")
+    String tbprofiler_output_seq_method_type = read_string("OUTPUT_SEQ_METHOD_TYPE")
   }
   runtime {
     docker: "~{tbprofiler_docker_image}"
