@@ -128,7 +128,7 @@ task tbprofiler {
 
         # file to be ingested into CDPH LIMS system
         with open("tbprofiler_additional_outputs.csv", "wt") as additional_outputs_csv:
-          additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_locus_tag,tbprofiler_variant_substitutions,tbprofiler_output_seq_method_type\n")
+          additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,tbprofiler_output_seq_method_type\n")
           additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + "~{output_seq_method_type}")
     CODE
   >>>
@@ -156,7 +156,7 @@ task tbprofiler {
     cpu: 8
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
-    maxRetries: 0
+    maxRetries: 3
   }
 }
 
