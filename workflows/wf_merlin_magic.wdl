@@ -299,6 +299,11 @@ workflow merlin_magic {
   String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
   String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
+  File? tbprofiler_additional_outputs_csv = tbprofiler.tbprofiler_additional_outputs_csv
+  String? tbprofiler_gene_name = tbprofiler.tbprofiler_gene_name
+  String? tbprofiler_locus_tag = tbprofiler.tbprofiler_locus_tag
+  String? tbprofiler_variant_substitutions = tbprofiler.tbprofiler_variant_substitutions
+  String? tbprofiler_output_seq_method_type = tbprofiler.tbprofiler_output_seq_method_type
   # Legionella pneumophila Typing
   File? legsta_results = legsta.legsta_results
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
