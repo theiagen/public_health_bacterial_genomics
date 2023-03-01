@@ -107,7 +107,7 @@ task tbprofiler {
               locus_tag.append(other_variant["locus_tag"])  
               variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
             else:
-              if other_variant["annotation"]:
+              if "annotation" in other_variant:  # check if who annotation field is present
                 for annotation in other_variant["annotation"]:
                   if annotation["who_confidence"] != "Not assoc w R":
                     gene_name.append(other_variant["gene"])
