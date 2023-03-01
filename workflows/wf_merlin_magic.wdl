@@ -179,13 +179,12 @@ workflow merlin_magic {
     }
   }
   if (merlin_tag == "Staphylococcus aureus") {
-    if (paired_end) {
       call spatyper_task.spatyper {
         input:
           assembly = assembly,
           samplename = samplename
       }
-    }
+    
     call staphopia_sccmec_task.staphopiasccmec {
         input:
           assembly = assembly,
