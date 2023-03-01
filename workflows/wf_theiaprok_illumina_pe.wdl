@@ -426,6 +426,11 @@ workflow theiaprok_illumina_pe {
             spatyper_repeats = merlin_magic.spatyper_repeats,
             spatyper_type = merlin_magic.spatyper_type,
             spatyper_version = merlin_magic.spatyper_version,
+            staphopiasccmec_results_tsv = merlin_magic.staphopiasccmec_results_tsv,
+            staphopiasccmec_hamming_distance_tsv = merlin_magic.staphopiasccmec_hamming_distance_tsv,
+            staphopiasccmec_types_and_mecA_presence = merlin_magic.staphopiasccmec_types_and_mecA_presence,
+            staphopiasccmec_version = merlin_magic.staphopiasccmec_version,
+            staphopiasccmec_docker = merlin_magic.staphopiasccmec_docker,
             seroba_version = merlin_magic.seroba_version,
             seroba_docker = merlin_magic.seroba_docker,
             seroba_serotype = merlin_magic.seroba_serotype,
@@ -694,6 +699,11 @@ workflow theiaprok_illumina_pe {
     String? spatyper_repeats = merlin_magic.spatyper_repeats
     String? spatyper_type = merlin_magic.spatyper_type
     String? spatyper_version = merlin_magic.spatyper_version
+    File? staphopiasccmec_results_tsv = merlin_magic.staphopiasccmec_results_tsv
+    File? staphopiasccmec_hamming_distance_tsv = merlin_magic.staphopiasccmec_hamming_distance_tsv
+    String? staphopiasccmec_types_and_mecA_presence = merlin_magic.staphopiasccmec_types_and_mecA_presence
+    String? staphopiasccmec_version = merlin_magic.staphopiasccmec_version
+    String? staphopiasccmec_docker = merlin_magic.staphopiasccmec_docker
     # Streptococcus pneumoniae Typing
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv

@@ -249,6 +249,11 @@ task export_taxon_tables {
     String? spatyper_repeats
     String? spatyper_type
     String? spatyper_version
+    File? staphopiasccmec_results_tsv
+    File? staphopiasccmec_hamming_distance_tsv
+    String? staphopiasccmec_types_and_mecA_presence
+    String? staphopiasccmec_version
+    String? staphopiasccmec_docker
   }
   command <<<
   
@@ -523,7 +528,12 @@ task export_taxon_tables {
       "spatyper_docker": "~{spatyper_docker}",
       "spatyper_repeats": "~{spatyper_repeats}",
       "spatyper_type": "~{spatyper_type}",
-      "spatyper_version": "~{spatyper_version}" 
+      "spatyper_version": "~{spatyper_version}",
+      "staphopiasccmec_results_tsv": "~{staphopiasccmec_results_tsv}",
+      "staphopiasccmec_hamming_distance_tsv": "~{staphopiasccmec_hamming_distance_tsv}",
+      "staphopiasccmec_types_and_mecA_presence": "~{staphopiasccmec_types_and_mecA_presence}",
+      "staphopiasccmec_version": "~{staphopiasccmec_version}",
+      "staphopiasccmec_docker ": "~{staphopiasccmec_docker}"
     }
 
     with open("~{samplename}_terra_table.tsv", "w") as outfile:
