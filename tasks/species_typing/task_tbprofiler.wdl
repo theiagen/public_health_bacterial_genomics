@@ -165,7 +165,7 @@ task tbprofiler_ont {
   input {
     File reads
     String samplename
-    String tbprofiler_docker_image = "staphb/tbprofiler:4.3.0"
+    String tbprofiler_docker_image = "staphb/tbprofiler:4.4.2"
     Int disk_size = 100
     String mapper = "bwa"
     String caller = "bcftools"
