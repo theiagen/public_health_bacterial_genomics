@@ -16,6 +16,7 @@ task tbprofiler {
     Int cov_frac_threshold = 1
     Boolean tbprofiler_additional_outputs = true
     String output_seq_method_type = "WGS"
+    Int cpu = 8 
   }
   command <<<
     # update TBDB
@@ -156,7 +157,7 @@ task tbprofiler {
   runtime {
     docker: "~{tbprofiler_docker_image}"
     memory: "16 GB"
-    cpu: 8
+    cpu: cpu
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
     maxRetries: 3
@@ -178,6 +179,7 @@ task tbprofiler_ont {
     Int cov_frac_threshold = 1
     Boolean tbprofiler_additional_outputs = true
     String output_seq_method_type = "WGS"
+    Int cpu = 8
   }
   command <<<
     # update TBDB
@@ -302,7 +304,7 @@ task tbprofiler_ont {
   runtime {
     docker: "~{tbprofiler_docker_image}"
     memory: "16 GB"
-    cpu: 8
+    cpu: cpu
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
     maxRetries: 3
