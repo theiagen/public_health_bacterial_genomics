@@ -6,6 +6,8 @@ task tbprofiler {
     File read1
     File? read2
     String samplename
+    Boolean tbprofiler_additional_outputs
+    String output_seq_method_type
     String tbprofiler_docker_image = "staphb/tbprofiler:4.4.2"
     Int disk_size = 100
     String mapper = "bwa"
@@ -14,8 +16,6 @@ task tbprofiler {
     Float min_af = 0.1
     Float min_af_pred = 0.1
     Int cov_frac_threshold = 1
-    Boolean tbprofiler_additional_outputs = false
-    String output_seq_method_type = "WGS"
     Int cpu = 8 
   }
   command <<<

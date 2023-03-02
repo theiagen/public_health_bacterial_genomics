@@ -37,6 +37,8 @@ workflow merlin_magic {
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
     Boolean call_shigeifinder_reads_input = false
+    Boolean tbprofiler_additional_outputs = false
+    String output_seq_method_type = "WGS"
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -149,7 +151,9 @@ workflow merlin_magic {
       input:
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        tbprofiler_additional_outputs = tbprofiler_additional_outputs,
+        output_seq_method_type = output_seq_method_type
     }
   }
   if (merlin_tag == "Legionella pneumophila") {
