@@ -107,7 +107,7 @@
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_1.clean.fastq.gz
     - path: miniwdl_run/call-clean_check_reads/work/_miniwdl_inputs/0/test_2.clean.fastq.gz
     - path: miniwdl_run/call-gambit/command
-      md5sum: 0fd32da5d38ab57cdb7eb6ef87756cc1
+      md5sum: ffda45de2bad7a2206f507bf4485c930
     - path: miniwdl_run/call-gambit/inputs.json
       contains: ["assembly", "fasta", "samplename", "test"]
     - path: miniwdl_run/call-gambit/outputs.json
