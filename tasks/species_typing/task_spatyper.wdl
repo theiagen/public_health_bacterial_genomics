@@ -21,9 +21,27 @@ task spatyper {
       ~{true="--do_enrich" false="" do_enrich} \
       --fasta ~{assembly} \
       --output ~{samplename}.tsv
-    
-    cat ~{samplename}.tsv | tail -n1 | cut -f2 > REPEATS
-    cat ~{samplename}.tsv | tail -n1 | cut -f3 > TYPE
+    #cat ~{samplename}.tsv | tail -n1 | cut -f2 > REPEATS
+    #cat ~{samplename}.tsv | tail -n1 | cut -f3 > TYPE
+    python3 <<CODE
+    import csv
+
+    TYPE = []
+    REPEATS = []
+
+    with open("./~{samplename}.tsv",'r') as tsv_file:
+      tsv_reader=csv.reader(tsv_file, delimiter="\t")
+      next(tsv_reader, None)  # skip the headers
+      for row in tsv_reader:
+        TYPE.append(row[-1])
+        REPEATS.append(row[-2])
+
+      with open ("TYPE", 'wt') as TYPE_fh:
+        TYPE_fh.write(','.join(TYPE))
+
+      with open ("REPEATS", 'wt') as REPEATS_fh:
+        REPEATS_fh.write(','.join(REPEATS))
+    CODE
   >>>
   output {
       File spatyper_tsv = "~{samplename}.tsv"
