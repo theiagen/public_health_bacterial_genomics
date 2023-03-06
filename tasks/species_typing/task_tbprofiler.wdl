@@ -97,6 +97,8 @@ task tbprofiler {
       locus_tag = []
       variant_substitutions = []
       confidence = []
+      depth = []
+      frequency = []
 
       with open("./results/~{samplename}.results.json") as results_json_fh:
         results_json = json.load(results_json_fh)
@@ -104,6 +106,8 @@ task tbprofiler {
           gene_name.append(dr_variant["gene"])
           locus_tag.append(dr_variant["locus_tag"])  
           variant_substitutions.append(dr_variant["type"] + ":" + dr_variant["nucleotide_change"] + "(" + dr_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+          depth.append(dr_variant["depth"])
+          frequency.append(dr_variant["freq"])
           if "annotation" in dr_variant:
             confidence.append(dr_variant["annotation"][0]["who_confidence"])
           else:
@@ -115,6 +119,8 @@ task tbprofiler {
               gene_name.append(other_variant["gene"])
               locus_tag.append(other_variant["locus_tag"])  
               variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+              depth.append(other_variant["depth"])
+              frequency.append(other_variant["freq"])
               if "annotation" in other_variant:
                 confidence.append(other_variant["annotation"][0]["who_confidence"])
               else:
@@ -126,6 +132,8 @@ task tbprofiler {
                     gene_name.append(other_variant["gene"])
                     locus_tag.append(other_variant["locus_tag"])  
                     variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+                    depth.append(other_variant["depth"])
+                    frequency.append(other_variant["freq"])
                     confidence.append(annotation["who_confidence"])
         
         with open("GENE_NAME", "wt") as gene_name_fh:
@@ -144,6 +152,14 @@ task tbprofiler {
         with open("tbprofiler_additional_outputs.csv", "wt") as additional_outputs_csv:
           additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,tbprofiler_output_seq_method_type\n")
           additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + ";".join(confidence) + ',' + "~{output_seq_method_type}")
+    
+        # laboratorian report
+        with open("tbprofiler_laboratorian_report.csv", "wt") as report_fh:
+          report_fh.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,depth,frequency,warning\n")
+          for i in range(0, len(gene_name)):
+            warning = "Low depth coverage" if  depth[i] < 10 else "" # warning when coverage is lower than 10 times
+            report_fh.write(gene_name[i] + ',' + locus_tag[i] + ',' + variant_substitutions[i] + ',' + confidence[i] + ',' + str(depth[i]) + ',' + str(frequency[i]) + ',' + warning + '\n')
+
     CODE
   >>>
   output {
@@ -159,6 +175,7 @@ task tbprofiler {
     String tbprofiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
     String tbprofiler_resistance_genes = read_string("RESISTANCE_GENES")
     File? tbprofiler_additional_outputs_csv = "tbprofiler_additional_outputs.csv"
+    File? tbprofiler_laboratorian_report_csv = "tbprofiler_laboratorian_report.csv"
     String tbprofiler_gene_name = read_string("GENE_NAME")
     String tbprofiler_locus_tag = read_string("LOCUS_TAG")
     String tbprofiler_variant_substitutions = read_string("VARIANT_SUBSTITUTIONS")
@@ -170,7 +187,7 @@ task tbprofiler {
     cpu: cpu
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
-    maxRetries: 0 
+    maxRetries: 3 
   }
 }
 
