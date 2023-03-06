@@ -44,29 +44,29 @@ task agrvate {
 
     # edit output string AGR_CANONICAL to be more informative: https://github.com/VishnuRaghuram94/AgrVATE#results
     if [[ $(cat AGR_CANONICAL) == 1 ]]; then
-      echo "1/canonical agrD" >AGR_CANONICAL
+      echo "1. canonical agrD" >AGR_CANONICAL
     elif [[ $(cat AGR_CANONICAL) == 0 ]]; then
-      echo "0/non-canonical agrD" >AGR_CANONICAL
+      echo "0. non-canonical agrD" >AGR_CANONICAL
     elif [[ $(cat AGR_CANONICAL) == "u" ]]; then
-      echo "u/unknown agrD" >AGR_CANNONICAL
+      echo "u. unknown agrD" >AGR_CANNONICAL
     else 
       echo "result unrecognized, please see summary agrvate TSV file" >AGR_CANONICAL
     fi
 
     # edit output string AGR_MULTIPLE to be more informative: https://github.com/VishnuRaghuram94/AgrVATE#results
     if [[ $(cat AGR_MULTIPLE) == "s" ]]; then
-      echo "s/single" >AGR_MULTIPLE
+      echo "s. single agr group found" >AGR_MULTIPLE
     elif [[ $(cat AGR_MULTIPLE) == "m" ]]; then
-      echo "m/multiple" >AGR_MULTIPLE
+      echo "m. multiple agr groups found" >AGR_MULTIPLE
     elif [[ $(cat AGR_MULTIPLE) == "u" ]]; then
-      echo "u/unknown" >AGR_MULTIPLE
+      echo "u. unknown agr groups found" >AGR_MULTIPLE
     else 
       echo "result unrecognized, please see summary agrvate TSV file" >AGR_MULTIPLE
     fi
 
     # if AGR_NUM_FRAMESHIFTS is unknown, edit output string AGR_NUM_FRAMESHIFTS to be more informative, otherwise keep set to a number: https://github.com/VishnuRaghuram94/AgrVATE#results
     if [[ $(cat AGR_NUM_FRAMESHIFTS) == "u" ]]; then
-      echo "u/unknown, agr operon not extracted" >AGR_NUM_FRAMESHIFTS
+      echo "u or unknown; agr operon not extracted" >AGR_NUM_FRAMESHIFTS
     fi
 
     # create tarball of all output files
