@@ -454,6 +454,15 @@ workflow theiaprok_illumina_pe {
             staphopiasccmec_types_and_mecA_presence = merlin_magic.staphopiasccmec_types_and_mecA_presence,
             staphopiasccmec_version = merlin_magic.staphopiasccmec_version,
             staphopiasccmec_docker = merlin_magic.staphopiasccmec_docker,
+            agrvate_summary = merlin_magic.agrvate_summary,
+            agrvate_results = merlin_magic.agrvate_results,
+            agrvate_agr_group = merlin_magic.agrvate_agr_group,
+            agrvate_agr_match_score = merlin_magic.agrvate_agr_match_score,
+            agrvate_agr_canonical = merlin_magic.agrvate_agr_canonical,
+            agrvate_agr_multiple = merlin_magic.agrvate_agr_multiple,
+            agrvate_agr_num_frameshifts = merlin_magic.agrvate_agr_num_frameshifts,
+            agrvate_version = merlin_magic.agrvate_version,
+            agrvate_docker = merlin_magic.agrvate_docker,
             seroba_version = merlin_magic.seroba_version,
             seroba_docker = merlin_magic.seroba_docker,
             seroba_serotype = merlin_magic.seroba_serotype,
@@ -752,6 +761,15 @@ workflow theiaprok_illumina_pe {
     String? staphopiasccmec_types_and_mecA_presence = merlin_magic.staphopiasccmec_types_and_mecA_presence
     String? staphopiasccmec_version = merlin_magic.staphopiasccmec_version
     String? staphopiasccmec_docker = merlin_magic.staphopiasccmec_docker
+    File? agrvate_summary = merlin_magic.agrvate_summary
+    File? agrvate_results = merlin_magic.agrvate_results
+    String? agrvate_agr_group = merlin_magic.agrvate_agr_group
+    String? agrvate_agr_match_score = merlin_magic.agrvate_agr_match_score
+    String? agrvate_agr_canonical = merlin_magic.agrvate_agr_canonical
+    String? agrvate_agr_multiple = merlin_magic.agrvate_agr_multiple
+    String? agrvate_agr_num_frameshifts = merlin_magic.agrvate_agr_num_frameshifts
+    String? agrvate_version = merlin_magic.agrvate_version
+    String? agrvate_docker = merlin_magic.agrvate_docker
     # Streptococcus pneumoniae Typing
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv

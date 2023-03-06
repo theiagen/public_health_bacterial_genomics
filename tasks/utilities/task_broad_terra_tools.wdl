@@ -277,6 +277,15 @@ task export_taxon_tables {
     String? staphopiasccmec_types_and_mecA_presence
     String? staphopiasccmec_version
     String? staphopiasccmec_docker
+    File? agrvate_summary
+    File? agrvate_results
+    String? agrvate_agr_group
+    String? agrvate_agr_match_score
+    String? agrvate_agr_canonical
+    String? agrvate_agr_multiple
+    String? agrvate_agr_num_frameshifts
+    String? agrvate_version
+    String? agrvate_docker
   }
   command <<<
   
@@ -579,7 +588,16 @@ task export_taxon_tables {
       "staphopiasccmec_hamming_distance_tsv": "~{staphopiasccmec_hamming_distance_tsv}",
       "staphopiasccmec_types_and_mecA_presence": "~{staphopiasccmec_types_and_mecA_presence}",
       "staphopiasccmec_version": "~{staphopiasccmec_version}",
-      "staphopiasccmec_docker ": "~{staphopiasccmec_docker}"
+      "staphopiasccmec_docker ": "~{staphopiasccmec_docker}",
+      "agrvate_summary": "~{agrvate_summary}",
+      "agrvate_results": "~{agrvate_results}",
+      "agrvate_agr_group": "~{agrvate_agr_group}",
+      "agrvate_agr_match_score": "~{agrvate_agr_match_score}",
+      "agrvate_agr_canonical": "~{agrvate_agr_canonical}",
+      "agrvate_agr_multiple": "~{agrvate_agr_multiple}",
+      "agrvate_agr_num_frameshifts": "~{agrvate_agr_num_frameshifts}",
+      "agrvate_version": "~{agrvate_version}",
+      "agrvate_docker": "~{agrvate_docker}"
     }
 
     with open("~{samplename}_terra_table.tsv", "w") as outfile:
