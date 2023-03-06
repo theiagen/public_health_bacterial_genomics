@@ -606,6 +606,7 @@ workflow theiaprok_illumina_se {
     String? tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type
     String? tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
     File? tbprofiler_additional_outputs_csv = merlin_magic.tbprofiler_additional_outputs_csv
+    File? tbprofiler_laboratorian_report_csv = merlin_magic.tbprofiler_laboratorian_report_csv
     String? tbprofiler_gene_name = merlin_magic.tbprofiler_gene_name
     String? tbprofiler_locus_tag = merlin_magic.tbprofiler_locus_tag
     String? tbprofiler_variant_substitutions = merlin_magic.tbprofiler_variant_substitutions

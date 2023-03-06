@@ -198,6 +198,7 @@ task export_taxon_tables {
     String? tbprofiler_dr_type
     String? tbprofiler_resistance_genes
     File? tbprofiler_additional_outputs_csv
+    File? tbprofiler_laboratorian_report_csv
     String? tbprofiler_gene_name
     String? tbprofiler_locus_tag
     String? tbprofiler_variant_substitutions
@@ -445,6 +446,7 @@ task export_taxon_tables {
       "tbprofiler_dr_type": "~{tbprofiler_dr_type}",
       "tbprofiler_resistance_genes": "~{tbprofiler_resistance_genes}",
       "tbprofiler_additional_outputs_csv": "~{tbprofiler_additional_outputs_csv}",
+      "tbprofiler_laboratorian_report_csv": "~{tbprofiler_laboratorian_report_csv}"
       "tbprofiler_gene_name": "~{tbprofiler_gene_name}",
       "tbprofiler_locus_tag": "~{tbprofiler_locus_tag}",
       "tbprofiler_variant_substitutions": "~{tbprofiler_variant_substitutions}",
