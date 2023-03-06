@@ -22,7 +22,7 @@ task agrvate {
     # run agrvate on assembly; usearch not available in biocontainer, cannot use that option
     # using -m flag for mummer frameshift detection since usearch is not available
     agrvate \
-        ~{true="--typing_only" false="" typing_only} \
+        ~{true="--typing-only" false="" typing_only} \
         -i ~{assembly} \
         -m 
         
