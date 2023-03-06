@@ -96,6 +96,7 @@ task tbprofiler {
       gene_name = []
       locus_tag = []
       variant_substitutions = []
+      confidence = []
 
       with open("./results/~{samplename}.results.json") as results_json_fh:
         results_json = json.load(results_json_fh)
@@ -103,6 +104,10 @@ task tbprofiler {
           gene_name.append(dr_variant["gene"])
           locus_tag.append(dr_variant["locus_tag"])  
           variant_substitutions.append(dr_variant["type"] + ":" + dr_variant["nucleotide_change"] + "(" + dr_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+          if "annotation" in dr_variant:
+            confidence.append(dr_variant["annotation"][0]["who_confidence"])
+          else:
+            confidence.append("no who annotation")
         
         for other_variant in results_json["other_variants"]:  # mutations not reported by tb-profiler
           if other_variant["type"] != "synonymous_variant":
@@ -110,6 +115,10 @@ task tbprofiler {
               gene_name.append(other_variant["gene"])
               locus_tag.append(other_variant["locus_tag"])  
               variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+              if "annotation" in other_variant:
+                confidence.append(other_variant["annotation"][0]["who_confidence"])
+              else:
+                confidence.append("no who annotation")
             else:
               if "annotation" in other_variant:  # check if who annotation field is present
                 for annotation in other_variant["annotation"]:
@@ -117,6 +126,7 @@ task tbprofiler {
                     gene_name.append(other_variant["gene"])
                     locus_tag.append(other_variant["locus_tag"])  
                     variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+                    confidence.append(annotation["who_confidence"])
         
         with open("GENE_NAME", "wt") as gene_name_fh:
           gene_name_fh.write(','.join(gene_name))
@@ -132,8 +142,8 @@ task tbprofiler {
 
         # file to be ingested into CDPH LIMS system
         with open("tbprofiler_additional_outputs.csv", "wt") as additional_outputs_csv:
-          additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,tbprofiler_output_seq_method_type\n")
-          additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + "~{output_seq_method_type}")
+          additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,tbprofiler_output_seq_method_type\n")
+          additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + ";".join(confidence) + ',' + "~{output_seq_method_type}")
     CODE
   >>>
   output {
@@ -160,7 +170,7 @@ task tbprofiler {
     cpu: cpu
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
-    maxRetries: 3
+    maxRetries: 0 
   }
 }
 
