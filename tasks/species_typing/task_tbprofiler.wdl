@@ -109,9 +109,12 @@ task tbprofiler {
           depth.append(dr_variant["depth"])
           frequency.append(dr_variant["freq"])
           if "annotation" in dr_variant:
-            confidence.append(dr_variant["annotation"][0]["who_confidence"])
+            if dr_variant["annotation"][0]["who_confidence"] == "":
+              confidence.append("No WHO annotation")
+            else:
+              confidence.append(dr_variant["annotation"][0]["who_confidence"])
           else:
-            confidence.append("no who annotation")
+            confidence.append("No WHO annotation")
         
         for other_variant in results_json["other_variants"]:  # mutations not reported by tb-profiler
           if other_variant["type"] != "synonymous_variant":
@@ -122,13 +125,16 @@ task tbprofiler {
               depth.append(other_variant["depth"])
               frequency.append(other_variant["freq"])
               if "annotation" in other_variant:
-                confidence.append(other_variant["annotation"][0]["who_confidence"])
+                if other_variant["annotation"][0]["who_confidence"] == "":
+                  confidence.append("No WHO annotation")
+                else:
+                  confidence.append(other_variant["annotation"][0]["who_confidence"])
               else:
-                confidence.append("no who annotation")
+                confidence.append("No WHO annotation")
             else:
               if "annotation" in other_variant:  # check if who annotation field is present
                 for annotation in other_variant["annotation"]:
-                  if annotation["who_confidence"] != "Not assoc w R":
+                  if annotation["who_confidence"] != "Not assoc w R" or annotation["who_confidence"] != "":
                     gene_name.append(other_variant["gene"])
                     locus_tag.append(other_variant["locus_tag"])  
                     variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
