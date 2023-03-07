@@ -109,10 +109,13 @@ task tbprofiler {
           depth.append(dr_variant["depth"])
           frequency.append(dr_variant["freq"])
           if "annotation" in dr_variant:
-            if dr_variant["annotation"][0]["who_confidence"] == "":
+            try:  # sometimes annotation is an empty list
+              if dr_variant["annotation"][0]["who_confidence"] == "":
+                confidence.append("No WHO annotation")
+              else:
+                confidence.append(dr_variant["annotation"][0]["who_confidence"])
+            except:
               confidence.append("No WHO annotation")
-            else:
-              confidence.append(dr_variant["annotation"][0]["who_confidence"])
           else:
             confidence.append("No WHO annotation")
         
@@ -125,10 +128,13 @@ task tbprofiler {
               depth.append(other_variant["depth"])
               frequency.append(other_variant["freq"])
               if "annotation" in other_variant:
-                if other_variant["annotation"][0]["who_confidence"] == "":
+                try:  # sometimes annotation is an empty list
+                  if other_variant["annotation"][0]["who_confidence"] == "":
+                    confidence.append("No WHO annotation")
+                  else:
+                    confidence.append(other_variant["annotation"][0]["who_confidence"])
+                except:
                   confidence.append("No WHO annotation")
-                else:
-                  confidence.append(other_variant["annotation"][0]["who_confidence"])
               else:
                 confidence.append("No WHO annotation")
             else:
@@ -163,6 +169,8 @@ task tbprofiler {
         with open("tbprofiler_laboratorian_report.csv", "wt") as report_fh:
           report_fh.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,depth,frequency,warning\n")
           for i in range(0, len(gene_name)):
+            if not depth[i]:  # for cases when depth is null, it gets converted to 0
+              depth[i] = 0
             warning = "Low depth coverage" if  depth[i] < 10 else "" # warning when coverage is lower than 10 times
             report_fh.write(gene_name[i] + ',' + locus_tag[i] + ',' + variant_substitutions[i] + ',' + confidence[i] + ',' + str(depth[i]) + ',' + str(frequency[i]) + ',' + warning + '\n')
 
@@ -193,7 +201,7 @@ task tbprofiler {
     cpu: cpu
     disks: "local-disk " + disk_size + " SSD"
     disk: disk_size + " GB"
-    maxRetries: 3 
+    maxRetries: 0 
   }
 }
 
