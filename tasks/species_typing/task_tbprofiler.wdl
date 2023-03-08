@@ -171,7 +171,7 @@ task tbprofiler {
           for i in range(0, len(gene_name)):
             if not depth[i]:  # for cases when depth is null, it gets converted to 0
               depth[i] = 0
-            warning = "Low depth coverage" if  depth[i] < 10 else "" # warning when coverage is lower than 10 times
+            warning = "Low depth coverage" if  depth[i] < int('~{min_depth}') else "" # warning when coverage is lower than the defined 'min_depth' times
             report_fh.write(gene_name[i] + ',' + locus_tag[i] + ',' + variant_substitutions[i] + ',' + confidence[i] + ',' + str(depth[i]) + ',' + str(frequency[i]) + ',' + warning + '\n')
 
     CODE
@@ -284,6 +284,9 @@ task tbprofiler_ont {
       gene_name = []
       locus_tag = []
       variant_substitutions = []
+      confidence = []
+      depth = []
+      frequency = []
 
       with open("./results/~{samplename}.results.json") as results_json_fh:
         results_json = json.load(results_json_fh)
@@ -291,20 +294,47 @@ task tbprofiler_ont {
           gene_name.append(dr_variant["gene"])
           locus_tag.append(dr_variant["locus_tag"])  
           variant_substitutions.append(dr_variant["type"] + ":" + dr_variant["nucleotide_change"] + "(" + dr_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+          depth.append(dr_variant["depth"])
+          frequency.append(dr_variant["freq"])
+          if "annotation" in dr_variant:
+            try:  # sometimes annotation is an empty list
+              if dr_variant["annotation"][0]["who_confidence"] == "":
+                confidence.append("No WHO annotation")
+              else:
+                confidence.append(dr_variant["annotation"][0]["who_confidence"])
+            except:
+              confidence.append("No WHO annotation")
+          else:
+            confidence.append("No WHO annotation")
         
         for other_variant in results_json["other_variants"]:  # mutations not reported by tb-profiler
           if other_variant["type"] != "synonymous_variant":
-            if other_variant["gene"] == "katG" or other_variant["gene"] == "pncA":  # hardcoded for two genes of interest that are reported to always confer resistance when mutated
+            if other_variant["gene"] == "katG" or other_variant["gene"] == "pncA" or other_variant["gene"] == "rpoB" or other_variant["gene"] == "ethA" or other_variant["gene"] == "gid":  # hardcoded for genes of interest that are reported to always confer resistance when mutated
               gene_name.append(other_variant["gene"])
               locus_tag.append(other_variant["locus_tag"])  
               variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+              depth.append(other_variant["depth"])
+              frequency.append(other_variant["freq"])
+              if "annotation" in other_variant:
+                try:  # sometimes annotation is an empty list
+                  if other_variant["annotation"][0]["who_confidence"] == "":
+                    confidence.append("No WHO annotation")
+                  else:
+                    confidence.append(other_variant["annotation"][0]["who_confidence"])
+                except:
+                  confidence.append("No WHO annotation")
+              else:
+                confidence.append("No WHO annotation")
             else:
               if "annotation" in other_variant:  # check if who annotation field is present
                 for annotation in other_variant["annotation"]:
-                  if annotation["who_confidence"] != "Not assoc w R":
+                  if annotation["who_confidence"] != "Not assoc w R" or annotation["who_confidence"] != "":
                     gene_name.append(other_variant["gene"])
                     locus_tag.append(other_variant["locus_tag"])  
                     variant_substitutions.append(other_variant["type"] + ":" + other_variant["nucleotide_change"] + "(" + other_variant["protein_change"] + ")")  # mutation_type:nt_sub(aa_sub)
+                    depth.append(other_variant["depth"])
+                    frequency.append(other_variant["freq"])
+                    confidence.append(annotation["who_confidence"])
         
         with open("GENE_NAME", "wt") as gene_name_fh:
           gene_name_fh.write(','.join(gene_name))
@@ -320,8 +350,18 @@ task tbprofiler_ont {
 
         # file to be ingested into CDPH LIMS system
         with open("tbprofiler_additional_outputs.csv", "wt") as additional_outputs_csv:
-          additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,tbprofiler_output_seq_method_type\n")
-          additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + "~{output_seq_method_type}")
+          additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,tbprofiler_output_seq_method_type\n")
+          additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + ";".join(confidence) + ',' + "~{output_seq_method_type}")
+    
+        # laboratorian report
+        with open("tbprofiler_laboratorian_report.csv", "wt") as report_fh:
+          report_fh.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,depth,frequency,warning\n")
+          for i in range(0, len(gene_name)):
+            if not depth[i]:  # for cases when depth is null, it gets converted to 0
+              depth[i] = 0
+            warning = "Low depth coverage" if  depth[i] < int('~{min_depth}') else "" # warning when coverage is lower than the defined 'min_depth' times
+            report_fh.write(gene_name[i] + ',' + locus_tag[i] + ',' + variant_substitutions[i] + ',' + confidence[i] + ',' + str(depth[i]) + ',' + str(frequency[i]) + ',' + warning + '\n')
+
     CODE
   >>>
   output {
@@ -337,6 +377,7 @@ task tbprofiler_ont {
     String tbprofiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
     String tbprofiler_resistance_genes = read_string("RESISTANCE_GENES")
     File? tbprofiler_additional_outputs_csv = "tbprofiler_additional_outputs.csv"
+    File? tbprofiler_laboratorian_report_csv = "tbprofiler_laboratorian_report.csv"
     String tbprofiler_gene_name = read_string("GENE_NAME")
     String tbprofiler_locus_tag = read_string("LOCUS_TAG")
     String tbprofiler_variant_substitutions = read_string("VARIANT_SUBSTITUTIONS")
