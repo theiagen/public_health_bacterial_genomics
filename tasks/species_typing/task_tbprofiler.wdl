@@ -356,11 +356,23 @@ task tbprofiler_ont {
         # laboratorian report
         with open("tbprofiler_laboratorian_report.csv", "wt") as report_fh:
           report_fh.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,depth,frequency,warning\n")
+          
           for i in range(0, len(gene_name)):
-            if not depth[i]:  # for cases when depth is null, it gets converted to 0
-              depth[i] = 0
-            warning = "Low depth coverage" if  depth[i] < int('~{min_depth}') else "" # warning when coverage is lower than the defined 'min_depth' times
-            report_fh.write(gene_name[i] + ',' + locus_tag[i] + ',' + variant_substitutions[i] + ',' + confidence[i] + ',' + str(depth[i]) + ',' + str(frequency[i]) + ',' + warning + '\n')
+          
+            warning = []
+            if not depth[i]:  # for cases when depth is null
+              depth[i] = "NA"  # Deletion instead of value
+              warning.append("Deletion")
+            else:
+              if depth[i] < int('~{min_depth}'): # warning when coverage is lower than the defined 'min_depth' times
+                warning.append("Low depth coverage") 
+            if not frequency[i]:
+              warning.append("No frequency")
+            else:
+              if frequency[i] < 0.05: # warning when frequency is lower than 5%
+                warning.append("Low frequency") 
+
+            report_fh.write(gene_name[i] + ',' + locus_tag[i] + ',' + variant_substitutions[i] + ',' + confidence[i] + ',' + str(depth[i]) + ',' + str(frequency[i]) + ',' + ';'.join(warning) + '\n')
 
     CODE
   >>>
