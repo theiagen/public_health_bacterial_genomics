@@ -21,8 +21,7 @@ task spatyper {
       ~{true="--do_enrich" false="" do_enrich} \
       --fasta ~{assembly} \
       --output ~{samplename}.tsv
-    #cat ~{samplename}.tsv | tail -n1 | cut -f2 > REPEATS
-    #cat ~{samplename}.tsv | tail -n1 | cut -f3 > TYPE
+
     python3 <<CODE
     import csv
 
