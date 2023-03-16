@@ -220,6 +220,12 @@ task export_taxon_tables {
     String? tbprofiler_sub_lineage
     String? tbprofiler_dr_type
     String? tbprofiler_resistance_genes
+    File? tbprofiler_additional_outputs_csv
+    File? tbprofiler_laboratorian_report_csv
+    String? tbprofiler_gene_name
+    String? tbprofiler_locus_tag
+    String? tbprofiler_variant_substitutions
+    String? tbprofiler_output_seq_method_type
     File? legsta_results
     String? legsta_predicted_sbt
     String? legsta_version
@@ -267,6 +273,25 @@ task export_taxon_tables {
     String? pasty_comment
     String? qc_check
     File? qc_standard
+    File? spatyper_tsv
+    String? spatyper_docker
+    String? spatyper_repeats
+    String? spatyper_type
+    String? spatyper_version
+    File? staphopiasccmec_results_tsv
+    File? staphopiasccmec_hamming_distance_tsv
+    String? staphopiasccmec_types_and_mecA_presence
+    String? staphopiasccmec_version
+    String? staphopiasccmec_docker
+    File? agrvate_summary
+    File? agrvate_results
+    String? agrvate_agr_group
+    String? agrvate_agr_match_score
+    String? agrvate_agr_canonical
+    String? agrvate_agr_multiple
+    String? agrvate_agr_num_frameshifts
+    String? agrvate_version
+    String? agrvate_docker
     File? srst2_vibrio_tsv
     String? srst2_vibrio_version
     String? srst2_vibrio_ctxA
@@ -492,6 +517,12 @@ task export_taxon_tables {
       "tbprofiler_sub_lineage": "~{tbprofiler_sub_lineage}",
       "tbprofiler_dr_type": "~{tbprofiler_dr_type}",
       "tbprofiler_resistance_genes": "~{tbprofiler_resistance_genes}",
+      "tbprofiler_additional_outputs_csv": "~{tbprofiler_additional_outputs_csv}",
+      "tbprofiler_laboratorian_report_csv": "~{tbprofiler_laboratorian_report_csv}",
+      "tbprofiler_gene_name": "~{tbprofiler_gene_name}",
+      "tbprofiler_locus_tag": "~{tbprofiler_locus_tag}",
+      "tbprofiler_variant_substitutions": "~{tbprofiler_variant_substitutions}",
+      "tbprofiler_output_seq_method_type": "~{tbprofiler_output_seq_method_type}",
       "amrfinderplus_all_report": "~{amrfinderplus_all_report}",
       "amrfinderplus_amr_report": "~{amrfinderplus_amr_report}",
       "amrfinderplus_stress_report": "~{amrfinderplus_stress_report}",
@@ -567,6 +598,25 @@ task export_taxon_tables {
       "pasty_comment": "~{pasty_comment}",
       "qc_check": "~{qc_check}",
       "qc_standard": "~{qc_standard}",
+      "spatyper_tsv": "~{spatyper_tsv}",
+      "spatyper_docker": "~{spatyper_docker}",
+      "spatyper_repeats": "~{spatyper_repeats}",
+      "spatyper_type": "~{spatyper_type}",
+      "spatyper_version": "~{spatyper_version}",
+      "staphopiasccmec_results_tsv": "~{staphopiasccmec_results_tsv}",
+      "staphopiasccmec_hamming_distance_tsv": "~{staphopiasccmec_hamming_distance_tsv}",
+      "staphopiasccmec_types_and_mecA_presence": "~{staphopiasccmec_types_and_mecA_presence}",
+      "staphopiasccmec_version": "~{staphopiasccmec_version}",
+      "staphopiasccmec_docker ": "~{staphopiasccmec_docker}",
+      "agrvate_summary": "~{agrvate_summary}",
+      "agrvate_results": "~{agrvate_results}",
+      "agrvate_agr_group": "~{agrvate_agr_group}",
+      "agrvate_agr_match_score": "~{agrvate_agr_match_score}",
+      "agrvate_agr_canonical": "~{agrvate_agr_canonical}",
+      "agrvate_agr_multiple": "~{agrvate_agr_multiple}",
+      "agrvate_agr_num_frameshifts": "~{agrvate_agr_num_frameshifts}",
+      "agrvate_version": "~{agrvate_version}",
+      "agrvate_docker": "~{agrvate_docker}",
       "srst2_vibrio_tsv" = "~{srst2_vibrio_tsv}",
       "srst2_vibrio_version" = "~{srst2_vibrio_version}",
       "srst2_vibrio_ctxA" = "~{srst2_vibrio_ctxA}",
