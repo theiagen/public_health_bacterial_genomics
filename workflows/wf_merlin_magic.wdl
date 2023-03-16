@@ -39,6 +39,8 @@ workflow merlin_magic {
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
     Boolean call_shigeifinder_reads_input = false
+    Boolean tbprofiler_additional_outputs = false
+    String output_seq_method_type = "WGS"
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
@@ -165,7 +167,9 @@ workflow merlin_magic {
       input:
         read1 = read1,
         read2 = read2,
-        samplename = samplename
+        samplename = samplename,
+        tbprofiler_additional_outputs = tbprofiler_additional_outputs,
+        output_seq_method_type = output_seq_method_type
     }
   }
   if (merlin_tag == "Legionella pneumophila") {
@@ -340,6 +344,12 @@ workflow merlin_magic {
   String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
   String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
+  File? tbprofiler_additional_outputs_csv = tbprofiler.tbprofiler_additional_outputs_csv
+  File? tbprofiler_laboratorian_report_csv = tbprofiler.tbprofiler_laboratorian_report_csv
+  String? tbprofiler_gene_name = tbprofiler.tbprofiler_gene_name
+  String? tbprofiler_locus_tag = tbprofiler.tbprofiler_locus_tag
+  String? tbprofiler_variant_substitutions = tbprofiler.tbprofiler_variant_substitutions
+  String? tbprofiler_output_seq_method_type = tbprofiler.tbprofiler_output_seq_method_type
   # Legionella pneumophila Typing
   File? legsta_results = legsta.legsta_results
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
