@@ -165,6 +165,10 @@ task gambit {
       merlin_tag="Salmonella"
     elif [[ ${predicted_taxon} == *"Staphylococcus"* ]]; then 
       merlin_tag="Staphylococcus"
+      # set to aureus if gambit calls the species
+      if [[ ${predicted_taxon} == *"Staphylococcus aureus"* ]]; then 
+        merlin_tag="Staphylococcus aureus"
+      fi
     elif [[ ${predicted_taxon} == *"Streptococcus"* ]]; then 
       merlin_tag="Streptococcus"
       # set to pneumoniae if gambit calls the species

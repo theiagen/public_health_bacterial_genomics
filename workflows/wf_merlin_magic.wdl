@@ -15,6 +15,9 @@ import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 import "../tasks/species_typing/task_kaptive.wdl" as kaptive
 import "../tasks/species_typing/task_ngmaster.wdl" as ngmaster_task
 import "../tasks/species_typing/task_meningotype.wdl" as meningotype_task
+import "../tasks/species_typing/task_spatyper.wdl" as spatyper_task
+import "../tasks/species_typing/task_staphopiasccmec.wdl" as staphopia_sccmec_task
+import "../tasks/species_typing/task_agrvate.wdl" as agrvate_task
 import "../tasks/species_typing/task_seroba.wdl" as seroba
 import "../tasks/species_typing/task_pbptyper.wdl" as pbptyper
 import "../tasks/species_typing/task_poppunk_streppneumo.wdl" as poppunk_spneumo
@@ -35,6 +38,8 @@ workflow merlin_magic {
     Int? pasty_min_coverage
     String? pasty_docker_image
     String? shigeifinder_docker_image
+    String? staphopia_sccmec_docker_image
+    String? agrvate_docker_image
     Boolean paired_end = true
     Boolean call_poppunk = true
     Boolean read1_is_ont = false
@@ -178,6 +183,26 @@ workflow merlin_magic {
         assembly = assembly,
         samplename = samplename
     }
+  }
+  if (merlin_tag == "Staphylococcus aureus") {
+      call spatyper_task.spatyper {
+        input:
+          assembly = assembly,
+          samplename = samplename
+      }
+    
+    call staphopia_sccmec_task.staphopiasccmec {
+        input:
+          assembly = assembly,
+          samplename = samplename,
+          docker = staphopia_sccmec_docker_image
+      }
+    call agrvate_task.agrvate {
+        input:
+          assembly = assembly,
+          samplename = samplename,
+          docker = agrvate_docker_image
+      }
   }
   if (merlin_tag == "Streptococcus pneumoniae") {
     if (paired_end) {
@@ -354,6 +379,27 @@ workflow merlin_magic {
   File? legsta_results = legsta.legsta_results
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt
   String? legsta_version = legsta.legsta_version
+  # Staphylococcus aureus
+  File? spatyper_tsv = spatyper.spatyper_tsv
+  String? spatyper_docker = spatyper.spatyper_docker
+  String? spatyper_repeats = spatyper.spatyper_repeats
+  String? spatyper_type = spatyper.spatyper_type
+  String? spatyper_version = spatyper.spatyper_version
+  File? staphopiasccmec_results_tsv = staphopiasccmec.staphopiasccmec_results_tsv
+  File? staphopiasccmec_hamming_distance_tsv = staphopiasccmec.staphopiasccmec_hamming_distance_tsv
+  String? staphopiasccmec_types_and_mecA_presence = staphopiasccmec.staphopiasccmec_types_and_mecA_presence
+  String? staphopiasccmec_version = staphopiasccmec.staphopiasccmec_version
+  String? staphopiasccmec_docker = staphopiasccmec.staphopiasccmec_docker
+  File? agrvate_summary = agrvate.agrvate_summary
+  File? agrvate_results = agrvate.agrvate_results
+  String? agrvate_agr_group = agrvate.agrvate_agr_group
+  String? agrvate_agr_match_score = agrvate.agrvate_agr_match_score
+  String? agrvate_agr_canonical = agrvate.agrvate_agr_canonical
+  String? agrvate_agr_multiple = agrvate.agrvate_agr_multiple
+  String? agrvate_agr_num_frameshifts = agrvate.agrvate_agr_num_frameshifts
+  String? agrvate_version = agrvate.agrvate_version
+  String? agrvate_docker = agrvate.agrvate_docker
+
   # Streptococcus pneumoniae Typing
   String? pbptyper_predicted_1A_2B_2X = pbptyper_task.pbptyper_predicted_1A_2B_2X
   File? pbptyper_pbptype_predicted_tsv = pbptyper_task.pbptyper_pbptype_predicted_tsv

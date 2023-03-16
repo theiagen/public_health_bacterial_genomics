@@ -405,7 +405,26 @@ workflow theiaprok_illumina_se {
             pasty_all_serogroups = merlin_magic.pasty_all_serogroups,
             pasty_version = merlin_magic.pasty_version,
             pasty_docker = merlin_magic.pasty_docker,
-            pasty_comment = merlin_magic.pasty_comment
+            pasty_comment = merlin_magic.pasty_comment,
+            spatyper_tsv = merlin_magic.spatyper_tsv,
+            spatyper_docker = merlin_magic.spatyper_docker,
+            spatyper_repeats = merlin_magic.spatyper_repeats,
+            spatyper_type = merlin_magic.spatyper_type,
+            spatyper_version = merlin_magic.spatyper_version,
+            staphopiasccmec_results_tsv = merlin_magic.staphopiasccmec_results_tsv,
+            staphopiasccmec_hamming_distance_tsv = merlin_magic.staphopiasccmec_hamming_distance_tsv,
+            staphopiasccmec_types_and_mecA_presence = merlin_magic.staphopiasccmec_types_and_mecA_presence,
+            staphopiasccmec_version = merlin_magic.staphopiasccmec_version,
+            staphopiasccmec_docker = merlin_magic.staphopiasccmec_docker,
+            agrvate_summary = merlin_magic.agrvate_summary,
+            agrvate_results = merlin_magic.agrvate_results,
+            agrvate_agr_group = merlin_magic.agrvate_agr_group,
+            agrvate_agr_match_score = merlin_magic.agrvate_agr_match_score,
+            agrvate_agr_canonical = merlin_magic.agrvate_agr_canonical,
+            agrvate_agr_multiple = merlin_magic.agrvate_agr_multiple,
+            agrvate_agr_num_frameshifts = merlin_magic.agrvate_agr_num_frameshifts,
+            agrvate_version = merlin_magic.agrvate_version,
+            agrvate_docker = merlin_magic.agrvate_docker
         }
       }
     }
@@ -663,6 +682,26 @@ workflow theiaprok_illumina_se {
     File? legsta_results = merlin_magic.legsta_results
     String? legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt
     String? legsta_version = merlin_magic.legsta_version
+    # Staphylococcus aureus
+    File? spatyper_tsv = merlin_magic.spatyper_tsv
+    String? spatyper_docker = merlin_magic.spatyper_docker
+    String? spatyper_repeats = merlin_magic.spatyper_repeats
+    String? spatyper_type = merlin_magic.spatyper_type
+    String? spatyper_version = merlin_magic.spatyper_version
+    File? staphopiasccmec_results_tsv = merlin_magic.staphopiasccmec_results_tsv
+    File? staphopiasccmec_hamming_distance_tsv = merlin_magic.staphopiasccmec_hamming_distance_tsv
+    String? staphopiasccmec_types_and_mecA_presence = merlin_magic.staphopiasccmec_types_and_mecA_presence
+    String? staphopiasccmec_version = merlin_magic.staphopiasccmec_version
+    String? staphopiasccmec_docker = merlin_magic.staphopiasccmec_docker
+    File? agrvate_summary = merlin_magic.agrvate_summary
+    File? agrvate_results = merlin_magic.agrvate_results
+    String? agrvate_agr_group = merlin_magic.agrvate_agr_group
+    String? agrvate_agr_match_score = merlin_magic.agrvate_agr_match_score
+    String? agrvate_agr_canonical = merlin_magic.agrvate_agr_canonical
+    String? agrvate_agr_multiple = merlin_magic.agrvate_agr_multiple
+    String? agrvate_agr_num_frameshifts = merlin_magic.agrvate_agr_num_frameshifts
+    String? agrvate_version = merlin_magic.agrvate_version
+    String? agrvate_docker = merlin_magic.agrvate_docker
     # Streptococcus pneumoniae Typing
     String? pbptyper_predicted_1A_2B_2X = merlin_magic.pbptyper_predicted_1A_2B_2X
     File? pbptyper_pbptype_predicted_tsv = merlin_magic.pbptyper_pbptype_predicted_tsv

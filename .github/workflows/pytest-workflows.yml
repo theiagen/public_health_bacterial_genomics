@@ -19,7 +19,7 @@ jobs:
       workflows: ${{ steps.filter.outputs.changes }}
     steps:
       # Checkout the repo
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Select workflows with changes
       - uses: dorny/paths-filter@v2
@@ -45,11 +45,11 @@ jobs:
     steps:
       # Checkout the repo
       - name: Checkout theiagen/public_health_bacterial_genomics
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Import test data
       - name: Pull Test Data from bactopia/bactopia-tests
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: bactopia/bactopia-tests
           path: bactopia-tests
@@ -72,7 +72,7 @@ jobs:
 
       - name: Upload logs on failure
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: logs-${{ matrix.engine }}
           path: |
