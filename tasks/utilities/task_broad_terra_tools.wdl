@@ -617,13 +617,13 @@ task export_taxon_tables {
       "agrvate_agr_num_frameshifts": "~{agrvate_agr_num_frameshifts}",
       "agrvate_version": "~{agrvate_version}",
       "agrvate_docker": "~{agrvate_docker}",
-      "srst2_vibrio_tsv" = "~{srst2_vibrio_tsv}",
-      "srst2_vibrio_version" = "~{srst2_vibrio_version}",
-      "srst2_vibrio_ctxA" = "~{srst2_vibrio_ctxA}",
-      "srst2_vibrio_ompW" = "~{srst2_vibrio_ompW}",
-      "srst2_vibrio_tcpA_ElTor" = "~{srst2_vibrio_tcpA_ElTor}",
-      "srst2_vibrio_toxR" = "~{srst2_vibrio_toxR}",
-      "srst2_vibrio_wbeN_O1" = "~{srst2_vibrio_wbeN_O1}"
+      "srst2_vibrio_tsv": "~{srst2_vibrio_tsv}",
+      "srst2_vibrio_version": "~{srst2_vibrio_version}",
+      "srst2_vibrio_ctxA": "~{srst2_vibrio_ctxA}",
+      "srst2_vibrio_ompW": "~{srst2_vibrio_ompW}",
+      "srst2_vibrio_tcpA_ElTor": "~{srst2_vibrio_tcpA_ElTor}",
+      "srst2_vibrio_toxR": "~{srst2_vibrio_toxR}",
+      "srst2_vibrio_wbeN_O1": "~{srst2_vibrio_wbeN_O1}"
     }
 
     with open("~{samplename}_terra_table.tsv", "w") as outfile:
