@@ -486,6 +486,7 @@ workflow theiaprok_illumina_pe {
             qc_check = qc_check_task.qc_check,
             qc_standard = qc_check_task.qc_standard,
             srst2_vibrio_tsv = merlin_magic.srst2_vibrio_tsv,
+            srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv,
             srst2_vibrio_version = merlin_magic.srst2_vibrio_version,
             srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA,
             srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW,
@@ -801,6 +802,7 @@ workflow theiaprok_illumina_pe {
     File? seroba_details = merlin_magic.seroba_details
     # Vibrio Typing
     File? srst2_vibrio_tsv = merlin_magic.srst2_vibrio_tsv
+    File? srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv
     String? srst2_vibrio_version = merlin_magic.srst2_vibrio_version
     String? srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA
     String? srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW
