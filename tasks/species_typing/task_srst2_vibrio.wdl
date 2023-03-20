@@ -68,10 +68,6 @@ task srst2_vibrio {
       value = row.get("toxR")
       toxR_fh.write(conv(value))
     
-    with open("toxR", "wb") as toxR_fh:
-      value = row.get("toxR")
-      toxR_fh.write(conv(value))
-    
     with open("wbeN_O1", "wb") as wbeN_O1_fh:
       value = row.get("wbeN_O1")
       wbeN_O1_fh.write(conv(value))
