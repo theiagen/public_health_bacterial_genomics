@@ -8,6 +8,11 @@ task srst2_vibrio {
     File reads1
     File? reads2
     String samplename
+    Int srst2_min_cov
+    Int srst2_max_divergence
+    Int srst2_min_depth
+    Int srst2_min_edge_depth
+    Int srst2_gene_max_mismatch
     String docker = "quay.io/kapsakcj/srst2:0.2.0-vcholerae" # TODO: Update with container including vibrio db
     Int disk_size = 100
     Int cpu = 4
@@ -25,7 +30,12 @@ task srst2_vibrio {
     srst2 \
       ${INPUT_READS} \
       --gene_db /vibrio-cholerae-db/vibrio_230224.fasta \
-      --output ~{samplename}
+      --output ~{samplename} \
+      --min_coverage ~{srst2_min_cov} \
+      --max_divergence ~{srst2_max_divergence} \
+      --min_depth ~{srst2_min_depth} \
+      --min_edge_depth ~{srst2_min_edge_depth} \
+      --gene_max_mismatch ~{srst2_gene_max_mismatch}
     
     # capture output TSV
     mv ~{samplename}__genes__*__results.txt ~{samplename}.tsv
