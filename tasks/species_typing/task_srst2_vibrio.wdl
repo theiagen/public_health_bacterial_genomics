@@ -27,17 +27,56 @@ task srst2_vibrio {
       --gene_db /vibrio-cholerae-db/vibrio_230224.fasta \
       --output ~{samplename}
     
+    # capture output TSV
     mv ~{samplename}__genes__*__results.txt ~{samplename}.tsv
 
-    # change this parsing block to account for when output columns do not exist
-    tail -n1 ~{samplename}.tsv | cut -f2 | cut -d_ -f2 > ctxA
-    tail -n1 ~{samplename}.tsv | cut -f3 | cut -d_ -f2 > ompW
-    tail -n1 ~{samplename}.tsv | cut -f4 | cut -d_ -f3 > tcpA_ElTor
-    tail -n1 ~{samplename}.tsv | cut -f5 | cut -d_ -f2 > toxR
-    tail -n1 ~{samplename}.tsv | cut -f6 | cut -d_ -f3 > wbeN_O1
+    # capture detailed output TSV - not available if no results are outputed
+    mv ~{samplename}__fullgenes__*__results.txt ~{samplename}.detailed.tsv || echo "No results" >  ~{samplename}.detailed.tsv
 
-    # capture detailed output TSV
-    mv ~{samplename}__fullgenes__*__results.txt ~{samplename}.detailed.tsv
+    # parsing block to account for when output columns do not exist
+    python <<CODE
+    import csv
+
+    # Converting TSV file into list of dictionaries
+    def csv_to_dict(filename):
+      result_list=[]
+      with open(filename) as file_obj:
+          reader = csv.DictReader(file_obj, delimiter='\t')
+          for row in reader:
+              result_list.append(dict(row))
+      # only one sample is run, so there's only one row, flattening list
+      return result_list[0]
+
+    # Converting None to empty string
+    conv = lambda i : i or ''
+    
+    row = csv_to_dict('~{samplename}.tsv')
+  
+    with open("ctxA", "wb") as ctxA_fh:
+      value = row.get("ctxA")
+      ctxA_fh.write(conv(value))
+    
+    with open("ompW", "wb") as ompW_fh:
+      value = row.get("ompW")
+      ompW_fh.write(conv(value))
+    
+    with open("tcpA_ElTor", "wb") as tcpA_ElTor_fh:
+      value = row.get("tcpA_ElTor")
+      tcpA_ElTor_fh.write(conv(value))
+    
+    with open("toxR", "wb") as toxR_fh:
+      value = row.get("toxR")
+      toxR_fh.write(conv(value))
+    
+    with open("toxR", "wb") as toxR_fh:
+      value = row.get("toxR")
+      toxR_fh.write(conv(value))
+    
+    with open("wbeN_O1", "wb") as wbeN_O1_fh:
+      value = row.get("wbeN_O1")
+      wbeN_O1_fh.write(conv(value))
+
+    CODE
   >>>
   output {
       File srst2_tsv = "~{samplename}.tsv"
