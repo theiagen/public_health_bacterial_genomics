@@ -46,6 +46,7 @@ task srst2_vibrio {
     # parsing block to account for when output columns do not exist
     python <<CODE
     import csv
+    import re
 
     # Converting TSV file into list of dictionaries
     def csv_to_dict(filename):
@@ -59,28 +60,45 @@ task srst2_vibrio {
 
     # Converting None to empty string
     conv = lambda i : i or ''
-    
+
+    # Make characters human-readable 
+    def translate_chars(string):
+      translation = []
+      if '*' in string:
+        translation.append("mismatch")
+      if '?' in string:
+        translation.append("low depth/uncertain")
+      if '-' in string:
+        translation.append("not detected")
+      
+      string = re.sub("\*|\?|-", "", string)
+
+      if len(translation) > 0:
+        string = string + ' (' + ';'.join(translation) + ')'
+      return string
+
+
     row = csv_to_dict('~{samplename}.tsv')
   
     with open("ctxA", "wb") as ctxA_fh:
       value = row.get("ctxA")
-      ctxA_fh.write(conv(value))
+      ctxA_fh.write(translate_chars(conv(value)))
     
     with open("ompW", "wb") as ompW_fh:
       value = row.get("ompW")
-      ompW_fh.write(conv(value))
+      ompW_fh.write(translate_chars(conv(value)))
     
     with open("tcpA_ElTor", "wb") as tcpA_ElTor_fh:
       value = row.get("tcpA_ElTor")
-      tcpA_ElTor_fh.write(conv(value))
+      tcpA_ElTor_fh.write(translate_chars(conv(value)))
     
     with open("toxR", "wb") as toxR_fh:
       value = row.get("toxR")
-      toxR_fh.write(conv(value))
+      toxR_fh.write(translate_chars(conv(value)))
     
     with open("wbeN_O1", "wb") as wbeN_O1_fh:
       value = row.get("wbeN_O1")
-      wbeN_O1_fh.write(conv(value))
+      wbeN_O1_fh.write(translate_chars(conv(value)))
 
     CODE
   >>>
