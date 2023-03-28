@@ -211,7 +211,7 @@
     - path: miniwdl_run/call-raw_check_reads/work/_miniwdl_inputs/0/SRR2838702_R1.fastq.gz
     - path: miniwdl_run/call-raw_check_reads/work/_miniwdl_inputs/0/SRR2838702_R2.fastq.gz
     - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/command
-      md5sum: fc9ad89802cc7ae946fad65908d690b5
+      md5sum: a305a4a50f792da08fc89dbef9123c50
     - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/inputs.json
       contains: ["read", "fastq", "sample", "test"]
     - path: miniwdl_run/call-read_QC_trim/call-bbduk_pe/outputs.json
