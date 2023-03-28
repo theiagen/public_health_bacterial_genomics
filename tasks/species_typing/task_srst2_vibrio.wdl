@@ -59,7 +59,7 @@ task srst2_vibrio {
       return result_list[0]
 
     # Converting None to empty string
-    conv = lambda i : i or ''
+    conv = lambda i : i or '-'
 
     # Make characters human-readable 
     def translate_chars(string):
@@ -75,7 +75,7 @@ task srst2_vibrio {
 
       if len(translation) > 0:
         string = string + ' (' + ';'.join(translation) + ')'
-      return string
+      return string.strip()
 
 
     row = csv_to_dict('~{samplename}.tsv')
