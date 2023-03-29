@@ -425,7 +425,6 @@ workflow theiaprok_illumina_se {
             agrvate_agr_num_frameshifts = merlin_magic.agrvate_agr_num_frameshifts,
             agrvate_version = merlin_magic.agrvate_version,
             agrvate_docker = merlin_magic.agrvate_docker,
-            srst2_vibrio_tsv = merlin_magic.srst2_vibrio_tsv,
             srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv,
             srst2_vibrio_version = merlin_magic.srst2_vibrio_version,
             srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA,

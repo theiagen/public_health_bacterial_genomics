@@ -485,7 +485,6 @@ workflow theiaprok_illumina_pe {
             pasty_comment = merlin_magic.pasty_comment,
             qc_check = qc_check_task.qc_check,
             qc_standard = qc_check_task.qc_standard,
-            srst2_vibrio_tsv = merlin_magic.srst2_vibrio_tsv,
             srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv,
             srst2_vibrio_version = merlin_magic.srst2_vibrio_version,
             srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA,

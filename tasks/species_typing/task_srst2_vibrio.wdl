@@ -86,7 +86,8 @@ task srst2_vibrio {
       if presence == "(not detected)":
         ctxA_fh.write(presence)
       else:
-        ctxA_fh.write("present" + ' ' + presence)
+        result = "present" + ' ' + presence
+        ctxA_fh.write(result.strip())
     
     with open("ompW", "wb") as ompW_fh:
       value = row.get("ompW")
@@ -94,7 +95,8 @@ task srst2_vibrio {
       if presence == "(not detected)":
         ompW_fh.write(presence)
       else:
-        ompW_fh.write("present" + ' ' + presence)
+        result = "present" + ' ' + presence
+        ompW_fh.write(result.strip())
     
     with open("toxR", "wb") as toxR_fh:
       value = row.get("toxR")
@@ -102,7 +104,8 @@ task srst2_vibrio {
       if presence == "(not detected)":
         toxR_fh.write(presence)
       else:
-        toxR_fh.write("present" + ' ' + presence)
+        result = "present" + ' ' + presence
+        toxR_fh.write(result.strip())
     
     # biotype - tcpA classical or tcpA ElTor
     with open("BIOTYPE", "wb") as biotype_fh:
@@ -113,9 +116,11 @@ task srst2_vibrio {
         biotype_fh.write("(not detected)")
       else:
         if value_ElTor == "(not detected)":
-          biotype_fh.write("tcpA_Classical" + ' ' + value_classical)
+          result = "tcpA_Classical" + ' ' + value_classical
+          biotype_fh.write(result.strip())
         else:
-          biotype_fh.write("tcpA_ElTor" + ' ' + value_ElTor)
+          result = "tcpA_ElTor" + ' ' + value_ElTor
+          biotype_fh.write(result.strip())
         
     # serotype - O1 or O139
     with open("SEROTYPE", "wb") as serotype_fh:
@@ -126,13 +131,14 @@ task srst2_vibrio {
         serotype_fh.write("(not detected)")
       else:
         if value_O1 == "(not detected)":
-          serotype_fh.write("O139" + ' ' + value_O139)
+          result = "O139" + ' ' + value_O139
+          serotype_fh.write(result.strip())
         else:
-          serotype_fh.write("O1" + ' ' + value_O1)
+          result = "O1" + ' ' + value_O1
+          serotype_fh.write(result.strip())
     CODE
   >>>
   output {
-      File srst2_tsv = "~{samplename}.tsv"
       File srst2_detailed_tsv = "~{samplename}.detailed.tsv"
       String srst2_version = read_string("VERSION")
       String srst2_vibrio_ctxA = read_string("ctxA")
