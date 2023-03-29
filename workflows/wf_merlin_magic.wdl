@@ -439,7 +439,6 @@ workflow merlin_magic {
   String? seroba_ariba_identity = seroba_task.seroba_ariba_identity
   File? seroba_details = seroba_task.seroba_details
   # Vibrio
-  File? srst2_vibrio_tsv = srst2_vibrio.srst2_tsv
   File? srst2_vibrio_detailed_tsv = srst2_vibrio.srst2_detailed_tsv
   String? srst2_vibrio_version = srst2_vibrio.srst2_version
   String? srst2_vibrio_ctxA = srst2_vibrio.srst2_vibrio_ctxA
