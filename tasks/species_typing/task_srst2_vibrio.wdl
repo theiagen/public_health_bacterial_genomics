@@ -49,7 +49,7 @@ task srst2_vibrio {
     import re
 
     # Converting TSV file into list of dictionaries
-    def csv_to_dict(filename):
+    def tsv_to_dict(filename):
       result_list=[]
       with open(filename) as file_obj:
           reader = csv.DictReader(file_obj, delimiter='\t')
@@ -64,42 +64,71 @@ task srst2_vibrio {
     # Make characters human-readable 
     def translate_chars(string):
       translation = []
-      if '*' in string:
-        translation.append("mismatch")
       if '?' in string:
         translation.append("low depth/uncertain")
       if '-' in string:
         translation.append("not detected")
       
+      # in case we want to retrieve the allele information
       string = re.sub("\*|\?|-", "", string)
 
       if len(translation) > 0:
-        string = string + ' (' + ';'.join(translation) + ')'
-      return string.strip()
+        return '(' + ';'.join(translation) + ')'
+      return ""
 
-
-    row = csv_to_dict('~{samplename}.tsv')
+    # load output TSV as dict 
+    row = tsv_to_dict('~{samplename}.tsv')
   
+    # presence or absence genes - ctxA, ompW and toxR
     with open("ctxA", "wb") as ctxA_fh:
       value = row.get("ctxA")
-      ctxA_fh.write(translate_chars(conv(value)))
+      presence = translate_chars(conv(value))
+      if presence == "(not detected)":
+        ctxA_fh.write(presence)
+      else:
+        ctxA_fh.write("present" + ' ' + presence)
     
     with open("ompW", "wb") as ompW_fh:
       value = row.get("ompW")
-      ompW_fh.write(translate_chars(conv(value)))
-    
-    with open("tcpA_ElTor", "wb") as tcpA_ElTor_fh:
-      value = row.get("tcpA_ElTor")
-      tcpA_ElTor_fh.write(translate_chars(conv(value)))
+      presence = translate_chars(conv(value))
+      if presence == "(not detected)":
+        ompW_fh.write(presence)
+      else:
+        ompW_fh.write("present" + ' ' + presence)
     
     with open("toxR", "wb") as toxR_fh:
       value = row.get("toxR")
-      toxR_fh.write(translate_chars(conv(value)))
+      presence = translate_chars(conv(value))
+      if presence == "(not detected)":
+        toxR_fh.write(presence)
+      else:
+        toxR_fh.write("present" + ' ' + presence)
     
-    with open("wbeN_O1", "wb") as wbeN_O1_fh:
-      value = row.get("wbeN_O1")
-      wbeN_O1_fh.write(translate_chars(conv(value)))
+    # biotype - tcpA classical or tcpA ElTor
+    with open("BIOTYPE", "wb") as biotype_fh:
+      value_ElTor = translate_chars(conv(row.get("tcpA_ElTor")))
+      value_classical = translate_chars(conv(row.get("tcpA_classical")))
 
+      if value_ElTor == "(not detected)" and value_classical == "(not detected)":
+        biotype_fh.write("(not detected)")
+      else:
+        if value_ElTor == "(not detected)":
+          biotype_fh.write("tcpA_Classical" + ' ' + value_classical)
+        else:
+          biotype_fh.write("tcpA_ElTor" + ' ' + value_ElTor)
+        
+    # serotype - O1 or O139
+    with open("SEROTYPE", "wb") as serotype_fh:
+      value_O1 = translate_chars(conv(row.get("wbeN_O1")))
+      value_O139 = translate_chars(conv(row.get("wbfR_O139")))
+
+      if value_O1 == "(not detected)" and value_O139 == "(not detected)":
+        serotype_fh.write("(not detected)")
+      else:
+        if value_O1 == "(not detected)":
+          serotype_fh.write("O139" + ' ' + value_O139)
+        else:
+          serotype_fh.write("O1" + ' ' + value_O1)
     CODE
   >>>
   output {
@@ -108,9 +137,9 @@ task srst2_vibrio {
       String srst2_version = read_string("VERSION")
       String srst2_vibrio_ctxA = read_string("ctxA")
       String srst2_vibrio_ompW = read_string("ompW")
-      String srst2_vibrio_tcpA_ElTor = read_string("tcpA_ElTor")
       String srst2_vibrio_toxR = read_string("toxR")
-      String srst2_vibrio_wbeN_O1 = read_string("wbeN_O1")
+      String srst2_vibrio_biotype = read_string("BIOTYPE")
+      String srst2_vibrio_serotype = read_string("SEROTYPE")
   }
   runtime {
     docker: "~{docker}"

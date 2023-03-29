@@ -430,9 +430,9 @@ workflow theiaprok_illumina_se {
             srst2_vibrio_version = merlin_magic.srst2_vibrio_version,
             srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA,
             srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW,
-            srst2_vibrio_tcpA_ElTor = merlin_magic.srst2_vibrio_tcpA_ElTor,
             srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR,
-            srst2_vibrio_wbeN_O1 = merlin_magic.srst2_vibrio_wbeN_O1
+            srst2_vibrio_serotype = merlin_magic.srst2_vibrio_serotype,
+            srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
         }
       }
     }
