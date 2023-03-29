@@ -800,13 +800,12 @@ workflow theiaprok_illumina_pe {
     String? seroba_ariba_identity = merlin_magic.seroba_ariba_identity
     File? seroba_details = merlin_magic.seroba_details
     # Vibrio Typing
-    File? srst2_vibrio_tsv = merlin_magic.srst2_vibrio_tsv
     File? srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv
     String? srst2_vibrio_version = merlin_magic.srst2_vibrio_version
     String? srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA
     String? srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW
-    String? srst2_vibrio_tcpA_ElTor = merlin_magic.srst2_vibrio_tcpA_ElTor
     String? srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR
-    String? srst2_vibrio_wbeN_O1 = merlin_magic.srst2_vibrio_wbeN_O1
+    String? srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
+    String? srst2_vibrio_serotype = merlin_magic.srst2_vibrio_serotype
   }
 }

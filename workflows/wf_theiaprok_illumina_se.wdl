@@ -720,13 +720,12 @@ workflow theiaprok_illumina_se {
     String? poppunk_version = merlin_magic.poppunk_version
     String? poppunk_docker = merlin_magic.poppunk_docker
     # Vibrio Typing
-    File? srst2_vibrio_tsv = merlin_magic.srst2_vibrio_tsv
     File? srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv
     String? srst2_vibrio_version = merlin_magic.srst2_vibrio_version
     String? srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA
     String? srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW
-    String? srst2_vibrio_tcpA_ElTor = merlin_magic.srst2_vibrio_tcpA_ElTor
     String? srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR
-    String? srst2_vibrio_wbeN_O1 = merlin_magic.srst2_vibrio_wbeN_O1
+    String? srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
+    String? srst2_vibrio_serotype = merlin_magic.srst2_vibrio_serotype
   }
 }
