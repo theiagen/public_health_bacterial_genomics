@@ -10,6 +10,7 @@ import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
 import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
+import "../tasks/species_typing/task_tb_gene_coverage.wdl" as tb_gene_coverage_task
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
 import "../tasks/species_typing/task_kaptive.wdl" as kaptive
@@ -175,6 +176,14 @@ workflow merlin_magic {
         samplename = samplename,
         tbprofiler_additional_outputs = tbprofiler_additional_outputs,
         output_seq_method_type = output_seq_method_type
+    }
+     if (tbprofiler_additional_outputs) {
+      call tb_gene_coverage_task.tb_gene_coverage {
+        input:
+          bamfile = tbprofiler.tbprofiler_output_bam,
+          bamindex = tbprofiler.tbprofiler_output_bai,
+          samplename = samplename,
+      }
     }
   }
   if (merlin_tag == "Legionella pneumophila") {
@@ -375,6 +384,7 @@ workflow merlin_magic {
   String? tbprofiler_locus_tag = tbprofiler.tbprofiler_locus_tag
   String? tbprofiler_variant_substitutions = tbprofiler.tbprofiler_variant_substitutions
   String? tbprofiler_output_seq_method_type = tbprofiler.tbprofiler_output_seq_method_type
+  File? tb_resistance_genes_percent_coverage = tb_gene_coverage.tb_resistance_genes_percent_coverage
   # Legionella pneumophila Typing
   File? legsta_results = legsta.legsta_results
   String? legsta_predicted_sbt = legsta.legsta_predicted_sbt

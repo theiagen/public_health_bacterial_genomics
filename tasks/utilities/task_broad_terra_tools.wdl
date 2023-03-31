@@ -226,6 +226,7 @@ task export_taxon_tables {
     String? tbprofiler_locus_tag
     String? tbprofiler_variant_substitutions
     String? tbprofiler_output_seq_method_type
+    File? tb_resistance_genes_percent_coverage
     File? legsta_results
     String? legsta_predicted_sbt
     String? legsta_version
@@ -516,6 +517,7 @@ task export_taxon_tables {
       "tbprofiler_locus_tag": "~{tbprofiler_locus_tag}",
       "tbprofiler_variant_substitutions": "~{tbprofiler_variant_substitutions}",
       "tbprofiler_output_seq_method_type": "~{tbprofiler_output_seq_method_type}",
+      "tb_resistance_genes_percent_coverage": "~{tb_resistance_genes_percent_coverage}",
       "amrfinderplus_all_report": "~{amrfinderplus_all_report}",
       "amrfinderplus_amr_report": "~{amrfinderplus_amr_report}",
       "amrfinderplus_stress_report": "~{amrfinderplus_stress_report}",
