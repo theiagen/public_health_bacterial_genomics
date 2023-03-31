@@ -378,7 +378,7 @@ workflow merlin_magic {
   String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
   String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
-  File? tbprofiler_additional_outputs_csv = tbprofiler.tbprofiler_additional_outputs_csv
+  File? tbprofiler_looker_csv = tbprofiler.tbprofiler_looker_csv
   File? tbprofiler_laboratorian_report_csv = tbprofiler.tbprofiler_laboratorian_report_csv
   String? tbprofiler_gene_name = tbprofiler.tbprofiler_gene_name
   String? tbprofiler_locus_tag = tbprofiler.tbprofiler_locus_tag

@@ -367,7 +367,7 @@ workflow theiaprok_illumina_se {
             tbprofiler_sub_lineage = merlin_magic.tbprofiler_sub_lineage,
             tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type,
             tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
-            tbprofiler_additional_outputs_csv = merlin_magic.tbprofiler_additional_outputs_csv,
+            tbprofiler_looker_csv = merlin_magic.tbprofiler_looker_csv,
             tbprofiler_laboratorian_report_csv = merlin_magic.tbprofiler_laboratorian_report_csv,
             tbprofiler_gene_name = merlin_magic.tbprofiler_gene_name,
             tbprofiler_locus_tag = merlin_magic.tbprofiler_locus_tag,
@@ -679,7 +679,7 @@ workflow theiaprok_illumina_se {
     String? tbprofiler_sub_lineage = merlin_magic.tbprofiler_sub_lineage
     String? tbprofiler_dr_type = merlin_magic.tbprofiler_dr_type
     String? tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
-    File? tbprofiler_additional_outputs_csv = merlin_magic.tbprofiler_additional_outputs_csv
+    File? tbprofiler_looker_csv = merlin_magic.tbprofiler_looker_csv
     File? tbprofiler_laboratorian_report_csv = merlin_magic.tbprofiler_laboratorian_report_csv
     String? tbprofiler_gene_name = merlin_magic.tbprofiler_gene_name
     String? tbprofiler_locus_tag = merlin_magic.tbprofiler_locus_tag

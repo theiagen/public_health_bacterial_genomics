@@ -161,7 +161,7 @@ task tbprofiler {
           output_seq_method_type_fh.write("~{output_seq_method_type}")
 
         # file to be ingested into CDPH LIMS system
-        with open("tbprofiler_additional_outputs.csv", "wt") as additional_outputs_csv:
+        with open("tbprofiler_looker.csv", "wt") as additional_outputs_csv:
           additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,tbprofiler_output_seq_method_type\n")
           additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + ";".join(confidence) + ',' + "~{output_seq_method_type}")
     
@@ -188,7 +188,7 @@ task tbprofiler {
     String tbprofiler_num_dr_variants = read_string("NUM_DR_VARIANTS")
     String tbprofiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
     String tbprofiler_resistance_genes = read_string("RESISTANCE_GENES")
-    File? tbprofiler_additional_outputs_csv = "tbprofiler_additional_outputs.csv"
+    File? tbprofiler_looker_csv = "tbprofiler_looker.csv"
     File? tbprofiler_laboratorian_report_csv = "tbprofiler_laboratorian_report.csv"
     String tbprofiler_gene_name = read_string("GENE_NAME")
     String tbprofiler_locus_tag = read_string("LOCUS_TAG")
@@ -349,7 +349,7 @@ task tbprofiler_ont {
           output_seq_method_type_fh.write("~{output_seq_method_type}")
 
         # file to be ingested into CDPH LIMS system
-        with open("tbprofiler_additional_outputs.csv", "wt") as additional_outputs_csv:
+        with open("tbprofiler_looker.csv", "wt") as additional_outputs_csv:
           additional_outputs_csv.write("tbprofiler_gene_name,tbprofiler_locus_tag,tbprofiler_variant_substitutions,confidence,tbprofiler_output_seq_method_type\n")
           additional_outputs_csv.write(";".join(gene_name) + "," + ";".join(locus_tag) + "," + ";".join(variant_substitutions) + ',' + ";".join(confidence) + ',' + "~{output_seq_method_type}")
     
@@ -388,7 +388,7 @@ task tbprofiler_ont {
     String tbprofiler_num_dr_variants = read_string("NUM_DR_VARIANTS")
     String tbprofiler_num_other_variants = read_string("NUM_OTHER_VARIANTS")
     String tbprofiler_resistance_genes = read_string("RESISTANCE_GENES")
-    File? tbprofiler_additional_outputs_csv = "tbprofiler_additional_outputs.csv"
+    File? tbprofiler_looker_csv = "tbprofiler_looker.csv"
     File? tbprofiler_laboratorian_report_csv = "tbprofiler_laboratorian_report.csv"
     String tbprofiler_gene_name = read_string("GENE_NAME")
     String tbprofiler_locus_tag = read_string("LOCUS_TAG")
