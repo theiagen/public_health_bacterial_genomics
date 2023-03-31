@@ -47,11 +47,11 @@ workflow merlin_magic {
     Boolean call_shigeifinder_reads_input = false
     Boolean tbprofiler_additional_outputs = false
     String output_seq_method_type = "WGS"
-    Int srst2_min_cov = 90
-    Int srst2_max_divergence = 10
+    Int srst2_min_cov = 80
+    Int srst2_max_divergence = 20
     Int srst2_min_depth = 5
     Int srst2_min_edge_depth = 2
-    Int srst2_gene_max_mismatch = 10
+    Int srst2_gene_max_mismatch = 200
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
