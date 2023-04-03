@@ -369,10 +369,7 @@ workflow theiaprok_illumina_se {
             tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes,
             tbprofiler_looker_csv = merlin_magic.tbprofiler_looker_csv,
             tbprofiler_laboratorian_report_csv = merlin_magic.tbprofiler_laboratorian_report_csv,
-            tbprofiler_gene_name = merlin_magic.tbprofiler_gene_name,
-            tbprofiler_locus_tag = merlin_magic.tbprofiler_locus_tag,
-            tbprofiler_variant_substitutions = merlin_magic.tbprofiler_variant_substitutions,
-            tbprofiler_output_seq_method_type = merlin_magic.tbprofiler_output_seq_method_type,
+            tbprofiler_additional_outputs_csv = merlin_magic.tbprofiler_additional_outputs_csv,
             tb_resistance_genes_percent_coverage = merlin_magic.tb_resistance_genes_percent_coverage,
             legsta_results = merlin_magic.legsta_results,
             legsta_predicted_sbt = merlin_magic.legsta_predicted_sbt,
@@ -681,10 +678,7 @@ workflow theiaprok_illumina_se {
     String? tbprofiler_resistance_genes = merlin_magic.tbprofiler_resistance_genes
     File? tbprofiler_looker_csv = merlin_magic.tbprofiler_looker_csv
     File? tbprofiler_laboratorian_report_csv = merlin_magic.tbprofiler_laboratorian_report_csv
-    String? tbprofiler_gene_name = merlin_magic.tbprofiler_gene_name
-    String? tbprofiler_locus_tag = merlin_magic.tbprofiler_locus_tag
-    String? tbprofiler_variant_substitutions = merlin_magic.tbprofiler_variant_substitutions
-    String? tbprofiler_output_seq_method_type = merlin_magic.tbprofiler_output_seq_method_type
+    File? tbprofiler_additional_outputs_csv = merlin_magic.tbprofiler_additional_outputs_csv
     File? tb_resistance_genes_percent_coverage = merlin_magic.tb_resistance_genes_percent_coverage
     # Legionella pneumophila typing
     File? legsta_results = merlin_magic.legsta_results

@@ -10,6 +10,7 @@ import "../tasks/species_typing/task_sistr.wdl" as sistr
 import "../tasks/species_typing/task_seqsero2.wdl" as seqsero2
 import "../tasks/species_typing/task_kleborate.wdl" as kleborate
 import "../tasks/species_typing/task_tbprofiler.wdl" as tbprofiler
+import "../tasks/species_typing/task_tbprofiler_output_parsing.wdl" as tbprofiler_output_parsing_task
 import "../tasks/species_typing/task_tb_gene_coverage.wdl" as tb_gene_coverage_task
 import "../tasks/species_typing/task_legsta.wdl" as legsta
 import "../tasks/species_typing/task_genotyphi.wdl" as genotyphi
@@ -174,10 +175,14 @@ workflow merlin_magic {
         read1 = read1,
         read2 = read2,
         samplename = samplename,
-        tbprofiler_additional_outputs = tbprofiler_additional_outputs,
-        output_seq_method_type = output_seq_method_type
     }
      if (tbprofiler_additional_outputs) {
+      call tbprofiler_output_parsing_task.tbprofiler_output_parsing{
+        input:
+          json = tbprofiler.tbprofiler_output_json,
+          output_seq_method_type = output_seq_method_type,
+          samplename = samplename
+      }
       call tb_gene_coverage_task.tb_gene_coverage {
         input:
           bamfile = tbprofiler.tbprofiler_output_bam,
@@ -378,12 +383,9 @@ workflow merlin_magic {
   String? tbprofiler_sub_lineage = tbprofiler.tbprofiler_sub_lineage
   String? tbprofiler_dr_type = tbprofiler.tbprofiler_dr_type
   String? tbprofiler_resistance_genes = tbprofiler.tbprofiler_resistance_genes
-  File? tbprofiler_looker_csv = tbprofiler.tbprofiler_looker_csv
-  File? tbprofiler_laboratorian_report_csv = tbprofiler.tbprofiler_laboratorian_report_csv
-  String? tbprofiler_gene_name = tbprofiler.tbprofiler_gene_name
-  String? tbprofiler_locus_tag = tbprofiler.tbprofiler_locus_tag
-  String? tbprofiler_variant_substitutions = tbprofiler.tbprofiler_variant_substitutions
-  String? tbprofiler_output_seq_method_type = tbprofiler.tbprofiler_output_seq_method_type
+  File? tbprofiler_looker_csv = tbprofiler_output_parsing.tbprofiler_looker_csv
+  File? tbprofiler_laboratorian_report_csv = tbprofiler_output_parsing.tbprofiler_laboratorian_report_csv
+  File? tbprofiler_additional_outputs_csv = tbprofiler_output_parsing.tbprofiler_additional_outputs_csv
   File? tb_resistance_genes_percent_coverage = tb_gene_coverage.tb_resistance_genes_percent_coverage
   # Legionella pneumophila Typing
   File? legsta_results = legsta.legsta_results
