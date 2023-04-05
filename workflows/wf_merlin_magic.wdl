@@ -444,7 +444,7 @@ workflow merlin_magic {
   String? srst2_vibrio_ctxA = srst2_vibrio.srst2_vibrio_ctxA
   String? srst2_vibrio_ompW = srst2_vibrio.srst2_vibrio_ompW
   String? srst2_vibrio_toxR = srst2_vibrio.srst2_vibrio_toxR
-  String? srst2_vibrio_serotype = srst2_vibrio.srst2_vibrio_serotype
+  String? srst2_vibrio_serogroup = srst2_vibrio.srst2_vibrio_serogroup
   String? srst2_vibrio_biotype = srst2_vibrio.srst2_vibrio_biotype
   }
  }

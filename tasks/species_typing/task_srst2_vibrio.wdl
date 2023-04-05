@@ -122,8 +122,8 @@ task srst2_vibrio {
           result = "tcpA_ElTor" + ' ' + value_ElTor
           biotype_fh.write(result.strip())
         
-    # serotype - O1 or O139
-    with open("SEROTYPE", "wb") as serotype_fh:
+    # serogroup - O1 or O139
+    with open("SEROGROUP", "wb") as serotype_fh:
       value_O1 = translate_chars(conv(row.get("wbeN_O1")))
       value_O139 = translate_chars(conv(row.get("wbfR_O139")))
 
@@ -145,7 +145,7 @@ task srst2_vibrio {
       String srst2_vibrio_ompW = read_string("ompW")
       String srst2_vibrio_toxR = read_string("toxR")
       String srst2_vibrio_biotype = read_string("BIOTYPE")
-      String srst2_vibrio_serotype = read_string("SEROTYPE")
+      String srst2_vibrio_serogroup = read_string("SEROGROUP")
   }
   runtime {
     docker: "~{docker}"

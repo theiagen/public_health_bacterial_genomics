@@ -430,7 +430,7 @@ workflow theiaprok_illumina_se {
             srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA,
             srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW,
             srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR,
-            srst2_vibrio_serotype = merlin_magic.srst2_vibrio_serotype,
+            srst2_vibrio_serogroup = merlin_magic.srst2_vibrio_serogroup,
             srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
         }
       }
@@ -726,6 +726,6 @@ workflow theiaprok_illumina_se {
     String? srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW
     String? srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR
     String? srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
-    String? srst2_vibrio_serotype = merlin_magic.srst2_vibrio_serotype
+    String? srst2_vibrio_serogroup = merlin_magic.srst2_vibrio_serogroup
   }
 }
