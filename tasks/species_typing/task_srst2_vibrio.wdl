@@ -13,7 +13,7 @@ task srst2_vibrio {
     Int srst2_min_depth
     Int srst2_min_edge_depth
     Int srst2_gene_max_mismatch
-    String docker = "quay.io/kapsakcj/srst2:0.2.0-vcholerae" # TODO: Update with container including vibrio db
+    String docker = "staphb/srst2:0.2.0-vcholerae"
     Int disk_size = 100
     Int cpu = 4
   }
