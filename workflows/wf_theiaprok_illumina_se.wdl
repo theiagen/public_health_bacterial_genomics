@@ -430,7 +430,14 @@ workflow theiaprok_illumina_se {
             agrvate_agr_multiple = merlin_magic.agrvate_agr_multiple,
             agrvate_agr_num_frameshifts = merlin_magic.agrvate_agr_num_frameshifts,
             agrvate_version = merlin_magic.agrvate_version,
-            agrvate_docker = merlin_magic.agrvate_docker
+            agrvate_docker = merlin_magic.agrvate_docker,
+            srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv,
+            srst2_vibrio_version = merlin_magic.srst2_vibrio_version,
+            srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA,
+            srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW,
+            srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR,
+            srst2_vibrio_serogroup = merlin_magic.srst2_vibrio_serogroup,
+            srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
         }
       }
     }
@@ -718,5 +725,13 @@ workflow theiaprok_illumina_se {
     String? poppunk_GPS_db_version = merlin_magic.poppunk_GPS_db_version
     String? poppunk_version = merlin_magic.poppunk_version
     String? poppunk_docker = merlin_magic.poppunk_docker
+    # Vibrio Typing
+    File? srst2_vibrio_detailed_tsv = merlin_magic.srst2_vibrio_detailed_tsv
+    String? srst2_vibrio_version = merlin_magic.srst2_vibrio_version
+    String? srst2_vibrio_ctxA = merlin_magic.srst2_vibrio_ctxA
+    String? srst2_vibrio_ompW = merlin_magic.srst2_vibrio_ompW
+    String? srst2_vibrio_toxR = merlin_magic.srst2_vibrio_toxR
+    String? srst2_vibrio_biotype = merlin_magic.srst2_vibrio_biotype
+    String? srst2_vibrio_serogroup = merlin_magic.srst2_vibrio_serogroup
   }
 }
