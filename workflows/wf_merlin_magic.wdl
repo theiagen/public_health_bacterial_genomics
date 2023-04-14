@@ -51,7 +51,7 @@ workflow merlin_magic {
     Int srst2_max_divergence = 20
     Int srst2_min_depth = 5
     Int srst2_min_edge_depth = 2
-    Int srst2_gene_max_mismatch = 200
+    Int srst2_gene_max_mismatch = 2000 #Extremely high so that divergence threshold controls number of SNPs 
   }
     if (merlin_tag == "Acinetobacter baumannii") {
     call kaptive.kaptive {
