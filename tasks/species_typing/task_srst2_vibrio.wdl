@@ -2,7 +2,7 @@ version 1.0
 
 task srst2_vibrio {
   meta {
-    description: "Computational method for finding spa types in Staphylococcus aureus"
+    description: "Use of SRST2 to identify sequences of interest from a database of curated Vibrio sequences "
   }
   input {
     File reads1
